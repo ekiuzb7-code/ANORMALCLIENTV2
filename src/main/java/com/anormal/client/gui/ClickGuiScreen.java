@@ -19,7 +19,7 @@ public class ClickGuiScreen extends Screen {
     private Category currentCategory = Category.COMBAT;
     private String searchQuery = "";
     private boolean searchFocused = false;
-    private Setting<?> listeningSetting = null;
+    private KeybindSetting listeningSetting = null;
     private NumberSetting draggingSlider = null;
 
     private int scrollOffset = 0;

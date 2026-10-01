@@ -5,15 +5,26 @@ Daemon will be stopped at the end of the build
 > Configure project :
 Fabric Loom: 1.8.13
 :remapping 50 mods from modImplementation (java-api)
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/Scoreboard.java:13: error: cannot find symbol
-import net.minecraft.scoreboard.number.StyledTextScoreFormatter;
-                                      ^
-  symbol:   class StyledTextScoreFormatter
-  location: package net.minecraft.scoreboard.number
-1 error
 
-> Task :compileJava FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790852352488.json
+> Task :compileJava
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:402: error: incompatible types: int cannot be converted to CAP#1
+            listeningSetting.setValue(KeybindSetting.mouseCode(button));
+                                                              ^
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends Object from capture of ?
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:433: error: incompatible types: int cannot be converted to CAP#1
+                listeningSetting.setValue(GLFW.GLFW_KEY_UNKNOWN);
+                                              ^
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends Object from capture of ?
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:435: error: incompatible types: int cannot be converted to CAP#1
+                listeningSetting.setValue(keyCode);
+                                          ^
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends Object from capture of ?
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+
+3 errors
 
 FAILURE: Build failed with an exception.
 
@@ -23,7 +34,9 @@ Execution failed for task ':compileJava'.
 
 * Try:
 > Run with --info option to get more log output.
+> Task :compileJava FAILED
 > Run with --scan to get full insights.
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790852517900.json
 
 * Exception is:
 org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava'.
@@ -90,6 +103,7 @@ Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Com
 	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:163)
 	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:148)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+1 actionable task: 1 executed
 	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
 	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
@@ -210,6 +224,5 @@ Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Com
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
 
 
-BUILD FAILED in 19s
-1 actionable task: 1 executed
+BUILD FAILED in 16s
 Error: Process completed with exit code 1.
