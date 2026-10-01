@@ -10,7 +10,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.scoreboard.ScoreboardEntry;
 import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.scoreboard.ScoreboardDisplaySlot;
-import net.minecraft.scoreboard.number.StyledTextScoreFormatter;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
@@ -40,8 +39,7 @@ public class Scoreboard extends Module {
 
         List<Text> lines = new ArrayList<>();
         for (ScoreboardEntry entry : board.getScoreboardEntries(objective)) {
-            Text entryText = StyledTextScoreFormatter.NO_DECORATION.formatEntry(entry, board);
-            String name = entryText.getString();
+            String name = entry.owner();
             if (name == null || name.startsWith("#")) continue;
             if (showNumbers.isEnabled()) {
                 lines.add(Text.literal(name + " §c" + entry.value()));
