@@ -88,6 +88,7 @@ public class ModuleManager {
         register(new TargetFilter());
         register(new Panic());
         register(new Blink());
+        register(new FakeLag());
         register(new BackTrack());
 
         // --- INVENTORY ---
@@ -124,6 +125,7 @@ public class ModuleManager {
         register(new Scoreboard());
         register(new TimeChanger());
         register(new Weather());
+        register(new NoWeather());
 
         // --- CLIENT & SETTINGS ---
         register(new TextGUI());

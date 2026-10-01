@@ -24,6 +24,8 @@ public class ClickGuiScreen extends Screen {
     private boolean searchFocused = false;
     private KeybindSetting listeningSetting = null;
     private NumberSetting draggingSlider = null;
+    private ColorSetting editingColor = null;
+    private int editDrag = 0; // 0 none, 1 R, 2 G, 3 B
 
     private int scrollOffset = 0;
 
@@ -181,6 +183,9 @@ public class ClickGuiScreen extends Screen {
             updateSliderValue(mouseX, contentX, contentWidth);
         }
 
+        // Free RGB picker popup (any ColorSetting, right-click the color box)
+        renderPicker(context, mouseX);
+
         super.render(context, mouseX, mouseY, delta);
     }
 
@@ -280,6 +285,12 @@ public class ClickGuiScreen extends Screen {
                             updateSliderValue(mouseX, contentX, contentWidth);
                             return;
                         } else if (setting instanceof ColorSetting color) {
+                            if (button == 1) {
+                                // Right-click: open free RGB picker
+                                editingColor = color;
+                                editDrag = 0;
+                                return;
+                            }
                             int[] palette = {
                                 ColorUtils.rgba(255, 120, 0, 255),  // Vape Orange
                                 ColorUtils.rgba(0, 230, 255, 255),  // Neon Cyan
@@ -406,6 +417,10 @@ public class ClickGuiScreen extends Screen {
     }
 
     private boolean handleGuiClick(double mouseX, double mouseY, int button) {
+        // Color picker popup eats all clicks while open
+        if (editingColor != null && handlePickerClick((int) mouseX, (int) mouseY, button)) {
+            return true;
+        }
         // Binding mode: any mouse button becomes the bind — EXCEPT left click (never bindable)
         if (listeningSetting != null) {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
@@ -428,6 +443,7 @@ public class ClickGuiScreen extends Screen {
     @Override
     public boolean mouseReleased(Click click) {
         draggingSlider = null;
+        editDrag = 0;
         return super.mouseReleased(click);
     }
 
@@ -441,6 +457,11 @@ public class ClickGuiScreen extends Screen {
     public boolean keyPressed(KeyInput input) {
         int keyCode = input.key();
         int modifiers = input.modifiers();
+        // Picker open: ESC closes it first
+        if (editingColor != null && keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            editingColor = null;
+            return true;
+        }
         // 1. Keybind listening has top priority: ANY key (incl. mouse handled in mouseClicked) binds here
         if (listeningSetting != null) {
             if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_DELETE
@@ -495,7 +516,88 @@ public class ClickGuiScreen extends Screen {
         return super.charTyped(input);
     }
 
-    private void updateSliderValue(int mouseX, int contentX, int contentWidth) {
+    private boolean handlePickerClick(int mouseX, int mouseY, int button) {
+        int pw = 180, ph = 112;
+        int px = (width - pw) / 2, py = (height - ph) / 2;
+        if (mouseX < px || mouseX > px + pw || mouseY < py || mouseY > py + ph) return false;
+        if (button != 0) {
+            // Right-click anywhere on picker closes it
+            if (button == 1) editingColor = null;
+            return true;
+        }
+        int trackX = px + 34, trackW = 110;
+        int[][] rows = {{py + 38, 1}, {py + 54, 2}, {py + 70, 3}};
+        for (int[] row : rows) {
+            if (mouseY >= row[0] - 2 && mouseY <= row[0] + 8 && mouseX >= trackX - 4 && mouseX <= trackX + trackW + 4) {
+                editDrag = row[1];
+                applyPickerDrag(mouseX);
+                return true;
+            }
+        }
+        // Rainbow toggle
+        if (mouseX >= px + 8 && mouseX <= px + 100 && mouseY >= py + 86 && mouseY <= py + 100) {
+            editingColor.setRainbow(!editingColor.isRainbow());
+            return true;
+        }
+        // Close button
+        if (mouseX >= px + pw - 30 && mouseX <= px + pw - 6 && mouseY >= py + 4 && mouseY <= py + 16) {
+            editingColor = null;
+            return true;
+        }
+        return true;
+    }
+
+    private void applyPickerDrag(int mouseX) {
+        if (editingColor == null || editDrag < 1 || editDrag > 3) return;
+        int pw = 180;
+        int px = (width - pw) / 2;
+        int trackX = px + 34, trackW = 110;
+        double percent = Math.max(0.0, Math.min(1.0, (double) (mouseX - trackX) / trackW));
+        int v = (int) Math.round(percent * 255);
+        int r = editingColor.getRed(), g = editingColor.getGreen(), b = editingColor.getBlue();
+        if (editDrag == 1) r = v;
+        else if (editDrag == 2) g = v;
+        else b = v;
+        editingColor.setRainbow(false);
+        editingColor.setValue(ColorUtils.rgba(r, g, b, 255));
+    }
+
+    private void renderPicker(DrawContext context, int mouseX) {
+        if (editingColor == null) return;
+        if (editDrag != 0) applyPickerDrag(mouseX);
+        int pw = 180, ph = 112;
+        int px = (width - pw) / 2, py = (height - ph) / 2;
+        RenderUtils.fill(context, px, py, px + pw, py + ph, ColorUtils.rgba(12, 14, 20, 245));
+        RenderUtils.drawBorder(context, px, py, px + pw, py + ph, 1, ThemeManager.getAccentColor());
+        RenderUtils.drawText(context, textRenderer, "§eColor Picker", px + 8, py + 5, 0xFFFFFFFF, true);
+        RenderUtils.drawText(context, textRenderer, "§8[X]", px + pw - 30, py + 5, 0xFFAAAAAA, true);
+        // Preview
+        RenderUtils.fill(context, px + 8, py + 18, px + pw - 8, py + 30, editingColor.getValue());
+        RenderUtils.drawBorder(context, px + 8, py + 18, px + pw - 8, py + 30, 1, 0xFFFFFFFF);
+        String hex = String.format("#%06X", 0xFFFFFF & editingColor.getValue());
+        RenderUtils.drawText(context, textRenderer, hex, px + pw - 8 - textRenderer.getWidth(hex), py + 31, 0xFFAAAAAA, true);
+        // RGB sliders
+        int trackX = px + 34, trackW = 110;
+        int[] vals = {editingColor.getRed(), editingColor.getGreen(), editingColor.getBlue()};
+        String[] names = {"R", "G", "B"};
+        int[] cols = {0xFFFF5555, 0xFF55FF55, 0xFF5555FF};
+        for (int i = 0; i < 3; i++) {
+            int ry = py + 38 + i * 16;
+            RenderUtils.drawText(context, textRenderer, names[i], px + 8, ry - 1, cols[i], true);
+            RenderUtils.fill(context, trackX, ry, trackX + trackW, ry + 6, ColorUtils.rgba(30, 30, 35, 255));
+            int fill = (int) (trackW * vals[i] / 255.0);
+            RenderUtils.fill(context, trackX, ry, trackX + fill, ry + 6, cols[i]);
+            String vs = String.valueOf(vals[i]);
+            RenderUtils.drawText(context, textRenderer, vs, trackX + trackW + 4, ry - 1, 0xFFAAAAAA, true);
+        }
+        // Rainbow + hint
+        int rbY = py + 88;
+        int rbBg = editingColor.isRainbow() ? ThemeManager.getAccentColor() : ColorUtils.rgba(40, 40, 40, 255);
+        RenderUtils.fill(context, px + 8, rbY, px + 22, rbY + 10, rbBg);
+        RenderUtils.drawBorder(context, px + 8, rbY, px + 22, rbY + 10, 1, ThemeManager.getBorderColor());
+        RenderUtils.drawText(context, textRenderer, "Rainbow", px + 26, rbY + 1, 0xFFDDDDDD, true);
+        RenderUtils.drawText(context, textRenderer, "§8L:slide R:close", px + 8, py + 101, 0xFF777777, true);
+    }
         if (draggingSlider == null) return;
         int setW = contentWidth - 36;
         int sliderWidth = 70;

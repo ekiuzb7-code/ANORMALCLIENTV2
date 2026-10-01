@@ -7,7 +7,8 @@
   ],
   "client": [
     "GameRendererMixin",
-    "XRayMixin"
+    "XRayMixin",
+    "CameraMixin"
   ],
   "injectors": {
     "defaultRequire": 1

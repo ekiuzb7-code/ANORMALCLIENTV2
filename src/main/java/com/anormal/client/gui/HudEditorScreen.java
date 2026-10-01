@@ -81,20 +81,36 @@ public class HudEditorScreen extends Screen {
     }
 
     private static int[] defaultSize(Module module) {
+        // Tight boxes matching each module's real render geometry
+        if (module instanceof com.anormal.client.module.impl.legit.Keystrokes ks) {
+            try {
+                double scale = ks.scale.getValue();
+                int size = (int) (20 * scale);
+                int gap = (int) (2 * scale);
+                int w = size * 3 + gap * 2;
+                int h = (size + gap) * 2;
+                if (ks.showLmbRmb.isEnabled()) h += (int) (22 * scale) + gap;
+                if (ks.showSpace.isEnabled()) h += (int) (12 * scale) + gap;
+                return new int[]{w + 4, h + 4};
+            } catch (Throwable ignored) {}
+            return new int[]{72, 114};
+        }
         return switch (module.getName()) {
-            case "Keystrokes" -> new int[]{70, 110};
             case "Radar" -> new int[]{74, 74};
             case "TargetInfo" -> new int[]{124, 40};
-            case "InventoryOverlay" -> new int[]{168, 64};
-            case "ArmorStatus" -> new int[]{60, 76};
+            case "InventoryOverlay" -> new int[]{170, 66};
+            case "ArmorStatus" -> new int[]{72, 80};
             case "PotionStatus" -> new int[]{150, 60};
             case "Compass" -> new int[]{104, 18};
             case "ReachDisplay" -> new int[]{130, 16};
+            case "Clock" -> new int[]{96, 16};
+            case "FPS" -> new int[]{70, 16};
+            case "Coords" -> new int[]{180, 16};
             case "DuelInfo" -> new int[]{130, 38};
             case "PartyOverlay" -> new int[]{150, 80};
             case "Rearview" -> new int[]{130, 36};
             case "Scoreboard" -> new int[]{130, 100};
-            default -> new int[]{130, 18};
+            default -> new int[]{110, 18};
         };
     }
 
@@ -119,7 +135,7 @@ public class HudEditorScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         RenderUtils.fill(context, 0, 0, width, height, ColorUtils.rgba(0, 0, 0, 160));
 
-        String banner = "§6[HUD EDITOR] §fDrag = move  |  Right-click = on/off  |  §e[ESC]§f back";
+        String banner = "§6[HUD] §fDrag=move | RClick=on/off | §e[ESC]§f back";
         int bw = textRenderer.getWidth(banner);
         RenderUtils.fill(context, (width - bw) / 2 - 10, 10, (width + bw) / 2 + 10, 26, ColorUtils.rgba(15, 15, 20, 220));
         RenderUtils.drawBorder(context, (width - bw) / 2 - 10, 10, (width + bw) / 2 + 10, 26, 1, ThemeManager.getAccentColor());
@@ -152,7 +168,10 @@ public class HudEditorScreen extends Screen {
                     : (hovered ? ThemeManager.getAccentColor() : ColorUtils.rgba(100, 110, 130, 180));
             RenderUtils.drawBorder(context, x, y, x + el.width, y + el.height, 1, border);
             String label = (wasEnabled ? "§a● " : "§c○ ") + "§e" + el.name;
-            RenderUtils.drawText(context, textRenderer, label, x + 4, y - 10 < 28 ? y + 4 : y - 10, 0xFFFFFFFF, true);
+            int lx = x + 4, ly = y - 10 < 28 ? y + 4 : y - 10;
+            int lw = textRenderer.getWidth(label);
+            RenderUtils.fill(context, lx - 2, ly - 1, lx + lw + 2, ly + 10, ColorUtils.rgba(0, 0, 0, 170));
+            RenderUtils.drawText(context, textRenderer, label, lx, ly, 0xFFFFFFFF, true);
         }
 
         super.render(context, mouseX, mouseY, delta);

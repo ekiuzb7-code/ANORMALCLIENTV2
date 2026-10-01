@@ -29,7 +29,8 @@ public class Panic extends Module {
                     } catch (Throwable ignored) {}
                 }
             }
-            if (previouslyEnabled.isEmpty()) setEnabled(false);
+            // Auto-off so next press restores (2-press flow instead of 3)
+            setEnabled(false);
         } else if (reEnable.isEnabled()) {
             for (Module m : previouslyEnabled) {
                 try {
