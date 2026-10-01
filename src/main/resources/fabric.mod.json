@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "anormalclient",
+  "version": "${version}",
+  "name": "Anormal Client",
+  "description": "Premium Utility & Singleplayer Minecraft Client with Vape V4 and Glassmorphism themes.",
+  "authors": [
+    "ANORMAL444"
+  ],
+  "contact": {
+    "homepage": "https://github.com"
+  },
+  "license": "MIT",
+  "icon": "assets/anormalclient/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.anormal.client.AnormalClient"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "anormalclient.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": ">=1.21",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
