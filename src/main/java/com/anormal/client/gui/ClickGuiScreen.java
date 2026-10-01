@@ -8,6 +8,7 @@ import com.anormal.client.theme.Theme;
 import com.anormal.client.theme.ThemeManager;
 import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -391,8 +392,18 @@ public class ClickGuiScreen extends Screen {
         }
     }
 
+    // 1.21.11 input API: Screen dispatches mouseClicked(Click, boolean).
+    // Old (double,double,int) overload is kept as plain logic — new overload delegates to it.
     @Override
+    public boolean mouseClicked(Click click, boolean doubled) {
+        return handleGuiClick(click.x(), click.y(), click.button());
+    }
+
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        return handleGuiClick(mouseX, mouseY, button);
+    }
+
+    private boolean handleGuiClick(double mouseX, double mouseY, int button) {
         // Binding mode: any mouse button becomes the bind — EXCEPT left click (never bindable)
         if (listeningSetting != null) {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1) {

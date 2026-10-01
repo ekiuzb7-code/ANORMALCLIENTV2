@@ -7,6 +7,7 @@ import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.theme.ThemeManager;
 import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -157,7 +158,15 @@ public class HudEditorScreen extends Screen {
     }
 
     @Override
+    public boolean mouseClicked(Click click, boolean doubled) {
+        return handleEditorClick(click.x(), click.y(), click.button());
+    }
+
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        return handleEditorClick(mouseX, mouseY, button);
+    }
+
+    private boolean handleEditorClick(double mouseX, double mouseY, int button) {
         for (HudElement el : elements) {
             if (el.isHovered((int) mouseX, (int) mouseY)) {
                 if (button == 0) {

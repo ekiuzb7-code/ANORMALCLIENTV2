@@ -5,6 +5,7 @@ import com.anormal.client.theme.ThemeManager;
 import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
@@ -161,7 +162,15 @@ public class XRayBlockSelectorScreen extends Screen {
     }
 
     @Override
+    public boolean mouseClicked(Click click, boolean doubled) {
+        return handleSelectorClick(click.x(), click.y(), click.button());
+    }
+
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        return handleSelectorClick(mouseX, mouseY, button);
+    }
+
+    private boolean handleSelectorClick(double mouseX, double mouseY, int button) {
         int panelW = Math.min(560, width - 40);
         int panelH = Math.min(360, height - 40);
         int panelX = (width - panelW) / 2;
