@@ -1,122 +1,323 @@
 Run gradle remapJar --no-daemon --stacktrace
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+
+Welcome to Gradle 9.2.1!
+
+Here are the highlights of this release:
+ - Windows ARM support
+ - Improved publishing APIs
+ - Better guidance for dependency verification failures
+
+For more details see https://docs.gradle.org/9.2.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 
 > Configure project :
-Fabric Loom: 1.8.13
+Fabric Loom: 1.14.10
 
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790853674997.json
-FAILURE: Build failed with an exception.
+Cannot remap modifiers because it does not exists in any of the targets [] or their parents.
 
-* What went wrong:
-A problem occurred configuring root project 'AnormalClient'.
-> Failed to setup Minecraft, java.lang.UnsupportedOperationException: Unsupported unpick version
+> Task :compileJava
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/BlockHit.java:7: error: cannot find symbol
+import net.minecraft.item.SwordItem;
+                         ^
+  symbol:   class SwordItem
+  location: package net.minecraft.item
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/Reach.java:10: error: cannot find symbol
+import net.minecraft.item.SwordItem;
+                         ^
+  symbol:   class SwordItem
+  location: package net.minecraft.item
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:12: error: cannot find symbol
+import net.minecraft.item.SwordItem;
+                         ^
+  symbol:   class SwordItem
+  location: package net.minecraft.item
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/AutoClicker.java:45: error: cannot find symbol
+        if (swordsOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.SwordItem || mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.AxeItem)) {
+                                                                                                            ^
+  symbol:   class SwordItem
+  location: package net.minecraft.item
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/BlockHit.java:22: error: cannot find symbol
+        if (mc.player.getMainHandStack().getItem() instanceof SwordItem) {
+                                                              ^
+  symbol:   class SwordItem
+  location: class BlockHit
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/SilentAura.java:235: error: cannot find symbol
+        if (targetArea.is("Center")) return living.getPos().add(0, living.getHeight() / 2.0, 0);
+                                                  ^
+  symbol:   method getPos()
+  location: variable living of type LivingEntity
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/SilentAura.java:307: error: cannot find symbol
+        if (airCrits.isEnabled() && !mc.player.isOnGround() && !mc.player.isFallFlying()) {
+                                                                         ^
+  symbol:   method isFallFlying()
+  location: variable player of type ClientPlayerEntity
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/Reach.java:29: error: cannot find symbol
+        if (weaponOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof SwordItem)) return;
+                                                                                          ^
+  symbol:   class SwordItem
+  location: class Reach
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/TimeChanger.java:18: error: cannot find symbol
+            mc.world.setTimeOfDay(time.getValue().longValue());
+                    ^
+  symbol:   method setTimeOfDay(long)
+  location: variable world of type ClientWorld
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:51: error: selectedSlot has private access in PlayerInventory
+                    previousSlot = mc.player.getInventory().selectedSlot;
+                                                           ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:53: error: selectedSlot has private access in PlayerInventory
+                if (mc.player.getInventory().selectedSlot != bestSlot) {
+                                            ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:54: error: selectedSlot has private access in PlayerInventory
+                    mc.player.getInventory().selectedSlot = bestSlot;
+                                            ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:60: error: selectedSlot has private access in PlayerInventory
+                mc.player.getInventory().selectedSlot = previousSlot;
+                                        ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/movement/InvMove.java:34: error: incompatible types: long cannot be converted to Window
+                key.setPressed(InputUtil.isKeyPressed(handle, code));
+                                                      ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:38: error: selectedSlot has private access in PlayerInventory
+                mc.player.getInventory().selectedSlot = originalSlot;
+                                        ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:58: error: selectedSlot has private access in PlayerInventory
+                originalSlot = mc.player.getInventory().selectedSlot;
+                                                       ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:59: error: selectedSlot has private access in PlayerInventory
+                mc.player.getInventory().selectedSlot = axeSlot;
+                                        ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:62: error: selectedSlot has private access in PlayerInventory
+                originalSlot = mc.player.getInventory().selectedSlot;
+                                                       ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:63: error: selectedSlot has private access in PlayerInventory
+                mc.player.getInventory().selectedSlot = maceSlot;
+                                        ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/Clutch.java:45: error: selectedSlot has private access in PlayerInventory
+                mc.player.getInventory().selectedSlot = blockSlot;
+                                        ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:44: error: selectedSlot has private access in PlayerInventory
+                    mc.player.getInventory().selectedSlot = emptyBucket;
+                                            ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:67: error: selectedSlot has private access in PlayerInventory
+                    mc.player.getInventory().selectedSlot = waterSlot;
+                                            ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java:31: error: cannot find symbol
+                ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta(false));
+                                                                       ^
+  symbol:   method getTickDelta(boolean)
+  location: variable renderTickCounter of type RenderTickCounter
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:183: error: method mouseClicked in interface ParentElement cannot be applied to given types;
+        return super.mouseClicked(mouseX, mouseY, button);
+                    ^
+  required: Click,boolean
+  found:    double,double,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:186: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:191: error: method mouseReleased in interface ParentElement cannot be applied to given types;
+        return super.mouseReleased(mouseX, mouseY, button);
+                    ^
+  required: Click
+  found:    double,double,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:194: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:202: error: method keyPressed in class Screen cannot be applied to given types;
+        return super.keyPressed(keyCode, scanCode, modifiers);
+                    ^
+  required: KeyInput
+  found:    int,int,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:426: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:429: error: method mouseReleased in interface ParentElement cannot be applied to given types;
+[Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+1 actionable task: 1 executed
+  Note: /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java uses or overrides a deprecated API.
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:183: error: method mouseClicked in interface ParentElement cannot be applied to given types;
+          return super.mouseClicked(mouseX, mouseY, button);
+                      ^
+    required: Click,boolean
+    found:    double,double,int
+    reason: actual and formal argument lists differ in length
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:191: error: method mouseReleased in interface ParentElement cannot be applied to given types;
+          return super.mouseReleased(mouseX, mouseY, button);
+                      ^
+    required: Click
+    found:    double,double,int
+    reason: actual and formal argument lists differ in length
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:202: error: method keyPressed in class Screen cannot be applied to given types;
+          return super.keyPressed(keyCode, scanCode, modifiers);
+                      ^
+    required: KeyInput
+    found:    int,int,int
+    reason: actual and formal argument lists differ in length
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:429: error: method mouseReleased in interface ParentElement cannot be applied to given types;
+          return super.mouseReleased(mouseX, mouseY, button);
+                      ^
+    required: Click
+    found:    double,double,int
+    reason: actual and formal argument lists differ in length
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:477: error: method keyPressed in class Screen cannot be applied to given types;
+          return super.keyPressed(keyCode, scanCode, modifiers);
+                      ^
+    required: KeyInput
+    found:    int,int,int
+    reason: actual and formal argument lists differ in length
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:487: error: method charTyped in interface ParentElement cannot be applied to given types;
+          return super.charTyped(chr, modifiers);
+                      ^
+    required: CharInput
+    found:    char,int
+    reason: actual and formal argument lists differ in length
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:232: error: method mouseClicked in interface ParentElement cannot be applied to given types;
+          return super.mouseClicked(mouseX, mouseY, button);
+                      ^
+    required: Click,boolean
+    found:    double,double,int
+    reason: actual and formal argument lists differ in length
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:282: error: method keyPressed in class Screen cannot be applied to given types;
+          return super.keyPressed(keyCode, scanCode, modifiers);
+                      ^
+    required: KeyInput
+    found:    int,int,int
+    reason: actual and formal argument lists differ in length
+  Note: Recompile with -Xlint:deprecation for details.
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/movement/InvMove.java:34: error: incompatible types: long cannot be converted to Window
+                  key.setPressed(InputUtil.isKeyPressed(handle, code));
+                                                        ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/BlockHit.java:7: error: cannot find symbol
+  import net.minecraft.item.SwordItem;
+                           ^
+    symbol:   class SwordItem
+    location: package net.minecraft.item
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/Reach.java:10: error: cannot find symbol
+  import net.minecraft.item.SwordItem;
+                           ^
+    symbol:   class SwordItem
+    location: package net.minecraft.item
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:12: error: cannot find symbol
+  import net.minecraft.item.SwordItem;
+                           ^
+    symbol:   class SwordItem
+    location: package net.minecraft.item
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/AutoClicker.java:45: error: cannot find symbol
+          if (swordsOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.SwordItem || mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.AxeItem)) {
+                                                                                                              ^
+    symbol:   class SwordItem
+    location: package net.minecraft.item
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/BlockHit.java:22: error: cannot find symbol
+          if (mc.player.getMainHandStack().getItem() instanceof SwordItem) {
+                                                                ^
+    symbol:   class SwordItem
+    location: class BlockHit
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/Reach.java:29: error: cannot find symbol
+          if (weaponOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof SwordItem)) return;
+                                                                                            ^
+    symbol:   class SwordItem
+    location: class Reach
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:51: error: selectedSlot has private access in PlayerInventory
+                      previousSlot = mc.player.getInventory().selectedSlot;
+                                                             ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:53: error: selectedSlot has private access in PlayerInventory
+                  if (mc.player.getInventory().selectedSlot != bestSlot) {
+                                              ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:54: error: selectedSlot has private access in PlayerInventory
+                      mc.player.getInventory().selectedSlot = bestSlot;
+                                              ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:60: error: selectedSlot has private access in PlayerInventory
+                  mc.player.getInventory().selectedSlot = previousSlot;
+                                          ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:38: error: selectedSlot has private access in PlayerInventory
+                  mc.player.getInventory().selectedSlot = originalSlot;
+                                          ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:58: error: selectedSlot has private access in PlayerInventory
+                  originalSlot = mc.player.getInventory().selectedSlot;
+                                                         ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:59: error: selectedSlot has private access in PlayerInventory
+                  mc.player.getInventory().selectedSlot = axeSlot;
+                                          ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:62: error: selectedSlot has private access in PlayerInventory
+                  originalSlot = mc.player.getInventory().selectedSlot;
+                                                         ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:63: error: selectedSlot has private access in PlayerInventory
+                  mc.player.getInventory().selectedSlot = maceSlot;
+                                          ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/Clutch.java:45: error: selectedSlot has private access in PlayerInventory
+                  mc.player.getInventory().selectedSlot = blockSlot;
+                                          ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:44: error: selectedSlot has private access in PlayerInventory
+                      mc.player.getInventory().selectedSlot = emptyBucket;
+                                              ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:67: error: selectedSlot has private access in PlayerInventory
+                      mc.player.getInventory().selectedSlot = waterSlot;
+                                              ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:186: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:194: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:426: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:438: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:480: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:241: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/SilentAura.java:235: error: cannot find symbol
+          if (targetArea.is("Center")) return living.getPos().add(0, living.getHeight() / 2.0, 0);
+                                                    ^
+    symbol:   method getPos()
+    location: variable living of type LivingEntity
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/SilentAura.java:307: error: cannot find symbol
+          if (airCrits.isEnabled() && !mc.player.isOnGround() && !mc.player.isFallFlying()) {
+                                                                           ^
+    symbol:   method isFallFlying()
+    location: variable player of type ClientPlayerEntity
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/TimeChanger.java:18: error: cannot find symbol
+              mc.world.setTimeOfDay(time.getValue().longValue());
+                      ^
+    symbol:   method setTimeOfDay(long)
+    location: variable world of type ClientWorld
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java:31: error: cannot find symbol
+                  ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta(false));
+                                                                         ^
+    symbol:   method getTickDelta(boolean)
+    location: variable renderTickCounter of type RenderTickCounter
+  37 errors
 
 * Try:
-> Run with --info or --debug option to get more log output.
-> Run with --scan to get full insights.
-> Get more help at https://help.gradle.org.
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
 
 * Exception is:
-org.gradle.api.ProjectConfigurationException: A problem occurred configuring root project 'AnormalClient'.
-	at org.gradle.configuration.project.LifecycleProjectEvaluator.wrapException(LifecycleProjectEvaluator.java:84)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator.addConfigurationFailure(LifecycleProjectEvaluator.java:77)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator.access$500(LifecycleProjectEvaluator.java:55)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$NotifyAfterEvaluate.run(LifecycleProjectEvaluator.java:255)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$EvaluateProject.lambda$run$0(LifecycleProjectEvaluator.java:114)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.lambda$applyToMutableState$1(DefaultProjectStateRegistry.java:411)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.lambda$fromMutableState$2(DefaultProjectStateRegistry.java:434)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withReplacedLocks(DefaultWorkerLeaseService.java:359)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.fromMutableState(DefaultProjectStateRegistry.java:434)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.applyToMutableState(DefaultProjectStateRegistry.java:410)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$EvaluateProject.run(LifecycleProjectEvaluator.java:100)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator.evaluate(LifecycleProjectEvaluator.java:72)
-	at org.gradle.api.internal.project.DefaultProject.evaluateUnchecked(DefaultProject.java:832)
-	at org.gradle.api.internal.project.ProjectLifecycleController.lambda$ensureSelfConfigured$2(ProjectLifecycleController.java:85)
-	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
-	at org.gradle.internal.model.StateTransitionController.lambda$maybeTransitionIfNotCurrentlyTransitioning$10(StateTransitionController.java:199)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:34)
-	at org.gradle.internal.model.StateTransitionController.maybeTransitionIfNotCurrentlyTransitioning(StateTransitionController.java:195)
-	at org.gradle.api.internal.project.ProjectLifecycleController.ensureSelfConfigured(ProjectLifecycleController.java:85)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.ensureConfigured(DefaultProjectStateRegistry.java:385)
-	at org.gradle.execution.TaskPathProjectEvaluator.configure(TaskPathProjectEvaluator.java:34)
-	at org.gradle.execution.TaskPathProjectEvaluator.configureHierarchy(TaskPathProjectEvaluator.java:48)
-	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:42)
-	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
-	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
-	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
-	at org.gradle.initialization.VintageBuildModelController.lambda$prepareProjects$2(VintageBuildModelController.java:84)
-	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
-	at org.gradle.internal.model.StateTransitionController.lambda$transitionIfNotPreviously$11(StateTransitionController.java:213)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:34)
-	at org.gradle.internal.model.StateTransitionController.transitionIfNotPreviously(StateTransitionController.java:209)
-	at org.gradle.initialization.VintageBuildModelController.prepareProjects(VintageBuildModelController.java:84)
-	at org.gradle.initialization.VintageBuildModelController.prepareToScheduleTasks(VintageBuildModelController.java:71)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$prepareToScheduleTasks$6(DefaultBuildLifecycleController.java:175)
-	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
-	at org.gradle.internal.model.StateTransitionController.lambda$maybeTransition$9(StateTransitionController.java:190)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:34)
-	at org.gradle.internal.model.StateTransitionController.maybeTransition(StateTransitionController.java:186)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.prepareToScheduleTasks(DefaultBuildLifecycleController.java:173)
-	at org.gradle.internal.buildtree.DefaultBuildTreeWorkPreparer.scheduleRequestedTasks(DefaultBuildTreeWorkPreparer.java:36)
-	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController$scheduleAndRunRequestedTasks$1.apply(VintageBuildTreeWorkController.kt:36)
-	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController$scheduleAndRunRequestedTasks$1.apply(VintageBuildTreeWorkController.kt:35)
-	at org.gradle.composite.internal.DefaultIncludedBuildTaskGraph.withNewWorkGraph(DefaultIncludedBuildTaskGraph.java:112)
-	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController.scheduleAndRunRequestedTasks(VintageBuildTreeWorkController.kt:35)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.lambda$scheduleAndRunTasks$1(DefaultBuildTreeLifecycleController.java:77)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.lambda$runBuild$4(DefaultBuildTreeLifecycleController.java:120)
-	at org.gradle.internal.model.StateTransitionController.lambda$transition$6(StateTransitionController.java:169)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.lambda$transition$7(StateTransitionController.java:169)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:44)
-	at org.gradle.internal.model.StateTransitionController.transition(StateTransitionController.java:169)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.runBuild(DefaultBuildTreeLifecycleController.java:117)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.scheduleAndRunTasks(DefaultBuildTreeLifecycleController.java:77)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.scheduleAndRunTasks(DefaultBuildTreeLifecycleController.java:72)
-	at org.gradle.tooling.internal.provider.ExecuteBuildActionRunner.run(ExecuteBuildActionRunner.java:31)
-	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
-	at org.gradle.internal.buildtree.ProblemReportingBuildActionRunner.run(ProblemReportingBuildActionRunner.java:49)
-	at org.gradle.launcher.exec.BuildOutcomeReportingBuildActionRunner.run(BuildOutcomeReportingBuildActionRunner.java:65)
-	at org.gradle.tooling.internal.provider.FileSystemWatchingBuildActionRunner.run(FileSystemWatchingBuildActionRunner.java:140)
-	at org.gradle.launcher.exec.BuildCompletionNotifyingBuildActionRunner.run(BuildCompletionNotifyingBuildActionRunner.java:41)
-	at org.gradle.launcher.exec.RootBuildLifecycleBuildActionExecutor.lambda$execute$0(RootBuildLifecycleBuildActionExecutor.java:54)
-	at org.gradle.composite.internal.DefaultRootBuildState.run(DefaultRootBuildState.java:130)
-	at org.gradle.launcher.exec.RootBuildLifecycleBuildActionExecutor.execute(RootBuildLifecycleBuildActionExecutor.java:54)
-	at org.gradle.internal.buildtree.InitDeprecationLoggingActionExecutor.execute(InitDeprecationLoggingActionExecutor.java:62)
-	at org.gradle.internal.buildtree.InitProblems.execute(InitProblems.java:36)
-	at org.gradle.internal.buildtree.DefaultBuildTreeContext.execute(DefaultBuildTreeContext.java:40)
-	at org.gradle.launcher.exec.BuildTreeLifecycleBuildActionExecutor.lambda$execute$0(BuildTreeLifecycleBuildActionExecutor.java:71)
-	at org.gradle.internal.buildtree.BuildTreeState.run(BuildTreeState.java:60)
-	at org.gradle.launcher.exec.BuildTreeLifecycleBuildActionExecutor.execute(BuildTreeLifecycleBuildActionExecutor.java:71)
-	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor$3.call(RunAsBuildOperationBuildActionExecutor.java:61)
-	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor$3.call(RunAsBuildOperationBuildActionExecutor.java:57)
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava'.
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
@@ -124,176 +325,98 @@ org.gradle.api.ProjectConfigurationException: A problem occurred configuring roo
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
-	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor.execute(RunAsBuildOperationBuildActionExecutor.java:57)
-	at org.gradle.launcher.exec.RunAsWorkerThreadBuildActionExecutor.lambda$execute$0(RunAsWorkerThreadBuildActionExecutor.java:36)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
-	at org.gradle.launcher.exec.RunAsWorkerThreadBuildActionExecutor.execute(RunAsWorkerThreadBuildActionExecutor.java:36)
-	at org.gradle.tooling.internal.provider.continuous.ContinuousBuildActionExecutor.execute(ContinuousBuildActionExecutor.java:110)
-	at org.gradle.tooling.internal.provider.SubscribableBuildActionExecutor.execute(SubscribableBuildActionExecutor.java:64)
-	at org.gradle.internal.session.DefaultBuildSessionContext.execute(DefaultBuildSessionContext.java:46)
-	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor$ActionImpl.apply(BuildSessionLifecycleBuildActionExecutor.java:92)
-	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor$ActionImpl.apply(BuildSessionLifecycleBuildActionExecutor.java:80)
-	at org.gradle.internal.session.BuildSessionState.run(BuildSessionState.java:71)
-	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor.execute(BuildSessionLifecycleBuildActionExecutor.java:62)
-	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor.execute(BuildSessionLifecycleBuildActionExecutor.java:41)
-	at org.gradle.internal.buildprocess.execution.StartParamsValidatingActionExecutor.execute(StartParamsValidatingActionExecutor.java:64)
-	at org.gradle.internal.buildprocess.execution.StartParamsValidatingActionExecutor.execute(StartParamsValidatingActionExecutor.java:32)
-	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
-	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
-	at org.gradle.internal.buildprocess.execution.SetupLoggingActionExecutor.execute(SetupLoggingActionExecutor.java:47)
-	at org.gradle.internal.buildprocess.execution.SetupLoggingActionExecutor.execute(SetupLoggingActionExecutor.java:31)
-	at org.gradle.launcher.daemon.server.exec.ExecuteBuild.doBuild(ExecuteBuild.java:70)
-	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.WatchForDisconnection.execute(WatchForDisconnection.java:39)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.ResetDeprecationLogger.execute(ResetDeprecationLogger.java:29)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon.execute(RequestStopIfSingleUsedDaemon.java:35)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.lambda$execute$0(ForwardClientInput.java:40)
-	at org.gradle.internal.daemon.clientinput.ClientInputForwarder.forwardInput(ClientInputForwarder.java:80)
-	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.execute(ForwardClientInput.java:37)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.LogAndCheckHealth.execute(LogAndCheckHealth.java:53)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.LogToClient.doBuild(LogToClient.java:63)
-	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment.doBuild(EstablishBuildEnvironment.java:84)
-	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy$1.run(StartBuildOrRespondWithBusy.java:52)
-	at org.gradle.launcher.daemon.server.DaemonStateCoordinator.lambda$runCommand$0(DaemonStateCoordinator.java:321)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
+	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
-Caused by: java.lang.RuntimeException: Failed to setup Minecraft, java.lang.UnsupportedOperationException: Unsupported unpick version
-	at net.fabricmc.loom.util.ExceptionUtil.createDescriptiveWrapper(ExceptionUtil.java:60)
-	at net.fabricmc.loom.configuration.CompileConfiguration.lambda$run$1(CompileConfiguration.java:117)
-	at net.fabricmc.loom.configuration.CompileConfiguration.lambda$afterEvaluationWithService$6(CompileConfiguration.java:425)
-	at net.fabricmc.loom.util.gradle.GradleUtils.lambda$afterSuccessfulEvaluation$0(GradleUtils.java:55)
-	at org.gradle.internal.code.DefaultUserCodeApplicationContext$CurrentApplication$1.execute(DefaultUserCodeApplicationContext.java:124)
-	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingAction$1.run(DefaultListenerBuildOperationDecorator.java:173)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
-	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingAction.execute(DefaultListenerBuildOperationDecorator.java:170)
-	at org.gradle.internal.event.BroadcastDispatch$ActionInvocationHandler.dispatch(BroadcastDispatch.java:99)
-	at org.gradle.internal.event.BroadcastDispatch$ActionInvocationHandler.dispatch(BroadcastDispatch.java:87)
-	at org.gradle.internal.event.AbstractBroadcastDispatch.dispatch(AbstractBroadcastDispatch.java:44)
-	at org.gradle.internal.event.BroadcastDispatch$SingletonDispatch.dispatch(BroadcastDispatch.java:268)
-	at org.gradle.internal.event.BroadcastDispatch$SingletonDispatch.dispatch(BroadcastDispatch.java:170)
-	at org.gradle.internal.event.AbstractBroadcastDispatch.dispatch(AbstractBroadcastDispatch.java:84)
-	at org.gradle.internal.event.AbstractBroadcastDispatch.dispatch(AbstractBroadcastDispatch.java:70)
-	at org.gradle.internal.event.BroadcastDispatch$CompositeDispatch.dispatch(BroadcastDispatch.java:380)
-	at org.gradle.internal.event.BroadcastDispatch$CompositeDispatch.dispatch(BroadcastDispatch.java:272)
-	at org.gradle.internal.event.ListenerBroadcast.dispatch(ListenerBroadcast.java:153)
-	at org.gradle.internal.event.ListenerBroadcast.dispatch(ListenerBroadcast.java:38)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
-	at jdk.proxy1/jdk.proxy1.$Proxy64.afterEvaluate(Unknown Source)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$NotifyAfterEvaluate$1.execute(LifecycleProjectEvaluator.java:247)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$NotifyAfterEvaluate$1.execute(LifecycleProjectEvaluator.java:244)
-	at org.gradle.api.internal.project.DefaultProject.stepEvaluationListener(DefaultProject.java:1594)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$NotifyAfterEvaluate.run(LifecycleProjectEvaluator.java:253)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$EvaluateProject.lambda$run$0(LifecycleProjectEvaluator.java:114)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.lambda$applyToMutableState$1(DefaultProjectStateRegistry.java:411)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.lambda$fromMutableState$2(DefaultProjectStateRegistry.java:434)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withReplacedLocks(DefaultWorkerLeaseService.java:359)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.fromMutableState(DefaultProjectStateRegistry.java:434)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.applyToMutableState(DefaultProjectStateRegistry.java:410)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$EvaluateProject.run(LifecycleProjectEvaluator.java:100)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator.evaluate(LifecycleProjectEvaluator.java:72)
-	at org.gradle.api.internal.project.DefaultProject.evaluateUnchecked(DefaultProject.java:832)
-	at org.gradle.api.internal.project.ProjectLifecycleController.lambda$ensureSelfConfigured$2(ProjectLifecycleController.java:85)
-	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
-	at org.gradle.internal.model.StateTransitionController.lambda$maybeTransitionIfNotCurrentlyTransitioning$10(StateTransitionController.java:199)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:34)
-	at org.gradle.internal.model.StateTransitionController.maybeTransitionIfNotCurrentlyTransitioning(StateTransitionController.java:195)
-	at org.gradle.api.internal.project.ProjectLifecycleController.ensureSelfConfigured(ProjectLifecycleController.java:85)
-	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.ensureConfigured(DefaultProjectStateRegistry.java:385)
-	at org.gradle.execution.TaskPathProjectEvaluator.configure(TaskPathProjectEvaluator.java:34)
-	at org.gradle.execution.TaskPathProjectEvaluator.configureHierarchy(TaskPathProjectEvaluator.java:48)
-	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:42)
-	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
-	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
-	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
-	at org.gradle.initialization.VintageBuildModelController.lambda$prepareProjects$2(VintageBuildModelController.java:84)
-	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
-	at org.gradle.internal.model.StateTransitionController.lambda$transitionIfNotPreviously$11(StateTransitionController.java:213)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:34)
-	at org.gradle.internal.model.StateTransitionController.transitionIfNotPreviously(StateTransitionController.java:209)
-	at org.gradle.initialization.VintageBuildModelController.prepareProjects(VintageBuildModelController.java:84)
-	at org.gradle.initialization.VintageBuildModelController.prepareToScheduleTasks(VintageBuildModelController.java:71)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$prepareToScheduleTasks$6(DefaultBuildLifecycleController.java:175)
-	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
-	at org.gradle.internal.model.StateTransitionController.lambda$maybeTransition$9(StateTransitionController.java:190)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:34)
-	at org.gradle.internal.model.StateTransitionController.maybeTransition(StateTransitionController.java:186)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.prepareToScheduleTasks(DefaultBuildLifecycleController.java:173)
-	at org.gradle.internal.buildtree.DefaultBuildTreeWorkPreparer.scheduleRequestedTasks(DefaultBuildTreeWorkPreparer.java:36)
-	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController$scheduleAndRunRequestedTasks$1.apply(VintageBuildTreeWorkController.kt:36)
-	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController$scheduleAndRunRequestedTasks$1.apply(VintageBuildTreeWorkController.kt:35)
-	at org.gradle.composite.internal.DefaultIncludedBuildTaskGraph.withNewWorkGraph(DefaultIncludedBuildTaskGraph.java:112)
-	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController.scheduleAndRunRequestedTasks(VintageBuildTreeWorkController.kt:35)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.lambda$scheduleAndRunTasks$1(DefaultBuildTreeLifecycleController.java:77)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.lambda$runBuild$4(DefaultBuildTreeLifecycleController.java:120)
-	at org.gradle.internal.model.StateTransitionController.lambda$transition$6(StateTransitionController.java:169)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
-	at org.gradle.internal.model.StateTransitionController.lambda$transition$7(StateTransitionController.java:169)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:44)
-	at org.gradle.internal.model.StateTransitionController.transition(StateTransitionController.java:169)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.runBuild(DefaultBuildTreeLifecycleController.java:117)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.scheduleAndRunTasks(DefaultBuildTreeLifecycleController.java:77)
-	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.scheduleAndRunTasks(DefaultBuildTreeLifecycleController.java:72)
-	at org.gradle.tooling.internal.provider.ExecuteBuildActionRunner.run(ExecuteBuildActionRunner.java:31)
-	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
-	at org.gradle.internal.buildtree.ProblemReportingBuildActionRunner.run(ProblemReportingBuildActionRunner.java:49)
-	at org.gradle.launcher.exec.BuildOutcomeReportingBuildActionRunner.run(BuildOutcomeReportingBuildActionRunner.java:65)
-	at org.gradle.tooling.internal.provider.FileSystemWatchingBuildActionRunner.run(FileSystemWatchingBuildActionRunner.java:140)
-	at org.gradle.launcher.exec.BuildCompletionNotifyingBuildActionRunner.run(BuildCompletionNotifyingBuildActionRunner.java:41)
-	at org.gradle.launcher.exec.RootBuildLifecycleBuildActionExecutor.lambda$execute$0(RootBuildLifecycleBuildActionExecutor.java:54)
-	at org.gradle.composite.internal.DefaultRootBuildState.run(DefaultRootBuildState.java:130)
-	at org.gradle.launcher.exec.RootBuildLifecycleBuildActionExecutor.execute(RootBuildLifecycleBuildActionExecutor.java:54)
-	at org.gradle.internal.buildtree.InitDeprecationLoggingActionExecutor.execute(InitDeprecationLoggingActionExecutor.java:62)
-	at org.gradle.internal.buildtree.InitProblems.execute(InitProblems.java:36)
-	at org.gradle.internal.buildtree.DefaultBuildTreeContext.execute(DefaultBuildTreeContext.java:40)
-	at org.gradle.launcher.exec.BuildTreeLifecycleBuildActionExecutor.lambda$execute$0(BuildTreeLifecycleBuildActionExecutor.java:71)
-	at org.gradle.internal.buildtree.BuildTreeState.run(BuildTreeState.java:60)
-	at org.gradle.launcher.exec.BuildTreeLifecycleBuildActionExecutor.execute(BuildTreeLifecycleBuildActionExecutor.java:71)
-	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor$3.call(RunAsBuildOperationBuildActionExecutor.java:61)
-	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor$3.call(RunAsBuildOperationBuildActionExecutor.java:57)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+Note: /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java uses or overrides a deprecated API.
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:183: error: method mouseClicked in interface ParentElement cannot be applied to given types;
+        return super.mouseClicked(mouseX, mouseY, button);
+                    ^
+  required: Click,boolean
+  found:    double,double,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:191: error: method mouseReleased in interface ParentElement cannot be applied to given types;
+        return super.mouseReleased(mouseX, mouseY, button);
+                    ^
+  required: Click
+  found:    double,double,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:202: error: method keyPressed in class Screen cannot be applied to given types;
+        return super.keyPressed(keyCode, scanCode, modifiers);
+                    ^
+  required: KeyInput
+  found:    int,int,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:429: error: method mouseReleased in interface ParentElement cannot be applied to given types;
+        return super.mouseReleased(mouseX, mouseY, button);
+                    ^
+  required: Click
+  found:    double,double,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:477: error: method keyPressed in class Screen cannot be applied to given types;
+        return super.keyPressed(keyCode, scanCode, modifiers);
+                    ^
+  required: KeyInput
+  found:    int,int,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:487: error: method charTyped in interface ParentElement cannot be applied to given types;
+        return super.charTyped(chr, modifiers);
+                    ^
+  required: CharInput
+  found:    char,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:232: error: method mouseClicked in interface ParentElement cannot be applied to given types;
+        return super.mouseClicked(mouseX, mouseY, button);
+                    ^
+  required: Click,boolean
+  found:    double,double,int
+  reason: actual and formal argument lists differ in length
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:282: error: method keyPressed in class Screen cannot be applied to given types;
+        return super.keyPressed(keyCode, scanCode, modifiers);
+                    ^
+  symbol:   method isFallFlying()
+  location: variable player of type ClientPlayerEntity
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/TimeChanger.java:18: error: cannot find symbol
+            mc.world.setTimeOfDay(time.getValue().longValue());
+                    ^
+  symbol:   method setTimeOfDay(long)
+  location: variable world of type ClientWorld
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java:31: error: cannot find symbol
+                ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta(false));
+                                                                       ^
+  symbol:   method getTickDelta(boolean)
+  location: variable renderTickCounter of type RenderTickCounter
+37 errors
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:38)
+	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:38)
+	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:46)
+	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:36)
+	at org.gradle.jvm.toolchain.internal.DefaultToolchainJavaCompiler.execute(DefaultToolchainJavaCompiler.java:57)
+	at org.gradle.api.tasks.compile.JavaCompile.lambda$createToolchainCompiler$3(JavaCompile.java:206)
+	at org.gradle.api.internal.tasks.compile.CleaningJavaCompiler.execute(CleaningJavaCompiler.java:53)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalCompilerFactory.lambda$createRebuildAllCompiler$0(IncrementalCompilerFactory.java:55)
+	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:70)
+	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:44)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:66)
+	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:64)
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:48)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
@@ -301,61 +424,101 @@ Caused by: java.lang.RuntimeException: Failed to setup Minecraft, java.lang.Unsu
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
-	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor.execute(RunAsBuildOperationBuildActionExecutor.java:57)
-	at org.gradle.launcher.exec.RunAsWorkerThreadBuildActionExecutor.lambda$execute$0(RunAsWorkerThreadBuildActionExecutor.java:36)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
-	at org.gradle.launcher.exec.RunAsWorkerThreadBuildActionExecutor.execute(RunAsWorkerThreadBuildActionExecutor.java:36)
-	at org.gradle.tooling.internal.provider.continuous.ContinuousBuildActionExecutor.execute(ContinuousBuildActionExecutor.java:110)
-	at org.gradle.tooling.internal.provider.SubscribableBuildActionExecutor.execute(SubscribableBuildActionExecutor.java:64)
-	at org.gradle.internal.session.DefaultBuildSessionContext.execute(DefaultBuildSessionContext.java:46)
-	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor$ActionImpl.apply(BuildSessionLifecycleBuildActionExecutor.java:92)
-	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor$ActionImpl.apply(BuildSessionLifecycleBuildActionExecutor.java:80)
-	at org.gradle.internal.session.BuildSessionState.run(BuildSessionState.java:71)
-	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor.execute(BuildSessionLifecycleBuildActionExecutor.java:62)
-	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor.execute(BuildSessionLifecycleBuildActionExecutor.java:41)
-	at org.gradle.internal.buildprocess.execution.StartParamsValidatingActionExecutor.execute(StartParamsValidatingActionExecutor.java:64)
-	at org.gradle.internal.buildprocess.execution.StartParamsValidatingActionExecutor.execute(StartParamsValidatingActionExecutor.java:32)
-	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
-	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
-	at org.gradle.internal.buildprocess.execution.SetupLoggingActionExecutor.execute(SetupLoggingActionExecutor.java:47)
-	at org.gradle.internal.buildprocess.execution.SetupLoggingActionExecutor.execute(SetupLoggingActionExecutor.java:31)
-	at org.gradle.launcher.daemon.server.exec.ExecuteBuild.doBuild(ExecuteBuild.java:70)
-	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.WatchForDisconnection.execute(WatchForDisconnection.java:39)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.ResetDeprecationLogger.execute(ResetDeprecationLogger.java:29)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon.execute(RequestStopIfSingleUsedDaemon.java:35)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.lambda$execute$0(ForwardClientInput.java:40)
-	at org.gradle.internal.daemon.clientinput.ClientInputForwarder.forwardInput(ClientInputForwarder.java:80)
-	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.execute(ForwardClientInput.java:37)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.LogAndCheckHealth.execute(LogAndCheckHealth.java:53)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.LogToClient.doBuild(LogToClient.java:63)
-	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment.doBuild(EstablishBuildEnvironment.java:84)
-	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
-	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
-	at org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy$1.run(StartBuildOrRespondWithBusy.java:52)
-	at org.gradle.launcher.daemon.server.DaemonStateCoordinator.lambda$runCommand$0(DaemonStateCoordinator.java:321)
-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
-Caused by: java.lang.UnsupportedOperationException: Unsupported unpick version
-	at net.fabricmc.loom.configuration.providers.mappings.MappingConfiguration.parseUnpickMetadata(MappingConfiguration.java:251)
-	at net.fabricmc.loom.configuration.providers.mappings.MappingConfiguration.extractUnpickDefinitions(MappingConfiguration.java:230)
-	at net.fabricmc.loom.configuration.providers.mappings.MappingConfiguration.extractExtras(MappingConfiguration.java:216)
-	at net.fabricmc.loom.configuration.providers.mappings.MappingConfiguration.storeMappings(MappingConfiguration.java:177)
-	at net.fabricmc.loom.configuration.providers.mappings.MappingConfiguration.setup(MappingConfiguration.java:134)
-	at net.fabricmc.loom.configuration.providers.mappings.MappingConfiguration.create(MappingConfiguration.java:111)
-	at net.fabricmc.loom.configuration.CompileConfiguration.setupMinecraft(CompileConfiguration.java:168)
-	at net.fabricmc.loom.configuration.CompileConfiguration.lambda$run$1(CompileConfiguration.java:109)
-	... 174 more
+	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:48)
+	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:224)
+	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:165)
+	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:150)
+	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:252)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:237)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:220)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:203)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:170)
+	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)
+	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
+	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:50)
+	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:28)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:68)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:38)
+	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:61)
+	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:26)
+	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:39)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:28)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:75)
+	at org.gradle.internal.Either$Right.fold(Either.java:176)
+	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:46)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:35)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)
+	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)
+	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)
+	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:64)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:35)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:62)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:40)
+	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:76)
+	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:45)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:136)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:66)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:38)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:23)
+	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:75)
+	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:41)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$execute$0(AssignMutableWorkspaceStep.java:35)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:297)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:31)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:22)
+	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:44)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:31)
+	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:64)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
+	... 30 more
 
 
-BUILD FAILED in 16s
-Error: Process completed with exit code 1.
+BUILD FAILED in 52s

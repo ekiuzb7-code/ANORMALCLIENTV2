@@ -5,7 +5,9 @@ import com.anormal.client.module.Module;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.NumberSetting;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 
 import java.util.Random;
@@ -42,7 +44,7 @@ public class AutoClicker extends Module {
             return;
         }
 
-        if (swordsOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.SwordItem || mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.AxeItem)) {
+        if (swordsOnly.isEnabled() && !isWeaponHeld()) {
             return;
         }
 
@@ -74,5 +76,13 @@ public class AutoClicker extends Module {
                 }
             }
         }
+    }
+
+    private boolean isWeaponHeld() {
+        Identifier id = Registries.ITEM.getId(mc.player.getMainHandStack().getItem());
+        if (id == null) return false;
+        String path = id.getPath();
+        return path.endsWith("_sword") || path.endsWith("_axe")
+                || path.equals("mace") || path.equals("trident");
     }
 }

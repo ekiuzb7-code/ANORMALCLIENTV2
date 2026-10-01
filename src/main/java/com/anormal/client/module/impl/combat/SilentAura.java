@@ -232,7 +232,8 @@ public class SilentAura extends Module {
     }
 
     private Vec3d aimPoint(LivingEntity living) {
-        if (targetArea.is("Center")) return living.getPos().add(0, living.getHeight() / 2.0, 0);
+        if (targetArea.is("Center"))
+            return new Vec3d(living.getX(), living.getY() + living.getHeight() / 2.0, living.getZ());
         // Closest: nearest point on hitbox column to eyes
         Vec3d eye = mc.player.getEyePos();
         double y = Math.max(living.getY(), Math.min(eye.y, living.getY() + living.getHeight()));
@@ -304,7 +305,7 @@ public class SilentAura extends Module {
             if (!isHovering(target)) return false;
         }
 
-        if (airCrits.isEnabled() && !mc.player.isOnGround() && !mc.player.isFallFlying()) {
+        if (airCrits.isEnabled() && !mc.player.isOnGround() && !mc.player.isGliding()) {
             // Only swing airborne if falling fast enough for a crit
             if (mc.player.getVelocity().y >= -0.2) return false;
         }

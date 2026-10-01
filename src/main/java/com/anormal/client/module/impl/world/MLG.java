@@ -41,7 +41,7 @@ public class MLG extends Module {
                     }
                 }
                 if (emptyBucket != -1) {
-                    mc.player.getInventory().selectedSlot = emptyBucket;
+                    mc.player.getInventory().setSelectedSlot(emptyBucket);
                     BlockHitResult bhr = new BlockHitResult(new Vec3d(placedPos.getX() + 0.5, placedPos.getY() + 0.5, placedPos.getZ() + 0.5), Direction.UP, placedPos, false);
                     mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
                     mc.player.swingHand(Hand.MAIN_HAND);
@@ -64,7 +64,7 @@ public class MLG extends Module {
                 }
 
                 if (waterSlot != -1) {
-                    mc.player.getInventory().selectedSlot = waterSlot;
+                    mc.player.getInventory().setSelectedSlot(waterSlot);
                     BlockPos airPos = mc.player.getBlockPos();
                     BlockHitResult bhr = new BlockHitResult(new Vec3d(airPos.getX() + 0.5, groundPos.getY() + 1.0, airPos.getZ() + 0.5), Direction.UP, groundPos, false);
                     mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);

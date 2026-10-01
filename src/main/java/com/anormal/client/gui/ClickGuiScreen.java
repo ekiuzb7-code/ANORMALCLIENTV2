@@ -10,6 +10,8 @@ import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.KeyInput;
+import net.minecraft.client.gui.CharInput;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
@@ -424,9 +426,9 @@ public class ClickGuiScreen extends Screen {
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(Click click) {
         draggingSlider = null;
-        return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(click);
     }
 
     @Override
@@ -436,7 +438,9 @@ public class ClickGuiScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
+        int keyCode = input.key();
+        int modifiers = input.modifiers();
         // 1. Keybind listening has top priority: ANY key (incl. mouse handled in mouseClicked) binds here
         if (listeningSetting != null) {
             if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_DELETE
@@ -474,17 +478,18 @@ public class ClickGuiScreen extends Screen {
             return true;
         }
 
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     @Override
-    public boolean charTyped(char chr, int modifiers) {
+    public boolean charTyped(CharInput input) {
+        char chr = input.character();
         if (listeningSetting != null) return true; // don't leak typed chars into search while binding
         if (searchFocused && chr >= 32 && chr <= 126) {
             searchQuery += chr;
             return true;
         }
-        return super.charTyped(chr, modifiers);
+        return super.charTyped(input);
     }
 
     private void updateSliderValue(int mouseX, int contentX, int contentWidth) {

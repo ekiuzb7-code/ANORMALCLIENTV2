@@ -42,7 +42,7 @@ public class Clutch extends Module {
             }
 
             if (blockSlot != -1) {
-                mc.player.getInventory().selectedSlot = blockSlot;
+                mc.player.getInventory().setSelectedSlot(blockSlot);
 
                 BlockPos playerPos = mc.player.getBlockPos();
                 BlockPos[] checkPositions = {

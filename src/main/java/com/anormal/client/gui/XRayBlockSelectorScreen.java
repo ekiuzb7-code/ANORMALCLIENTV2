@@ -5,8 +5,10 @@ import com.anormal.client.theme.ThemeManager;
 import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.CharInput;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.KeyInput;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -229,7 +231,7 @@ public class XRayBlockSelectorScreen extends Screen {
             }
         }
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return false;
     }
 
     @Override
@@ -239,7 +241,8 @@ public class XRayBlockSelectorScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
+        int keyCode = input.key();
         if (searchFocused) {
             if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {
                 if (!searchQuery.isEmpty()) {
@@ -250,26 +253,8 @@ public class XRayBlockSelectorScreen extends Screen {
             } else if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_ESCAPE) {
                 searchFocused = false;
                 return true;
-            } else if (keyCode == GLFW.GLFW_KEY_SPACE) {
-                searchQuery += " ";
-                updateFilter();
-                return true;
-            } else if (keyCode >= GLFW.GLFW_KEY_A && keyCode <= GLFW.GLFW_KEY_Z) {
-                boolean shift = (modifiers & GLFW.GLFW_MOD_SHIFT) != 0;
-                char c = (char) ((shift ? 'A' : 'a') + (keyCode - GLFW.GLFW_KEY_A));
-                searchQuery += c;
-                updateFilter();
-                return true;
-            } else if (keyCode >= GLFW.GLFW_KEY_0 && keyCode <= GLFW.GLFW_KEY_9) {
-                char c = (char) ('0' + (keyCode - GLFW.GLFW_KEY_0));
-                searchQuery += c;
-                updateFilter();
-                return true;
-            } else if (keyCode == GLFW.GLFW_KEY_MINUS) {
-                searchQuery += "_";
-                updateFilter();
-                return true;
             }
+            return true;
         }
 
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
@@ -279,6 +264,17 @@ public class XRayBlockSelectorScreen extends Screen {
             return true;
         }
 
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
+    }
+
+    @Override
+    public boolean charTyped(CharInput input) {
+        char chr = input.character();
+        if (searchFocused && chr >= 32 && chr <= 126) {
+            searchQuery += chr;
+            updateFilter();
+            return true;
+        }
+        return super.charTyped(input);
     }
 }
