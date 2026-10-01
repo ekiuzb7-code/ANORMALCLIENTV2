@@ -12,8 +12,8 @@ public class NoClickDelay extends Module {
     public void onTick() {
         if (mc.player == null) return;
         try {
-            // Reset miss-swing cooldown every tick: attacks always ready
-            mc.player.resetLastAttackedTicks();
+            // 1.21.11 yarn follows the Mojang name for the miss-swing reset
+            mc.player.resetAttackStrengthTicker();
         } catch (Throwable ignored) {}
     }
 }
