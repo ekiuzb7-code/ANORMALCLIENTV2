@@ -23,8 +23,6 @@ public class ClickGuiScreen extends Screen {
     private NumberSetting draggingSlider = null;
 
     private int scrollOffset = 0;
-    private boolean leftWasDown = false;
-    private boolean rightWasDown = false;
 
     public ClickGuiScreen() {
         super(Text.literal("Anormal Client GUI"));
@@ -47,8 +45,7 @@ public class ClickGuiScreen extends Screen {
         // 1. Background dark tint
         renderBackground(context, mouseX, mouseY, delta);
 
-        // 2. Direct GLFW mouse click handling for 100% responsiveness
-        handleDirectMouseInput(mouseX, mouseY, guiX, guiY, guiWidth, guiHeight);
+        // 2. Main Window Frame (input via mouseClicked/mouseReleased events only)
 
         // 3. Main Window Frame
         ThemeManager.renderWindow(context, guiX, guiY, guiWidth, guiHeight, "Anormal Client");
@@ -182,29 +179,6 @@ public class ClickGuiScreen extends Screen {
         }
 
         super.render(context, mouseX, mouseY, delta);
-    }
-
-    private void handleDirectMouseInput(int mouseX, int mouseY, int guiX, int guiY, int guiWidth, int guiHeight) {
-        if (client == null || client.getWindow() == null) return;
-        long window = client.getWindow().getHandle();
-        if (window == 0) return;
-
-        boolean leftDown = GLFW.glfwGetMouseButton(window, GLFW.GLFW_MOUSE_BUTTON_1) == GLFW.GLFW_PRESS;
-        boolean rightDown = GLFW.glfwGetMouseButton(window, GLFW.GLFW_MOUSE_BUTTON_2) == GLFW.GLFW_PRESS;
-
-        if (leftDown && !leftWasDown) {
-            processClick(mouseX, mouseY, 0, guiX, guiY, guiWidth, guiHeight);
-        }
-        if (rightDown && !rightWasDown) {
-            processClick(mouseX, mouseY, 1, guiX, guiY, guiWidth, guiHeight);
-        }
-
-        if (!leftDown) {
-            draggingSlider = null;
-        }
-
-        leftWasDown = leftDown;
-        rightWasDown = rightDown;
     }
 
     private void processClick(int mouseX, int mouseY, int button, int guiX, int guiY, int guiWidth, int guiHeight) {
@@ -419,6 +393,16 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        // Binding mode: any mouse button becomes the bind — EXCEPT left click (never bindable)
+        if (listeningSetting != null) {
+            if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
+                listeningSetting = null; // left click cancels instead of binding
+                return true;
+            }
+            listeningSetting.setValue(KeybindSetting.mouseCode(button));
+            listeningSetting = null;
+            return true;
+        }
         int guiWidth = Math.min(520, width - 20);
         int guiHeight = Math.min(300, height - 20);
         int guiX = (width - guiWidth) / 2;
@@ -442,44 +426,36 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (listeningSetting instanceof KeybindSetting keySetting) {
-            if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_DELETE) {
-                keySetting.setValue(GLFW.GLFW_KEY_UNKNOWN);
+        // 1. Keybind listening has top priority: ANY key (incl. mouse handled in mouseClicked) binds here
+        if (listeningSetting != null) {
+            if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_DELETE
+                    || keyCode == GLFW.GLFW_KEY_BACKSPACE) {
+                listeningSetting.setValue(GLFW.GLFW_KEY_UNKNOWN);
             } else {
-                keySetting.setValue(keyCode);
+                listeningSetting.setValue(keyCode);
             }
             listeningSetting = null;
             return true;
         }
 
+        // 2. Search field: control keys only — printable chars arrive via charTyped
+        // (covers ALL keyboard layouts: EN/RU/UZ; manual A-Z mapping broke non-Latin layouts)
         if (searchFocused) {
             if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {
                 if (!searchQuery.isEmpty()) {
                     searchQuery = searchQuery.substring(0, searchQuery.length() - 1);
                 }
                 return true;
-            } else if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            } else if (keyCode == GLFW.GLFW_KEY_ENTER) {
                 searchFocused = false;
                 return true;
-            } else if (keyCode == GLFW.GLFW_KEY_SPACE) {
-                searchQuery += " ";
-                return true;
-            } else if (keyCode >= GLFW.GLFW_KEY_A && keyCode <= GLFW.GLFW_KEY_Z) {
-                boolean shift = (modifiers & GLFW.GLFW_MOD_SHIFT) != 0;
-                char c = (char) ((shift ? 'A' : 'a') + (keyCode - GLFW.GLFW_KEY_A));
-                searchQuery += c;
-                return true;
-            } else if (keyCode >= GLFW.GLFW_KEY_0 && keyCode <= GLFW.GLFW_KEY_9) {
-                char c = (char) ('0' + (keyCode - GLFW.GLFW_KEY_0));
-                searchQuery += c;
-                return true;
-            } else if (keyCode == GLFW.GLFW_KEY_MINUS) {
-                searchQuery += "-";
-                return true;
-            } else if (keyCode == GLFW.GLFW_KEY_PERIOD) {
-                searchQuery += ".";
+            } else if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+                searchFocused = false;
                 return true;
             }
+            // Any other key while searching: swallow it so hotkeys don't leak through,
+            // printable result comes via charTyped right after.
+            return true;
         }
 
         if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT) {
@@ -492,10 +468,9 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public boolean charTyped(char chr, int modifiers) {
+        if (listeningSetting != null) return true; // don't leak typed chars into search while binding
         if (searchFocused && chr >= 32 && chr <= 126) {
-            if (!searchQuery.endsWith(String.valueOf(chr))) {
-                searchQuery += chr;
-            }
+            searchQuery += chr;
             return true;
         }
         return super.charTyped(chr, modifiers);

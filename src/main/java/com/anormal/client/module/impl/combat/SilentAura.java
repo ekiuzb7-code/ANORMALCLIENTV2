@@ -13,9 +13,9 @@ import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.SwordItem;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class SilentAura extends Module {
@@ -131,9 +131,8 @@ public class SilentAura extends Module {
         // Track getting hit for Select First Hit
         if (mc.player.hurtTime > 0) firstHitTaken = true;
 
-        // Weapon gate
-        if (weaponOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof SwordItem)
-                && !(mc.player.getMainHandStack().getItem() instanceof AxeItem)) {
+        // Weapon gate (id-based: no direct item-class refs, safe across 1.21.1 -> 1.21.11)
+        if (weaponOnly.isEnabled() && !isWeapon(mc.player.getMainHandStack().getItem())) {
             currentTarget = null;
             return;
         }
@@ -243,8 +242,9 @@ public class SilentAura extends Module {
     private double threatScore(LivingEntity living) {
         double score = living.getHealth();
         if (living instanceof PlayerEntity p) {
-            if (p.getMainHandStack().getItem() instanceof SwordItem) score += 4;
-            if (p.getMainHandStack().getItem() instanceof AxeItem) score += 3;
+            String heldId = heldItemId(p);
+            if (heldId.endsWith("_sword")) score += 4;
+            if (heldId.endsWith("_axe")) score += 3;
         }
         return score;
     }
@@ -324,7 +324,7 @@ public class SilentAura extends Module {
                             || m.getName().equalsIgnoreCase("AutoMace")));
         } catch (Throwable ignored) {}
         // Conservative: only bypass if player actually holds an axe (HitSwap/AutoMace proxy)
-        return mc.player.getMainHandStack().getItem() instanceof AxeItem;
+        return isAxe(mc.player.getMainHandStack().getItem());
     }
 
     // ---------- Attack ----------
@@ -344,6 +344,39 @@ public class SilentAura extends Module {
         if (percentChance <= 0) return false;
         if (percentChance >= 100) return true;
         return Math.random() * 100.0 < percentChance;
+    }
+
+    // ID-based item checks: no direct SwordItem/AxeItem class refs.
+    // The 1.21.1-built jar crashed on 1.21.11 with NoClassDefFoundError class_1829
+    // the moment Weapon Only was enabled, because that intermediary id no longer exists.
+    private static String heldItemId(PlayerEntity p) {
+        try {
+            Identifier id = Registries.ITEM.getId(p.getMainHandStack().getItem());
+            return id == null ? "" : id.getPath();
+        } catch (Throwable ignored) {
+            return "";
+        }
+    }
+
+    private static boolean isWeapon(net.minecraft.item.Item item) {
+        try {
+            Identifier id = Registries.ITEM.getId(item);
+            if (id == null) return false;
+            String path = id.getPath();
+            return path.endsWith("_sword") || path.endsWith("_axe")
+                    || path.equals("mace") || path.equals("trident");
+        } catch (Throwable ignored) {
+            return false;
+        }
+    }
+
+    private static boolean isAxe(net.minecraft.item.Item item) {
+        try {
+            Identifier id = Registries.ITEM.getId(item);
+            return id != null && id.getPath().endsWith("_axe");
+        } catch (Throwable ignored) {
+            return false;
+        }
     }
 
     public LivingEntity getCurrentTarget() {

@@ -1,8 +1,9 @@
 package com.anormal.client.gui;
 
+import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
 import com.anormal.client.module.ModuleManager;
-import com.anormal.client.module.impl.legit.*;
+import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.theme.ThemeManager;
 import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
@@ -11,6 +12,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,21 +25,30 @@ public class HudEditorScreen extends Screen {
     public static class HudElement {
         public final String name;
         public final Module module;
-        public int x;
-        public int y;
+        public final NumberSetting posX;
+        public final NumberSetting posY;
         public int width;
         public int height;
 
-        public HudElement(String name, Module module, int x, int y, int width, int height) {
+        public HudElement(String name, Module module, NumberSetting posX, NumberSetting posY, int width, int height) {
             this.name = name;
             this.module = module;
-            this.x = x;
-            this.y = y;
+            this.posX = posX;
+            this.posY = posY;
             this.width = width;
             this.height = height;
         }
 
+        public int getX() { return posX.getValue().intValue(); }
+        public int getY() { return posY.getValue().intValue(); }
+
+        public void setPos(int x, int y) {
+            posX.setValue((double) x);
+            posY.setValue((double) y);
+        }
+
         public boolean isHovered(int mouseX, int mouseY) {
+            int x = getX(), y = getY();
             return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
         }
     }
@@ -49,28 +60,51 @@ public class HudEditorScreen extends Screen {
         this.parentScreen = parentScreen;
     }
 
+    /** Finds posX/posY NumberSettings on any module via reflection. Null if not movable. */
+    public static NumberSetting[] findPosSettings(Module module) {
+        NumberSetting px = null, py = null;
+        for (Field f : module.getClass().getFields()) {
+            if (f.getType() == NumberSetting.class) {
+                try {
+                    NumberSetting s = (NumberSetting) f.get(module);
+                    if (s == null) continue;
+                    String n = s.getName().toLowerCase();
+                    if (n.contains("pos") && n.contains("x")) px = s;
+                    else if (n.contains("pos") && n.contains("y")) py = s;
+                } catch (Throwable ignored) {}
+            }
+        }
+        if (px == null || py == null) return null;
+        return new NumberSetting[]{px, py};
+    }
+
+    private static int[] defaultSize(Module module) {
+        return switch (module.getName()) {
+            case "Keystrokes" -> new int[]{70, 110};
+            case "Radar" -> new int[]{74, 74};
+            case "TargetInfo" -> new int[]{124, 40};
+            case "InventoryOverlay" -> new int[]{168, 64};
+            case "ArmorStatus" -> new int[]{60, 76};
+            case "PotionStatus" -> new int[]{150, 60};
+            case "Compass" -> new int[]{104, 18};
+            case "ReachDisplay" -> new int[]{130, 16};
+            case "DuelInfo" -> new int[]{130, 38};
+            case "PartyOverlay" -> new int[]{150, 80};
+            case "Rearview" -> new int[]{130, 36};
+            case "Scoreboard" -> new int[]{130, 100};
+            default -> new int[]{130, 18};
+        };
+    }
+
     @Override
     protected void init() {
         elements.clear();
-        Keystrokes ks = ModuleManager.getModule(Keystrokes.class);
-        if (ks != null) {
-            elements.add(new HudElement("Keystrokes", ks, ks.posX.getValue().intValue(), ks.posY.getValue().intValue(), 68, 70));
-        }
-        Coords coords = ModuleManager.getModule(Coords.class);
-        if (coords != null) {
-            elements.add(new HudElement("Coords", coords, coords.posX.getValue().intValue(), coords.posY.getValue().intValue(), 130, 16));
-        }
-        FPS fps = ModuleManager.getModule(FPS.class);
-        if (fps != null) {
-            elements.add(new HudElement("FPS", fps, fps.posX.getValue().intValue(), fps.posY.getValue().intValue(), 50, 16));
-        }
-        ArmorStatus armor = ModuleManager.getModule(ArmorStatus.class);
-        if (armor != null) {
-            elements.add(new HudElement("ArmorStatus", armor, armor.posX.getValue().intValue(), armor.posY.getValue().intValue(), 80, 20));
-        }
-        TargetInfo targetInfo = ModuleManager.getModule(TargetInfo.class);
-        if (targetInfo != null) {
-            elements.add(new HudElement("TargetInfo", targetInfo, targetInfo.posX.getValue().intValue(), targetInfo.posY.getValue().intValue(), 110, 36));
+        // Auto-discover EVERY movable overlay: any LEGIT module with posX/posY
+        for (Module m : ModuleManager.getModulesByCategory(Category.LEGIT)) {
+            NumberSetting[] pos = findPosSettings(m);
+            if (pos == null) continue;
+            int[] size = defaultSize(m);
+            elements.add(new HudElement(m.getName(), m, pos[0], pos[1], size[0], size[1]));
         }
     }
 
@@ -81,51 +115,42 @@ public class HudEditorScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        // Dark translucent overlay
         RenderUtils.fill(context, 0, 0, width, height, ColorUtils.rgba(0, 0, 0, 160));
 
-        // Top notification banner
-        String banner = "§6[HUD LAYOUT EDITOR] §fClick and drag elements to position anywhere on screen. Press §e[ESC]§f to save.";
+        String banner = "§6[HUD EDITOR] §fDrag = move  |  Right-click = on/off  |  §e[ESC]§f back";
         int bw = textRenderer.getWidth(banner);
         RenderUtils.fill(context, (width - bw) / 2 - 10, 10, (width + bw) / 2 + 10, 26, ColorUtils.rgba(15, 15, 20, 220));
         RenderUtils.drawBorder(context, (width - bw) / 2 - 10, 10, (width + bw) / 2 + 10, 26, 1, ThemeManager.getAccentColor());
         RenderUtils.drawText(context, textRenderer, banner, (width - bw) / 2, 15, 0xFFFFFFFF, true);
 
-        // Handle dragging
+        // Drag follows mouse, clamped to screen
         if (draggingElement != null) {
-            draggingElement.x = Math.max(0, Math.min(width - draggingElement.width, mouseX - dragOffsetX));
-            draggingElement.y = Math.max(0, Math.min(height - draggingElement.height, mouseY - dragOffsetY));
-
-            // Sync to module settings
-            if (draggingElement.module instanceof Keystrokes ks) {
-                ks.posX.setValue((double) draggingElement.x);
-                ks.posY.setValue((double) draggingElement.y);
-            } else if (draggingElement.module instanceof Coords c) {
-                c.posX.setValue((double) draggingElement.x);
-                c.posY.setValue((double) draggingElement.y);
-            } else if (draggingElement.module instanceof FPS f) {
-                f.posX.setValue((double) draggingElement.x);
-                f.posY.setValue((double) draggingElement.y);
-            } else if (draggingElement.module instanceof ArmorStatus a) {
-                a.posX.setValue((double) draggingElement.x);
-                a.posY.setValue((double) draggingElement.y);
-            } else if (draggingElement.module instanceof TargetInfo ti) {
-                ti.posX.setValue((double) draggingElement.x);
-                ti.posY.setValue((double) draggingElement.y);
-            }
+            int nx = Math.max(0, Math.min(width - draggingElement.width, mouseX - dragOffsetX));
+            int ny = Math.max(0, Math.min(height - draggingElement.height, mouseY - dragOffsetY));
+            draggingElement.setPos(nx, ny);
         }
 
-        // Render each HUD element bounding box
+        // Live preview: draw each overlay at its real position, then selection frame on top
         for (HudElement el : elements) {
+            boolean wasEnabled = el.module.isEnabled();
+            try {
+                el.module.setEnabled(true);
+                el.module.onRender2D(context, delta);
+            } catch (Throwable ignored) {
+            } finally {
+                if (!wasEnabled) el.module.setEnabled(false);
+            }
+
             boolean hovered = el.isHovered(mouseX, mouseY) || el == draggingElement;
-            int bg = hovered ? ColorUtils.rgba(255, 120, 0, 60) : ColorUtils.rgba(20, 25, 35, 120);
-            int border = hovered ? ThemeManager.getAccentColor() : ColorUtils.rgba(100, 110, 130, 180);
-
-            RenderUtils.fill(context, el.x, el.y, el.x + el.width, el.y + el.height, bg);
-            RenderUtils.drawBorder(context, el.x, el.y, el.x + el.width, el.y + el.height, 1, border);
-
-            String label = "§e" + el.name;
-            RenderUtils.drawText(context, textRenderer, label, el.x + 4, el.y + 4, 0xFFFFFFFF, true);
+            int x = el.getX(), y = el.getY();
+            if (!wasEnabled) {
+                RenderUtils.fill(context, x, y, x + el.width, y + el.height, ColorUtils.rgba(60, 60, 60, 80));
+            }
+            int border = !wasEnabled ? ColorUtils.rgba(120, 120, 120, 180)
+                    : (hovered ? ThemeManager.getAccentColor() : ColorUtils.rgba(100, 110, 130, 180));
+            RenderUtils.drawBorder(context, x, y, x + el.width, y + el.height, 1, border);
+            String label = (wasEnabled ? "§a● " : "§c○ ") + "§e" + el.name;
+            RenderUtils.drawText(context, textRenderer, label, x + 4, y - 10 < 28 ? y + 4 : y - 10, 0xFFFFFFFF, true);
         }
 
         super.render(context, mouseX, mouseY, delta);
@@ -133,12 +158,15 @@ public class HudEditorScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0) {
-            for (HudElement el : elements) {
-                if (el.isHovered((int) mouseX, (int) mouseY)) {
+        for (HudElement el : elements) {
+            if (el.isHovered((int) mouseX, (int) mouseY)) {
+                if (button == 0) {
                     draggingElement = el;
-                    dragOffsetX = (int) mouseX - el.x;
-                    dragOffsetY = (int) mouseY - el.y;
+                    dragOffsetX = (int) mouseX - el.getX();
+                    dragOffsetY = (int) mouseY - el.getY();
+                    return true;
+                } else if (button == 1) {
+                    el.module.toggle();
                     return true;
                 }
             }
