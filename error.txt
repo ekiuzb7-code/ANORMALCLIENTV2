@@ -1,14 +1,4 @@
 Run gradle remapJar --no-daemon --stacktrace
-
-Welcome to Gradle 9.2.1!
-
-Here are the highlights of this release:
- - Windows ARM support
- - Improved publishing APIs
- - Better guidance for dependency verification failures
-
-For more details see https://docs.gradle.org/9.2.1/release-notes.html
-
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 
@@ -18,286 +8,134 @@ Fabric Loom: 1.14.10
 Cannot remap modifiers because it does not exists in any of the targets [] or their parents.
 
 > Task :compileJava
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/BlockHit.java:7: error: cannot find symbol
-import net.minecraft.item.SwordItem;
-                         ^
-  symbol:   class SwordItem
-  location: package net.minecraft.item
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/Reach.java:10: error: cannot find symbol
-import net.minecraft.item.SwordItem;
-                         ^
-  symbol:   class SwordItem
-  location: package net.minecraft.item
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:12: error: cannot find symbol
-import net.minecraft.item.SwordItem;
-                         ^
-  symbol:   class SwordItem
-  location: package net.minecraft.item
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/AutoClicker.java:45: error: cannot find symbol
-        if (swordsOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.SwordItem || mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.AxeItem)) {
-                                                                                                            ^
-  symbol:   class SwordItem
-  location: package net.minecraft.item
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/BlockHit.java:22: error: cannot find symbol
-        if (mc.player.getMainHandStack().getItem() instanceof SwordItem) {
-                                                              ^
-  symbol:   class SwordItem
-  location: class BlockHit
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/SilentAura.java:235: error: cannot find symbol
-        if (targetArea.is("Center")) return living.getPos().add(0, living.getHeight() / 2.0, 0);
-                                                  ^
-  symbol:   method getPos()
-  location: variable living of type LivingEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/SilentAura.java:307: error: cannot find symbol
-        if (airCrits.isEnabled() && !mc.player.isOnGround() && !mc.player.isFallFlying()) {
-                                                                         ^
-  symbol:   method isFallFlying()
-  location: variable player of type ClientPlayerEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/Reach.java:29: error: cannot find symbol
-        if (weaponOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof SwordItem)) return;
-                                                                                          ^
-  symbol:   class SwordItem
-  location: class Reach
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/TimeChanger.java:18: error: cannot find symbol
-            mc.world.setTimeOfDay(time.getValue().longValue());
-                    ^
-  symbol:   method setTimeOfDay(long)
-  location: variable world of type ClientWorld
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:51: error: selectedSlot has private access in PlayerInventory
-                    previousSlot = mc.player.getInventory().selectedSlot;
-                                                           ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:53: error: selectedSlot has private access in PlayerInventory
-                if (mc.player.getInventory().selectedSlot != bestSlot) {
-                                            ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:54: error: selectedSlot has private access in PlayerInventory
-                    mc.player.getInventory().selectedSlot = bestSlot;
-                                            ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:60: error: selectedSlot has private access in PlayerInventory
-                mc.player.getInventory().selectedSlot = previousSlot;
-                                        ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/movement/InvMove.java:34: error: incompatible types: long cannot be converted to Window
-                key.setPressed(InputUtil.isKeyPressed(handle, code));
-                                                      ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:38: error: selectedSlot has private access in PlayerInventory
-                mc.player.getInventory().selectedSlot = originalSlot;
-                                        ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:58: error: selectedSlot has private access in PlayerInventory
-                originalSlot = mc.player.getInventory().selectedSlot;
-                                                       ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:59: error: selectedSlot has private access in PlayerInventory
-                mc.player.getInventory().selectedSlot = axeSlot;
-                                        ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:62: error: selectedSlot has private access in PlayerInventory
-                originalSlot = mc.player.getInventory().selectedSlot;
-                                                       ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:63: error: selectedSlot has private access in PlayerInventory
-                mc.player.getInventory().selectedSlot = maceSlot;
-                                        ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/Clutch.java:45: error: selectedSlot has private access in PlayerInventory
-                mc.player.getInventory().selectedSlot = blockSlot;
-                                        ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:44: error: selectedSlot has private access in PlayerInventory
-                    mc.player.getInventory().selectedSlot = emptyBucket;
-                                            ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:67: error: selectedSlot has private access in PlayerInventory
-                    mc.player.getInventory().selectedSlot = waterSlot;
-                                            ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:12: error: cannot find symbol
+import net.minecraft.client.gui.KeyInput;
+                               ^
+  symbol:   class KeyInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:196: error: cannot find symbol
+    public boolean keyPressed(KeyInput input) {
+                              ^
+  symbol:   class KeyInput
+  location: class HudEditorScreen
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:13: error: cannot find symbol
+import net.minecraft.client.gui.KeyInput;
+                               ^
+  symbol:   class KeyInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:14: error: cannot find symbol
+import net.minecraft.client.gui.CharInput;
+                               ^
+  symbol:   class CharInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:441: error: cannot find symbol
+    public boolean keyPressed(KeyInput input) {
+                              ^
+  symbol:   class KeyInput
+  location: class ClickGuiScreen
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:485: error: cannot find symbol
+    public boolean charTyped(CharInput input) {
+                             ^
+  symbol:   class CharInput
+  location: class ClickGuiScreen
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:8: error: cannot find symbol
+import net.minecraft.client.gui.CharInput;
+                               ^
+  symbol:   class CharInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:11: error: cannot find symbol
+import net.minecraft.client.gui.KeyInput;
+                               ^
+  symbol:   class KeyInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:244: error: cannot find symbol
+    public boolean keyPressed(KeyInput input) {
+                              ^
+  symbol:   class KeyInput
+  location: class XRayBlockSelectorScreen
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:271: error: cannot find symbol
+    public boolean charTyped(CharInput input) {
+                             ^
+  symbol:   class CharInput
+  location: class XRayBlockSelectorScreen
 /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java:31: error: cannot find symbol
-                ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta(false));
+                ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta());
                                                                        ^
-  symbol:   method getTickDelta(boolean)
+  symbol:   method getTickDelta()
   location: variable renderTickCounter of type RenderTickCounter
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:183: error: method mouseClicked in interface ParentElement cannot be applied to given types;
-        return super.mouseClicked(mouseX, mouseY, button);
-                    ^
-  required: Click,boolean
-  found:    double,double,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:186: error: method does not override or implement a method from a supertype
-    @Override
-    ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:191: error: method mouseReleased in interface ParentElement cannot be applied to given types;
-        return super.mouseReleased(mouseX, mouseY, button);
-                    ^
-  required: Click
-  found:    double,double,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:194: error: method does not override or implement a method from a supertype
-    @Override
-    ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:202: error: method keyPressed in class Screen cannot be applied to given types;
-        return super.keyPressed(keyCode, scanCode, modifiers);
-                    ^
-  required: KeyInput
-  found:    int,int,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:426: error: method does not override or implement a method from a supertype
-    @Override
-    ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:429: error: method mouseReleased in interface ParentElement cannot be applied to given types;
+Note: /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+11 errors
+
+> Task :compileJava FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790854652864.json
+
+
+FAILURE: Build failed with an exception.
 [Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
+
+* What went wrong:
 Execution failed for task ':compileJava'.
 > Compilation failed; see the compiler output below.
-1 actionable task: 1 executed
   Note: /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java uses or overrides a deprecated API.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:183: error: method mouseClicked in interface ParentElement cannot be applied to given types;
-          return super.mouseClicked(mouseX, mouseY, button);
-                      ^
-    required: Click,boolean
-    found:    double,double,int
-    reason: actual and formal argument lists differ in length
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:191: error: method mouseReleased in interface ParentElement cannot be applied to given types;
-          return super.mouseReleased(mouseX, mouseY, button);
-                      ^
-    required: Click
-    found:    double,double,int
-    reason: actual and formal argument lists differ in length
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:202: error: method keyPressed in class Screen cannot be applied to given types;
-          return super.keyPressed(keyCode, scanCode, modifiers);
-                      ^
-    required: KeyInput
-    found:    int,int,int
-    reason: actual and formal argument lists differ in length
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:429: error: method mouseReleased in interface ParentElement cannot be applied to given types;
-          return super.mouseReleased(mouseX, mouseY, button);
-                      ^
-    required: Click
-    found:    double,double,int
-    reason: actual and formal argument lists differ in length
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:477: error: method keyPressed in class Screen cannot be applied to given types;
-          return super.keyPressed(keyCode, scanCode, modifiers);
-                      ^
-    required: KeyInput
-    found:    int,int,int
-    reason: actual and formal argument lists differ in length
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:487: error: method charTyped in interface ParentElement cannot be applied to given types;
-          return super.charTyped(chr, modifiers);
-                      ^
-    required: CharInput
-    found:    char,int
-    reason: actual and formal argument lists differ in length
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:232: error: method mouseClicked in interface ParentElement cannot be applied to given types;
-          return super.mouseClicked(mouseX, mouseY, button);
-                      ^
-    required: Click,boolean
-    found:    double,double,int
-    reason: actual and formal argument lists differ in length
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:282: error: method keyPressed in class Screen cannot be applied to given types;
-          return super.keyPressed(keyCode, scanCode, modifiers);
-                      ^
-    required: KeyInput
-    found:    int,int,int
-    reason: actual and formal argument lists differ in length
   Note: Recompile with -Xlint:deprecation for details.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/movement/InvMove.java:34: error: incompatible types: long cannot be converted to Window
-                  key.setPressed(InputUtil.isKeyPressed(handle, code));
-                                                        ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/BlockHit.java:7: error: cannot find symbol
-  import net.minecraft.item.SwordItem;
-                           ^
-    symbol:   class SwordItem
-    location: package net.minecraft.item
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/Reach.java:10: error: cannot find symbol
-  import net.minecraft.item.SwordItem;
-                           ^
-    symbol:   class SwordItem
-    location: package net.minecraft.item
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:12: error: cannot find symbol
-  import net.minecraft.item.SwordItem;
-                           ^
-    symbol:   class SwordItem
-    location: package net.minecraft.item
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/AutoClicker.java:45: error: cannot find symbol
-          if (swordsOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.SwordItem || mc.player.getMainHandStack().getItem() instanceof net.minecraft.item.AxeItem)) {
-                                                                                                              ^
-    symbol:   class SwordItem
-    location: package net.minecraft.item
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/BlockHit.java:22: error: cannot find symbol
-          if (mc.player.getMainHandStack().getItem() instanceof SwordItem) {
-                                                                ^
-    symbol:   class SwordItem
-    location: class BlockHit
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/Reach.java:29: error: cannot find symbol
-          if (weaponOnly.isEnabled() && !(mc.player.getMainHandStack().getItem() instanceof SwordItem)) return;
-                                                                                            ^
-    symbol:   class SwordItem
-    location: class Reach
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:51: error: selectedSlot has private access in PlayerInventory
-                      previousSlot = mc.player.getInventory().selectedSlot;
-                                                             ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:53: error: selectedSlot has private access in PlayerInventory
-                  if (mc.player.getInventory().selectedSlot != bestSlot) {
-                                              ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:54: error: selectedSlot has private access in PlayerInventory
-                      mc.player.getInventory().selectedSlot = bestSlot;
-                                              ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/AutoTool.java:60: error: selectedSlot has private access in PlayerInventory
-                  mc.player.getInventory().selectedSlot = previousSlot;
-                                          ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:38: error: selectedSlot has private access in PlayerInventory
-                  mc.player.getInventory().selectedSlot = originalSlot;
-                                          ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:58: error: selectedSlot has private access in PlayerInventory
-                  originalSlot = mc.player.getInventory().selectedSlot;
-                                                         ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:59: error: selectedSlot has private access in PlayerInventory
-                  mc.player.getInventory().selectedSlot = axeSlot;
-                                          ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:62: error: selectedSlot has private access in PlayerInventory
-                  originalSlot = mc.player.getInventory().selectedSlot;
-                                                         ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/HitSwap.java:63: error: selectedSlot has private access in PlayerInventory
-                  mc.player.getInventory().selectedSlot = maceSlot;
-                                          ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/Clutch.java:45: error: selectedSlot has private access in PlayerInventory
-                  mc.player.getInventory().selectedSlot = blockSlot;
-                                          ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:44: error: selectedSlot has private access in PlayerInventory
-                      mc.player.getInventory().selectedSlot = emptyBucket;
-                                              ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:67: error: selectedSlot has private access in PlayerInventory
-                      mc.player.getInventory().selectedSlot = waterSlot;
-                                              ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:186: error: method does not override or implement a method from a supertype
-      @Override
-      ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:194: error: method does not override or implement a method from a supertype
-      @Override
-      ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:426: error: method does not override or implement a method from a supertype
-      @Override
-      ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:438: error: method does not override or implement a method from a supertype
-      @Override
-      ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:480: error: method does not override or implement a method from a supertype
-      @Override
-      ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:241: error: method does not override or implement a method from a supertype
-      @Override
-      ^
-  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/SilentAura.java:235: error: cannot find symbol
-          if (targetArea.is("Center")) return living.getPos().add(0, living.getHeight() / 2.0, 0);
-                                                    ^
-    symbol:   method getPos()
-    location: variable living of type LivingEntity
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/combat/SilentAura.java:307: error: cannot find symbol
-          if (airCrits.isEnabled() && !mc.player.isOnGround() && !mc.player.isFallFlying()) {
-                                                                           ^
-    symbol:   method isFallFlying()
-    location: variable player of type ClientPlayerEntity
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/TimeChanger.java:18: error: cannot find symbol
-              mc.world.setTimeOfDay(time.getValue().longValue());
-                      ^
-    symbol:   method setTimeOfDay(long)
-    location: variable world of type ClientWorld
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:12: error: cannot find symbol
+  import net.minecraft.client.gui.KeyInput;
+                                 ^
+    symbol:   class KeyInput
+    location: package net.minecraft.client.gui
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:196: error: cannot find symbol
+      public boolean keyPressed(KeyInput input) {
+                                ^
+    symbol:   class KeyInput
+    location: class HudEditorScreen
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:13: error: cannot find symbol
+  import net.minecraft.client.gui.KeyInput;
+                                 ^
+    symbol:   class KeyInput
+    location: package net.minecraft.client.gui
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:14: error: cannot find symbol
+  import net.minecraft.client.gui.CharInput;
+                                 ^
+    symbol:   class CharInput
+    location: package net.minecraft.client.gui
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:441: error: cannot find symbol
+      public boolean keyPressed(KeyInput input) {
+                                ^
+    symbol:   class KeyInput
+    location: class ClickGuiScreen
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:485: error: cannot find symbol
+      public boolean charTyped(CharInput input) {
+                               ^
+    symbol:   class CharInput
+1 actionable task: 1 executed
+    location: class ClickGuiScreen
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:8: error: cannot find symbol
+  import net.minecraft.client.gui.CharInput;
+                                 ^
+    symbol:   class CharInput
+    location: package net.minecraft.client.gui
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:11: error: cannot find symbol
+  import net.minecraft.client.gui.KeyInput;
+                                 ^
+    symbol:   class KeyInput
+    location: package net.minecraft.client.gui
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:244: error: cannot find symbol
+      public boolean keyPressed(KeyInput input) {
+                                ^
+    symbol:   class KeyInput
+    location: class XRayBlockSelectorScreen
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:271: error: cannot find symbol
+      public boolean charTyped(CharInput input) {
+                               ^
+    symbol:   class CharInput
+    location: class XRayBlockSelectorScreen
   /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java:31: error: cannot find symbol
-                  ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta(false));
+                  ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta());
                                                                          ^
-    symbol:   method getTickDelta(boolean)
+    symbol:   method getTickDelta()
     location: variable renderTickCounter of type RenderTickCounter
-  37 errors
+  11 errors
 
 * Try:
 > Check your code and dependencies to fix the compilation error(s)
@@ -340,64 +178,63 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
 Note: /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java uses or overrides a deprecated API.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:183: error: method mouseClicked in interface ParentElement cannot be applied to given types;
-        return super.mouseClicked(mouseX, mouseY, button);
-                    ^
-  required: Click,boolean
-  found:    double,double,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:191: error: method mouseReleased in interface ParentElement cannot be applied to given types;
-        return super.mouseReleased(mouseX, mouseY, button);
-                    ^
-  required: Click
-  found:    double,double,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:202: error: method keyPressed in class Screen cannot be applied to given types;
-        return super.keyPressed(keyCode, scanCode, modifiers);
-                    ^
-  required: KeyInput
-  found:    int,int,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:429: error: method mouseReleased in interface ParentElement cannot be applied to given types;
-        return super.mouseReleased(mouseX, mouseY, button);
-                    ^
-  required: Click
-  found:    double,double,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:477: error: method keyPressed in class Screen cannot be applied to given types;
-        return super.keyPressed(keyCode, scanCode, modifiers);
-                    ^
-  required: KeyInput
-  found:    int,int,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:487: error: method charTyped in interface ParentElement cannot be applied to given types;
-        return super.charTyped(chr, modifiers);
-                    ^
-  required: CharInput
-  found:    char,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:232: error: method mouseClicked in interface ParentElement cannot be applied to given types;
-        return super.mouseClicked(mouseX, mouseY, button);
-                    ^
-  required: Click,boolean
-  found:    double,double,int
-  reason: actual and formal argument lists differ in length
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:282: error: method keyPressed in class Screen cannot be applied to given types;
-        return super.keyPressed(keyCode, scanCode, modifiers);
-                    ^
-  symbol:   method isFallFlying()
-  location: variable player of type ClientPlayerEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/TimeChanger.java:18: error: cannot find symbol
-            mc.world.setTimeOfDay(time.getValue().longValue());
-                    ^
-  symbol:   method setTimeOfDay(long)
-  location: variable world of type ClientWorld
+Note: Recompile with -Xlint:deprecation for details.
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:12: error: cannot find symbol
+import net.minecraft.client.gui.KeyInput;
+                               ^
+  symbol:   class KeyInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/HudEditorScreen.java:196: error: cannot find symbol
+    public boolean keyPressed(KeyInput input) {
+                              ^
+  symbol:   class KeyInput
+  location: class HudEditorScreen
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:13: error: cannot find symbol
+import net.minecraft.client.gui.KeyInput;
+                               ^
+  symbol:   class KeyInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:14: error: cannot find symbol
+import net.minecraft.client.gui.CharInput;
+                               ^
+  symbol:   class CharInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:441: error: cannot find symbol
+    public boolean keyPressed(KeyInput input) {
+                              ^
+  symbol:   class KeyInput
+  location: class ClickGuiScreen
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:485: error: cannot find symbol
+    public boolean charTyped(CharInput input) {
+                             ^
+  symbol:   class CharInput
+  location: class ClickGuiScreen
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:8: error: cannot find symbol
+import net.minecraft.client.gui.CharInput;
+                               ^
+  symbol:   class CharInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:11: error: cannot find symbol
+import net.minecraft.client.gui.KeyInput;
+                               ^
+  symbol:   class KeyInput
+  location: package net.minecraft.client.gui
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:244: error: cannot find symbol
+    public boolean keyPressed(KeyInput input) {
+                              ^
+  symbol:   class KeyInput
+  location: class XRayBlockSelectorScreen
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/XRayBlockSelectorScreen.java:271: error: cannot find symbol
+    public boolean charTyped(CharInput input) {
+                             ^
+  symbol:   class CharInput
+  location: class XRayBlockSelectorScreen
 /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/AnormalClient.java:31: error: cannot find symbol
-                ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta(false));
+                ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta());
                                                                        ^
-  symbol:   method getTickDelta(boolean)
+  symbol:   method getTickDelta()
   location: variable renderTickCounter of type RenderTickCounter
-37 errors
+11 errors
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
@@ -521,4 +358,5 @@ Note: /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anorma
 	... 30 more
 
 
-BUILD FAILED in 52s
+BUILD FAILED in 17s
+Error: Process completed with exit code 1.

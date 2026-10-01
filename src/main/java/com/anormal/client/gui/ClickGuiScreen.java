@@ -10,8 +10,8 @@ import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.KeyInput;
-import net.minecraft.client.gui.CharInput;
+import net.minecraft.client.input.CharInput;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
@@ -483,11 +483,14 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public boolean charTyped(CharInput input) {
-        char chr = input.character();
         if (listeningSetting != null) return true; // don't leak typed chars into search while binding
-        if (searchFocused && chr >= 32 && chr <= 126) {
-            searchQuery += chr;
-            return true;
+        String s = input.asString();
+        if (searchFocused && s.length() == 1) {
+            char chr = s.charAt(0);
+            if (chr >= 32 && chr <= 126) {
+                searchQuery += chr;
+                return true;
+            }
         }
         return super.charTyped(input);
     }

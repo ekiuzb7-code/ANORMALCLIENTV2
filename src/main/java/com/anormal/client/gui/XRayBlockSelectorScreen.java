@@ -5,10 +5,10 @@ import com.anormal.client.theme.ThemeManager;
 import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.CharInput;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.KeyInput;
+import net.minecraft.client.input.CharInput;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -269,11 +269,14 @@ public class XRayBlockSelectorScreen extends Screen {
 
     @Override
     public boolean charTyped(CharInput input) {
-        char chr = input.character();
-        if (searchFocused && chr >= 32 && chr <= 126) {
-            searchQuery += chr;
-            updateFilter();
-            return true;
+        String s = input.asString();
+        if (searchFocused && s.length() == 1) {
+            char chr = s.charAt(0);
+            if (chr >= 32 && chr <= 126) {
+                searchQuery += chr;
+                updateFilter();
+                return true;
+            }
         }
         return super.charTyped(input);
     }

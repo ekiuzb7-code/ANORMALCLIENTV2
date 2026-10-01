@@ -28,7 +28,7 @@ public class AnormalClient implements ClientModInitializer {
         // Register Fabric HUD Render Callback for 2D HUD overlays
         try {
             HudRenderCallback.EVENT.register((drawContext, renderTickCounter) -> {
-                ModuleManager.onRender2D(drawContext, renderTickCounter.getTickDelta());
+                ModuleManager.onRender2D(drawContext, renderTickCounter.getTickProgress(false));
             });
         } catch (Throwable t) {
             System.out.println("[" + CLIENT_NAME + "] HudRenderCallback note: " + t.getMessage());
