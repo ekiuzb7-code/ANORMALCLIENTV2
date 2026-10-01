@@ -174,7 +174,11 @@ public class ESP extends Module {
             double cx = dx * rx + dz * rz;
             double cy = dx * ux + dy * uy + dz * uz;
             int w = mc.getWindow().getScaledWidth(), hh = mc.getWindow().getScaledHeight();
-            double f = (hh / 2.0) / Math.tan(Math.toRadians(35.0));
+            int fov = 70;
+            try {
+                fov = mc.options.getFov().getValue();
+            } catch (Throwable ignored) {}
+            double f = (hh / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, fov)) / 2.0));
             return new int[]{(int) (w / 2.0 + cx / depth * f), (int) (hh / 2.0 - cy / depth * f)};
         } catch (Throwable t) {
             return null;

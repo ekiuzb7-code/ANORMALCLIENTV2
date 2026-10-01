@@ -76,6 +76,10 @@ public class CrystalAura extends Module {
         LivingEntity target = selectTarget();
         if (target == null) { lastTarget = null; return; }
         if (showTarget.isEnabled()) lastTarget = target;
+        // Auto place: no crystal in range to break -> put one on obsidian near target
+        if (!manual && cooldown <= 0) {
+            if (tryPlace(target, waitForPlace())) return;
+        }
         EndCrystalEntity best = null;
         double bestEff = -1.0;
         for (Entity e : mc.world.getEntities()) {
@@ -102,6 +106,80 @@ public class CrystalAura extends Module {
         crystalCount++;
         if (showTarget.isEnabled()) lastCrystal = best;
         cooldown = rapid ? 0 : (opt.equalsIgnoreCase("Predict") ? Math.max(0, wait - 2) : wait);
+    }
+
+    private int waitForPlace() {
+        return delay.getValue().intValue();
+    }
+
+    // Places an end crystal on obsidian/bedrock near the target, returns true if placed
+    private boolean tryPlace(LivingEntity target, int wait) {
+        try {
+            if (!autoObsidian.isEnabled() && !heldCrystal()) return false;
+            int crystalSlot = -1;
+            for (int i = 0; i < 9; i++) {
+                try {
+                    Identifier id = Registries.ITEM.getId(mc.player.getInventory().getStack(i).getItem());
+                    if (id != null && id.getPath().equals("end_crystal")) {
+                        crystalSlot = i;
+                        break;
+                    }
+                } catch (Throwable ignored) {}
+            }
+            if (crystalSlot == -1) return false;
+
+            net.minecraft.util.math.BlockPos bestBase = null;
+            double bestDist = Double.MAX_VALUE;
+            net.minecraft.util.math.BlockPos origin = target.getBlockPos();
+            for (int x = -3; x <= 3; x++)
+                for (int y = -2; y <= 2; y++)
+                    for (int z = -3; z <= 3; z++) {
+                        net.minecraft.util.math.BlockPos base = origin.add(x, y, z);
+                        net.minecraft.util.math.BlockPos above = base.up();
+                        net.minecraft.util.math.BlockPos above2 = base.up(2);
+                        try {
+                            if (!mc.world.isChunkLoaded(base)) continue;
+                            String path = Registries.BLOCK.getId(mc.world.getBlockState(base).getBlock()).getPath();
+                            if (!path.equals("obsidian") && !path.equals("bedrock")) continue;
+                            if (!mc.world.isAir(above) || !mc.world.isAir(above2)) continue;
+                            double ddx = (base.getX() + 0.5) - mc.player.getX();
+                            double ddy = (base.getY() + 0.5) - mc.player.getY();
+                            double ddz = (base.getZ() + 0.5) - mc.player.getZ();
+                            double d = Math.sqrt(ddx * ddx + ddy * ddy + ddz * ddz);
+                            if (d <= range.getValue() + 1.0 && d < bestDist) {
+                                bestDist = d;
+                                bestBase = base;
+                            }
+                        } catch (Throwable ignored) {}
+                    }
+            if (bestBase == null) return false;
+
+            // Anti-suicide on the predicted placement
+            double sdx = (bestBase.getX() + 0.5) - mc.player.getX();
+            double sdy = (bestBase.getY() + 0.5) - mc.player.getY();
+            double sdz = (bestBase.getZ() + 0.5) - mc.player.getZ();
+            double selfDist = Math.sqrt(sdx * sdx + sdy * sdy + sdz * sdz);
+            double self = Math.max(0.0, 4.0 - selfDist) * 2.5;
+            if (antiSuicide.isEnabled() && (self > maxSelfDamage.getValue() || mc.player.getHealth() - self <= 0.0)) return false;
+
+            int prev = mc.player.getInventory().getSelectedSlot();
+            mc.player.getInventory().setSelectedSlot(crystalSlot);
+            try {
+                BlockHitResult bhr = new BlockHitResult(
+                        new Vec3d(bestBase.getX() + 0.5, bestBase.getY() + 1.0, bestBase.getZ() + 0.5),
+                        net.minecraft.util.math.Direction.UP, bestBase, false);
+                mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
+                mc.player.swingHand(Hand.MAIN_HAND);
+            } finally {
+                try {
+                    mc.player.getInventory().setSelectedSlot(prev);
+                } catch (Throwable ignored) {}
+            }
+            cooldown = Math.max(1, wait);
+            return true;
+        } catch (Throwable ignored) {
+            return false;
+        }
     }
 
     private LivingEntity selectTarget() {
