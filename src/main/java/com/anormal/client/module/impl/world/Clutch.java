@@ -53,7 +53,7 @@ public class Clutch extends Module {
                 mc.player.getInventory().setSelectedSlot(blockSlot);
 
                 BlockPos playerPos = mc.player.getBlockPos();
-                int depth = Math.min((int) maxBlocks.getValue(), 12);
+                int depth = Math.min(maxBlocks.getValue().intValue(), 12);
                 BlockPos[] checkPositions = {
                     playerPos.down(),
                     playerPos.down(2),

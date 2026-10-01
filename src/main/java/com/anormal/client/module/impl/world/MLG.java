@@ -61,7 +61,7 @@ public class MLG extends Module {
             return;
         }
         if (mc.player.isOnGround() || mc.player.getVelocity().y >= -0.4) return;
-        float falling = mc.player.fallDistance;
+        double falling = mc.player.fallDistance;
         boolean lethal = false;
         try {
             lethal = falling + 3.0f >= mc.player.getHealth() + mc.player.getAbsorptionAmount();

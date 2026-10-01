@@ -83,7 +83,7 @@ public class Chams extends Module {
         try {
             if (mc.getNetworkHandler() == null) return false;
             for (PlayerListEntry e : mc.getNetworkHandler().getPlayerList())
-                if (e.getProfile().getId().equals(p.getUuid())) return false;
+                if (e.getProfile().id().equals(p.getUuid())) return false;
             return true;
         } catch (Throwable t) {
             return false;

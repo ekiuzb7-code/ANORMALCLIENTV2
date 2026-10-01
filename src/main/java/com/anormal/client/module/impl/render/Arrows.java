@@ -132,7 +132,7 @@ public class Arrows extends Module {
         try {
             if (mc.getNetworkHandler() == null) return true;
             for (PlayerListEntry e : mc.getNetworkHandler().getPlayerList())
-                if (e.getProfile().getId().equals(p.getUuid())) return true;
+                if (e.getProfile().id().equals(p.getUuid())) return true;
         } catch (Throwable ignored) {}
         return true;
     }

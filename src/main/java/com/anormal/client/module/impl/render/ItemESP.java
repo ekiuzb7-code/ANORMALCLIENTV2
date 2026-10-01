@@ -128,13 +128,9 @@ public class ItemESP extends Module {
     }
 
     private void drawTag(DrawContext context, int x, int y, String text, float s) {
-        int w = mc.textRenderer.getWidth(text);
-        context.getMatrices().push();
-        context.getMatrices().translate(x, y, 0);
-        context.getMatrices().scale(s, s, 1);
-        context.fill(-w / 2 - 3, -12, w / 2 + 3, 2, 0xAA000000);
-        RenderUtils.drawText(context, mc.textRenderer, text, -w / 2, -9, color.getValue(), true);
-        context.getMatrices().pop();
+        int w = (int) (mc.textRenderer.getWidth(text) * s);
+        context.fill(x - w / 2 - 3, y - 12, x + w / 2 + 3, y + 2, 0xAA000000);
+        RenderUtils.drawText(context, mc.textRenderer, text, x - mc.textRenderer.getWidth(text) / 2, y - 9, color.getValue(), true);
     }
 
     private int[] project(Vec3d p) {

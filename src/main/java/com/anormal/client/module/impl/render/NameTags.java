@@ -189,7 +189,7 @@ public class NameTags extends Module {
         try {
             if (mc.getNetworkHandler() == null) return false;
             for (PlayerListEntry e : mc.getNetworkHandler().getPlayerList())
-                if (e.getProfile().getId().equals(p.getUuid())) return false;
+                if (e.getProfile().id().equals(p.getUuid())) return false;
             return true;
         } catch (Throwable t) {
             return false;
@@ -199,15 +199,11 @@ public class NameTags extends Module {
     private void drawTag(DrawContext context, int x, int y, String l1, String l2, float s) {
         int w1 = mc.textRenderer.getWidth(l1);
         int w2 = l2.isEmpty() ? 0 : mc.textRenderer.getWidth(l2);
-        int w = Math.max(w1, w2);
-        int tall = l2.isEmpty() ? 14 : 24;
-        context.getMatrices().push();
-        context.getMatrices().translate(x, y, 0);
-        context.getMatrices().scale(s, s, 1);
-        context.fill(-w / 2 - 3, -tall, w / 2 + 3, 2, 0xAA000000);
-        RenderUtils.drawText(context, mc.textRenderer, l1, -w1 / 2, -tall + 3, 0xFFFFFFFF, true);
-        if (!l2.isEmpty()) RenderUtils.drawText(context, mc.textRenderer, l2, -w2 / 2, -tall + 13, 0xFFFFCC55, true);
-        context.getMatrices().pop();
+        int w = (int) (Math.max(w1, w2) * s);
+        int tall = (int) ((l2.isEmpty() ? 14 : 24) * s);
+        context.fill(x - w / 2 - 3, y - tall, x + w / 2 + 3, y + 2, 0xAA000000);
+        RenderUtils.drawText(context, mc.textRenderer, l1, x - w1 / 2, y - tall + 3, 0xFFFFFFFF, true);
+        if (!l2.isEmpty()) RenderUtils.drawText(context, mc.textRenderer, l2, x - w2 / 2, y - tall + 13, 0xFFFFCC55, true);
     }
 
     private int[] project(Vec3d p) {
