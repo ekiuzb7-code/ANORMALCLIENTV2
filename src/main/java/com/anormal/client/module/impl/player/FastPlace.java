@@ -32,8 +32,16 @@ public class FastPlace extends Module {
         ItemStack held = mc.player.getMainHandStack();
         if (blocksOnly.isEnabled() && !(held.getItem() instanceof BlockItem)) return;
 
-        // Only place when actually aiming at a block face — never into air
+        // Only place when actually aiming at a block face within reach — never into air
         if (mc.crosshairTarget instanceof net.minecraft.util.hit.BlockHitResult bhr) {
+            try {
+                double dx = (bhr.getBlockPos().getX() + 0.5) - mc.player.getX();
+                double dy = (bhr.getBlockPos().getY() + 0.5) - mc.player.getY();
+                double dz = (bhr.getBlockPos().getZ() + 0.5) - mc.player.getZ();
+                if (dx * dx + dy * dy + dz * dz > 25.0) return; // server would reject: ghost block
+            } catch (Throwable ignored) {
+                return;
+            }
             mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
             mc.player.swingHand(Hand.MAIN_HAND);
             cooldown = delay.getValue().intValue();

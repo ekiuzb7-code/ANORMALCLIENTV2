@@ -117,18 +117,24 @@ public class Freecam extends Module {
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        // Marker on the frozen body so you always see where YOU are
+        // Character outline on the frozen body so you always see where YOU are
         if (!showPlayer.isEnabled() || mc.player == null || !active) return;
-        int[] sc = project(new Vec3d(anchorX, anchorY + 1.0, anchorZ));
-        if (sc == null) return;
+        int[] feet = project(new Vec3d(anchorX, anchorY, anchorZ));
+        int[] head = project(new Vec3d(anchorX, anchorY + 1.8, anchorZ));
+        if (feet == null || head == null) return;
+        int top = Math.min(feet[1], head[1]);
+        int bottom = Math.max(feet[1], head[1]);
+        int half = Math.max(6, (bottom - top) / 5);
+        int cx = (feet[0] + head[0]) / 2;
         int col = 0xFF55FF55;
-        context.fill(sc[0] - 4, sc[1] - 14, sc[0] + 4, sc[1] - 13, col);
-        context.fill(sc[0] - 4, sc[1] - 14, sc[0] - 3, sc[1] - 4, col);
-        context.fill(sc[0] + 3, sc[1] - 14, sc[0] + 4, sc[1] - 4, col);
-        context.fill(sc[0] - 4, sc[1] - 4, sc[0] + 4, sc[1] - 3, col);
+        // Outline rect
+        context.fill(cx - half, top, cx + half, top + 1, col);
+        context.fill(cx - half, bottom - 1, cx + half, bottom, col);
+        context.fill(cx - half, top, cx - half + 1, bottom, col);
+        context.fill(cx + half - 1, top, cx + half, bottom, col);
         if (mc.textRenderer != null) {
             String label = "YOU";
-            context.drawText(mc.textRenderer, label, sc[0] - mc.textRenderer.getWidth(label) / 2, sc[1] - 24, col, true);
+            context.drawText(mc.textRenderer, label, cx - mc.textRenderer.getWidth(label) / 2, top - 11, col, true);
         }
     }
 

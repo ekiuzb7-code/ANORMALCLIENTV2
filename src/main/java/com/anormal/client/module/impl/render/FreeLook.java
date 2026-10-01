@@ -18,6 +18,10 @@ public class FreeLook extends Module {
 
     private Perspective savedPerspective;
     private double savedSensitivity = -1;
+    // Detached look: camera follows these, body keeps base facing
+    private float baseYaw, basePitch;
+    private float lookYaw, lookPitch;
+    private boolean active = false;
 
     public FreeLook() {
         super("FreeLook", "Detached 3rd-person camera allowing free view rotations", Category.RENDER, GLFW.GLFW_KEY_V);
@@ -30,6 +34,14 @@ public class FreeLook extends Module {
 
     @Override
     public void onEnable() {
+        active = false;
+        if (mc.player != null) {
+            baseYaw = mc.player.getYaw();
+            basePitch = mc.player.getPitch();
+            lookYaw = baseYaw;
+            lookPitch = basePitch;
+            active = true;
+        }
         try {
             savedPerspective = mc.options.getPerspective();
             // Forward = see where you're going (back cam), Backward = face cam (behind you)
@@ -49,7 +61,12 @@ public class FreeLook extends Module {
 
     @Override
     public void onDisable() {
+        active = false;
         try {
+            if (restoreView.isEnabled() && mc.player != null) {
+                mc.player.setYaw(baseYaw);
+                mc.player.setPitch(basePitch);
+            }
             if (restoreView.isEnabled() && savedPerspective != null) mc.options.setPerspective(savedPerspective);
             if (savedSensitivity >= 0) {
                 try {
@@ -65,6 +82,16 @@ public class FreeLook extends Module {
 
     @Override
     public void onTick() {
+        // Mouse-look drives the detached CAMERA (via CameraMixin):
+        // steal player rotation, then restore body facing
+        if (active && mc.player != null) {
+            try {
+                lookYaw = mc.player.getYaw();
+                lookPitch = mc.player.getPitch();
+                mc.player.setYaw(baseYaw);
+                mc.player.setPitch(basePitch);
+            } catch (Throwable ignored) {}
+        }
         // Hold mode: auto-disable the moment the bind is released
         if (!activate.is("Hold") || mc.getWindow() == null) return;
         try {
@@ -82,4 +109,12 @@ public class FreeLook extends Module {
             if (!down) setEnabled(false);
         } catch (Throwable ignored) {}
     }
+
+    // Read by CameraMixin every frame while active
+    public boolean isCameraActive() {
+        return active && isEnabled() && mc.player != null;
+    }
+
+    public float getLookYaw() { return lookYaw; }
+    public float getLookPitch() { return lookPitch; }
 }

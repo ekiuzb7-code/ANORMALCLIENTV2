@@ -1,6 +1,7 @@
 package com.anormal.client.mixin;
 
 import com.anormal.client.module.ModuleManager;
+import com.anormal.client.module.impl.render.FreeLook;
 import com.anormal.client.module.impl.world.Freecam;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
@@ -27,6 +28,15 @@ public class CameraMixin {
             if (freecam != null && freecam.isEnabled() && freecam.isCameraActive()) {
                 setPos(freecam.getCamX(), freecam.getCamY(), freecam.getCamZ());
                 setRotation(freecam.getCamYaw(), freecam.getCamPitch());
+                ci.cancel();
+                return;
+            }
+            FreeLook freeLook = ModuleManager.getModule(FreeLook.class);
+            if (freeLook != null && freeLook.isEnabled() && freeLook.isCameraActive() && focusedEntity != null) {
+                try {
+                    setPos(focusedEntity.getEyePos().x, focusedEntity.getEyePos().y, focusedEntity.getEyePos().z);
+                } catch (Throwable ignored) {}
+                setRotation(freeLook.getLookYaw(), freeLook.getLookPitch());
                 ci.cancel();
             }
         } catch (Throwable ignored) {}
