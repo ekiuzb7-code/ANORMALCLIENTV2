@@ -32,6 +32,8 @@ public class ModuleManager {
         register(new Velocity());
         register(new WTap());
         register(new JumpReset());
+        register(new Criticals());
+        register(new KeepSprint());
 
         // --- MOVEMENT ---
         register(new Sprint());
@@ -39,6 +41,7 @@ public class ModuleManager {
         register(new InvMove());
         register(new SafeWalk());
         register(new Parkour());
+        register(new Spider());
 
         // --- RENDER ---
         register(new Fullbright());
@@ -133,6 +136,7 @@ public class ModuleManager {
         register(new Macros());
         register(new Friends());
         register(new Profiles());
+        register(new AntiBot());
     }
 
     public static void register(Module module) {

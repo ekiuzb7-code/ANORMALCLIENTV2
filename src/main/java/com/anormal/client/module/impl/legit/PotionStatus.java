@@ -19,7 +19,7 @@ public class PotionStatus extends Module {
         super("PotionStatus", "Displays active potion effects and remaining durations on HUD", Category.LEGIT);
         addSetting(posX);
         addSetting(posY);
-        setEnabled(true);
+
     }
 
     @Override

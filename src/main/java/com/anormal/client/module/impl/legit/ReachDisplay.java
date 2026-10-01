@@ -18,7 +18,7 @@ public class ReachDisplay extends Module {
         super("ReachDisplay", "Displays the distance of your last landed attack on HUD", Category.LEGIT);
         addSetting(posX);
         addSetting(posY);
-        setEnabled(true);
+
     }
 
     public static void updateReach(double reach) {

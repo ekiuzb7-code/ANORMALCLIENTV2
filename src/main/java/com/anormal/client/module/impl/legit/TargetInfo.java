@@ -18,7 +18,7 @@ public class TargetInfo extends Module {
         addSetting(posX);
         addSetting(posY);
         addSetting(scale);
-        setEnabled(true);
+
     }
 
     @Override

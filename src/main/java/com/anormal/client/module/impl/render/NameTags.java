@@ -68,7 +68,7 @@ public class NameTags extends Module {
         addSetting(mDistance);
         addSetting(mEffects);
         addSetting(mMaxDistance);
-        setEnabled(true);
+
     }
 
     @Override

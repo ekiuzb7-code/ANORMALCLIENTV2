@@ -48,7 +48,7 @@ public class AutoTotem extends Module {
         addSetting(delay);
         addSetting(extraRandomization);
         addSetting(showTotemCount);
-        setEnabled(true);
+
     }
 
     @Override

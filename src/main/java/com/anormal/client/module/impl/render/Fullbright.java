@@ -28,8 +28,6 @@ public class Fullbright extends Module {
                 restoreGamma();
                 mc.player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 1000, 0, false, false, false));
             } else {
-                if (mc.player.hasStatusEffect(StatusEffects.NIGHT_VISION))
-                    mc.player.removeStatusEffect(StatusEffects.NIGHT_VISION);
                 double target = 16.0;
                 double current = mc.options.getGamma().getValue();
                 if (!gammaApplied) {
@@ -37,7 +35,20 @@ public class Fullbright extends Module {
                     gammaApplied = true;
                 }
                 double next = fade.isEnabled() ? approach(current, target, 0.8) : target;
-                if (Math.abs(next - current) > 0.001) mc.options.getGamma().setValue(next);
+                if (Math.abs(next - current) > 0.001) {
+                    try {
+                        mc.options.getGamma().setValue(next);
+                    } catch (Throwable ignored) {}
+                }
+                // If the game clamps gamma (stays ~1.0), fall back to night vision
+                // so Gamma mode still brightens instead of silently doing nothing.
+                try {
+                    if (mc.options.getGamma().getValue() < target - 0.5) {
+                        mc.player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 1000, 0, false, false, false));
+                    } else if (mc.player.hasStatusEffect(StatusEffects.NIGHT_VISION)) {
+                        mc.player.removeStatusEffect(StatusEffects.NIGHT_VISION);
+                    }
+                } catch (Throwable ignored) {}
             }
         } catch (Throwable ignored) {}
     }

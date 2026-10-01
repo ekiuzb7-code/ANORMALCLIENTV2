@@ -10,7 +10,7 @@ public class NoHurtCam extends Module {
     public NoHurtCam() {
         super("NoHurtCam", "Removes camera screen shake and tilt when taking damage", Category.RENDER);
         addSetting(mode);
-        setEnabled(true);
+
     }
 
     @Override

@@ -8,7 +8,8 @@
   "client": [
     "GameRendererMixin",
     "XRayMixin",
-    "CameraMixin"
+    "CameraMixin",
+    "NetworkMixin"
   ],
   "injectors": {
     "defaultRequire": 1

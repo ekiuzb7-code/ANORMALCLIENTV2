@@ -292,7 +292,7 @@ public class ClickGuiScreen extends Screen {
                                 return;
                             }
                             int[] palette = {
-                                ColorUtils.rgba(255, 120, 0, 255),  // Vape Orange
+                                ColorUtils.rgba(255, 120, 0, 255),  // Orange
                                 ColorUtils.rgba(0, 230, 255, 255),  // Neon Cyan
                                 ColorUtils.rgba(255, 50, 50, 255),   // Crimson Red
                                 ColorUtils.rgba(0, 255, 127, 255),   // Emerald Green
