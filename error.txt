@@ -6,56 +6,36 @@ Daemon will be stopped at the end of the build
 Fabric Loom: 1.14.10
 
 Cannot remap modifiers because it does not exists in any of the targets [] or their parents.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/NoClickDelay.java:16: error: cannot find symbol
 
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/NoClickDelay.java:16: error: cannot find symbol
+            mc.player.resetAttackStrengthTicker();
 > Task :compileJava
-            mc.player.resetLastAttackedTicks();
                      ^
-  symbol:   method resetLastAttackedTicks()
+  symbol:   method resetAttackStrengthTicker()
   location: variable player of type ClientPlayerEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/mixin/CameraMixin.java:22: error: method setPos in class Camera cannot be applied to given types;
-                self.setPos(freecam.getCamX(), freecam.getCamY(), freecam.getCamZ());
-                    ^
-  required: double,double,double
-  found:    double,double,double
-  reason: setPos(double,double,double) has protected access in Camera
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/mixin/CameraMixin.java:23: error: setRotation(float,float) has protected access in Camera
-                self.setRotation(freecam.getCamYaw(), freecam.getCamPitch());
-                    ^
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
-Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-3 errors
+1 error
 
 > Task :compileJava FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790866405927.json
 
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790866570844.json
 FAILURE: Build failed with an exception.
 
 
-* What went wrong:
 [Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
+* What went wrong:
+1 actionable task: 1 executed
 Execution failed for task ':compileJava'.
 > Compilation failed; see the compiler output below.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/mixin/CameraMixin.java:22: error: method setPos in class Camera cannot be applied to given types;
-                  self.setPos(freecam.getCamX(), freecam.getCamY(), freecam.getCamZ());
-                      ^
-    required: double,double,double
-    found:    double,double,double
-    reason: setPos(double,double,double) has protected access in Camera
-1 actionable task: 1 executed
   Note: Recompile with -Xlint:deprecation for details.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/mixin/CameraMixin.java:23: error: setRotation(float,float) has protected access in Camera
-                  self.setRotation(freecam.getCamYaw(), freecam.getCamPitch());
-                      ^
   Note: Some input files use or override a deprecated API.
-  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
   /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/NoClickDelay.java:16: error: cannot find symbol
-              mc.player.resetLastAttackedTicks();
+              mc.player.resetAttackStrengthTicker();
                        ^
-    symbol:   method resetLastAttackedTicks()
+    symbol:   method resetAttackStrengthTicker()
     location: variable player of type ClientPlayerEntity
-  3 errors
+  1 error
 
 * Try:
 > Check your code and dependencies to fix the compilation error(s)
@@ -97,24 +77,14 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/mixin/CameraMixin.java:22: error: method setPos in class Camera cannot be applied to given types;
-                self.setPos(freecam.getCamX(), freecam.getCamY(), freecam.getCamZ());
-                    ^
-  required: double,double,double
-  found:    double,double,double
-  reason: setPos(double,double,double) has protected access in Camera
 Note: Recompile with -Xlint:deprecation for details.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/mixin/CameraMixin.java:23: error: setRotation(float,float) has protected access in Camera
-                self.setRotation(freecam.getCamYaw(), freecam.getCamPitch());
-                    ^
 Note: Some input files use or override a deprecated API.
-Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
 /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/player/NoClickDelay.java:16: error: cannot find symbol
-            mc.player.resetLastAttackedTicks();
+            mc.player.resetAttackStrengthTicker();
                      ^
-  symbol:   method resetLastAttackedTicks()
+  symbol:   method resetAttackStrengthTicker()
   location: variable player of type ClientPlayerEntity
-3 errors
+1 error
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
@@ -238,5 +208,5 @@ Note: Some messages have been simplified; recompile with -Xdiags:verbose to get 
 	... 30 more
 
 
-BUILD FAILED in 22s
+BUILD FAILED in 17s
 Error: Process completed with exit code 1.

@@ -12,8 +12,8 @@ public class NoClickDelay extends Module {
     public void onTick() {
         if (mc.player == null) return;
         try {
-            // 1.21.11 yarn follows the Mojang name for the miss-swing reset
-            mc.player.resetAttackStrengthTicker();
+            // Vanilla miss-swing gate lives on the client: zero it every tick
+            mc.attackCooldown = 0;
         } catch (Throwable ignored) {}
     }
 }
