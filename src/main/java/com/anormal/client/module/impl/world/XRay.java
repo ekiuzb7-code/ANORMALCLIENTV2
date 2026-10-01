@@ -20,7 +20,8 @@ import java.util.Set;
 public class XRay extends Module {
     public final BooleanSetting realXray = new BooleanSetting("Real XRay", "Hide non-selected blocks via mixin", true);
     public final BooleanSetting markers = new BooleanSetting("Markers", "Draw boxes on selected blocks through walls", true);
-    public final NumberSetting opacity = new NumberSetting("Opacity", "Marker box brightness", 20.0, 0.0, 100.0, 5.0);
+    public final NumberSetting opacity = new NumberSetting("Opacity", "How transparent unwanted blocks are (0 = see through)", 20.0, 0.0, 100.0, 5.0);
+    public final BooleanSetting caveMode = new BooleanSetting("Cave Mode", "Only mark blocks exposed to air", false);
     public final NumberSetting markerRange = new NumberSetting("Marker Range", "Marker scan radius", 24.0, 4.0, 48.0, 1.0);
     private final Set<Block> selectedBlocks = new HashSet<>();
 
@@ -32,6 +33,7 @@ public class XRay extends Module {
         addSetting(realXray);
         addSetting(markers);
         addSetting(opacity);
+        addSetting(caveMode);
         addSetting(markerRange);
         selectAllOres();
     }
@@ -117,6 +119,7 @@ public class XRay extends Module {
                         try {
                             if (!mc.world.isChunkLoaded(p)) continue;
                             if (!selectedBlocks.contains(mc.world.getBlockState(p).getBlock())) continue;
+                            if (caveMode.isEnabled() && !exposed(p)) continue;
                         } catch (Throwable t) {
                             continue;
                         }
@@ -138,6 +141,17 @@ public class XRay extends Module {
             context.fill(s[0] - 3, s[1] - 2, s[0] - 2, s[1] + 2, col);
             context.fill(s[0] + 2, s[1] - 2, s[0] + 3, s[1] + 2, col);
         }
+    }
+
+    private boolean exposed(BlockPos p) {
+        try {
+            for (net.minecraft.util.math.Direction d : net.minecraft.util.math.Direction.values()) {
+                try {
+                    if (mc.world.getBlockState(p.offset(d)).isAir()) return true;
+                } catch (Throwable ignored) {}
+            }
+        } catch (Throwable ignored) {}
+        return false;
     }
 
     private int[] project(Vec3d p) {
