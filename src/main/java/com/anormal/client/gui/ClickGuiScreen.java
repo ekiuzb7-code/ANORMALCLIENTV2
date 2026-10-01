@@ -119,12 +119,14 @@ public class ClickGuiScreen extends Screen {
                 .filter(m -> searchQuery.isEmpty() || m.getName().toLowerCase().contains(searchQuery.toLowerCase()))
                 .toList();
 
-        // Calculate max scroll height
+        // Calculate max scroll height (visible settings only)
         int totalContentHeight = 6;
         for (Module m : categoryModules) {
             totalContentHeight += 26;
             if (m.isExpanded()) {
-                totalContentHeight += m.getSettings().size() * 20;
+                for (Setting<?> s : m.getSettings()) {
+                    if (s.isVisible()) totalContentHeight += 20;
+                }
             }
         }
         int maxScroll = Math.max(0, totalContentHeight - contentHeight + 10);
@@ -143,6 +145,7 @@ public class ClickGuiScreen extends Screen {
 
             if (module.isExpanded()) {
                 for (Setting<?> setting : module.getSettings()) {
+                    if (!setting.isVisible()) continue;
                     renderSetting(context, setting, contentX + 16, modY, contentWidth - 36, mouseX, mouseY);
                     modY += 20;
                 }
@@ -266,6 +269,7 @@ public class ClickGuiScreen extends Screen {
 
             if (module.isExpanded()) {
                 for (Setting<?> setting : module.getSettings()) {
+                    if (!setting.isVisible()) continue;
                     int setX = contentX + 16;
                     int setW = contentWidth - 36;
 

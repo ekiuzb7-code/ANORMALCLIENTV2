@@ -3,6 +3,7 @@ package com.anormal.client.module.impl.world;
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
 import com.anormal.client.setting.BooleanSetting;
+import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.Camera;
@@ -14,6 +15,12 @@ public class Freecam extends Module {
     public final BooleanSetting spawnFake = new BooleanSetting("Spawn Fake", "Keep client-side snapshot at origin", true);
     public final BooleanSetting moveFake = new BooleanSetting("Move Fake", "Let snapshot track camera anchor", false);
     public final BooleanSetting showPlayer = new BooleanSetting("Show Player", "Mark your real body position", true);
+    public final ModeSetting style = new ModeSetting("Style", "V1 or V2 implementation", "V1", "V1", "V2");
+    public final NumberSetting v2Speed = new NumberSetting("V2 Speed", "V2 flight camera speed", 1.0, 0.1, 2.0, 0.1);
+    public final BooleanSetting v2Interact = new BooleanSetting("V2 Interact", "Interact from camera perspective", true);
+    public final BooleanSetting v2CancelDamage = new BooleanSetting("V2 Cancel Damage", "Disable on damage", true);
+    public final BooleanSetting v2CancelTeleport = new BooleanSetting("V2 Cancel Teleport", "Disable on teleport", true);
+    public final BooleanSetting v2KeepSneaking = new BooleanSetting("V2 Keep Sneaking", "Force sneak while active", false);
 
     // Frozen real body
     private double anchorX, anchorY, anchorZ;
@@ -23,6 +30,7 @@ public class Freecam extends Module {
     private float camYaw, camPitch;
     private double fakeX, fakeY, fakeZ;
     private boolean active = false;
+    private float lastHealth = 20.0f;
 
     public Freecam() {
         super("Freecam", "Detached camera fly (body stays frozen, server-safe look)", Category.WORLD);
@@ -31,6 +39,17 @@ public class Freecam extends Module {
         addSetting(spawnFake);
         addSetting(moveFake);
         addSetting(showPlayer);
+        addSetting(style);
+        addSetting(v2Speed);
+        addSetting(v2Interact);
+        addSetting(v2CancelDamage);
+        addSetting(v2CancelTeleport);
+        addSetting(v2KeepSneaking);
+        v2Speed.visibleIf(() -> style.is("V2"));
+        v2Interact.visibleIf(() -> style.is("V2"));
+        v2CancelDamage.visibleIf(() -> style.is("V2"));
+        v2CancelTeleport.visibleIf(() -> style.is("V2"));
+        v2KeepSneaking.visibleIf(() -> style.is("V2"));
     }
 
     @Override
@@ -52,6 +71,11 @@ public class Freecam extends Module {
         fakeX = anchorX;
         fakeY = anchorY;
         fakeZ = anchorZ;
+        try {
+            lastHealth = mc.player.getHealth();
+        } catch (Throwable ignored) {
+            lastHealth = 20.0f;
+        }
         active = true;
     }
 
@@ -70,6 +94,34 @@ public class Freecam extends Module {
     @Override
     public void onTick() {
         if (mc.player == null || !active) return;
+        boolean v2 = style.is("V2");
+        // V2 cancel triggers: damage or teleport ends the camera trip
+        if (v2) {
+            try {
+                float hp = mc.player.getHealth();
+                if (v2CancelDamage.isEnabled() && hp < lastHealth) {
+                    setEnabled(false);
+                    return;
+                }
+                lastHealth = hp;
+            } catch (Throwable ignored) {}
+            if (v2CancelTeleport.isEnabled()) {
+                try {
+                    double dx = mc.player.getX() - anchorX;
+                    double dy = mc.player.getY() - anchorY;
+                    double dz = mc.player.getZ() - anchorZ;
+                    if (dx * dx + dy * dy + dz * dz > 36.0) {
+                        setEnabled(false);
+                        return;
+                    }
+                } catch (Throwable ignored) {}
+            }
+            if (v2KeepSneaking.isEnabled()) {
+                try {
+                    mc.options.sneakKey.setPressed(true);
+                } catch (Throwable ignored) {}
+            }
+        }
         // Freeze the real body on anchor (no fall, no drift, no server correction)
         try {
             mc.player.setPosition(anchorX, anchorY, anchorZ);
@@ -77,7 +129,8 @@ public class Freecam extends Module {
             mc.player.fallDistance = 0.0f;
         } catch (Throwable ignored) {}
 
-        if (!allowInteracting.isEnabled()) {
+        boolean interact = v2 ? v2Interact.isEnabled() : allowInteracting.isEnabled();
+        if (!interact) {
             mc.options.attackKey.setPressed(false);
             mc.options.useKey.setPressed(false);
         }
@@ -91,7 +144,8 @@ public class Freecam extends Module {
         } catch (Throwable ignored) {}
 
         // Fly the CAMERA (not the player) — no collision, goes underground freely
-        double s = speed.getValue() * 0.35;
+        double baseSpeed = v2 ? v2Speed.getValue() : speed.getValue();
+        double s = baseSpeed * 0.35;
         double rad = Math.toRadians(camYaw);
         double radP = Math.toRadians(camPitch);
         double fwdX = -Math.sin(rad) * Math.cos(radP);

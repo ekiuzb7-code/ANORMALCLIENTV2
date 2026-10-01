@@ -15,12 +15,16 @@ public class FreeLook extends Module {
     public final BooleanSetting useCustomSensitivity = new BooleanSetting("Custom Sensitivity", "Override mouse sensitivity while active", false);
     public final NumberSetting sensitivity = new NumberSetting("Sensitivity", "Freelook mouse sensitivity", 0.5, 0.05, 2.0, 0.05);
     public final BooleanSetting restoreView = new BooleanSetting("Restore View", "Restores your view on disable", true);
+    public final ModeSetting style = new ModeSetting("Style", "V1 or V2 implementation", "V1", "V1", "V2");
+    public final NumberSetting v2SenseBoost = new NumberSetting("V2 Sense Boost", "Look sensitivity multiplier", 1.0, 0.1, 2.0, 0.1);
+    public final BooleanSetting v2NoPitchLimit = new BooleanSetting("V2 No Pitch Limit", "Look fully up and down", true);
 
     private Perspective savedPerspective;
     private double savedSensitivity = -1;
     // Detached look: camera follows these, body keeps base facing
     private float baseYaw, basePitch;
     private float lookYaw, lookPitch;
+    private float prevYaw, prevPitch;
     private boolean active = false;
 
     public FreeLook() {
@@ -30,6 +34,11 @@ public class FreeLook extends Module {
         addSetting(useCustomSensitivity);
         addSetting(sensitivity);
         addSetting(restoreView);
+        addSetting(style);
+        addSetting(v2SenseBoost);
+        addSetting(v2NoPitchLimit);
+        v2SenseBoost.visibleIf(() -> style.is("V2"));
+        v2NoPitchLimit.visibleIf(() -> style.is("V2"));
     }
 
     @Override
@@ -40,6 +49,8 @@ public class FreeLook extends Module {
             basePitch = mc.player.getPitch();
             lookYaw = baseYaw;
             lookPitch = basePitch;
+            prevYaw = baseYaw;
+            prevPitch = basePitch;
             active = true;
         }
         try {
@@ -86,8 +97,21 @@ public class FreeLook extends Module {
         // steal player rotation, then restore body facing
         if (active && mc.player != null) {
             try {
-                lookYaw = mc.player.getYaw();
-                lookPitch = mc.player.getPitch();
+                float py = mc.player.getYaw();
+                float pp = mc.player.getPitch();
+                if (style.is("V2")) {
+                    double boost = v2SenseBoost.getValue();
+                    lookYaw += (py - prevYaw) * boost;
+                    lookPitch += (pp - prevPitch) * boost;
+                    if (!v2NoPitchLimit.isEnabled()) {
+                        lookPitch = Math.max(-90.0f, Math.min(90.0f, lookPitch));
+                    }
+                } else {
+                    lookYaw = py;
+                    lookPitch = pp;
+                }
+                prevYaw = py;
+                prevPitch = pp;
                 mc.player.setYaw(baseYaw);
                 mc.player.setPitch(basePitch);
             } catch (Throwable ignored) {}

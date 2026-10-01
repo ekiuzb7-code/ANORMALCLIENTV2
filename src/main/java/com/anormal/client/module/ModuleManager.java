@@ -42,6 +42,7 @@ public class ModuleManager {
         register(new SafeWalk());
         register(new Parkour());
         register(new Spider());
+        register(new ElytraFly());
 
         // --- RENDER ---
         register(new Fullbright());
@@ -59,6 +60,8 @@ public class ModuleManager {
         register(new Projectiles());
         register(new SpawnerFinder());
         register(new StorageESP());
+        register(new StashFinder());
+        register(new DeathPoints());
         register(new Trajectories());
         register(new Search());
         register(new AntiDebuff());
@@ -86,6 +89,7 @@ public class ModuleManager {
         register(new HitSwap());
         register(new ShieldBreaker());
         register(new WindCharge());
+        register(new Surround());
         register(new AntiFireball());
         register(new PearlCatch());
         register(new TargetFilter());
