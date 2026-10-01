@@ -20,7 +20,7 @@ public class Phase extends Module {
     public void onEnable() {
         ticks = 0;
         try {
-            if (mc.player != null) mc.player.setNoClip(true);
+            if (mc.player != null) mc.player.noClip = true;
         } catch (Throwable ignored) {}
     }
 
@@ -30,7 +30,7 @@ public class Phase extends Module {
         try {
             ticks++;
             if (ticks >= delay.getValue().intValue()) {
-                mc.player.setNoClip(false);
+                mc.player.noClip = false;
                 if (autoDisable.isEnabled()) setEnabled(false);
             }
         } catch (Throwable ignored) {}
@@ -39,7 +39,7 @@ public class Phase extends Module {
     @Override
     public void onDisable() {
         try {
-            if (mc.player != null) mc.player.setNoClip(false);
+            if (mc.player != null) mc.player.noClip = false;
         } catch (Throwable ignored) {}
         ticks = 0;
     }

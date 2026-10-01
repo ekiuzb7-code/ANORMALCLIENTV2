@@ -192,7 +192,7 @@ public class ESP extends Module {
             int w = mc.getWindow().getScaledWidth(), hh = mc.getWindow().getScaledHeight();
             float effFov = 70.0f;
             try {
-                effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
+                effFov = ((com.anormal.client.mixin.GameRendererMixin) (Object) mc.gameRenderer).callGetFov(cam, tickDelta, true);
             } catch (Throwable ignored) {
                 try {
                     effFov = mc.options.getFov().getValue();

@@ -181,7 +181,7 @@ public class XRay extends Module {
             // using the base value displaced every off-center marker while moving)
             float effFov = 70.0f;
             try {
-                effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
+                effFov = ((com.anormal.client.mixin.GameRendererMixin) (Object) mc.gameRenderer).callGetFov(cam, tickDelta, true);
             } catch (Throwable ignored) {
                 try {
                     effFov = mc.options.getFov().getValue();
