@@ -8,132 +8,55 @@ Fabric Loom: 1.14.10
 Cannot remap modifiers because it does not exists in any of the targets [] or their parents.
 
 > Task :compileJava
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:192: error: cannot find symbol
-                if (e.getProfile().getId().equals(p.getUuid())) return false;
-                                  ^
-  symbol:   method getId()
-  location: class GameProfile
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:204: error: cannot find symbol
-        context.getMatrices().push();
-                             ^
-  symbol:   method push()
-  location: class Matrix3x2fStack
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:205: error: incompatible types: int cannot be converted to Matrix3x2f
-        context.getMatrices().translate(x, y, 0);
-                                              ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:206: error: incompatible types: int cannot be converted to Matrix3x2f
-        context.getMatrices().scale(s, s, 1);
-                                          ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:210: error: cannot find symbol
-        context.getMatrices().pop();
-                             ^
-  symbol:   method pop()
-  location: class Matrix3x2fStack
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:132: error: cannot find symbol
-        context.getMatrices().push();
-                             ^
-  symbol:   method push()
-  location: class Matrix3x2fStack
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:133: error: incompatible types: int cannot be converted to Matrix3x2f
-        context.getMatrices().translate(x, y, 0);
-                                              ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:134: error: incompatible types: int cannot be converted to Matrix3x2f
-        context.getMatrices().scale(s, s, 1);
-                                          ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:137: error: cannot find symbol
-        context.getMatrices().pop();
-                             ^
-  symbol:   method pop()
-  location: class Matrix3x2fStack
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/Chams.java:86: error: cannot find symbol
-                if (e.getProfile().getId().equals(p.getUuid())) return false;
-                                  ^
-  symbol:   method getId()
-  location: class GameProfile
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/Arrows.java:135: error: cannot find symbol
-                if (e.getProfile().getId().equals(p.getUuid())) return true;
-                                  ^
-  symbol:   method getId()
-  location: class GameProfile
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/Clutch.java:56: error: incompatible types: Double cannot be converted to int
-                int depth = Math.min((int) maxBlocks.getValue(), 12);
-                                                             ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:64: error: incompatible types: possible lossy conversion from double to float
-        float falling = mc.player.fallDistance;
-                                 ^
-Note: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-13 errors
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:601: error: illegal start of type
+        if (draggingSlider == null) return;
+        ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:601: error: <identifier> expected
+        if (draggingSlider == null) return;
+                          ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:607: error: <identifier> expected
+        percent = Math.max(0.0, Math.min(1.0, percent));
+               ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:609: error: <identifier> expected
+        draggingSlider.setValue(value);
+                               ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:609: error: <identifier> expected
+        draggingSlider.setValue(value);
+                                     ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:611: error: class, interface, enum, or record expected
+}
+^
+6 errors
 
-> Task :compileJava FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790859529804.json
-
-[Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
 
 FAILURE: Build failed with an exception.
+> Task :compileJava FAILED
 
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790866167493.json
 * What went wrong:
+
 Execution failed for task ':compileJava'.
-1 actionable task: 1 executed
+[Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
 > Compilation failed; see the compiler output below.
-  Note: Recompile with -Xlint:deprecation for details.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:205: error: incompatible types: int cannot be converted to Matrix3x2f
-          context.getMatrices().translate(x, y, 0);
-                                                ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:206: error: incompatible types: int cannot be converted to Matrix3x2f
-          context.getMatrices().scale(s, s, 1);
-                                            ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:133: error: incompatible types: int cannot be converted to Matrix3x2f
-          context.getMatrices().translate(x, y, 0);
-                                                ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:134: error: incompatible types: int cannot be converted to Matrix3x2f
-          context.getMatrices().scale(s, s, 1);
-                                            ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/Clutch.java:56: error: incompatible types: Double cannot be converted to int
-                  int depth = Math.min((int) maxBlocks.getValue(), 12);
-                                                               ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:64: error: incompatible types: possible lossy conversion from double to float
-          float falling = mc.player.fallDistance;
-                                   ^
-  Note: Some input files use or override a deprecated API.
-  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:192: error: cannot find symbol
-                  if (e.getProfile().getId().equals(p.getUuid())) return false;
-                                    ^
-    symbol:   method getId()
-    location: class GameProfile
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:204: error: cannot find symbol
-          context.getMatrices().push();
-                               ^
-    symbol:   method push()
-    location: class Matrix3x2fStack
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:210: error: cannot find symbol
-          context.getMatrices().pop();
-                               ^
-    symbol:   method pop()
-    location: class Matrix3x2fStack
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:132: error: cannot find symbol
-          context.getMatrices().push();
-                               ^
-    symbol:   method push()
-    location: class Matrix3x2fStack
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:137: error: cannot find symbol
-          context.getMatrices().pop();
-                               ^
-    symbol:   method pop()
-    location: class Matrix3x2fStack
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/Chams.java:86: error: cannot find symbol
-                  if (e.getProfile().getId().equals(p.getUuid())) return false;
-                                    ^
-    symbol:   method getId()
-    location: class GameProfile
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/Arrows.java:135: error: cannot find symbol
-                  if (e.getProfile().getId().equals(p.getUuid())) return true;
-                                    ^
-    symbol:   method getId()
-    location: class GameProfile
-  13 errors
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:611: error: class, interface, enum, or record expected
+  }
+  ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:601: error: illegal start of type
+          if (draggingSlider == null) return;
+          ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:601: error: <identifier> expected
+          if (draggingSlider == null) return;
+                            ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:607: error: <identifier> expected
+          percent = Math.max(0.0, Math.min(1.0, percent));
+                 ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:609: error: <identifier> expected
+          draggingSlider.setValue(value);
+                                 ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:609: error: <identifier> expected
+          draggingSlider.setValue(value);
+                                       ^
+  6 errors
 
 * Try:
 > Check your code and dependencies to fix the compilation error(s)
@@ -175,63 +98,25 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-Note: Recompile with -Xlint:deprecation for details.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:205: error: incompatible types: int cannot be converted to Matrix3x2f
-        context.getMatrices().translate(x, y, 0);
-                                              ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:206: error: incompatible types: int cannot be converted to Matrix3x2f
-        context.getMatrices().scale(s, s, 1);
-                                          ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:133: error: incompatible types: int cannot be converted to Matrix3x2f
-        context.getMatrices().translate(x, y, 0);
-                                              ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:134: error: incompatible types: int cannot be converted to Matrix3x2f
-        context.getMatrices().scale(s, s, 1);
-                                          ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/Clutch.java:56: error: incompatible types: Double cannot be converted to int
-                int depth = Math.min((int) maxBlocks.getValue(), 12);
-                                                             ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/MLG.java:64: error: incompatible types: possible lossy conversion from double to float
-        float falling = mc.player.fallDistance;
-                                 ^
-Note: Some input files use or override a deprecated API.
-Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:192: error: cannot find symbol
-                if (e.getProfile().getId().equals(p.getUuid())) return false;
-                                  ^
-  symbol:   method getId()
-  location: class GameProfile
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:204: error: cannot find symbol
-        context.getMatrices().push();
-                             ^
-  symbol:   method push()
-  location: class Matrix3x2fStack
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/NameTags.java:210: error: cannot find symbol
-        context.getMatrices().pop();
-                             ^
-  symbol:   method pop()
-  location: class Matrix3x2fStack
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:132: error: cannot find symbol
-        context.getMatrices().push();
-                             ^
-  symbol:   method push()
-  location: class Matrix3x2fStack
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ItemESP.java:137: error: cannot find symbol
-        context.getMatrices().pop();
-                             ^
-  symbol:   method pop()
-  location: class Matrix3x2fStack
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/Chams.java:86: error: cannot find symbol
-                if (e.getProfile().getId().equals(p.getUuid())) return false;
-                                  ^
-  symbol:   method getId()
-  location: class GameProfile
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/Arrows.java:135: error: cannot find symbol
-                if (e.getProfile().getId().equals(p.getUuid())) return true;
-                                  ^
-  symbol:   method getId()
-  location: class GameProfile
-13 errors
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:611: error: class, interface, enum, or record expected
+}
+^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:601: error: illegal start of type
+        if (draggingSlider == null) return;
+        ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:601: error: <identifier> expected
+        if (draggingSlider == null) return;
+                          ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:607: error: <identifier> expected
+        percent = Math.max(0.0, Math.min(1.0, percent));
+               ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:609: error: <identifier> expected
+        draggingSlider.setValue(value);
+                               ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/gui/ClickGuiScreen.java:609: error: <identifier> expected
+        draggingSlider.setValue(value);
+                                     ^
+6 errors
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
@@ -290,6 +175,7 @@ Note: Some messages have been simplified; recompile with -Xdiags:verbose to get 
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+1 actionable task: 1 executed
 	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
 	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
 	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
@@ -355,5 +241,5 @@ Note: Some messages have been simplified; recompile with -Xdiags:verbose to get 
 	... 30 more
 
 
-BUILD FAILED in 23s
+BUILD FAILED in 19s
 Error: Process completed with exit code 1.

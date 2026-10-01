@@ -598,6 +598,8 @@ public class ClickGuiScreen extends Screen {
         RenderUtils.drawText(context, textRenderer, "Rainbow", px + 26, rbY + 1, 0xFFDDDDDD, true);
         RenderUtils.drawText(context, textRenderer, "§8L:slide R:close", px + 8, py + 101, 0xFF777777, true);
     }
+
+    private void updateSliderValue(int mouseX, int contentX, int contentWidth) {
         if (draggingSlider == null) return;
         int setW = contentWidth - 36;
         int sliderWidth = 70;
