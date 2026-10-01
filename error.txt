@@ -1,260 +1,521 @@
-Run gradle remapJar --no-daemon --stacktrace
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
+flush now
+[Loading] INITIALIZING
+Starting TLauncher 2.9378 PRERELEASE
+For more information, visit https://tlauncher.org/
+Startup time: Oct 1, 2026, 10:48:13вЂЇPM
+Running folder C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\starter
+---
+[Loading] LOADING_CONFIGURATION
+Machine info: -------------------------------------------------------
+Windows 10 10.0, Java 21.0.11, jvm bit x64, 7519 MB RAM
+java path=C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\starter\jre_default\jre-21.0.11-windows-x64\bin\javaw.exe
+AMD Ryzen 3 7330U with Radeon Graphics
+ AMD Radeon (TM) Graphics, AMD Radeon Graphics Processor (0x15E7), 4255 MB
+-------------------------------------------------------
+Selected locale: en, country: UZ
+[Loading] LOADING_CONSOLE
+check internet connection https://securelogger.net/check.bin timeout 1500 ms
+check internet connection https://ruzone.securelogger.top/check.bin timeout 1500 ms
+check internet connection https://mps.tl.vg/api/check.bin timeout 1500 ms
+check internet connection https://mps.tlauncher.ru/api/check.bin timeout 1500 ms
+check internet connection https://mps.fastrepo.org/api/check.bin timeout 1500 ms
+check internet connection https://res.tlauncher.ru/check.bin timeout 1500 ms
+check internet connection https://securelogger.top/check.bin timeout 1500 ms
+[Downloader2] Loaded configuration: good
+[Browser] Loading resources...
+[Browser] Cleaning up after loading:
+Starting garbage collector: 36 / 69 MB
+Garbage collector completed: 31 / 69 MB
+skip request to server https://repo.fastrepo.org/
+passed res.tlauncher.ru within 626 ms
+check internet connection https://res.tl.vg/check.bin timeout 1500 ms
+passed mps.tl.vg within 639 ms
+check internet connection https://piston-meta.mojang.com/v1/packages/d7aae43ea69d80cc3441bee4179abd791f6534cd/1.9.json timeout 1500 ms
+passed mps.tlauncher.ru within 671 ms
+check internet connection https://rescl.tl.vg/check.bin timeout 1500 ms
+passed ruzone.securelogger.top within 674 ms
+passed securelogger.top within 722 ms
+passed securelogger.net within 809 ms
+passed mps.fastrepo.org within 899 ms
+do head request -> https://repo.tl.vg/update/downloads/configs_v1/pages/index_en.html RequestMetadata(lastModified=Wed, 30 Sep 2026 19:45:02 GMT, eTag=null, sha1=9140f1637e1f9f0ac447e3e3500b216e58ac82ef, lastAccessAt=1790874164149) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\downloads\configs_v1\pages\index_en.html
+do get request https://repo.tl.vg/update/downloads/configs_v1/pages/index_en.html, saved to C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\downloads\configs_v1\pages\index_en.html
+passed res.tl.vg within 401 ms
+passed rescl.tl.vg within 410 ms
+[Browser] Running in JavaFX Thread
+[Browser] Preparing JavaFX...
+[Loading] LOADING_MANAGERS
+[LocalVersionList] Base directory: C:\Users\ANORMAL444\AppData\Roaming\.minecraft
+[ProfileManager] Refreshing profiles from: C:\Users\ANORMAL444\AppData\Roaming\.minecraft\TlauncherProfiles.json
+[AdvertisingStatusObserver]  started to get ad information
+[AdvertisingStatusObserver]  finished to get add information
+skip request to server https://repo.fastrepo.org/
+profiles is saved successfully
+skip request to server https://repo.fastrepo.org/
+[Loading] LOADING_WINDOW
+[Browser] Initializing...
+do head request -> https://repo.tl.vg/update/downloads/libraries/org/tlauncher/authlib/libraries-1.7.json RequestMetadata(lastModified=Wed, 08 Jul 2026 08:56:06 GMT, eTag=W/6a4e10a6-5e7bd, sha1=36cce2333cc35ae49703c4646407fd88a0a2c40b, lastAccessAt=1790874164335) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\downloads\libraries\org\tlauncher\authlib\libraries-1.7.json
+[Swing] Favicons loaded: 256px, 128px, 96px, 64px, 48px, 32px, 24px, 16px
+[JFXStartPageLoader]  start load page: file:///C:/Users/ANORMAL444/AppData/Roaming/.tlauncher/cache/https_repo.tl.vg/update/downloads/configs_v1/pages/index_en.html
+do head request -> https://repo.tl.vg/update/downloads/configs/inner_servers-1.3.json RequestMetadata(lastModified=Wed, 30 Sep 2026 19:44:01 GMT, eTag=W/6abd6681-16dc, sha1=39b14cc98b22f9a0d185e2bc6f9ee6eb77e8ef7b, lastAccessAt=1790874164571) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\downloads\configs\inner_servers-1.3.json
+[Loading] PREPARING_MAINPANE
+passed piston-meta.mojang.com within 846 ms
+[Downloader2] Loaded configuration: good
+[JFXStartPageLoader]  succeeded load page: file:///C:/Users/ANORMAL444/AppData/Roaming/.tlauncher/cache/https_repo.tl.vg/update/downloads/configs_v1/pages/index_en.html during 1
+[Browser@1244135489] Loaded successfully: "file:///C:/Users/ANORMAL444/AppData/Roaming/.tlauncher/cache/https_repo.tl.vg/update/downloads/configs_v1/pages/index_en.html"
+[Browser] add listens into server_choose
+[Browser] finished listens into server_choose
+[BrowserSimplePanel]	 constructor
+[BrowserSimplePanel]	 constructor
+[Loading] POSTINIT_GUI
+[Frame] Packing main frame...
+[Frame] Resizing main pane...
+Visibility set.
+[Loading] REFRESHING_INFO
+[VersionManager] Refreshing versions remotely...
+skip request to server https://repo.fastrepo.org/
+Started! (4487 ms.)
+[Loading] SUCCESS
+[TLauncher] starter can be closed
+[TLauncher] show tlauncher!!!
+remove appender: console
+Searching for IPC: \\?\pipe\discord-ipc-0
+discrord setting status problem: java.io.FileNotFoundException: \\?\pipe\discord-ipc-0 (The system cannot find the file specified)
+do head request -> https://repo.tl.vg/update/downloads/versions/new5/additional_assets-1.1.json RequestMetadata(lastModified=Mon, 22 Dec 2025 19:39:29 GMT, eTag=W/69499e71-2fb63, sha1=ce6a8f0ee2eda2df06f02778dc16fddb71bb30e3, lastAccessAt=1790874167590) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\downloads\versions\new5\additional_assets-1.1.json
+skip request to server https://repo.fastrepo.org/
+skip request to server https://repo.fastrepo.org/
+do head request -> https://repo.tl.vg/update/downloads/versions/new5/version_manifest.json RequestMetadata(lastModified=Wed, 23 Sep 2026 16:53:03 GMT, eTag=W/6ab403ef-c56e, sha1=0f4041a80ff9f972d4db123c400193525e86a19f, lastAccessAt=1790874167759) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\downloads\versions\new5\version_manifest.json
+do head request -> https://repo.tl.vg/update/downloads/versions/new5/skin/versions/version_manifest.json RequestMetadata(lastModified=Wed, 20 May 2026 10:24:19 GMT, eTag=W/6a0d8bd3-326c, sha1=a6b7604d0855bb18231a85ab34b0e8e88effc981, lastAccessAt=1790874167949) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\downloads\versions\new5\skin\versions\version_manifest.json
+[ExtraVersionList] Got in 157 ms
+[SkinVersionList] Got in 159 ms
+do head request -> https://launchermeta.mojang.com/mc/game/version_manifest.json RequestMetadata(lastModified=Tue, 29 Sep 2026 13:58:45 GMT, eTag=0x8DF1E31C7806C07, sha1=0f29d5f4f8a89924fddfa0dfe194f49450068101, lastAccessAt=1790874168068) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_launchermeta.mojang.com\mc\game\version_manifest.json
+[OfficialVersionList] Got in 550 ms
+[VersionManager] Versions has been refreshed (717 ms)
+skip request to server https://repo.fastrepo.org/
+skip request to server https://repo.fastrepo.org/
+run server on  37842
+do head request -> https://repo.tl.vg/update/lch/additional_hot_servers-1.0.json RequestMetadata(lastModified=Wed, 30 Sep 2026 19:45:02 GMT, eTag=W/6abd66be-26f8, sha1=3d98657dbc708cecfccec4f8d5b6594b5dc4203b, lastAccessAt=1790874168293) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\lch\additional_hot_servers-1.0.json
+do head request -> https://repo.tl.vg/update/lch/servers/hot_servers-1.0.json RequestMetadata(lastModified=Wed, 30 Sep 2026 19:45:02 GMT, eTag=W/6abd66be-4951, sha1=7defb8fdcb1536fe6a1c45cf8677860881e835e3, lastAccessAt=1790874168490) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_repo.tl.vg\update\lch\servers\hot_servers-1.0.json
+[Double running] clear time label
+Success deleted  C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\doubleRunningProtection.txt
+[LoginForm] run process:
+AccountComboBox.validte pre game launch username Account{skinType=MOJANG, displayName=ANORMAL444, userid=ANORMAL444, uuid=301616ce757d4c8a949dfdcc3efc8f10, username=ANORMAL444} FREE
+saved account Account{skinType=MOJANG, displayName=ANORMAL444, userid=ANORMAL444, uuid=301616ce757d4c8a949dfdcc3efc8f10, username=ANORMAL444}
+profiles is saved successfully
+[LoginForm] Login was OK. Trying to launch now.
+[Launcher] Running under TLauncher 2.9378
+[Launcher] Collecting info...
+before clearLibrary C:\Users\ANORMAL444\AppData\Roaming\.minecraft\mods\AnormalClient-1.0.0.jar, C:\Users\ANORMAL444\AppData\Roaming\.minecraft\mods\fabric-api-0.141.6+1.21.11.jar
+written:  []
+after clearLibrary C:\Users\ANORMAL444\AppData\Roaming\.minecraft\mods\AnormalClient-1.0.0.jar, C:\Users\ANORMAL444\AppData\Roaming\.minecraft\mods\fabric-api-0.141.6+1.21.11.jar
+[Launcher] Force update: false
+[Launcher] Selected version: fabric-loader-0.19.5-1.21.11
+[Launcher] Selected account: Account{skinType=MOJANG, displayName=ANORMAL444, userid=ANORMAL444, uuid=301616ce757d4c8a949dfdcc3efc8f10, username=ANORMAL444}
+[Launcher] Version sync info: VersionSyncInfo{id='fabric-loader-0.19.5-1.21.11',
+local=CompleteVersion{id='fabric-loader-0.19.5-1.21.11', time=Wed Sep 09 16:03:54 UZT 2026, release=Tue Dec 09 12:23:30 UZT 2025, type=release, class=net.fabricmc.loader.impl.launch.knot.KnotClient, minimumVersion=21, assets='29', source=LOCAL_VERSION_REPO, list=net.minecraft.launcher.updater.LocalVersionList@1d660601, libraries=[Library{name='org.ow2.asm:asm:9.10.1', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.ow2.asm:asm-analysis:9.10.1', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.ow2.asm:asm-commons:9.10.1', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.ow2.asm:asm-tree:9.10.1', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.ow2.asm:asm-util:9.10.1', rules=null, natives=null, extract=null, packed='null'}, Library{name='net.fabricmc:sponge-mixin:0.17.4+mixin.0.8.7', rules=null, natives=null, extract=null, packed='null'}, Library{name='net.fabricmc:intermediary:1.21.11', rules=null, natives=null, extract=null, packed='null'}, Library{name='net.fabricmc:fabric-loader:0.19.5', rules=null, natives=null, extract=null, packed='null'}, Library{name='at.yawk.lz4:lz4-java:1.8.1', rules=null, natives=null, extract=null, packed='null'}, Library{name='ca.weblite:java-objc-bridge:1.1', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='com.azure:azure-json:1.4.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.github.oshi:oshi-core:6.9.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.google.code.gson:gson:2.13.2', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.google.guava:failureaccess:1.0.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.google.guava:guava:33.5.0-jre', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.ibm.icu:icu4j:77.1', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.microsoft.azure:msal4j:1.23.1', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.mojang:authlib:7.0.61', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.mojang:blocklist:1.0.10', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.mojang:brigadier:1.3.10', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.mojang:datafixerupper:9.0.19', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.mojang:jtracy:1.0.37', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.mojang:jtracy:1.0.37:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='com.mojang:jtracy:1.0.37:natives-macos', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='com.mojang:jtracy:1.0.37:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='com.mojang:jtracy:1.0.37:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='com.mojang:logging:1.6.11', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.mojang:patchy:2.2.10', rules=null, natives=null, extract=null, packed='null'}, Library{name='com.mojang:text2speech:1.18.11', rules=null, natives=null, extract=null, packed='null'}, Library{name='commons-codec:commons-codec:1.19.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='commons-io:commons-io:2.20.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-buffer:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-codec-base:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-codec-compression:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-codec-http:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-common:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-handler:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-resolver:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-transport-classes-epoll:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-transport-classes-kqueue:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-transport-native-epoll:4.2.7.Final:linux-aarch_64', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-transport-native-epoll:4.2.7.Final:linux-x86_64', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-transport-native-kqueue:4.2.7.Final:osx-aarch_64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-transport-native-kqueue:4.2.7.Final:osx-x86_64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-transport-native-unix-common:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='io.netty:netty-transport:4.2.7.Final', rules=null, natives=null, extract=null, packed='null'}, Library{name='it.unimi.dsi:fastutil:8.5.18', rules=null, natives=null, extract=null, packed='null'}, Library{name='net.java.dev.jna:jna-platform:5.17.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='net.java.dev.jna:jna:5.17.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='net.sf.jopt-simple:jopt-simple:5.0.4', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.apache.commons:commons-compress:1.28.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.apache.commons:commons-lang3:3.19.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.apache.logging.log4j:log4j-api:2.25.2', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.apache.logging.log4j:log4j-core:2.25.2', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.apache.logging.log4j:log4j-slf4j2-impl:2.25.2', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.jcraft:jorbis:0.0.17', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.joml:joml:1.10.8', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.jspecify:jspecify:1.0.0', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-freetype:3.3.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-freetype:3.3.3:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-freetype:3.3.3:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-freetype:3.3.3:natives-macos-patch', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-freetype:3.3.3:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-freetype:3.3.3:natives-windows-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-freetype:3.3.3:natives-windows-x86', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-glfw:3.3.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-glfw:3.3.3:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-glfw:3.3.3:natives-macos', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-glfw:3.3.3:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-glfw:3.3.3:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-glfw:3.3.3:natives-windows-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-glfw:3.3.3:natives-windows-x86', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-jemalloc:3.3.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-jemalloc:3.3.3:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-jemalloc:3.3.3:natives-macos', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-jemalloc:3.3.3:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-jemalloc:3.3.3:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-jemalloc:3.3.3:natives-windows-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-jemalloc:3.3.3:natives-windows-x86', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-openal:3.3.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-openal:3.3.3:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-openal:3.3.3:natives-macos', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-openal:3.3.3:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-openal:3.3.3:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-openal:3.3.3:natives-windows-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-openal:3.3.3:natives-windows-x86', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-opengl:3.3.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-opengl:3.3.3:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-opengl:3.3.3:natives-macos', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-opengl:3.3.3:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-opengl:3.3.3:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-opengl:3.3.3:natives-windows-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-opengl:3.3.3:natives-windows-x86', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-stb:3.3.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-stb:3.3.3:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-stb:3.3.3:natives-macos', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-stb:3.3.3:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-stb:3.3.3:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-stb:3.3.3:natives-windows-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-stb:3.3.3:natives-windows-x86', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-tinyfd:3.3.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-tinyfd:3.3.3:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-tinyfd:3.3.3:natives-macos', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-tinyfd:3.3.3:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-tinyfd:3.3.3:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-tinyfd:3.3.3:natives-windows-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl-tinyfd:3.3.3:natives-windows-x86', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl:3.3.3', rules=null, natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl:3.3.3:natives-linux', rules=[Rule{action=ALLOW, os=OSRestriction{name=LINUX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl:3.3.3:natives-macos', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl:3.3.3:natives-macos-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=OSX, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl:3.3.3:natives-windows', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl:3.3.3:natives-windows-arm64', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.lwjgl:lwjgl:3.3.3:natives-windows-x86', rules=[Rule{action=ALLOW, os=OSRestriction{name=WINDOWS, version='null'}, features=null}], natives=null, extract=null, packed='null'}, Library{name='org.slf4j:slf4j-api:2.0.17', rules=null, natives=null, extract=null, packed='null'}]},
+remote=null, isInstalled=true, hasRemote=false, isUpToDate=true}
+do head request -> https://rescl.tl.vg/b/jvm/java_configuration.json RequestMetadata(lastModified=Thu, 08 Jan 2026 08:29:08 GMT, eTag=52d25e534fd70a88bb655e3b1df6a67d, sha1=0f47bc501bbc5009f34bdedb5a232d2ecce640fa, lastAccessAt=1790874170991) local file C:\Users\ANORMAL444\AppData\Roaming\.tlauncher\cache\https_rescl.tlauncher.org\b\jvm\java_configuration.json
+[Launcher] Checking conditions...
+[Launcher] shaderpacks:BSL_v10.1.5.zip,BSL_v10.1.5.zip.txt,ComplementaryReimagined_r5.8.1.zip,ComplementaryReimagined_r5.8.1.zip.txt,ComplementaryReimagined_r5.9 + EuphoriaPatches_1.10.0,ComplementaryReimagined_r5.9 + EuphoriaPatches_1.10.0.txt,ComplementaryReimagined_r5.9.zip,ComplementaryReimagined_r5.9.zip.txt,ComplementaryUnbound_r5.9 + EuphoriaPatches_1.10.0,ComplementaryUnbound_r5.9 + EuphoriaPatches_1.10.0.txt,ComplementaryUnbound_r5.9.zip
+[Launcher] resourcepacks:!        В§7Desire В§fPack В§8[В§7128В§7xВ§8].zip
+[Launcher] SUCCESS Collect info completed!
+[Launcher] Comparing assets...
+[AssetsManager] Checking resources...
+[AssetsManager] Reading indexes from file C:\Users\ANORMAL444\AppData\Roaming\.minecraft\assets\indexes\29.json
+[AssetsManager] checked resorces in: 46 ms.
+[Launcher] finished comparing assets: 88 ms.
+[VersionManager] Required for version fabric-loader-0.19.5-1.21.11: []
+used default java runtime
+Minecraft requires java version: 21, java path: C:\Users\ANORMAL444\AppData\Roaming\.minecraft\runtime\java-runtime-delta\windows\java-runtime-delta\bin\javaw.exe
+library will be replaced: com.mojang:authlib:7.0.61 -> org.tlauncher:authlib:7.0.619
+library will be replaced: com.mojang:patchy:2.2.10 -> org.tlauncher:patchy:2.2.101
+[Launcher] Unpacking natives...
+[Launcher] Constructing process...
+[Launcher] Constructing classpath...
+backup world is active: true
+[Launcher] Getting Minecraft arguments...
+[Launcher] Full command: C:\Users\ANORMAL444\AppData\Roaming\.minecraft\runtime\java-runtime-delta\windows\java-runtime-delta\bin\javaw.exe -Dos.name=Windows 10 -Dos.version=10.0 -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -Dfml.ignoreInvalidMinecraftCertificates=true -Dfml.ignorePatchDiscrepancies=true -Djava.net.preferIPv4Stack=true -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump -Xss1M -Djava.library.path=C:\Users\ANORMAL444\AppData\Roaming\.minecraft\versions\fabric-loader-0.19.5-1.21.11\natives -Djna.tmpdir=C:\Users\ANORMAL444\AppData\Roaming\.minecraft\versions\fabric-loader-0.19.5-1.21.11\natives -Dorg.lwjgl.system.SharedLibraryExtractPath=C:\Users\ANORMAL444\AppData\Roaming\.minecraft\versions\fabric-loader-0.19.5-1.21.11\natives -Dio.netty.native.workdir=C:\Users\ANORMAL444\AppData\Roaming\.minecraft\versions\fabric-loader-0.19.5-1.21.11\natives -Dminecraft.launcher.brand=minecraft-launcher -Dminecraft.launcher.version=2.3.173 -cp C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\ow2\asm\asm\9.10.1\asm-9.10.1.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\ow2\asm\asm-analysis\9.10.1\asm-analysis-9.10.1.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\ow2\asm\asm-commons\9.10.1\asm-commons-9.10.1.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\ow2\asm\asm-tree\9.10.1\asm-tree-9.10.1.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\ow2\asm\asm-util\9.10.1\asm-util-9.10.1.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\net\fabricmc\sponge-mixin\0.17.4+mixin.0.8.7\sponge-mixin-0.17.4+mixin.0.8.7.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\net\fabricmc\intermediary\1.21.11\intermediary-1.21.11.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\net\fabricmc\fabric-loader\0.19.5\fabric-loader-0.19.5.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\at\yawk\lz4\lz4-java\1.8.1\lz4-java-1.8.1.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\azure\azure-json\1.4.0\azure-json-1.4.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\github\oshi\oshi-core\6.9.0\oshi-core-6.9.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\google\code\gson\gson\2.13.2\gson-2.13.2.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\google\guava\guava\33.5.0-jre\guava-33.5.0-jre.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\ibm\icu\icu4j\77.1\icu4j-77.1.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\microsoft\azure\msal4j\1.23.1\msal4j-1.23.1.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\tlauncher\authlib\7.0.619\authlib-7.0.619.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\mojang\blocklist\1.0.10\blocklist-1.0.10.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\mojang\brigadier\1.3.10\brigadier-1.3.10.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\mojang\datafixerupper\9.0.19\datafixerupper-9.0.19.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\mojang\jtracy\1.0.37\jtracy-1.0.37.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\mojang\jtracy\1.0.37\jtracy-1.0.37-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\mojang\logging\1.6.11\logging-1.6.11.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\tlauncher\patchy\2.2.101\patchy-2.2.101.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\com\mojang\text2speech\1.18.11\text2speech-1.18.11.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\commons-codec\commons-codec\1.19.0\commons-codec-1.19.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\commons-io\commons-io\2.20.0\commons-io-2.20.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-buffer\4.2.7.Final\netty-buffer-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-codec-base\4.2.7.Final\netty-codec-base-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-codec-compression\4.2.7.Final\netty-codec-compression-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-codec-http\4.2.7.Final\netty-codec-http-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-common\4.2.7.Final\netty-common-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-handler\4.2.7.Final\netty-handler-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-resolver\4.2.7.Final\netty-resolver-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-transport-classes-epoll\4.2.7.Final\netty-transport-classes-epoll-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-transport-classes-kqueue\4.2.7.Final\netty-transport-classes-kqueue-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-transport-native-unix-common\4.2.7.Final\netty-transport-native-unix-common-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\io\netty\netty-transport\4.2.7.Final\netty-transport-4.2.7.Final.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\it\unimi\dsi\fastutil\8.5.18\fastutil-8.5.18.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\net\java\dev\jna\jna-platform\5.17.0\jna-platform-5.17.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\net\java\dev\jna\jna\5.17.0\jna-5.17.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\apache\commons\commons-compress\1.28.0\commons-compress-1.28.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\apache\commons\commons-lang3\3.19.0\commons-lang3-3.19.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\apache\logging\log4j\log4j-api\2.25.2\log4j-api-2.25.2.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\apache\logging\log4j\log4j-core\2.25.2\log4j-core-2.25.2.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\apache\logging\log4j\log4j-slf4j2-impl\2.25.2\log4j-slf4j2-impl-2.25.2.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\jcraft\jorbis\0.0.17\jorbis-0.0.17.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\joml\joml\1.10.8\joml-1.10.8.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-freetype\3.3.3\lwjgl-freetype-3.3.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-freetype\3.3.3\lwjgl-freetype-3.3.3-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-freetype\3.3.3\lwjgl-freetype-3.3.3-natives-windows-arm64.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-freetype\3.3.3\lwjgl-freetype-3.3.3-natives-windows-x86.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-glfw\3.3.3\lwjgl-glfw-3.3.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-glfw\3.3.3\lwjgl-glfw-3.3.3-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-glfw\3.3.3\lwjgl-glfw-3.3.3-natives-windows-arm64.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-glfw\3.3.3\lwjgl-glfw-3.3.3-natives-windows-x86.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-jemalloc\3.3.3\lwjgl-jemalloc-3.3.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-jemalloc\3.3.3\lwjgl-jemalloc-3.3.3-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-jemalloc\3.3.3\lwjgl-jemalloc-3.3.3-natives-windows-arm64.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-jemalloc\3.3.3\lwjgl-jemalloc-3.3.3-natives-windows-x86.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-openal\3.3.3\lwjgl-openal-3.3.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-openal\3.3.3\lwjgl-openal-3.3.3-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-openal\3.3.3\lwjgl-openal-3.3.3-natives-windows-arm64.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-openal\3.3.3\lwjgl-openal-3.3.3-natives-windows-x86.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-opengl\3.3.3\lwjgl-opengl-3.3.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-opengl\3.3.3\lwjgl-opengl-3.3.3-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-opengl\3.3.3\lwjgl-opengl-3.3.3-natives-windows-arm64.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-opengl\3.3.3\lwjgl-opengl-3.3.3-natives-windows-x86.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-stb\3.3.3\lwjgl-stb-3.3.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-stb\3.3.3\lwjgl-stb-3.3.3-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-stb\3.3.3\lwjgl-stb-3.3.3-natives-windows-arm64.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-stb\3.3.3\lwjgl-stb-3.3.3-natives-windows-x86.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-tinyfd\3.3.3\lwjgl-tinyfd-3.3.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-tinyfd\3.3.3\lwjgl-tinyfd-3.3.3-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-tinyfd\3.3.3\lwjgl-tinyfd-3.3.3-natives-windows-arm64.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl-tinyfd\3.3.3\lwjgl-tinyfd-3.3.3-natives-windows-x86.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl\3.3.3\lwjgl-3.3.3.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl\3.3.3\lwjgl-3.3.3-natives-windows.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl\3.3.3\lwjgl-3.3.3-natives-windows-arm64.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\lwjgl\lwjgl\3.3.3\lwjgl-3.3.3-natives-windows-x86.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\ANORMAL444\AppData\Roaming\.minecraft\versions\fabric-loader-0.19.5-1.21.11\fabric-loader-0.19.5-1.21.11.jar -DFabricMcEmu= net.minecraft.client.main.Main  -Dminecraft.applet.TargetDirectory=C:\Users\ANORMAL444\AppData\Roaming\.minecraft -DlibraryDirectory=C:\Users\ANORMAL444\AppData\Roaming\.minecraft\libraries -Dcountry=UZ -Dlog4j.configurationFile=C:\Users\ANORMAL444\AppData\Roaming\.minecraft\assets\log_configs\client-1.21.2.xml -Xmx3600M net.fabricmc.loader.impl.launch.knot.KnotClient --username ANORMAL444 --version fabric-loader-0.19.5-1.21.11 --gameDir C:\Users\ANORMAL444\AppData\Roaming\.minecraft --assetsDir C:\Users\ANORMAL444\AppData\Roaming\.minecraft\assets --assetIndex 29 --uuid 301616ce757d4c8a949dfdcc3efc8f10 --accessToken null --clientId null --xuid null --versionType release --width 925 --height 530
+[Launcher] Launching Minecraft...
+I'm hiding!
+mods after C:\Users\ANORMAL444\AppData\Roaming\.minecraft\mods\AnormalClient-1.0.0.jar, C:\Users\ANORMAL444\AppData\Roaming\.minecraft\mods\fabric-api-0.141.6+1.21.11.jar
+[InnerMinecraftServersImpl]  search changers of the servers
+read servers from servers.dat [Server(name=HypeMC.pro, address=mc.hypemc.pro:25565, ip=mc.hypemc.pro, port=25565, hideAddress=false, acceptTextures=1), Server(name=Minecraft Server, address=anormalzzz.aternos.me, ip=anormalzzz.aternos.me, port=null, hideAddress=false, acceptTextures=0), Server(name=pizza, address=play.cherry.pizza, ip=play.cherry.pizza, port=null, hideAddress=false, acceptTextures=1), Server(name=chery buzz, address=buzz.cherry.pizza, ip=buzz.cherry.pizza, port=null, hideAddress=false, acceptTextures=0), Server(name=Minecraft Server, address=play.pika-network.net, ip=play.pika-network.net, port=null, hideAddress=false, acceptTextures=0), Server(name=artiii, address=artifact.uz, ip=artifact.uz, port=null, hideAddress=false, acceptTextures=0), Server(name=articraft, address=articraft.uz, ip=articraft.uz, port=null, hideAddress=false, acceptTextures=1), Server(name=Minecraft Server, address=anorm444.aternos.me:25516, ip=anorm444.aternos.me, port=25516, hideAddress=false, acceptTextures=1), Server(name=blocksmc, address=play.blocksmc.com, ip=play.blocksmc.com, port=null, hideAddress=false, acceptTextures=0), Server(name=niwa, address=mc.mineberry.org, ip=mc.mineberry.org, port=null, hideAddress=false, acceptTextures=0), Server(name=New Server, address=play.fakepixel.fun, ip=play.fakepixel.fun, port=null, hideAddress=false, acceptTextures=0), Server(name=New Server, address=hd.mineland.net, ip=hd.mineland.net, port=null, hideAddress=false, acceptTextures=0), Server(name=minestax, address=mc.minestax.uz, ip=mc.minestax.uz, port=null, hideAddress=false, acceptTextures=0), Server(name=Minecraft Server, address=twerion.net, ip=twerion.net, port=null, hideAddress=false, acceptTextures=0), Server(name=Minecraft Server, address=sml.jartex.fun, ip=sml.jartex.fun, port=null, hideAddress=false, acceptTextures=0), Server(name=Minecraft Server, address=Cortex.gomc.uz, ip=Cortex.gomc.uz, port=null, hideAddress=false, acceptTextures=0), Server(name=3fmc.com, address=3fmc.com, ip=3fmc.com, port=null, hideAddress=false, acceptTextures=0), Server(name=uztiers.uz , address=uztiers.uz, ip=uztiers.uz, port=null, hideAddress=false, acceptTextures=1), Server(name=Minecraft Server, address=afandismp.uz, ip=afandismp.uz, port=null, hideAddress=false, acceptTextures=0), Server(name=Minecraft Server, address=вЂ‹вЂ‹mirfayz01.aternos.me:64533, ip=вЂ‹вЂ‹mirfayz01.aternos.me, port=64533, hideAddress=false, acceptTextures=0)]
+[InnerMinecraftServersImpl]  prepare inner servers
+save servers to servers.dat
+[Launcher] Game skin type: MOJANG
+[Launcher] Starting Minecraft fabric-loader-0.19.5-1.21.11...
+[Launcher] Launching in: C:\Users\ANORMAL444\AppData\Roaming\.minecraft
+Starting garbage collector: 167 / 250 MB
+Garbage collector completed: 90 / 250 MB
+[Launcher] Processing post-launch actions. Assist launch: true
+===============================================================================================
+[22:48:23] [main/INFO]: Loading Minecraft 1.21.11 with Fabric Loader 0.19.5
+[22:48:23] [main/INFO]: Loading 49 mods:
+	- anormalclient 1.0.0
+	- fabric-api 0.141.6+1.21.11
+	   |-- fabric-api-base 1.0.5+4ebb5c083e
+	   |-- fabric-api-lookup-api-v1 1.6.114+20dc27073e
+	   |-- fabric-biome-api-v1 17.1.1+4fc5413f3e
+	   |-- fabric-block-api-v1 1.1.10+4ebb5c083e
+	   |-- fabric-block-view-api-v2 1.0.39+4ebb5c083e
+	   |-- fabric-command-api-v2 2.4.7+6b42a6003e
+	   |-- fabric-content-registries-v0 10.2.14+4fc5413f3e
+	   |-- fabric-convention-tags-v1 2.1.55+7f945d5b3e
+	   |-- fabric-convention-tags-v2 2.17.3+8ef948ba3e
+	   |-- fabric-crash-report-info-v1 0.3.23+4ebb5c083e
+	   |-- fabric-data-attachment-api-v1 1.8.48+eed0806f3e
+	   |-- fabric-data-generation-api-v1 23.5.0+88d7da613e
+	   |-- fabric-dimensions-v1 4.0.28+4fc5413f3e
+	   |-- fabric-entity-events-v1 3.1.1+1d0ab4303e
+	   |-- fabric-events-interaction-v0 4.1.1+3b89ecf63e
+	   |-- fabric-game-rule-api-v1 2.0.3+4fc5413f3e
+	   |-- fabric-item-api-v1 11.6.0+67f17bb43e
+	   |-- fabric-item-group-api-v1 4.2.36+4fc5413f3e
+	   |-- fabric-key-binding-api-v1 1.1.7+4fc5413f3e
+	   |-- fabric-lifecycle-events-v1 2.6.15+4ebb5c083e
+	   |-- fabric-loot-api-v2 3.0.73+3f89f5a53e
+	   |-- fabric-loot-api-v3 2.0.20+78c8b4663e
+	   |-- fabric-message-api-v1 6.1.12+4ebb5c083e
+	   |-- fabric-model-loading-api-v1 6.0.15+4fc5413f3e
+	   |-- fabric-networking-api-v1 5.1.6+6b6d71a53e
+	   |-- fabric-object-builder-api-v1 21.1.40+4fc5413f3e
+	   |-- fabric-particles-v1 4.2.12+4fc5413f3e
+	   |-- fabric-recipe-api-v1 8.2.4+4ebb5c083e
+	   |-- fabric-registry-sync-v0 6.2.6+1718722b3e
+	   |-- fabric-renderer-api-v1 8.0.3+f4ffd2e53e
+	   |-- fabric-renderer-indigo 5.0.3+f4ffd2e53e
+	   |-- fabric-rendering-fluids-v1 3.1.43+4ebb5c083e
+	   |-- fabric-rendering-v1 16.2.10+0290ad933e
+	   |-- fabric-resource-conditions-api-v1 5.0.35+4fc5413f3e
+	   |-- fabric-resource-loader-v0 3.3.4+4fc5413f3e
+	   |-- fabric-resource-loader-v1 1.0.10+78c8b4663e
+	   |-- fabric-screen-api-v1 3.1.7+4ebb5c083e
+	   |-- fabric-screen-handler-api-v1 1.3.162+4fc5413f3e
+	   |-- fabric-serialization-api-v1 1.0.5+4ebb5c083e
+	   |-- fabric-sound-api-v1 1.0.51+4fc5413f3e
+	   |-- fabric-tag-api-v1 1.3.0+88d7da613e
+	   |-- fabric-transfer-api-v1 6.0.25+4fc5413f3e
+	   \-- fabric-transitive-access-wideners-v1 7.1.0+014c8cec3e
+	- fabricloader 0.19.5
+	   \-- mixinextras 0.5.5
+	- java 21
+	- minecraft 1.21.11
+[22:48:23] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/C:/Users/ANORMAL444/AppData/Roaming/.minecraft/libraries/net/fabricmc/sponge-mixin/0.17.4+mixin.0.8.7/sponge-mixin-0.17.4+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[22:48:24] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[22:48:26] [Datafixer Bootstrap/INFO]: 287 Datafixer optimizations took 606 milliseconds
+[22:48:32] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[22:48:32] [Render thread/INFO]: Setting user: ANORMAL444
+[22:48:32] [Render thread/INFO]: [STDOUT]: [Anormal Client] Initializing Anormal Client v1.0.0 for Fabric...
+[22:48:32] [Render thread/INFO]: [STDOUT]: [Anormal Client] Initialization complete.
+[22:48:32] [Render thread/INFO]: [Indigo] Registering Indigo renderer!
+[22:48:33] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[22:48:34] [Render thread/INFO]: Using optional rendering extensions: GL_ARB_buffer_storage, GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+[22:48:34] [Render thread/ERROR]: Mixin apply for mod anormalclient failed anormalclient.mixins.json:GameRendererMixin from mod anormalclient -> net.minecraft.class_757: org.spongepowered.asm.mixin.gen.throwables.InvalidAccessorException @Invoker method callGetFov is not abstract
+org.spongepowered.asm.mixin.gen.throwables.InvalidAccessorException: @Invoker method callGetFov is not abstract
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attachAccessorMethod(MixinPreProcessorStandard.java:408)
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attachAccessorMethod(MixinPreProcessorStandard.java:381)
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attachMethods(MixinPreProcessorStandard.java:344)
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attach(MixinPreProcessorStandard.java:308)
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.createContextFor(MixinPreProcessorStandard.java:286)
+	at org.spongepowered.asm.mixin.transformer.MixinInfo.createContextFor(MixinInfo.java:1308)
+	at org.spongepowered.asm.mixin.transformer.MixinApplicatorStandard.apply(MixinApplicatorStandard.java:214)
+	at org.spongepowered.asm.mixin.transformer.TargetClassContext.apply(TargetClassContext.java:437)
+	at org.spongepowered.asm.mixin.transformer.TargetClassContext.applyMixins(TargetClassContext.java:418)
+	at org.spongepowered.asm.mixin.transformer.MixinProcessor.applyMixins(MixinProcessor.java:351)
+	at org.spongepowered.asm.mixin.transformer.MixinTransformer.transformClass(MixinTransformer.java:237)
+	at org.spongepowered.asm.mixin.transformer.MixinTransformer.transformClassBytes(MixinTransformer.java:202)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.getPostMixinClassByteArray(KnotClassDelegate.java:435)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.tryLoadClass(KnotClassDelegate.java:336)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.loadClass(KnotClassDelegate.java:231)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassLoader.loadClass(KnotClassLoader.java:119)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at knot//net.minecraft.class_310.<init>(class_310.java:646)
+	at knot//net.minecraft.client.main.Main.main(Main.java:234)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
 
-> Configure project :
-Fabric Loom: 1.14.10
+---- Minecraft Crash Report ----
+// This doesn't make any sense!
 
-Cannot remap modifiers because it does not exists in any of the targets [] or their parents.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ESP.java:195: error: getFov(Camera,float,boolean) has private access in GameRenderer
+Time: 2026-10-01 22:48:34
+Description: Initializing game
 
-                effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
-> Task :compileJava
-                                        ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:23: error: cannot find symbol
-            if (mc.player != null) mc.player.setNoClip(true);
-                                            ^
-  symbol:   method setNoClip(boolean)
-  location: variable player of type ClientPlayerEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:33: error: cannot find symbol
-                mc.player.setNoClip(false);
-                         ^
-  symbol:   method setNoClip(boolean)
-  location: variable player of type ClientPlayerEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:42: error: cannot find symbol
-            if (mc.player != null) mc.player.setNoClip(false);
-                                            ^
-  symbol:   method setNoClip(boolean)
-  location: variable player of type ClientPlayerEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/XRay.java:184: error: getFov(Camera,float,boolean) has private access in GameRenderer
-                effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
-                                        ^
-Note: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-5 errors
-
-> Task :compileJava FAILED
-
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790876503717.json
-
-[Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
-FAILURE: Build failed with an exception.
-
-* What went wrong:
-Execution failed for task ':compileJava'.
-> Compilation failed; see the compiler output below.
-  Note: Recompile with -Xlint:deprecation for details.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ESP.java:195: error: getFov(Camera,float,boolean) has private access in GameRenderer
-                  effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
-                                          ^
-1 actionable task: 1 executed
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/XRay.java:184: error: getFov(Camera,float,boolean) has private access in GameRenderer
-                  effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
-                                          ^
-  Note: Some input files use or override a deprecated API.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:23: error: cannot find symbol
-              if (mc.player != null) mc.player.setNoClip(true);
-                                              ^
-    symbol:   method setNoClip(boolean)
-    location: variable player of type ClientPlayerEntity
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:33: error: cannot find symbol
-                  mc.player.setNoClip(false);
-                           ^
-    symbol:   method setNoClip(boolean)
-    location: variable player of type ClientPlayerEntity
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:42: error: cannot find symbol
-              if (mc.player != null) mc.player.setNoClip(false);
-                                              ^
-    symbol:   method setNoClip(boolean)
-    location: variable player of type ClientPlayerEntity
-  5 errors
-
-* Try:
-> Check your code and dependencies to fix the compilation error(s)
-> Run with --scan to generate a Build Scan (powered by Develocity).
-
-* Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava'.
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
-	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
-	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
-	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
-	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
-	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
-	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
-	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
-	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
-	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
-	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
-	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
-	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
-	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
-	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
-	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
-	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
-	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-Note: Recompile with -Xlint:deprecation for details.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/render/ESP.java:195: error: getFov(Camera,float,boolean) has private access in GameRenderer
-                effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
-                                        ^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/world/XRay.java:184: error: getFov(Camera,float,boolean) has private access in GameRenderer
-                effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
-                                        ^
-Note: Some input files use or override a deprecated API.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:23: error: cannot find symbol
-            if (mc.player != null) mc.player.setNoClip(true);
-                                            ^
-  symbol:   method setNoClip(boolean)
-  location: variable player of type ClientPlayerEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:33: error: cannot find symbol
-                mc.player.setNoClip(false);
-                         ^
-  symbol:   method setNoClip(boolean)
-  location: variable player of type ClientPlayerEntity
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Phase.java:42: error: cannot find symbol
-            if (mc.player != null) mc.player.setNoClip(false);
-                                            ^
-  symbol:   method setNoClip(boolean)
-  location: variable player of type ClientPlayerEntity
-5 errors
-	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
-	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:38)
-	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:38)
-	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:46)
-	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:36)
-	at org.gradle.jvm.toolchain.internal.DefaultToolchainJavaCompiler.execute(DefaultToolchainJavaCompiler.java:57)
-	at org.gradle.api.tasks.compile.JavaCompile.lambda$createToolchainCompiler$3(JavaCompile.java:206)
-	at org.gradle.api.internal.tasks.compile.CleaningJavaCompiler.execute(CleaningJavaCompiler.java:53)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalCompilerFactory.lambda$createRebuildAllCompiler$0(IncrementalCompilerFactory.java:55)
-	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:70)
-	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:44)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:66)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:64)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$1.call(CompileJavaBuildOperationReportingCompiler.java:48)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:48)
-	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:224)
-	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:165)
-	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:150)
-	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:252)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:237)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:220)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:203)
-	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:170)
-	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)
-	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)
-	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)
-	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
-	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
-	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
-	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
-	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
-	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
-	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:50)
-	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:28)
-	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:68)
-	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:38)
-	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:61)
-	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:26)
-	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
-	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
-	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:39)
-	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:28)
-	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
-	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:75)
-	at org.gradle.internal.Either$Right.fold(Either.java:176)
-	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
-	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)
-	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)
-	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:46)
-	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:35)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
-	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
-	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)
-	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)
-	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)
-	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)
-	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:64)
-	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:35)
-	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:62)
-	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:40)
-	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:76)
-	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:45)
-	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:136)
-	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:66)
-	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:38)
-	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
-	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)
-	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:23)
-	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:75)
-	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:41)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$execute$0(AssignMutableWorkspaceStep.java:35)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:297)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:31)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:22)
-	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
-	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
-	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
-	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
-	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:44)
-	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:31)
-	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:64)
-	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
-	... 30 more
+java.lang.RuntimeException: Mixin transformation of net.minecraft.class_757 failed
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.getPostMixinClassByteArray(KnotClassDelegate.java:440)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.tryLoadClass(KnotClassDelegate.java:336)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.loadClass(KnotClassDelegate.java:231)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassLoader.loadClass(KnotClassLoader.java:119)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at knot//net.minecraft.class_310.<init>(class_310.java:646)
+	at knot//net.minecraft.client.main.Main.main(Main.java:234)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+Caused by: org.spongepowered.asm.mixin.transformer.throwables.MixinTransformerError: An unexpected critical error was encountered
+	at org.spongepowered.asm.mixin.transformer.MixinProcessor.applyMixins(MixinProcessor.java:380)
+	at org.spongepowered.asm.mixin.transformer.MixinTransformer.transformClass(MixinTransformer.java:237)
+	at org.spongepowered.asm.mixin.transformer.MixinTransformer.transformClassBytes(MixinTransformer.java:202)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.getPostMixinClassByteArray(KnotClassDelegate.java:435)
+	... 9 more
+Caused by: org.spongepowered.asm.mixin.throwables.MixinApplyError: Mixin [anormalclient.mixins.json:GameRendererMixin from mod anormalclient] from phase [DEFAULT] in config [anormalclient.mixins.json] FAILED during APPLY
+	at org.spongepowered.asm.mixin.transformer.MixinProcessor.handleMixinError(MixinProcessor.java:685)
+	at org.spongepowered.asm.mixin.transformer.MixinProcessor.handleMixinApplyError(MixinProcessor.java:636)
+	at org.spongepowered.asm.mixin.transformer.MixinProcessor.applyMixins(MixinProcessor.java:367)
+	... 12 more
+Caused by: org.spongepowered.asm.mixin.gen.throwables.InvalidAccessorException: @Invoker method callGetFov is not abstract
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attachAccessorMethod(MixinPreProcessorStandard.java:408)
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attachAccessorMethod(MixinPreProcessorStandard.java:381)
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attachMethods(MixinPreProcessorStandard.java:344)
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.attach(MixinPreProcessorStandard.java:308)
+	at org.spongepowered.asm.mixin.transformer.MixinPreProcessorStandard.createContextFor(MixinPreProcessorStandard.java:286)
+	at org.spongepowered.asm.mixin.transformer.MixinInfo.createContextFor(MixinInfo.java:1308)
+	at org.spongepowered.asm.mixin.transformer.MixinApplicatorStandard.apply(MixinApplicatorStandard.java:214)
+	at org.spongepowered.asm.mixin.transformer.TargetClassContext.apply(TargetClassContext.java:437)
+	at org.spongepowered.asm.mixin.transformer.TargetClassContext.applyMixins(TargetClassContext.java:418)
+	at org.spongepowered.asm.mixin.transformer.MixinProcessor.applyMixins(MixinProcessor.java:351)
+	... 12 more
 
 
-BUILD FAILED in 20s
-Error: Process completed with exit code 1.
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.getPostMixinClassByteArray(KnotClassDelegate.java:440)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.tryLoadClass(KnotClassDelegate.java:336)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassDelegate.loadClass(KnotClassDelegate.java:231)
+	at net.fabricmc.loader.impl.launch.knot.KnotClassLoader.loadClass(KnotClassLoader.java:119)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at knot//net.minecraft.class_310.<init>(class_310.java:646)
+
+-- Initialization --
+Details:
+	Modules: 
+		ADVAPI32.dll:Advanced Windows 32 Base API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		COMCTL32.dll:User Experience Controls Library:6.10 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPT32.dll:Crypto API32:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPTBASE.dll:Base cryptographic API DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPTSP.dll:Cryptographic Service Provider API:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		ColorAdapterClient.dll:Microsoft Color Adapter Client:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		CoreMessaging.dll:Microsoft CoreMessaging Dll:10.0.19041.3636:Microsoft Corporation
+		CoreUIComponents.dll:Microsoft Core UI Components Dll:10.0.19041.3636:Microsoft Corporation
+		DBGHELP.DLL:Windows Image Helper:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		DEVOBJ.dll:Device Information Set DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		DNSAPI.dll:DNS Client API DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		GDI32.dll:GDI Client DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		GLU32.dll:OpenGL Utility Library DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		IMM32.DLL:Multi-User Windows IMM32 API Client DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		IPHLPAPI.DLL:IP Helper API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		KERNEL32.DLL:Windows NT BASE API Client DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		KERNELBASE.dll:Windows NT BASE API Client DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		MMDevApi.dll:MMDevice API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		MSASN1.dll:ASN.1 Runtime APIs:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		MSCTF.dll:MSCTF Server DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		NLAapi.dll:Network Location Awareness 2:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		NSI.dll:NSI User-mode interface DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		NTASN1.dll:Microsoft ASN.1 API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		Ole32.dll:Microsoft OLE пїЅпїЅпїЅ Windows:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		OleAut32.dll:OLEAUT32.DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		OpenAL.dll:Main implementation library:1.23.1:
+		POWRPROF.dll:Power Profile Helper DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		PROPSYS.dll:пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ):7.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		PSAPI.DLL:Process Status Helper:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		Pdh.dll:Windows Performance Data Helper DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		RPCRT4.dll:пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		SETUPAPI.dll:Windows Setup API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		SHCORE.dll:SHCORE:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		SHELL32.dll:Windows Shell Common Dll:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		UMPDC.dll
+		USER32.dll:Multi-User Windows USER API Client DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		USERENV.dll:Userenv:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		VCRUNTIME140.dll:MicrosoftпїЅ C Runtime Library:14.38.33135.0:Microsoft Corporation
+		VERSION.dll:Version Checking and File Installation Libraries:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		WINHTTP.dll:пїЅпїЅпїЅпїЅпїЅпїЅ HTTP Windows:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		WINMM.dll:MCI API DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		WINTRUST.dll:Microsoft Trust Verification APIs:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		WS2_32.dll:32-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Windows Socket 2.0:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		Wldp.dll:Windows Lockdown Policy:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		amdihk64.dll:Radeon Settings: Host Service:2,00,00,1788:Advanced Micro Devices, Inc.
+		amsi.dll:Anti-Malware Scan Interface:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		atig6pxx.dll:atiglpxx.dll:8.14.01.6564:Advanced Micro Devices, Inc. 
+		atio6axx.dll:AMD OpenGL Driver:26.04.230729_569461f:Advanced Micro Devices, Inc
+		bcrypt.dll:Windows Cryptographic Primitives Library:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		bcryptPrimitives.dll:Windows Cryptographic Primitives Library:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		cfgmgr32.dll:Configuration Manager DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		clbcatq.dll:COM+ Configuration Catalog:2001.12.10941.16384 (WinBuild.160101.0800):Microsoft Corporation
+		combase.dll:Microsoft COM пїЅпїЅпїЅ Windows:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		dbgcore.DLL:Windows Core Debugging Helpers:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		dinput8.dll:Microsoft DirectInput:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		dwmapi.dll:Microsoft Desktop Window Manager API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		extnet.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		fwpuclnt.dll:FWP/IPsec User-Mode API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		gdi32full.dll:GDI Client DLL:10.0.19041.3758 (WinBuild.160101.0800):Microsoft Corporation
+		glfw.dll:GLFW 3.4.0 DLL:3.4.0:GLFW
+		icm32.dll:Microsoft Color Management Module (CMM):10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		inputhost.dll:InputHost:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		java.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		javaw.exe:OpenJDK Platform binary:21.0.7.0:Microsoft
+		jemalloc.dll
+		jimage.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		jli.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		jna1818507344743391918.dll:JNA native library:7.0.2:Java(TM) Native Access (JNA)
+		jsvml.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		jvm.dll:OpenJDK 64-Bit server VM:21.0.7.0:Microsoft
+		kernel.appcore.dll:AppModel API Host:10.0.19041.3758 (WinBuild.160101.0800):Microsoft Corporation
+		lwjgl.dll
+		lwjgl_opengl.dll
+		lwjgl_stb.dll
+		management.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		management_ext.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		mscms.dll:Microsoft Color Matching System DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		msvcp140.dll:MicrosoftпїЅ C Runtime Library:14.38.33135.0:Microsoft Corporation
+		msvcp_win.dll:MicrosoftпїЅ C Runtime Library:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		msvcrt.dll:Windows NT CRT DLL:7.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		mswsock.dll:Microsoft Windows Sockets 2.0 Service Provider:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		napinsp.dll:E-mail Naming Shim Provider:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		ncrypt.dll:Windows NCrypt Router:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		net.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		nio.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		ntdll.dll:пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ NT:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		ntmarta.dll:Windows NT MARTA provider:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		opengl32.dll:OpenGL Client DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		perfos.dll:Windows System Performance Objects DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		pnrpnsp.dll:PNRP Name Space Provider:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		profapi.dll:User Profile Basic API:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		rasadhlp.dll:Remote Access AutoDial Helper:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		rsaenh.dll:Microsoft Enhanced Cryptographic Provider:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		sechost.dll:Host for SCM/SDDL/LSA Lookup APIs:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		shlwapi.dll:Shell Light-weight Utility Library:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		sunmscapi.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		textinputframework.dll:"TextInputFramework.DYNLINK":10.0.19041.3758 (WinBuild.160101.0800):Microsoft Corporation
+		ucrtbase.dll:MicrosoftпїЅ C Runtime Library:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		uxtheme.dll:Microsoft UxTheme Library:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		vcruntime140_1.dll:MicrosoftпїЅ C Runtime Library:14.38.33135.0:Microsoft Corporation
+		verify.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+		win32u.dll:Win32u:10.0.19041.3803 (WinBuild.160101.0800):Microsoft Corporation
+		windows.storage.dll:Microsoft WinRT Storage API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		winrnr.dll:LDAP RnR Provider DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		wintypes.dll:Windows Base Types DLL:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		wshbth.dll:Windows Sockets Helper DLL:10.0.19041.3636 (WinBuild.160101.0800):Microsoft Corporation
+		xinput1_4.dll:Microsoft Common Controller API:10.0.19041.320 (WinBuild.160101.0800):Microsoft Corporation
+		zip.dll:OpenJDK Platform binary:21.0.7.0:Microsoft
+Stacktrace:
+	at knot//net.minecraft.client.main.Main.main(Main.java:234)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.11
+	Minecraft Version ID: 1.21.11
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 21.0.7, Microsoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Microsoft
+	Memory: 321096272 bytes (306 MiB) / 570425344 bytes (544 MiB) up to 3791650816 bytes (3616 MiB)
+	CPUs: 8
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 3 7330U with Radeon Graphics         
+	Identifier: AuthenticAMD Family 25 Model 80 Stepping 0
+	Microarchitecture: Zen 3
+	Frequency (GHz): 2.30
+	Number of physical packages: 1
+	Number of physical CPUs: 4
+	Number of logical CPUs: 8
+	Graphics card #0 name: AMD Radeon (TM) Graphics
+	Graphics card #0 vendor: Advanced Micro Devices, Inc.
+	Graphics card #0 VRAM (MiB): 512.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 31.0.21925.1001
+	Memory slot #0 capacity (MiB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 3.20
+	Memory slot #0 type: DDR4
+	Virtual memory max (MiB): 22802.25
+	Virtual memory used (MiB): 12962.75
+	Swap memory total (MiB): 15282.39
+	Swap memory used (MiB): 2453.52
+	Space in storage for jna.tmpdir (MiB): available: 20692.84, total: 130956.00
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): available: 20692.84, total: 130956.00
+	Space in storage for io.netty.native.workdir (MiB): available: 20692.84, total: 130956.00
+	Space in storage for java.io.tmpdir (MiB): available: 20692.84, total: 130956.00
+	Space in storage for workdir (MiB): available: 20692.84, total: 130956.00
+	JVM Flags: 9 total; -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump -Xss1M -Xmx3600M
+	Debug Flags: 0 total; 
+	Fabric Mods: 
+		anormalclient: Anormal Client 1.0.0
+		fabric-api: Fabric API 0.141.6+1.21.11
+			fabric-api-base: Fabric API Base 1.0.5+4ebb5c083e
+			fabric-api-lookup-api-v1: Fabric API Lookup API (v1) 1.6.114+20dc27073e
+			fabric-biome-api-v1: Fabric Biome API (v1) 17.1.1+4fc5413f3e
+			fabric-block-api-v1: Fabric Block API (v1) 1.1.10+4ebb5c083e
+			fabric-block-view-api-v2: Fabric BlockView API (v2) 1.0.39+4ebb5c083e
+			fabric-command-api-v2: Fabric Command API (v2) 2.4.7+6b42a6003e
+			fabric-content-registries-v0: Fabric Content Registries (v0) 10.2.14+4fc5413f3e
+			fabric-convention-tags-v1: Fabric Convention Tags 2.1.55+7f945d5b3e
+			fabric-convention-tags-v2: Fabric Convention Tags (v2) 2.17.3+8ef948ba3e
+			fabric-crash-report-info-v1: Fabric Crash Report Info (v1) 0.3.23+4ebb5c083e
+			fabric-data-attachment-api-v1: Fabric Data Attachment API (v1) 1.8.48+eed0806f3e
+			fabric-data-generation-api-v1: Fabric Data Generation API (v1) 23.5.0+88d7da613e
+			fabric-dimensions-v1: Fabric Dimensions API (v1) 4.0.28+4fc5413f3e
+			fabric-entity-events-v1: Fabric Entity Events (v1) 3.1.1+1d0ab4303e
+			fabric-events-interaction-v0: Fabric Events Interaction (v0) 4.1.1+3b89ecf63e
+			fabric-game-rule-api-v1: Fabric Game Rule API (v1) 2.0.3+4fc5413f3e
+			fabric-item-api-v1: Fabric Item API (v1) 11.6.0+67f17bb43e
+			fabric-item-group-api-v1: Fabric Item Group API (v1) 4.2.36+4fc5413f3e
+			fabric-key-binding-api-v1: Fabric Key Binding API (v1) 1.1.7+4fc5413f3e
+			fabric-lifecycle-events-v1: Fabric Lifecycle Events (v1) 2.6.15+4ebb5c083e
+			fabric-loot-api-v2: Fabric Loot API (v2) 3.0.73+3f89f5a53e
+			fabric-loot-api-v3: Fabric Loot API (v3) 2.0.20+78c8b4663e
+			fabric-message-api-v1: Fabric Message API (v1) 6.1.12+4ebb5c083e
+			fabric-model-loading-api-v1: Fabric Model Loading API (v1) 6.0.15+4fc5413f3e
+			fabric-networking-api-v1: Fabric Networking API (v1) 5.1.6+6b6d71a53e
+			fabric-object-builder-api-v1: Fabric Object Builder API (v1) 21.1.40+4fc5413f3e
+			fabric-particles-v1: Fabric Particles (v1) 4.2.12+4fc5413f3e
+			fabric-recipe-api-v1: Fabric Recipe API (v1) 8.2.4+4ebb5c083e
+			fabric-registry-sync-v0: Fabric Registry Sync (v0) 6.2.6+1718722b3e
+			fabric-renderer-api-v1: Fabric Renderer API (v1) 8.0.3+f4ffd2e53e
+			fabric-renderer-indigo: Fabric Renderer - Indigo 5.0.3+f4ffd2e53e
+			fabric-rendering-fluids-v1: Fabric Rendering Fluids (v1) 3.1.43+4ebb5c083e
+			fabric-rendering-v1: Fabric Rendering (v1) 16.2.10+0290ad933e
+			fabric-resource-conditions-api-v1: Fabric Resource Conditions API (v1) 5.0.35+4fc5413f3e
+			fabric-resource-loader-v0: Fabric Resource Loader (v0) 3.3.4+4fc5413f3e
+			fabric-resource-loader-v1: Fabric Resource Loader (v1) 1.0.10+78c8b4663e
+			fabric-screen-api-v1: Fabric Screen API (v1) 3.1.7+4ebb5c083e
+			fabric-screen-handler-api-v1: Fabric Screen Handler API (v1) 1.3.162+4fc5413f3e
+			fabric-serialization-api-v1: Fabric Serialization API (v1) 1.0.5+4ebb5c083e
+			fabric-sound-api-v1: Fabric Sound API (v1) 1.0.51+4fc5413f3e
+			fabric-tag-api-v1: Fabric Tag API (v1) 1.3.0+88d7da613e
+			fabric-transfer-api-v1: Fabric Transfer API (v1) 6.0.25+4fc5413f3e
+			fabric-transitive-access-wideners-v1: Fabric Transitive Access Wideners (v1) 7.1.0+014c8cec3e
+		fabricloader: Fabric Loader 0.19.5
+			mixinextras: MixinExtras 0.5.5
+		java: OpenJDK 64-Bit Server VM 21
+		minecraft: Minecraft 1.21.11
+	Launched Version: fabric-loader-0.19.5-1.21.11
+	Launcher name: minecraft-launcher
+	Backend library: LWJGL version 3.3.3-snapshot
+	Backend API: AMD Radeon (TM) Graphics GL version 3.3.0 Core Profile Context 26.5.2.260413, ATI Technologies Inc.
+	Window size: <not initialized>
+	GFLW Platform: win32
+	Render Extensions: GL_ARB_buffer_storage, GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+	GL debug messages: 
+	Is Modded: Definitely; Client brand changed to 'fabric'
+	Universe: 404
+	Type: Client (map_client.txt)
+	Locale: en_US
+	System encoding: Cp1251
+	File encoding: UTF-8
+	CPU: 8x AMD Ryzen 3 7330U with Radeon Graphics 
+#@!@# Game crashed! Crash report saved to: #@!@# C:\Users\ANORMAL444\AppData\Roaming\.minecraft\crash-reports\crash-2026-10-01_22.48.34-client.txt
+Here I am!
+[VersionManager] Refreshing versions locally...
+[VersionManager] Versions has been refreshed (33 ms)
+[Launcher] Launcher exited.
+[Launcher] Minecraft closed with exit code: -1
+Starting garbage collector: 112 / 250 MB
+Garbage collector completed: 90 / 250 MB
+flush now
+[Launcher] [Crash] Found crash report file: C:\Users\ANORMAL444\AppData\Roaming\.minecraft\crash-reports\crash-2026-10-01_22.48.34-client.txt
+[Crash] Found crash report file: C:\Users\ANORMAL444\AppData\Roaming\.minecraft\crash-reports\crash-2026-10-01_22.48.34-client.txt
+flush now
