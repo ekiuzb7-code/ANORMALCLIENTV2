@@ -9,7 +9,8 @@
     "GameRendererMixin",
     "XRayMixin",
     "CameraMixin",
-    "NetworkMixin"
+    "NetworkMixin",
+    "ClientAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

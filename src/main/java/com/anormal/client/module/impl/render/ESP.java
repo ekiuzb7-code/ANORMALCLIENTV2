@@ -6,6 +6,7 @@ import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;

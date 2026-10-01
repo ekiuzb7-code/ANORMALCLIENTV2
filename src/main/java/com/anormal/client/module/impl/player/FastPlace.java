@@ -29,7 +29,8 @@ public class FastPlace extends Module {
         // only shrink its own cooldown so it fires faster.
         try {
             int want = delay.getValue().intValue();
-            if (mc.itemUseCooldown > want) mc.itemUseCooldown = want;
+            com.anormal.client.mixin.ClientAccessor acc = (com.anormal.client.mixin.ClientAccessor) mc;
+            if (acc.getItemUseCooldown() > want) acc.setItemUseCooldown(want);
         } catch (Throwable ignored) {}
     }
 }
