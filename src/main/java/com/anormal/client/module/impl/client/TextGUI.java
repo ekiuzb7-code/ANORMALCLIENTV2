@@ -40,7 +40,7 @@ public class TextGUI extends Module {
 
         if (watermark.isEnabled()) {
             String clientTitle = "ANORMAL CLIENT";
-            String versionText = " v1.0 [1.21.1]";
+            String versionText = " v1.0 [1.21.11]";
             int titleWidth = mc.textRenderer.getWidth(clientTitle + versionText);
 
             if (background.isEnabled()) {

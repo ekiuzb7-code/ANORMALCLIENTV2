@@ -54,7 +54,7 @@ public class ClickGuiScreen extends Screen {
         ThemeManager.renderWindow(context, guiX, guiY, guiWidth, guiHeight, "Anormal Client");
 
         // 4. Top Header
-        String titleText = "ANORMAL " + (activeTheme == Theme.VAPE_V4 ? "§6[VAPE V4]" : "§b[GLASSMORPHISM]");
+        String titleText = "ANORMAL";
         RenderUtils.drawText(context, textRenderer, titleText, guiX + 12, guiY + 8, 0xFFFFFFFF, true);
 
         // Search Bar at Top Right
