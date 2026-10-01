@@ -31,6 +31,7 @@ public class ESP extends Module {
     public final ColorSetting itemColor = new ColorSetting("Item Color", "Dropped item color", ColorUtils.rgba(255, 255, 85, 255));
     public final BooleanSetting outline = new BooleanSetting("Outline", "Bright outer edge on boxes", true);
     public final BooleanSetting fill = new BooleanSetting("Fill", "Translucent box fill (V2)", true);
+    public final BooleanSetting showName = new BooleanSetting("Mob Names", "Show name above mobs", true);
 
     public ESP() {
         super("ESP", "Highlights players, mobs, and items through walls with customizable styles", Category.RENDER);
@@ -46,6 +47,7 @@ public class ESP extends Module {
         addSetting(itemColor);
         addSetting(outline);
         addSetting(fill);
+        addSetting(showName);
     }
 
     @Override
@@ -82,13 +84,20 @@ public class ESP extends Module {
                 else continue;
 
                 Box box = entity.getBoundingBox();
-                double cx0 = (box.minX + box.maxX) / 2.0;
-                double cz0 = (box.minZ + box.maxZ) / 2.0;
-                int[] sTop = project(new Vec3d(cx0, box.maxY + 0.1, cz0));
-                int[] sBot = project(new Vec3d(cx0, box.minY, cz0));
+                // Predict forward by velocity * partial tick: the camera renders ahead
+                // of the last tick position, which dragged boxes behind running mobs.
+                double px = 0.0, pz = 0.0;
+                try {
+                    px = entity.getVelocity().x * tickDelta;
+                    pz = entity.getVelocity().z * tickDelta;
+                } catch (Throwable ignored) {}
+                double cx0 = (box.minX + box.maxX) / 2.0 + px;
+                double cz0 = (box.minZ + box.maxZ) / 2.0 + pz;
+                int[] sTop = project(new Vec3d(cx0, box.maxY + 0.1, cz0), tickDelta);
+                int[] sBot = project(new Vec3d(cx0, box.minY, cz0), tickDelta);
                 // X from MID-height projection: top/bottom centers skew under perspective,
                 // which pushed the box ahead of / behind the hitbox
-                int[] sMid = project(new Vec3d(cx0, (box.minY + box.maxY) / 2.0, cz0));
+                int[] sMid = project(new Vec3d(cx0, (box.minY + box.maxY) / 2.0, cz0), tickDelta);
                 if (sTop == null || sBot == null || sMid == null) continue;
                 int h = Math.max(4, sBot[1] - sTop[1]);
                 int w = Math.max(4, h / 3);
@@ -136,6 +145,13 @@ public class ESP extends Module {
                     } catch (Throwable ignored) {}
                 }
 
+                if (showName.isEnabled() && !(entity instanceof PlayerEntity) && mc.textRenderer != null) {
+                    try {
+                        String mob = entity.getName().getString();
+                        RenderUtils.drawText(context, mc.textRenderer, mob, x - mc.textRenderer.getWidth(mob) / 2, yTop - (v2 ? 22 : 11), 0xFFFFFFFF, true);
+                    } catch (Throwable ignored) {}
+                }
+
                 if (healthBar.isEnabled() && entity instanceof LivingEntity living) {
                     float maxHp = Math.max(1.0f, living.getMaxHealth());
                     float pct = Math.max(0.0f, Math.min(1.0f, living.getHealth() / maxHp));
@@ -158,7 +174,7 @@ public class ESP extends Module {
         return color.getValue();
     }
 
-    private int[] project(Vec3d p) {
+    private int[] project(Vec3d p, float tickDelta) {
         try {
             Camera cam = mc.gameRenderer.getCamera();
             Vec3d c = mc.player.getEyePos();
@@ -174,11 +190,15 @@ public class ESP extends Module {
             double cx = dx * rx + dz * rz;
             double cy = dx * ux + dy * uy + dz * uz;
             int w = mc.getWindow().getScaledWidth(), hh = mc.getWindow().getScaledHeight();
-            int fov = 70;
+            float effFov = 70.0f;
             try {
-                fov = mc.options.getFov().getValue();
-            } catch (Throwable ignored) {}
-            double f = (hh / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, fov)) / 2.0));
+                effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
+            } catch (Throwable ignored) {
+                try {
+                    effFov = mc.options.getFov().getValue();
+                } catch (Throwable ignored2) {}
+            }
+            double f = (hh / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, effFov)) / 2.0));
             return new int[]{(int) (w / 2.0 + cx / depth * f), (int) (hh / 2.0 - cy / depth * f)};
         } catch (Throwable t) {
             return null;

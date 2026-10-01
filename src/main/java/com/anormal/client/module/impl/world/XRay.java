@@ -132,14 +132,21 @@ public class XRay extends Module {
     public void onRender2D(DrawContext context, float tickDelta) {
         if (!markersEnabled() || mc.player == null || cache.isEmpty()) return;
         int col = 0xFFFF8800;
+        int sw = mc.getWindow().getScaledWidth();
+        int sh = mc.getWindow().getScaledHeight();
         for (BlockPos p : cache) {
-            int[] s = project(new Vec3d(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5));
+            int[] s = project(new Vec3d(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5), tickDelta);
             if (s == null) continue;
-            context.fill(s[0] - 3, s[1] - 3, s[0] + 3, s[1] + 3, (col & 0x00FFFFFF) | 0x55000000);
-            context.fill(s[0] - 3, s[1] - 3, s[0] + 3, s[1] - 2, col);
-            context.fill(s[0] - 3, s[1] + 2, s[0] + 3, s[1] + 3, col);
-            context.fill(s[0] - 3, s[1] - 2, s[0] - 2, s[1] + 2, col);
-            context.fill(s[0] + 2, s[1] - 2, s[0] + 3, s[1] + 2, col);
+            // Cull off-screen and anchor size to depth so markers track blocks
+            if (s[0] < -20 || s[0] > sw + 20 || s[1] < -20 || s[1] > sh + 20) continue;
+            double dist = Math.sqrt(mc.player.getEyePos().squaredDistanceTo(
+                    new Vec3d(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5)));
+            int half = Math.max(2, Math.min(6, (int) (60.0 / Math.max(1.0, dist))));
+            context.fill(s[0] - half, s[1] - half, s[0] + half, s[1] + half, (col & 0x00FFFFFF) | 0x55000000);
+            context.fill(s[0] - half, s[1] - half, s[0] + half, s[1] - half + 1, col);
+            context.fill(s[0] - half, s[1] + half - 1, s[0] + half, s[1] + half, col);
+            context.fill(s[0] - half, s[1] - half, s[0] - half + 1, s[1] + half, col);
+            context.fill(s[0] + half - 1, s[1] - half, s[0] + half, s[1] + half, col);
         }
     }
 
@@ -154,7 +161,7 @@ public class XRay extends Module {
         return false;
     }
 
-    private int[] project(Vec3d p) {
+    private int[] project(Vec3d p, float tickDelta) {
         try {
             Camera cam = mc.gameRenderer.getCamera();
             Vec3d c = mc.player.getEyePos();
@@ -170,11 +177,17 @@ public class XRay extends Module {
             double cx = dx * rx + dz * rz;
             double cy = dx * ux + dy * uy + dz * uz;
             int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-            int fov = 70;
+            // Effective FOV (sprint/speed/flying kick the real FOV above the setting;
+            // using the base value displaced every off-center marker while moving)
+            float effFov = 70.0f;
             try {
-                fov = mc.options.getFov().getValue();
-            } catch (Throwable ignored) {}
-            double f = (h / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, fov)) / 2.0));
+                effFov = mc.gameRenderer.getFov(cam, tickDelta, true);
+            } catch (Throwable ignored) {
+                try {
+                    effFov = mc.options.getFov().getValue();
+                } catch (Throwable ignored2) {}
+            }
+            double f = (h / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, effFov)) / 2.0));
             return new int[]{(int) (w / 2.0 + cx / depth * f), (int) (h / 2.0 - cy / depth * f)};
         } catch (Throwable t) {
             return null;

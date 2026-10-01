@@ -13,6 +13,8 @@ public class AntiAFK extends Module {
     public final BooleanSetting silentAim = new BooleanSetting("Silent Aim", "Rotate without moving camera", false);
     public final NumberSetting maxYawChange = new NumberSetting("Max Yaw Change", "Yaw step per action", 8.0, 1.0, 45.0, 1.0);
     public final NumberSetting maxPitchChange = new NumberSetting("Max Pitch Change", "Pitch step per action", 4.0, 0.0, 30.0, 1.0);
+    public final BooleanSetting jump = new BooleanSetting("Jump", "Also jump on each action", false);
+    public final BooleanSetting testNow = new BooleanSetting("Test Now", "Do one action immediately", false);
 
     private int idleTicks = 0;
     private int actionTicks = 0;
@@ -28,6 +30,8 @@ public class AntiAFK extends Module {
         addSetting(silentAim);
         addSetting(maxYawChange);
         addSetting(maxPitchChange);
+        addSetting(jump);
+        addSetting(testNow);
     }
 
     @Override
@@ -49,10 +53,19 @@ public class AntiAFK extends Module {
     @Override
     public void onTick() {
         if (mc.player == null) return;
+        // Manual test: acts right now so you can see it working
+        if (testNow.isEnabled()) {
+            testNow.setValue(false);
+            idleTicks = 0;
+            actionTicks = 0;
+            doAction();
+            return;
+        }
         if (moveTicks > 0) {
             if (--moveTicks <= 0) {
                 mc.options.forwardKey.setPressed(false);
                 mc.options.backKey.setPressed(false);
+                mc.options.jumpKey.setPressed(false);
             }
             return;
         }
@@ -61,10 +74,15 @@ public class AntiAFK extends Module {
         int interval = (int) Math.max(20.0, 1200.0 / Math.max(1.0, frequency.getValue()));
         if (++actionTicks < interval) return;
         actionTicks = 0;
+        doAction();
+    }
+
+    private void doAction() {
         if (keepClose.isEnabled()) forward = !forward;
         else forward = true;
         mc.options.forwardKey.setPressed(forward);
         mc.options.backKey.setPressed(!forward);
+        if (jump.isEnabled()) mc.options.jumpKey.setPressed(true);
         moveTicks = 4;
         if (rotation.isEnabled() && !silentAim.isEnabled()) {
             mc.player.setYaw(mc.player.getYaw() + (forward ? 1 : -1) * (float) maxYawChange.getValue().doubleValue());

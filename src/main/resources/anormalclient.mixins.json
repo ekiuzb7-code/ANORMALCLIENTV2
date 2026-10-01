@@ -10,7 +10,8 @@
     "XRayMixin",
     "CameraMixin",
     "NetworkMixin",
-    "ClientAccessor"
+    "ClientAccessor",
+    "GammaAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

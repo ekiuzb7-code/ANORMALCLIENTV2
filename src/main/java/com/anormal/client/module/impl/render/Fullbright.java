@@ -14,6 +14,14 @@ public class Fullbright extends Module {
     private double savedGamma = 1.0;
     private boolean gammaApplied = false;
 
+    // Vanilla clamps gamma to 0..1 in setValue (invalid values reset to default),
+    // so Gamma mode writes the raw field like Wurst's forceSetValue.
+    private void rawGamma(double v) {
+        try {
+            ((com.anormal.client.mixin.GammaAccessor) (Object) mc.options.getGamma()).setRawValue(v);
+        } catch (Throwable ignored) {}
+    }
+
     public Fullbright() {
         super("Fullbright", "Brightens the entire world to 100% night vision brightness", Category.RENDER);
         addSetting(mode);
@@ -36,11 +44,9 @@ public class Fullbright extends Module {
                 }
                 double next = fade.isEnabled() ? approach(current, target, 0.8) : target;
                 if (Math.abs(next - current) > 0.001) {
-                    try {
-                        mc.options.getGamma().setValue(next);
-                    } catch (Throwable ignored) {}
+                    rawGamma(next);
                 }
-                // If the game clamps gamma (stays ~1.0), fall back to night vision
+                // If raw write didn't stick, fall back to night vision
                 // so Gamma mode still brightens instead of silently doing nothing.
                 try {
                     if (mc.options.getGamma().getValue() < target - 0.5) {
@@ -67,9 +73,9 @@ public class Fullbright extends Module {
             double current = mc.options.getGamma().getValue();
             if (fade.isEnabled() && isEnabled()) return;
             double next = fade.isEnabled() ? approach(current, savedGamma, 0.8) : savedGamma;
-            mc.options.getGamma().setValue(next);
+            rawGamma(next);
             if (Math.abs(next - savedGamma) < 0.01) {
-                mc.options.getGamma().setValue(savedGamma);
+                rawGamma(savedGamma);
                 gammaApplied = false;
             }
         } catch (Throwable t) {

@@ -32,7 +32,7 @@ public class BlockOverlay extends Module {
             if (s == null) return;
             double dist = Math.sqrt(mc.player.getEyePos().squaredDistanceTo(center));
             if (dist < 0.5) return;
-            int half = Math.max(6, (int) (s[2] / Math.max(0.5, dist)));
+            int half = Math.max(6, (int) (s[2] / Math.max(0.5, dist) / 2.0));
             int outline = outlineColor.getValue();
             int fill = fillColor.getValue();
             context.fill(s[0] - half, s[1] - half, s[0] + half, s[1] + half, fill);
