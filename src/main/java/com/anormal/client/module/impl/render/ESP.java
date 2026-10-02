@@ -88,10 +88,12 @@ public class ESP extends Module {
 
     // Per-type outline colors via client scoreboard teams: the model-hugging glow
     // takes the team color, so players/mobs render in their own colors.
-    private net.minecraft.scoreboard.ScoreboardTeam team(String name, int rgb) {
+    private static final java.util.Set<String> OUR_ENTRIES = new java.util.HashSet<>();
+
+    private net.minecraft.scoreboard.Team team(String name, int rgb) {
         try {
             net.minecraft.scoreboard.Scoreboard board = mc.world.getScoreboard();
-            net.minecraft.scoreboard.ScoreboardTeam team = board.getTeam(name);
+            net.minecraft.scoreboard.Team team = board.getTeam(name);
             if (team == null) team = board.addTeam(name);
             team.setColor(nearestFormatting(rgb));
             return team;
@@ -121,16 +123,17 @@ public class ESP extends Module {
                 want = "anormalI";
                 rgb = itemColor.getValue();
             }
-            net.minecraft.scoreboard.ScoreboardTeam team = team(want, rgb);
+            net.minecraft.scoreboard.Team team = team(want, rgb);
             if (team == null) return;
-            net.minecraft.scoreboard.ScoreboardTeam cur = board.getEntityTeam(entry);
+            net.minecraft.scoreboard.Team cur = board.getScoreHolderTeam(entry);
             if (cur != team) {
                 if (cur != null) {
                     try {
-                        board.removePlayerFromTeam(entry, cur);
+                        board.removeScoreHolderFromTeam(entry, cur);
                     } catch (Throwable ignored) {}
                 }
-                board.addPlayerToTeam(entry, team);
+                board.addScoreHolderToTeam(entry, team);
+                OUR_ENTRIES.add(entry);
             }
         } catch (Throwable ignored) {}
     }
@@ -141,10 +144,12 @@ public class ESP extends Module {
             String entry = entity instanceof PlayerEntity
                     ? entity.getName().getString()
                     : entity.getUuid().toString();
-            net.minecraft.scoreboard.ScoreboardTeam cur = board.getEntityTeam(entry);
-            if (cur != null && cur.getName().startsWith("anormal")) {
-                board.removePlayerFromTeam(entry, cur);
+            if (!OUR_ENTRIES.contains(entry)) return;
+            net.minecraft.scoreboard.Team cur = board.getScoreHolderTeam(entry);
+            if (cur != null) {
+                board.removeScoreHolderFromTeam(entry, cur);
             }
+            OUR_ENTRIES.remove(entry);
         } catch (Throwable ignored) {}
     }
 
@@ -153,10 +158,11 @@ public class ESP extends Module {
             net.minecraft.scoreboard.Scoreboard board = mc.world.getScoreboard();
             for (String name : new String[]{"anormalP", "anormalM", "anormalA", "anormalI"}) {
                 try {
-                    net.minecraft.scoreboard.ScoreboardTeam team = board.getTeam(name);
+                    net.minecraft.scoreboard.Team team = board.getTeam(name);
                     if (team != null) board.removeTeam(team);
                 } catch (Throwable ignored) {}
             }
+            OUR_ENTRIES.clear();
         } catch (Throwable ignored) {}
     }
 
@@ -323,16 +329,5 @@ public class ESP extends Module {
         } catch (Throwable t) {
             return null;
         }
-    }
-
-    @Override
-    public void onDisable() {
-        if (mc.world == null) return;
-        for (Entity entity : mc.world.getEntities()) {
-            try {
-                entity.setGlowing(false);
-            } catch (Throwable ignored) {}
-        }
-        clearTeams();
     }
 }
