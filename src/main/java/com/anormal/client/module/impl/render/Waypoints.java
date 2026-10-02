@@ -27,13 +27,14 @@ public class Waypoints extends Module {
     public final BooleanSetting clear = new BooleanSetting("Clear All", "Forget all waypoints", false);
     public final BooleanSetting showDistance = new BooleanSetting("Show Distance", "Show distance on marker", true);
     public final BooleanSetting showName = new BooleanSetting("Show Name", "Show name on marker", true);
+    public final BooleanSetting showCoords = new BooleanSetting("Show Coords", "Show coordinates on marker", true);
 
-    private static final class Waypoint {
-        double x, y, z;
-        String dim;
-        int color;
-        boolean on;
-        String name;
+    public static final class Waypoint {
+        public double x, y, z;
+        public String dim;
+        public int color;
+        public boolean on;
+        public String name;
         Waypoint(double x, double y, double z, String dim, int color) {
             this.x = x;
             this.y = y;
@@ -47,6 +48,72 @@ public class Waypoints extends Module {
 
     private final List<Waypoint> points = new ArrayList<>();
     private int lastSlot = -1;
+    private boolean dirty = false;
+    private int saveTimer = 0;
+
+    public List<Waypoint> getPoints() {
+        return points;
+    }
+
+    // Screen position of a waypoint marker for editor hit-testing/rename
+    public int[] markerScreenPos(int i, float tickDelta) {
+        if (i < 0 || i >= points.size() || mc.player == null) return null;
+        Waypoint w = points.get(i);
+        return com.anormal.client.util.ProjectionUtil.project(new Vec3d(w.x, w.y + 1.0, w.z), tickDelta);
+    }
+
+    public void togglePoint(int i) {
+        if (i < 0 || i >= points.size()) return;
+        Waypoint w = points.get(i);
+        w.on = !w.on;
+        try {
+            if (slot.getValue().intValue() == i + 1) on.setValue(w.on);
+        } catch (Throwable ignored) {}
+        saveWaypoints();
+    }
+
+    public void renamePoint(int i, String name) {
+        if (i < 0 || i >= points.size() || name == null) return;
+        points.get(i).name = name.isEmpty() ? ("WP" + (i + 1)) : name;
+        saveWaypoints();
+    }
+
+    // Auto-save: waypoints survive restarts like HUD layout
+    public static void saveWaypoints() {
+        try {
+            com.anormal.client.module.Module m = com.anormal.client.module.ModuleManager.getModule(Waypoints.class);
+            if (!(m instanceof Waypoints wp)) return;
+            java.io.File dir = new java.io.File(net.minecraft.client.MinecraftClient.getInstance().runDirectory, "config/anormal");
+            dir.mkdirs();
+            java.util.List<String> lines = new java.util.ArrayList<>();
+            for (Waypoint w : wp.points) {
+                String safeName = w.name.replace(";", "").replace("\n", "");
+                lines.add(safeName + ";" + w.x + ";" + w.y + ";" + w.z + ";" + w.dim + ";" + w.color + ";" + w.on);
+            }
+            java.nio.file.Files.write(new java.io.File(dir, "waypoints.txt").toPath(), lines);
+        } catch (Throwable ignored) {}
+    }
+
+    public static void loadWaypoints() {
+        try {
+            com.anormal.client.module.Module m = com.anormal.client.module.ModuleManager.getModule(Waypoints.class);
+            if (!(m instanceof Waypoints wp)) return;
+            java.io.File f = new java.io.File(net.minecraft.client.MinecraftClient.getInstance().runDirectory, "config/anormal/waypoints.txt");
+            if (!f.exists()) return;
+            wp.points.clear();
+            for (String line : java.nio.file.Files.readAllLines(f.toPath())) {
+                try {
+                    String[] p = line.split(";", -1);
+                    if (p.length < 7) continue;
+                    Waypoint w = new Waypoint(Double.parseDouble(p[1]), Double.parseDouble(p[2]),
+                            Double.parseDouble(p[3]), p[4], Integer.parseInt(p[5]));
+                    w.name = p[0].isEmpty() ? ("WP" + (wp.points.size() + 1)) : p[0];
+                    w.on = Boolean.parseBoolean(p[6]);
+                    if (wp.points.size() < 30) wp.points.add(w);
+                } catch (Throwable ignored) {}
+            }
+        } catch (Throwable ignored) {}
+    }
 
     public Waypoints() {
         super("Waypoints", "Unlimited custom map markers", Category.RENDER);
@@ -61,6 +128,7 @@ public class Waypoints extends Module {
         addSetting(clear);
         addSetting(showDistance);
         addSetting(showName);
+        addSetting(showCoords);
     }
 
     private String curDim() {
@@ -84,6 +152,7 @@ public class Waypoints extends Module {
             clear.setValue(false);
             points.clear();
             lastSlot = -1;
+            saveWaypoints();
             return;
         }
         if (addHere.isEnabled()) {
@@ -102,6 +171,7 @@ public class Waypoints extends Module {
                     }
                 } catch (Throwable ignored) {}
             }
+            saveWaypoints();
         }
         if (delete.isEnabled()) {
             delete.setValue(false);
@@ -109,6 +179,7 @@ public class Waypoints extends Module {
             if (w != null) {
                 points.remove(w);
                 lastSlot = -1;
+                saveWaypoints();
             }
             return;
         }
@@ -127,17 +198,28 @@ public class Waypoints extends Module {
                 } catch (Throwable ignored) {}
             }
         } else {
-            // Pull editor values back into selected waypoint
+            // Pull editor values back into selected waypoint (saved periodically)
             Waypoint w = selected();
             if (w != null) {
                 try {
-                    w.x = x.getValue();
-                    w.y = y.getValue();
-                    w.z = z.getValue();
-                    w.on = on.isEnabled();
-                    w.color = color.getValue();
+                    double nx = x.getValue(), ny = y.getValue(), nz = z.getValue();
+                    boolean no = on.isEnabled();
+                    int nc = color.getValue();
+                    if (nx != w.x || ny != w.y || nz != w.z || no != w.on || nc != w.color) {
+                        w.x = nx;
+                        w.y = ny;
+                        w.z = nz;
+                        w.on = no;
+                        w.color = nc;
+                        dirty = true;
+                    }
                 } catch (Throwable ignored) {}
             }
+        }
+        if (dirty && ++saveTimer > 100) {
+            saveTimer = 0;
+            dirty = false;
+            saveWaypoints();
         }
     }
 
@@ -157,8 +239,11 @@ public class Waypoints extends Module {
             context.fill(sc[0] - 4, sc[1] - 4, sc[0] + 4, sc[1] + 4, (col & 0x00FFFFFF) | 0x66000000);
             if (mc.textRenderer != null) {
                 StringBuilder label = new StringBuilder();
+                label.append("§6").append(i + 1).append(" ");
                 if (showName.isEnabled()) label.append("§e").append(w.name).append(" ");
-                label.append(String.format("§f%.0f/%.0f/%.0f", w.x, w.y, w.z));
+                if (showCoords.isEnabled()) {
+                    label.append(String.format("§f%.0f/%.0f/%.0f", w.x, w.y, w.z));
+                }
                 if (showDistance.isEnabled()) {
                     double dx = w.x - mc.player.getX();
                     double dy = w.y - mc.player.getY();

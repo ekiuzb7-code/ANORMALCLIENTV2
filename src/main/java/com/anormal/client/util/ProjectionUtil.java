@@ -20,7 +20,6 @@ public final class ProjectionUtil {
             float yaw = mc.player.getYaw();
             float pitch = mc.player.getPitch();
             Vec3d origin = mc.player.getEyePos();
-
             try {
                 Freecam freecam = ModuleManager.getModule(Freecam.class);
                 if (freecam != null && freecam.isEnabled() && freecam.isCameraActive()) {
@@ -34,6 +33,14 @@ public final class ProjectionUtil {
                         pitch = freeLook.getLookPitch();
                     }
                 }
+            } catch (Throwable ignored) {}
+
+            // Interpolate the eye to render time: the GPU camera sits between ticks,
+            // a tick-frozen origin made every marker swim while flying fast.
+            try {
+                Vec3d pv = mc.player.getVelocity();
+                double back = 1.0 - Math.max(0.0, Math.min(1.0, tickDelta));
+                origin = new Vec3d(origin.x - pv.x * back, origin.y - pv.y * back, origin.z - pv.z * back);
             } catch (Throwable ignored) {}
 
             double yawRad = Math.toRadians(yaw);

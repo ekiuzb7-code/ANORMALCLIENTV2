@@ -228,8 +228,10 @@ public class ESP extends Module {
                 int h = Math.max(4, sBot[1] - sTop[1]);
                 int w = Math.max(4, h / 3);
                 int x = sMid[0];
-                int yTop = Math.min(sTop[1], sBot[1]);
-                int yBot = yTop + h;
+                // Bottom-anchored: feet projection is exact, top derives from height.
+                // Top-anchoring let maxY padding + projection error float the whole box.
+                int yBot = Math.max(sTop[1], sBot[1]);
+                int yTop = yBot - h;
                 int col = typeColor(entity);
                 boolean v2 = mode.is("V2");
 

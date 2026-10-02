@@ -25,6 +25,14 @@ public class AnormalClient implements ClientModInitializer {
         // Initialize all client modules and settings
         ModuleManager.init();
 
+        // Restore HUD layout from previous sessions
+        try {
+            com.anormal.client.gui.HudEditorScreen.loadPositions();
+        } catch (Throwable ignored) {}
+        try {
+            com.anormal.client.module.impl.render.Waypoints.loadWaypoints();
+        } catch (Throwable ignored) {}
+
         // Register Fabric HUD Render Callback for 2D HUD overlays
         try {
             HudRenderCallback.EVENT.register((drawContext, renderTickCounter) -> {

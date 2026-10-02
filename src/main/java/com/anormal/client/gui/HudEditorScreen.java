@@ -3,12 +3,14 @@ package com.anormal.client.gui;
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
 import com.anormal.client.module.ModuleManager;
+import com.anormal.client.module.impl.render.Waypoints;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.theme.ThemeManager;
 import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -56,6 +58,8 @@ public class HudEditorScreen extends Screen {
     }
 
     private final List<HudElement> elements = new ArrayList<>();
+    private int renameWpIdx = -1;
+    private final StringBuilder renameBuf = new StringBuilder();
 
     public HudEditorScreen(Screen parentScreen) {
         super(Text.literal("HUD Editor"));
@@ -180,6 +184,30 @@ public class HudEditorScreen extends Screen {
             RenderUtils.drawText(context, textRenderer, label, lx, ly, 0xFFFFFFFF, true);
         }
 
+        // Waypoints preview + rename indicator (they have no posX/posY element)
+        try {
+            Waypoints wp = ModuleManager.getModule(Waypoints.class);
+            if (wp != null) {
+                try {
+                    wp.onRender2D(context, delta);
+                } catch (Throwable ignored) {}
+                java.util.List<Waypoints.Waypoint> pts = wp.getPoints();
+                for (int i = 0; i < pts.size(); i++) {
+                    int[] sc = wp.markerScreenPos(i, delta);
+                    if (sc == null) continue;
+                    boolean sel = (i == renameWpIdx);
+                    RenderUtils.drawBorder(context, sc[0] - 9, sc[1] - 9, sc[0] + 9, sc[1] + 9, 1,
+                            sel ? 0xFFFFFF55 : ColorUtils.rgba(100, 110, 130, 180));
+                    if (sel) {
+                        String rn = "§e✎ " + renameBuf.toString() + "§6|";
+                        RenderUtils.fill(context, sc[0] + 11, sc[1] - 6,
+                                sc[0] + 13 + textRenderer.getWidth(rn), sc[1] + 6, ColorUtils.rgba(0, 0, 0, 170));
+                        RenderUtils.drawText(context, textRenderer, rn, sc[0] + 12, sc[1] - 4, 0xFFFFFFFF, true);
+                    }
+                }
+            }
+        } catch (Throwable ignored) {}
+
         super.render(context, mouseX, mouseY, delta);
     }
 
@@ -193,6 +221,32 @@ public class HudEditorScreen extends Screen {
     }
 
     private boolean handleEditorClick(double mouseX, double mouseY, int button) {
+        // Waypoint markers: left = select + rename, right = show/hide toggle
+        try {
+            Waypoints wp = ModuleManager.getModule(Waypoints.class);
+            if (wp != null) {
+                java.util.List<Waypoints.Waypoint> pts = wp.getPoints();
+                for (int i = 0; i < pts.size(); i++) {
+                    int[] sc = wp.markerScreenPos(i, 1.0f);
+                    if (sc == null) continue;
+                    if (Math.abs(mouseX - sc[0]) <= 10 && Math.abs(mouseY - sc[1]) <= 10) {
+                        if (button == 0) {
+                            try {
+                                wp.slot.setValue((double) (i + 1));
+                            } catch (Throwable ignored) {}
+                            renameWpIdx = i;
+                            renameBuf.setLength(0);
+                            renameBuf.append(pts.get(i).name);
+                        } else if (button == 1) {
+                            wp.togglePoint(i);
+                            if (renameWpIdx == i) renameWpIdx = -1;
+                        }
+                        return true;
+                    }
+                }
+            }
+        } catch (Throwable ignored) {}
+        if (button == 0) renameWpIdx = -1;
         for (HudElement el : elements) {
             if (el.isHovered((int) mouseX, (int) mouseY)) {
                 if (button == 0) {
@@ -219,12 +273,89 @@ public class HudEditorScreen extends Screen {
 
     @Override
     public boolean keyPressed(KeyInput input) {
+        // Rename mode: typing goes to waypoint name, ESC/Enter commits
+        if (renameWpIdx >= 0) {
+            try {
+                if (input.key() == GLFW.GLFW_KEY_ESCAPE || input.key() == GLFW.GLFW_KEY_ENTER) {
+                    Waypoints wp = ModuleManager.getModule(Waypoints.class);
+                    if (wp != null) wp.renamePoint(renameWpIdx, renameBuf.toString().trim());
+                    renameWpIdx = -1;
+                    if (input.key() == GLFW.GLFW_KEY_ENTER) return true;
+                } else if (input.key() == GLFW.GLFW_KEY_BACKSPACE) {
+                    if (renameBuf.length() > 0) renameBuf.setLength(renameBuf.length() - 1);
+                    return true;
+                } else {
+                    return true;
+                }
+            } catch (Throwable ignored) {}
+        }
         if (input.key() == GLFW.GLFW_KEY_ESCAPE) {
+            savePositions();
+            try {
+                com.anormal.client.module.impl.render.Waypoints.saveWaypoints();
+            } catch (Throwable ignored) {}
             if (client != null) {
                 client.setScreen(parentScreen);
             }
             return true;
         }
         return super.keyPressed(input);
+    }
+
+    @Override
+    public boolean charTyped(CharInput input) {
+        if (renameWpIdx >= 0) {
+            try {
+                String s = input.asString();
+                if (s.length() == 1) {
+                    char chr = s.charAt(0);
+                    if (chr >= 32 && chr <= 126 && renameBuf.length() < 16) {
+                        renameBuf.append(chr);
+                    }
+                }
+            } catch (Throwable ignored) {}
+            return true;
+        }
+        return super.charTyped(input);
+    }
+
+    // HUD auto-save: positions survive restarts and server switches
+    public static void savePositions() {
+        try {
+            java.io.File dir = new java.io.File(net.minecraft.client.MinecraftClient.getInstance().runDirectory, "config/anormal");
+            dir.mkdirs();
+            List<String> lines = new ArrayList<>();
+            for (Module m : ModuleManager.getModules()) {
+                NumberSetting[] pos = findPosSettings(m);
+                if (pos == null) continue;
+                lines.add(m.getName() + "=" + pos[0].getValue().intValue() + "," + pos[1].getValue().intValue());
+            }
+            java.nio.file.Files.write(new java.io.File(dir, "hud.txt").toPath(), lines);
+        } catch (Throwable ignored) {}
+    }
+
+    public static void loadPositions() {
+        try {
+            java.io.File f = new java.io.File(net.minecraft.client.MinecraftClient.getInstance().runDirectory, "config/anormal/hud.txt");
+            if (!f.exists()) return;
+            for (String line : java.nio.file.Files.readAllLines(f.toPath())) {
+                try {
+                    int eq = line.indexOf('=');
+                    int comma = line.indexOf(',');
+                    if (eq < 0 || comma < 0) continue;
+                    String name = line.substring(0, eq).trim();
+                    int px = Integer.parseInt(line.substring(eq + 1, comma).trim());
+                    int py = Integer.parseInt(line.substring(comma + 1).trim());
+                    for (Module m : ModuleManager.getModules()) {
+                        if (!m.getName().equals(name)) continue;
+                        NumberSetting[] pos = findPosSettings(m);
+                        if (pos == null) break;
+                        pos[0].setValue((double) px);
+                        pos[1].setValue((double) py);
+                        break;
+                    }
+                } catch (Throwable ignored) {}
+            }
+        } catch (Throwable ignored) {}
     }
 }

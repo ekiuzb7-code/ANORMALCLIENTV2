@@ -66,9 +66,9 @@ public class ClickGuiScreen extends Screen {
             } catch (Throwable ignored) {}
             int bw = Math.max(16, (int) (128 * bs));
             int bh = Math.max(4, (int) (32 * bs));
-            context.drawTexture(net.minecraft.client.gl.RenderPipelines.GUI_TEXTURED,
+            context.drawTexturedQuad(
                     net.minecraft.util.Identifier.of("anormalclient", "logo_banner.png"),
-                    guiX + 12, guiY + 4, 0, 0, bw, bh, 1024, 256);
+                    guiX + 12, guiY + 4, guiX + 12 + bw, guiY + 4 + bh, 0.0f, 1.0f, 0.0f, 1.0f);
         } catch (Throwable ignored) {
             RenderUtils.drawText(context, textRenderer, "ANORMAL", guiX + 12, guiY + 8, 0xFFFFFFFF, true);
         }

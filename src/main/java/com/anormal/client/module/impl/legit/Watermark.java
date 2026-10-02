@@ -46,13 +46,13 @@ public class Watermark extends Module {
         int x = posX.getValue().intValue();
         int y = posY.getValue().intValue();
 
-        // Logo image (512x128), scaled — exact brand artwork
+        // Logo image (512x128), scaled — exact brand artwork.
+        // drawTexturedQuad needs no render pipeline, so it cannot silently fail.
         if (useTexture.isEnabled()) {
             try {
                 int w = Math.max(8, (int) (512 * scale.getValue()));
                 int h = Math.max(2, (int) (128 * scale.getValue()));
-                context.drawTexture(net.minecraft.client.gl.RenderPipelines.GUI_TEXTURED,
-                        LOGO, x, y, 0, 0, w, h, 512, 128);
+                context.drawTexturedQuad(LOGO, x, y, x + w, y + h, 0.0f, 1.0f, 0.0f, 1.0f);
                 return;
             } catch (Throwable ignored) {}
         }

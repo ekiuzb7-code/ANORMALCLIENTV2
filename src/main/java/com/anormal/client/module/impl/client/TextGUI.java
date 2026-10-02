@@ -41,8 +41,10 @@ public class TextGUI extends Module {
         if (mc.textRenderer == null) return;
 
         int screenWidth = mc.getWindow().getScaledWidth();
-        int rightEdge = posX.getValue().intValue();
-        int y = posY.getValue().intValue();
+        int screenHeight = mc.getWindow().getScaledHeight();
+        // Clamp inside screen borders so the list never runs off-screen
+        int rightEdge = Math.max(60, Math.min(posX.getValue().intValue(), screenWidth - 2));
+        int y = Math.max(2, Math.min(posY.getValue().intValue(), screenHeight - 14));
 
         if (watermark.isEnabled()) {
             String clientTitle = "ANORMAL CLIENT";

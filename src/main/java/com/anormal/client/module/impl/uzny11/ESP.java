@@ -89,8 +89,9 @@ public class ESP extends Module {
                 int h = Math.max(4, sBot[1] - sTop[1]);
                 int w = Math.max(4, h / 3);
                 int x = sMid[0];
-                int yTop = Math.min(sTop[1], sBot[1]);
-                int yBot = yTop + h;
+                // Bottom-anchored: feet projection is exact, top derives from height.
+                int yBot = Math.max(sTop[1], sBot[1]);
+                int yTop = yBot - h;
                 int col = playerColor.getValue();
 
                 if (boundingBox.isEnabled()) {
