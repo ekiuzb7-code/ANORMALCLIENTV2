@@ -2,35 +2,45 @@ package com.anormal.client.module.impl.uzny11;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
-import com.anormal.client.setting.NumberSetting;
+import com.anormal.client.setting.ModeSetting;
 import net.minecraft.util.math.Vec3d;
 
 public class Speed extends Module {
-    public final NumberSetting factor = new NumberSetting("Factor", "Sprint ground boost factor", 1.3, 1.0, 2.0, 0.05);
+    public final ModeSetting mode = new ModeSetting("Mode", "Speed method", "AntiCheat B", "AntiCheat B", "Bhop");
 
     public Speed() {
-        super("Speed", "Boosts horizontal speed while sprinting on ground", Category.UZNY11);
-        addSetting(factor);
+        super("Speed", "Increases movement speed", Category.UZNY11);
+        addSetting(mode);
     }
 
     @Override
     public void onTick() {
         if (mc.player == null) return;
         try {
-            if (!mc.player.isSprinting() || !mc.player.isOnGround()) return;
             if (mc.player.forwardSpeed == 0 && mc.player.sidewaysSpeed == 0) return;
-            double boost = (factor.getValue() - 1.0) * 0.18;
-            if (boost <= 0.0) return;
+            if (mc.player.isTouchingWater() || mc.player.isInLava() || mc.player.isGliding()) return;
             double rad = Math.toRadians(mc.player.getYaw());
-            double dx = -Math.sin(rad) * Math.signum(mc.player.forwardSpeed == 0 ? 1.0 : mc.player.forwardSpeed);
-            double dz = Math.cos(rad) * Math.signum(mc.player.forwardSpeed == 0 ? 1.0 : mc.player.forwardSpeed);
-            if (mc.player.forwardSpeed == 0) {
-                double s = Math.signum(mc.player.sidewaysSpeed);
-                dx = Math.cos(rad) * s;
-                dz = -Math.sin(rad) * s;
-            }
+            double dx = -Math.sin(rad);
+            double dz = Math.cos(rad);
             Vec3d v = mc.player.getVelocity();
-            mc.player.setVelocity(v.x + dx * boost, v.y, v.z + dz * boost);
+            if (mode.is("Bhop")) {
+                if (mc.player.isOnGround()) mc.player.jump();
+                mc.player.setVelocity(v.x + dx * 0.06, v.y, v.z + dz * 0.06);
+            } else {
+                if (mc.player.isOnGround() && mc.player.isSprinting()) mc.player.setVelocity(v.x + dx * 0.09, v.y, v.z + dz * 0.09);
+                else if (!mc.player.isOnGround()) mc.player.setVelocity(v.x + dx * 0.02, v.y, v.z + dz * 0.02);
+            }
         } catch (Throwable ignored) {}
+    }
+
+    private int ticks = 0;
+
+    public int getTicks() {
+        return ticks;
+    }
+
+    @Override
+    public void onDisable() {
+        ticks = 0;
     }
 }

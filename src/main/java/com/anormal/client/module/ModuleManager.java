@@ -62,6 +62,10 @@ public class ModuleManager {
         register(new StorageESP());
         register(new StashFinder());
         register(new DeathPoints());
+        register(new EntityCulling());
+        register(new ParticleOptimizer());
+        register(new DynamicRenderDistance());
+        register(new PerformanceOverlay());
         register(new Trajectories());
         register(new Search());
         register(new AntiDebuff());
@@ -255,6 +259,12 @@ public class ModuleManager {
         register(new com.anormal.client.module.impl.uzny11.BedPlates());
         register(new com.anormal.client.module.impl.uzny11.Animations());
         register(new com.anormal.client.module.impl.uzny11.CPSMod());
+        // Uzny11 section is always OFF at startup (user enables manually)
+        for (Module m : modules) {
+            try {
+                if (m.getCategory() == Category.UZNY11 && m.isEnabled()) m.setEnabled(false);
+            } catch (Throwable ignored) {}
+        }
         // --- CLIENT & SETTINGS ---
         register(new TextGUI());
         register(new ClientSettings());

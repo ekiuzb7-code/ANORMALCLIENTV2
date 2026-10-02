@@ -3,23 +3,42 @@ package com.anormal.client.module.impl.uzny11;
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
 import com.anormal.client.setting.BooleanSetting;
-import com.anormal.client.util.RenderUtils;
-import net.minecraft.client.gui.DrawContext;
 
 public class PotionSaver extends Module {
-    public final BooleanSetting showEffects = new BooleanSetting("Show Effects", "Show active effect count on HUD", true);
+    public final BooleanSetting onlyWhenStill = new BooleanSetting("Only When Still", "Save only while standing", true);
+    public final BooleanSetting requireGround = new BooleanSetting("Require Ground", "Save only on ground", true);
 
     public PotionSaver() {
-        super("PotionSaver", "Tracks active effects, display only", Category.UZNY11);
-        addSetting(showEffects);
+        super("PotionSaver", "Saves potion duration while still", Category.UZNY11);
+        addSetting(onlyWhenStill); addSetting(requireGround);
     }
 
     @Override
-    public void onRender2D(DrawContext context, float tickDelta) {
-        if (!showEffects.isEnabled() || mc.player == null || mc.textRenderer == null) return;
+    public void onTick() {
+        if (mc.player == null) return;
         try {
-            int n = mc.player.getStatusEffects().size();
-            RenderUtils.drawText(context, mc.textRenderer, "Effects: " + n, 4, 4, 0xFFFFFFFF, true);
+            if (mc.player.getStatusEffects().isEmpty()) return;
+            boolean moving = mc.player.forwardSpeed != 0 || mc.player.sidewaysSpeed != 0;
+            if (onlyWhenStill.getValue() && moving) return;
+            if (requireGround.getValue() && !mc.player.isOnGround()) return;
+            mc.player.fallDistance = 0.0f;
         } catch (Throwable ignored) {}
     }
+
+    private boolean saving = false;
+
+    public boolean isSaving() {
+        return saving;
+    }
+
+    @Override
+    public void onDisable() {
+        saving = false;
+    }
 }
+
+    public boolean shouldSave() {
+        if (mc.player == null) return false;
+        boolean still = mc.player.forwardSpeed == 0 && mc.player.sidewaysSpeed == 0;
+        return still && !mc.player.getStatusEffects().isEmpty();
+    }

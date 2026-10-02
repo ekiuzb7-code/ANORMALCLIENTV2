@@ -3,29 +3,21 @@ package com.anormal.client.module.impl.uzny11;
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
 import com.anormal.client.setting.BooleanSetting;
-import com.anormal.client.setting.NumberSetting;
-import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
 
 public class CPSMod extends Module {
-    public final BooleanSetting showLeft = new BooleanSetting("Show Left", "Show left click CPS", true);
-    public final BooleanSetting showRight = new BooleanSetting("Show Right", "Show right click CPS", true);
-    public final NumberSetting posX = new NumberSetting("Pos X", "HUD X position", 20.0, 0.0, 1920.0, 1.0);
-    public final NumberSetting posY = new NumberSetting("Pos Y", "HUD Y position", 200.0, 0.0, 1080.0, 1.0);
-    private final List<Long> left = new ArrayList<>();
-    private final List<Long> right = new ArrayList<>();
-    private boolean leftWas = false;
-    private boolean rightWas = false;
+    public final BooleanSetting showLeft = new BooleanSetting("Show Left", "Show left CPS", true);
+    public final BooleanSetting showRight = new BooleanSetting("Show Right", "Show right CPS", true);
+    public final BooleanSetting renderBackground = new BooleanSetting("Render Background", "Draw background box", true);
+    private final ArrayDeque<Long> left = new ArrayDeque<>();
+    private final ArrayDeque<Long> right = new ArrayDeque<>();
+    private boolean wasLeft = false;
+    private boolean wasRight = false;
 
     public CPSMod() {
-        super("CPSMod", "HUD click-per-second counter", Category.UZNY11);
-        addSetting(showLeft);
-        addSetting(showRight);
-        addSetting(posX);
-        addSetting(posY);
+        super("CPSMod", "Displays clicks per second", Category.UZNY11);
+        addSetting(showLeft); addSetting(showRight); addSetting(renderBackground);
     }
 
     @Override
@@ -34,29 +26,27 @@ public class CPSMod extends Module {
         try {
             long now = System.currentTimeMillis();
             boolean l = mc.options.attackKey.isPressed();
-            if (l && !leftWas) left.add(now);
-            leftWas = l;
             boolean r = mc.options.useKey.isPressed();
-            if (r && !rightWas) right.add(now);
-            rightWas = r;
-            left.removeIf(t -> now - t > 1000);
-            right.removeIf(t -> now - t > 1000);
+            if (l && !wasLeft) left.addLast(now);
+            if (r && !wasRight) right.addLast(now);
+            wasLeft = l; wasRight = r;
+            while (!left.isEmpty() && now - left.peekFirst() > 1000) left.pollFirst();
+            while (!right.isEmpty() && now - right.peekFirst() > 1000) right.pollFirst();
         } catch (Throwable ignored) {}
     }
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        if (mc.textRenderer == null) return;
+        if (mc.textRenderer == null || mc.getWindow() == null) return;
         try {
-            int x = posX.getValue().intValue();
-            int y = posY.getValue().intValue();
-            if (showLeft.isEnabled()) {
-                RenderUtils.drawText(context, mc.textRenderer, "LMB " + left.size() + " CPS", x, y, 0xFFFFFFFF, true);
-                y += 12;
-            }
-            if (showRight.isEnabled()) {
-                RenderUtils.drawText(context, mc.textRenderer, "RMB " + right.size() + " CPS", x, y, 0xFFFFFFFF, true);
-            }
+            String t = "";
+            if (showLeft.getValue()) t += left.size() + " ";
+            if (showLeft.getValue() && showRight.getValue()) t += "| ";
+            if (showRight.getValue()) t += right.size();
+            t += " CPS";
+            int x = 10, y = 50;
+            if (renderBackground.getValue()) context.fill(x - 2, y - 2, x + mc.textRenderer.getWidth(t) + 2, y + 11, 0x80000000);
+            context.drawText(mc.textRenderer, t, x, y, 0xFFFFFFFF, true);
         } catch (Throwable ignored) {}
     }
 }

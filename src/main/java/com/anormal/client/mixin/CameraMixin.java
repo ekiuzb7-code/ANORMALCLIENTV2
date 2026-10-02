@@ -38,6 +38,25 @@ public class CameraMixin {
                 } catch (Throwable ignored) {}
                 setRotation(freeLook.getLookYaw(), freeLook.getLookPitch());
                 ci.cancel();
+                return;
+            }
+            // Uzny11 twins (independent instances, same camera control)
+            com.anormal.client.module.impl.uzny11.Freecam uCam =
+                    ModuleManager.getModule(com.anormal.client.module.impl.uzny11.Freecam.class);
+            if (uCam != null && uCam.isEnabled() && uCam.isCameraActive()) {
+                setPos(uCam.getCamX(), uCam.getCamY(), uCam.getCamZ());
+                setRotation(uCam.getCamYaw(), uCam.getCamPitch());
+                ci.cancel();
+                return;
+            }
+            com.anormal.client.module.impl.uzny11.FreeLook uLook =
+                    ModuleManager.getModule(com.anormal.client.module.impl.uzny11.FreeLook.class);
+            if (uLook != null && uLook.isEnabled() && uLook.isCameraActive() && focusedEntity != null) {
+                try {
+                    setPos(focusedEntity.getEyePos().x, focusedEntity.getEyePos().y, focusedEntity.getEyePos().z);
+                } catch (Throwable ignored) {}
+                setRotation(uLook.getLookYaw(), uLook.getLookPitch());
+                ci.cancel();
             }
         } catch (Throwable ignored) {}
     }

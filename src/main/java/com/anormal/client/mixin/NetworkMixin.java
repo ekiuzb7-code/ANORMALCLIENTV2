@@ -16,15 +16,23 @@ public class NetworkMixin {
     @Inject(method = "sendPacket", at = @At("HEAD"), cancellable = true, require = 0)
     private void onSendPacket(Packet<?> packet, CallbackInfo ci) {
         try {
-            if (FakeLag.isFlushing()) return;
-            FakeLag fakeLag = ModuleManager.getModule(FakeLag.class);
-            if (fakeLag == null || !fakeLag.isEnabled() || !fakeLag.isHolding()) return;
             // Hold movement packets only: attacks/interacts flush through
             // so you keep hitting while the server sees your old position.
-            if (packet instanceof PlayerMoveC2SPacket) {
+            if (!(packet instanceof PlayerMoveC2SPacket)) return;
+            if (FakeLag.isFlushing() || com.anormal.client.module.impl.uzny11.FakeLag.isFlushing()) return;
+            FakeLag fakeLag = ModuleManager.getModule(FakeLag.class);
+            com.anormal.client.module.impl.uzny11.FakeLag uFakeLag =
+                    ModuleManager.getModule(com.anormal.client.module.impl.uzny11.FakeLag.class);
+            boolean hold = false;
+            if (fakeLag != null && fakeLag.isEnabled() && fakeLag.isHolding()) {
                 FakeLag.queue(packet);
-                ci.cancel();
+                hold = true;
             }
+            if (uFakeLag != null && uFakeLag.isEnabled() && uFakeLag.isHolding()) {
+                com.anormal.client.module.impl.uzny11.FakeLag.queue(packet);
+                hold = true;
+            }
+            if (hold) ci.cancel();
         } catch (Throwable ignored) {}
     }
 }

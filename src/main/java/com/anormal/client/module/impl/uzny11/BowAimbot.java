@@ -2,56 +2,64 @@ package com.anormal.client.module.impl.uzny11;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
+import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.NumberSetting;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class BowAimbot extends Module {
-    public final NumberSetting strength = new NumberSetting("Strength", "Aim assist strength", 3.0, 0.5, 10.0, 0.5);
-    public final NumberSetting range = new NumberSetting("Range", "Target range in blocks", 30.0, 5.0, 60.0, 1.0);
+    public final NumberSetting angleLimit = new NumberSetting("Angle limit", "Max angle to target", 45.0, 1.0, 180.0, 5.0);
+    public final NumberSetting aimSpeed = new NumberSetting("Aim speed", "Aim adjust speed", 9.0, 1.0, 10.0, 0.1);
+    public final BooleanSetting stopMovement = new BooleanSetting("Stop movement", "Stand still while aiming", false);
+    public final BooleanSetting moveOnFinish = new BooleanSetting("Move on finish", "Resume movement after", false);
+    public final BooleanSetting silentAim = new BooleanSetting("Silent aim", "Aim without moving view", false);
 
     public BowAimbot() {
-        super("BowAimbot", "Aims at nearest entity while drawing a bow", Category.UZNY11);
-        addSetting(strength);
-        addSetting(range);
+        super("BowAimbot", "Aims bow at nearest player", Category.UZNY11);
+        addSetting(angleLimit); addSetting(aimSpeed); addSetting(stopMovement);
+        addSetting(moveOnFinish); addSetting(silentAim);
     }
 
     @Override
     public void onTick() {
-        if (mc.player == null || mc.world == null) return;
+        if (mc.player == null || mc.world == null || mc.options == null) return;
         try {
-            Identifier held = Registries.ITEM.getId(mc.player.getMainHandStack().getItem());
-            if (held == null || !held.getPath().contains("bow")) return;
-            if (!mc.player.isUsingItem()) return;
-            LivingEntity best = null;
-            double bestDist = Double.MAX_VALUE;
+            String held = "";
+            try { held = Registries.ITEM.getId(mc.player.getMainHandStack().getItem()).getPath(); } catch (Throwable t) {}
+            if (!held.contains("bow")) return;
+            if (!mc.options.useKey.isPressed()) { if (moveOnFinish.getValue()) mc.options.forwardKey.setPressed(true); return; }
+            PlayerEntity best = null;
+            double bestDist = 60.0;
             for (Entity e : mc.world.getEntities()) {
-                if (e instanceof LivingEntity le && e != mc.player && le.isAlive()) {
-                    double d = mc.player.distanceTo(le);
-                    if (d > range.getValue() || d > bestDist) continue;
-                    bestDist = d;
-                    best = le;
-                }
+                if (!(e instanceof PlayerEntity p) || e == mc.player || !p.isAlive()) continue;
+                double d = mc.player.distanceTo(p);
+                if (d > bestDist) continue;
+                float yawDiff = Math.abs(MathHelper.wrapDegrees(yawTo(p) - mc.player.getYaw()));
+                if (yawDiff > angleLimit.getValue()) continue;
+                bestDist = d; best = p;
             }
             if (best == null) return;
-            double px = mc.player.getX();
-            double py = mc.player.getY() + mc.player.getStandingEyeHeight();
-            double pz = mc.player.getZ();
-            double tx = best.getX() - px;
-            double ty = (best.getY() + best.getHeight() * 0.75) - py;
-            double tz = best.getZ() - pz;
-            double h = Math.sqrt(tx * tx + tz * tz);
-            float yaw = (float) Math.toDegrees(Math.atan2(tz, tx)) - 90.0f;
-            float pitch = (float) -Math.toDegrees(Math.atan2(ty, h));
-            float yawDiff = MathHelper.wrapDegrees(yaw - mc.player.getYaw());
-            float pitchDiff = MathHelper.wrapDegrees(pitch - mc.player.getPitch());
-            float stepYaw = strength.getValue().floatValue() * 0.7f;
-            float stepPitch = strength.getValue().floatValue() * 0.5f;
-            mc.player.setYaw(mc.player.getYaw() + MathHelper.clamp(yawDiff, -stepYaw, stepYaw));
-            mc.player.setPitch(mc.player.getPitch() + MathHelper.clamp(pitchDiff, -stepPitch, stepPitch));
+            if (stopMovement.getValue()) mc.options.forwardKey.setPressed(false);
+            float step = (float) aimSpeed.getValue();
+            if (!silentAim.getValue()) {
+                mc.player.setYaw(mc.player.getYaw() + MathHelper.clamp(MathHelper.wrapDegrees(yawTo(best) - mc.player.getYaw()), -step, step));
+                mc.player.setPitch(MathHelper.clamp(mc.player.getPitch() + MathHelper.clamp(MathHelper.wrapDegrees(pitchTo(best) - mc.player.getPitch()), -step, step), -90, 90));
+            } else {
+                mc.player.setYaw(mc.player.getYaw() + MathHelper.clamp(MathHelper.wrapDegrees(yawTo(best) - mc.player.getYaw()), -step * 0.5f, step * 0.5f));
+            }
         } catch (Throwable ignored) {}
+    }
+
+    private float yawTo(PlayerEntity t) {
+        return (float) Math.toDegrees(Math.atan2(-(t.getX() - mc.player.getX()), t.getZ() - mc.player.getZ()));
+    }
+
+    private float pitchTo(PlayerEntity t) {
+        double dx = t.getX() - mc.player.getX();
+        double dz = t.getZ() - mc.player.getZ();
+        double dy = (t.getY() + 1.2) - (mc.player.getY() + mc.player.getStandingEyeHeight());
+        return (float) -Math.toDegrees(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)));
     }
 }

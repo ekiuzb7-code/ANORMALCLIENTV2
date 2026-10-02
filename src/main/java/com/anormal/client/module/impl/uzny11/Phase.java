@@ -2,45 +2,42 @@ package com.anormal.client.module.impl.uzny11;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
-import com.anormal.client.setting.BooleanSetting;
+import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
 
 public class Phase extends Module {
-    public final NumberSetting delay = new NumberSetting("Delay", "Ticks of noclip before restore", 60.0, 20.0, 100.0, 5.0);
-    public final BooleanSetting autoDisable = new BooleanSetting("Auto Disable", "Disable after delay expires", true);
-    private int ticks = 0;
+    public final ModeSetting mode = new ModeSetting("Mode", "Phase direction", "Forward", "Forward", "Up");
+    public final NumberSetting clipDistance = new NumberSetting("Clip Distance", "Clip distance blocks", 3.0, 1.0, 6.0, 0.5);
 
     public Phase() {
-        super("Phase", "Noclips for a few seconds on enable then restores", Category.UZNY11);
-        addSetting(delay);
-        addSetting(autoDisable);
-    }
-
-    @Override
-    public void onEnable() {
-        ticks = 0;
-        try {
-            if (mc.player != null) mc.player.noClip = true;
-        } catch (Throwable ignored) {}
+        super("Phase", "Phase through walls", Category.UZNY11);
+        addSetting(mode); addSetting(clipDistance);
     }
 
     @Override
     public void onTick() {
-        if (mc.player == null) return;
+        if (mc.player == null || mc.world == null) return;
         try {
-            ticks++;
-            if (ticks >= delay.getValue().intValue()) {
-                mc.player.noClip = false;
-                if (autoDisable.isEnabled()) setEnabled(false);
+            if (!mc.player.horizontalCollision || !mc.player.isSneaking()) return;
+            double rad = Math.toRadians(mc.player.getYaw());
+            double d = Math.min(clipDistance.getValue(), 4.0);
+            if (mode.is("Up")) {
+                mc.player.setPosition(mc.player.getX(), mc.player.getY() + d, mc.player.getZ());
+            } else {
+                mc.player.setPosition(mc.player.getX() - Math.sin(rad) * d, mc.player.getY(), mc.player.getZ() + Math.cos(rad) * d);
             }
+            mc.player.fallDistance = 0.0f;
         } catch (Throwable ignored) {}
+    }
+
+    private int phases = 0;
+
+    public int getPhases() {
+        return phases;
     }
 
     @Override
     public void onDisable() {
-        try {
-            if (mc.player != null) mc.player.noClip = false;
-        } catch (Throwable ignored) {}
-        ticks = 0;
+        phases = 0;
     }
 }
