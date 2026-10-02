@@ -73,7 +73,7 @@ public class KillAura extends Module {
             if (perfectSwing.getValue() && mc.player.getAttackCooldownProgress(0.5f) < 1.0f) return;
             double cps = Math.min(minAps.getValue(), maxAps.getValue()) + random.nextDouble() * Math.abs(maxAps.getValue() - minAps.getValue());
             if (System.currentTimeMillis() - lastAttack < 1000.0 / Math.max(1.0, cps)) return;
-            int n = Math.min((int) maxTargets.getValue(), targets.size());
+            int n = Math.min(maxTargets.getValue().intValue(), targets.size());
             for (int i = 0; i < n; i++) {
                 LivingEntity t = targets.get(i);
                 if (mc.player.distanceTo(t) <= attackRange.getValue()) {

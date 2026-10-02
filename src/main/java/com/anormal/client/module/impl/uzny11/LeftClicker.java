@@ -41,7 +41,7 @@ public class LeftClicker extends Module {
                 try { if (!Registries.ITEM.getId(mc.player.getMainHandStack().getItem()).getPath().endsWith("sword")) return; }
                 catch (Throwable t) { return; }
             }
-            if (breakBlocks.getValue() && mc.crosshairTarget != null && mc.crosshairTarget.getType() == HitResult.Type.BLOCK && mc.options.attackKey.isPressed()) { long bd = (long) breakBlocksDelay.getValue(); if (bd >= 0) return; }
+            if (breakBlocks.getValue() && mc.crosshairTarget != null && mc.crosshairTarget.getType() == HitResult.Type.BLOCK && mc.options.attackKey.isPressed()) { long bd = breakBlocksDelay.getValue().longValue(); if (bd >= 0) return; }
             long now = System.currentTimeMillis();
             if (now - lastClick < nextDelay) return;
             lastClick = now;

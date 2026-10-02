@@ -42,7 +42,7 @@ public class BowAimbot extends Module {
             }
             if (best == null) return;
             if (stopMovement.getValue()) mc.options.forwardKey.setPressed(false);
-            float step = (float) aimSpeed.getValue();
+            float step = aimSpeed.getValue().floatValue();
             if (!silentAim.getValue()) {
                 mc.player.setYaw(mc.player.getYaw() + MathHelper.clamp(MathHelper.wrapDegrees(yawTo(best) - mc.player.getYaw()), -step, step));
                 mc.player.setPitch(MathHelper.clamp(mc.player.getPitch() + MathHelper.clamp(MathHelper.wrapDegrees(pitchTo(best) - mc.player.getPitch()), -step, step), -90, 90));

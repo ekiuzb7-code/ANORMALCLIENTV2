@@ -1,29 +1,54 @@
 Run gradle remapJar --no-daemon --stacktrace
+  gradle remapJar --no-daemon --stacktrace
+  shell: /usr/bin/bash -e {0}
+  env:
+    JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+    JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.12-1/x64
+    GRADLE_ACTION_ID: gradle/actions/setup-gradle
+    GRADLE_USER_HOME: /home/runner/.gradle
+    GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+    GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+    DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+    DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+    GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+  
 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
 Daemon will be stopped at the end of the build 
 > Configure project :
 Fabric Loom: 1.14.10
 Cannot remap modifiers because it does not exists in any of the targets [] or their parents.
+> Task :compileJava
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/BowAimbot.java:45: error: incompatible types: Double cannot be converted to float
+            float step = (float) aimSpeed.getValue();
+                                                  ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/KillAura.java:76: error: incompatible types: Double cannot be converted to int
+            int n = Math.min((int) maxTargets.getValue(), targets.size());
+                                                      ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/LeftClicker.java:44: error: incompatible types: Double cannot be converted to long
+            if (breakBlocks.getValue() && mc.crosshairTarget != null && mc.crosshairTarget.getType() == HitResult.Type.BLOCK && mc.options.attackKey.isPressed()) { long bd = (long) breakBlocksDelay.getValue(); if (bd >= 0) return; }
+                                                                                                                                                                                                              ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+3 errors
+> Task :compileJava FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1790953084696.json
 FAILURE: Build failed with an exception.
 [Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
 * What went wrong:
 Execution failed for task ':compileJava'.
 > Compilation failed; see the compiler output below.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Regen.java:38: error: unnamed classes are a preview feature and are disabled by default.
-      public double getThreshold() {
-             ^
-    (use --enable-preview to enable unnamed classes)
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/PotionSaver.java:40: error: unnamed classes are a preview feature and are disabled by default.
-      public boolean shouldSave() {
-             ^
-    (use --enable-preview to enable unnamed classes)
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Regen.java:1: error: unnamed class should not have package declaration
-  package com.anormal.client.module.impl.uzny11;
-  ^
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/PotionSaver.java:1: error: unnamed class should not have package declaration
-  package com.anormal.client.module.impl.uzny11;
-  ^
-  4 errors
+  Note: Recompile with -Xlint:deprecation for details.
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/BowAimbot.java:45: error: incompatible types: Double cannot be converted to float
+              float step = (float) aimSpeed.getValue();
+                                                    ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/KillAura.java:76: error: incompatible types: Double cannot be converted to int
+              int n = Math.min((int) maxTargets.getValue(), targets.size());
+                                                        ^
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/LeftClicker.java:44: error: incompatible types: Double cannot be converted to long
+              if (breakBlocks.getValue() && mc.crosshairTarget != null && mc.crosshairTarget.getType() == HitResult.Type.BLOCK && mc.options.attackKey.isPressed()) { long bd = (long) breakBlocksDelay.getValue(); if (bd >= 0) return; }
+                                                                                                                                                                                                                ^
+  Note: Some input files use or override a deprecated API.
+  3 errors
 * Try:
 > Check your code and dependencies to fix the compilation error(s)
 > Run with --scan to generate a Build Scan (powered by Develocity).
@@ -63,21 +88,18 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Regen.java:38: error: unnamed classes are a preview feature and are disabled by default.
-    public double getThreshold() {
-           ^
-  (use --enable-preview to enable unnamed classes)
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/PotionSaver.java:40: error: unnamed classes are a preview feature and are disabled by default.
-    public boolean shouldSave() {
-           ^
-  (use --enable-preview to enable unnamed classes)
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/Regen.java:1: error: unnamed class should not have package declaration
-package com.anormal.client.module.impl.uzny11;
-^
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/PotionSaver.java:1: error: unnamed class should not have package declaration
-package com.anormal.client.module.impl.uzny11;
-^
-4 errors
+Note: Recompile with -Xlint:deprecation for details.
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/BowAimbot.java:45: error: incompatible types: Double cannot be converted to float
+            float step = (float) aimSpeed.getValue();
+                                                  ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/KillAura.java:76: error: incompatible types: Double cannot be converted to int
+            int n = Math.min((int) maxTargets.getValue(), targets.size());
+                                                      ^
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/uzny11/LeftClicker.java:44: error: incompatible types: Double cannot be converted to long
+            if (breakBlocks.getValue() && mc.crosshairTarget != null && mc.crosshairTarget.getType() == HitResult.Type.BLOCK && mc.options.attackKey.isPressed()) { long bd = (long) breakBlocksDelay.getValue(); if (bd >= 0) return; }
+                                                                                                                                                                                                              ^
+Note: Some input files use or override a deprecated API.
+3 errors
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
 	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
