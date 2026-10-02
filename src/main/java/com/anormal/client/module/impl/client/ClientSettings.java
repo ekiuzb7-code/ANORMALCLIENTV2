@@ -16,6 +16,7 @@ public class ClientSettings extends Module {
     public final BooleanSetting blurBackground = new BooleanSetting("Blur Background", "Blurs the game world behind the GUI", true);
     public final BooleanSetting showTooltips = new BooleanSetting("Tooltips", "Shows descriptions when hovering over settings", true);
     public final NumberSetting guiScale = new NumberSetting("GUI Scale", "Scale multiplier for GUI elements", 1.0, 0.7, 1.5, 0.1);
+    public final NumberSetting bannerScale = new NumberSetting("Banner Scale", "ClickGUI logo size", 1.0, 0.5, 2.0, 0.1);
 
     public ClientSettings() {
         super("ClientSettings", "Configure GUI themes, appearance and global options", Category.CLIENT);
@@ -24,6 +25,7 @@ public class ClientSettings extends Module {
         addSetting(blurBackground);
         addSetting(showTooltips);
         addSetting(guiScale);
+        addSetting(bannerScale);
         setEnabled(true);
     }
 

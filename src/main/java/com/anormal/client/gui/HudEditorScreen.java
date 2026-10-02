@@ -110,7 +110,7 @@ public class HudEditorScreen extends Screen {
             case "PartyOverlay" -> new int[]{150, 80};
             case "Rearview" -> new int[]{130, 36};
             case "Scoreboard" -> new int[]{130, 100};
-            case "Watermark" -> new int[]{110, 16};
+            case "Watermark" -> new int[]{132, 36};
             case "Waypoints" -> new int[]{150, 40};
             case "PerformanceOverlay" -> new int[]{160, 70};
             case "TextGUI" -> new int[]{130, 150};

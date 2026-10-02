@@ -90,7 +90,7 @@ public class Trajectories extends Module {
                     } catch (Throwable ignored) {}
                 }
                 if (hitEnt != null) break;
-                int[] s = project(pos);
+                int[] s = com.anormal.client.util.ProjectionUtil.project(pos, tickDelta);
                 if (s != null) {
                     if (!points.isEmpty()) {
                         int[] last = points.get(points.size() - 1);
@@ -106,7 +106,7 @@ public class Trajectories extends Module {
             line(context, a[0], a[1], b[0], b[1], col);
         }
         if (hitEnt != null) {
-            int[] s = project(new Vec3d(hitEnt.getX(), hitEnt.getY() + hitEnt.getHeight() / 2.0, hitEnt.getZ()));
+            int[] s = com.anormal.client.util.ProjectionUtil.project(new Vec3d(hitEnt.getX(), hitEnt.getY() + hitEnt.getHeight() / 2.0, hitEnt.getZ()), tickDelta);
             if (s != null) {
                 int c = targetColor.getValue();
                 context.fill(s[0] - 4, s[1] - 4, s[0] + 4, s[1] - 3, c);
@@ -117,33 +117,6 @@ public class Trajectories extends Module {
         } else if (!points.isEmpty()) {
             int[] last = points.get(points.size() - 1);
             context.fill(last[0] - 1, last[1] - 1, last[0] + 2, last[1] + 2, trajectoryColor.getValue());
-        }
-    }
-
-    private int[] project(Vec3d p) {
-        try {
-            Camera cam = mc.gameRenderer.getCamera();
-            Vec3d c = mc.player.getEyePos();
-            double dx = p.x - c.x, dy = p.y - c.y, dz = p.z - c.z;
-            double yaw = Math.toRadians(cam.getYaw());
-            double pitch = Math.toRadians(cam.getPitch());
-            double cosP = Math.cos(pitch);
-            double fx = -Math.sin(yaw) * cosP, fy = -Math.sin(pitch), fz = Math.cos(yaw) * cosP;
-            double depth = dx * fx + dy * fy + dz * fz;
-            if (depth < 0.1) return null;
-            double rx = -Math.cos(yaw), rz = -Math.sin(yaw);
-            double ux = -rz * fy, uy = rz * fx - rx * fz, uz = rx * fy;
-            double vx = dx * rx + dz * rz;
-            double vy = dx * ux + dy * uy + dz * uz;
-            int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-            int fov = 70;
-            try {
-                fov = mc.options.getFov().getValue();
-            } catch (Throwable ignored) {}
-            double f = (h / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, fov)) / 2.0));
-            return new int[]{(int) (w / 2.0 + vx / depth * f), (int) (h / 2.0 - vy / depth * f)};
-        } catch (Throwable t) {
-            return null;
         }
     }
 

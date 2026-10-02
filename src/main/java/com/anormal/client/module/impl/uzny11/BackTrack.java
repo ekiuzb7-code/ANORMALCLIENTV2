@@ -102,43 +102,12 @@ public class BackTrack extends Module {
         if (!renderServerPos.isEnabled() || mc.player == null) return;
         Vec3d delayed = getDelayedPos();
         if (delayed == null) return;
-        int[] s = project(new Vec3d(delayed.x, delayed.y + 1.0, delayed.z), tickDelta);
+        int[] s = com.anormal.client.util.ProjectionUtil.project(new Vec3d(delayed.x, delayed.y + 1.0, delayed.z), tickDelta);
         if (s == null) return;
         int col = color.getValue();
         context.fill(s[0] - 4, s[1] - 14, s[0] + 4, s[1] - 13, col);
         context.fill(s[0] - 4, s[1] - 14, s[0] - 3, s[1] - 4, col);
         context.fill(s[0] + 3, s[1] - 14, s[0] + 4, s[1] - 4, col);
         context.fill(s[0] - 4, s[1] - 4, s[0] + 4, s[1] - 3, col);
-    }
-
-    private int[] project(Vec3d p, float tickDelta) {
-        try {
-            Camera cam = mc.gameRenderer.getCamera();
-            Vec3d c = mc.player.getEyePos();
-            double dx = p.x - c.x, dy = p.y - c.y, dz = p.z - c.z;
-            double yaw = Math.toRadians(cam.getYaw());
-            double pitch = Math.toRadians(cam.getPitch());
-            double cosP = Math.cos(pitch);
-            double fx = -Math.sin(yaw) * cosP, fy = -Math.sin(pitch), fz = Math.cos(yaw) * cosP;
-            double depth = dx * fx + dy * fy + dz * fz;
-            if (depth < 0.1) return null;
-            double rx = -Math.cos(yaw), rz = -Math.sin(yaw);
-            double ux = -rz * fy, uy = rz * fx - rx * fz, uz = rx * fy;
-            double cx = dx * rx + dz * rz;
-            double cy = dx * ux + dy * uy + dz * uz;
-            int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-            float effFov = 70.0f;
-            try {
-                effFov = ((com.anormal.client.mixin.GameRendererMixin) (Object) mc.gameRenderer).callGetFov(cam, tickDelta, true);
-            } catch (Throwable ignored) {
-                try {
-                    effFov = mc.options.getFov().getValue();
-                } catch (Throwable ignored2) {}
-            }
-            double f = (h / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, effFov)) / 2.0));
-            return new int[]{(int) (w / 2.0 + cx / depth * f), (int) (h / 2.0 - cy / depth * f)};
-        } catch (Throwable t) {
-            return null;
-        }
     }
 }

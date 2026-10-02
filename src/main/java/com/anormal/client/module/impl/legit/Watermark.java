@@ -20,6 +20,8 @@ public class Watermark extends Module {
     public final BooleanSetting background = new BooleanSetting("Background", "Dark background panel", true);
     public final ColorSetting textColor = new ColorSetting("Text Color", "ANORMAL text color", ColorUtils.rgba(255, 255, 255, 255));
     public final ColorSetting accentColor = new ColorSetting("Accent Color", "Version text color", ColorUtils.rgba(255, 170, 0, 255));
+    public final BooleanSetting useTexture = new BooleanSetting("Use Texture", "Draw logo image instead of text", true);
+    public final NumberSetting scale = new NumberSetting("Scale", "Logo image scale", 0.25, 0.1, 1.0, 0.05);
 
     public Watermark() {
         super("Watermark", "ANORMAL logo watermark overlay", Category.LEGIT);
@@ -31,13 +33,29 @@ public class Watermark extends Module {
         addSetting(background);
         addSetting(textColor);
         addSetting(accentColor);
+        addSetting(useTexture);
+        addSetting(scale);
     }
+
+    private static final net.minecraft.util.Identifier LOGO =
+            net.minecraft.util.Identifier.of("anormalclient", "watermark.png");
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
         if (mc.textRenderer == null) return;
         int x = posX.getValue().intValue();
         int y = posY.getValue().intValue();
+
+        // Logo image (512x128), scaled — exact brand artwork
+        if (useTexture.isEnabled()) {
+            try {
+                int w = Math.max(8, (int) (512 * scale.getValue()));
+                int h = Math.max(2, (int) (128 * scale.getValue()));
+                context.drawTexture(net.minecraft.client.gl.RenderPipelines.GUI_TEXTURED,
+                        LOGO, x, y, 0, 0, w, h, 512, 128);
+                return;
+            } catch (Throwable ignored) {}
+        }
 
         String main = style.is("Short") ? "AN" : (style.is("Minimal") ? "A" : "ANORMAL");
         String ver = showVersion.isEnabled() ? " v1.0" : "";

@@ -84,7 +84,7 @@ public class LogoutESP extends Module {
             for (Ghost g : ghosts) {
                 if (drawn >= limit) break;
                 if (!g.dim.isEmpty() && !g.dim.equals(dim)) continue;
-                int[] sc = project(new Vec3d(g.x, g.y + 1.0, g.z));
+                int[] sc = com.anormal.client.util.ProjectionUtil.project(new Vec3d(g.x, g.y + 1.0, g.z), tickDelta);
                 if (sc == null) continue;
                 drawn++;
                 context.fill(sc[0] - 7, sc[1] - 7, sc[0] + 7, sc[1] + 7, (col & 0x00FFFFFF) | 0x66000000);

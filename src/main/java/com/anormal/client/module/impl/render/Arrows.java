@@ -41,7 +41,7 @@ public class Arrows extends Module {
                 double dist = mc.player.distanceTo(p);
                 if (dist > 170 && !showDistance.isEnabled()) continue;
                 if (dist < 3) continue;
-                int[] s = project(new Vec3d(p.getX(), p.getEyeY(), p.getZ()));
+                int[] s = com.anormal.client.util.ProjectionUtil.project(new Vec3d(p.getX(), p.getEyeY(), p.getZ()), tickDelta);
                 if (s != null && s[0] > 10 && s[0] < w - 10 && s[1] > 10 && s[1] < h - 10) continue;
                 double[] v = cameraSpace(new Vec3d(p.getX(), p.getEyeY(), p.getZ()));
                 if (v == null) continue;
@@ -67,28 +67,7 @@ public class Arrows extends Module {
         } catch (Throwable ignored) {}
     }
 
-    private int[] project(Vec3d p) {
-        try {
-            Camera cam = mc.gameRenderer.getCamera();
-            Vec3d c = mc.player.getEyePos();
-            double dx = p.x - c.x, dy = p.y - c.y, dz = p.z - c.z;
-            double yaw = Math.toRadians(cam.getYaw());
-            double pitch = Math.toRadians(cam.getPitch());
-            double cosP = Math.cos(pitch);
-            double fx = -Math.sin(yaw) * cosP, fy = -Math.sin(pitch), fz = Math.cos(yaw) * cosP;
-            double depth = dx * fx + dy * fy + dz * fz;
-            if (depth < 0.1) return null;
-            double rx = -Math.cos(yaw), rz = -Math.sin(yaw);
-            double ux = -rz * fy, uy = rz * fx - rx * fz, uz = rx * fy;
-            double vx = dx * rx + dz * rz;
-            double vy = dx * ux + dy * uy + dz * uz;
-            int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-            double f = focal(h);
-            return new int[]{(int) (w / 2.0 + vx / depth * f), (int) (h / 2.0 - vy / depth * f)};
-        } catch (Throwable t) {
-            return null;
-        }
-    }
+
 
     private double[] cameraSpace(Vec3d p) {
         try {

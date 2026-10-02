@@ -85,7 +85,7 @@ public class LogoutSpots extends Module {
             for (Spot s : spots) {
                 if (drawn >= limit) break;
                 if (!s.dim.isEmpty() && !s.dim.equals(dim)) continue;
-                int[] sc = project(new Vec3d(s.x, s.y + 1.0, s.z));
+                int[] sc = com.anormal.client.util.ProjectionUtil.project(new Vec3d(s.x, s.y + 1.0, s.z), tickDelta);
                 if (sc == null) continue;
                 drawn++;
                 context.fill(sc[0] - 5, sc[1] - 1, sc[0] + 5, sc[1] + 1, col);

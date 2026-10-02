@@ -79,7 +79,7 @@ public class BaseManager extends Module {
         if (!s.has || mc.player == null) return;
         try {
             if (!s.dim.isEmpty() && !s.dim.equals(curDim())) return;
-            int[] sc = project(new Vec3d(s.x, s.y + 1.0, s.z));
+            int[] sc = com.anormal.client.util.ProjectionUtil.project(new Vec3d(s.x, s.y + 1.0, s.z), 1.0f);
             if (sc == null || mc.textRenderer == null) return;
             int col = color.getValue();
             context.fill(sc[0] - 1, sc[1] - 6, sc[0] + 1, sc[1] + 6, col);

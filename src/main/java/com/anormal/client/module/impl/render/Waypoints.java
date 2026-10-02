@@ -149,7 +149,7 @@ public class Waypoints extends Module {
             Waypoint w = points.get(i);
             if (!w.on) continue;
             if (!w.dim.isEmpty() && !w.dim.equals(dim)) continue;
-            int[] sc = project(new Vec3d(w.x, w.y + 1.0, w.z), tickDelta);
+            int[] sc = com.anormal.client.util.ProjectionUtil.project(new Vec3d(w.x, w.y + 1.0, w.z), tickDelta);
             if (sc == null) continue;
             int col = w.color;
             context.fill(sc[0] - 1, sc[1] - 7, sc[0] + 1, sc[1] + 7, col);
@@ -172,34 +172,4 @@ public class Waypoints extends Module {
         }
     }
 
-    private int[] project(Vec3d p, float tickDelta) {
-        try {
-            Camera cam = mc.gameRenderer.getCamera();
-            Vec3d c = mc.player.getEyePos();
-            double dx = p.x - c.x, dy = p.y - c.y, dz = p.z - c.z;
-            double yaw = Math.toRadians(cam.getYaw());
-            double pitch = Math.toRadians(cam.getPitch());
-            double cosP = Math.cos(pitch);
-            double fx = -Math.sin(yaw) * cosP, fy = -Math.sin(pitch), fz = Math.cos(yaw) * cosP;
-            double depth = dx * fx + dy * fy + dz * fz;
-            if (depth < 0.1) return null;
-            double rx = -Math.cos(yaw), rz = -Math.sin(yaw);
-            double ux = -rz * fy, uy = rz * fx - rx * fz, uz = rx * fy;
-            double cx = dx * rx + dz * rz;
-            double cy = dx * ux + dy * uy + dz * uz;
-            int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-            float effFov = 70.0f;
-            try {
-                effFov = ((com.anormal.client.mixin.GameRendererMixin) (Object) mc.gameRenderer).callGetFov(cam, tickDelta, true);
-            } catch (Throwable ignored) {
-                try {
-                    effFov = mc.options.getFov().getValue();
-                } catch (Throwable ignored2) {}
-            }
-            double f = (h / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, effFov)) / 2.0));
-            return new int[]{(int) (w / 2.0 + cx / depth * f), (int) (h / 2.0 - cy / depth * f)};
-        } catch (Throwable t) {
-            return null;
-        }
-    }
 }

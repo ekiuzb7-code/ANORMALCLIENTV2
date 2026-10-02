@@ -81,7 +81,7 @@ public class Tracers extends Module {
                     if (mobCheck.isEnabled() && (dist < mobMin.getValue() || dist > mobMax.getValue())) continue;
                     base = mobColor.getValue();
                 } else continue;
-                int[] s = project(new Vec3d(e.getX(), e.getY() + e.getHeight() / 2.0, e.getZ()));
+                int[] s = com.anormal.client.util.ProjectionUtil.project(new Vec3d(e.getX(), e.getY() + e.getHeight() / 2.0, e.getZ()), tickDelta);
                 if (s == null) continue;
                 int col = colorByDistance.isEnabled() ? byDistance(dist) : base;
                 line(context, w / 2, h / 2, s[0], s[1], col);
@@ -107,33 +107,6 @@ public class Tracers extends Module {
             return look.dotProduct(toMe) > 0.85;
         } catch (Throwable t) {
             return false;
-        }
-    }
-
-    private int[] project(Vec3d p) {
-        try {
-            Camera cam = mc.gameRenderer.getCamera();
-            Vec3d c = mc.player.getEyePos();
-            double dx = p.x - c.x, dy = p.y - c.y, dz = p.z - c.z;
-            double yaw = Math.toRadians(cam.getYaw());
-            double pitch = Math.toRadians(cam.getPitch());
-            double cosP = Math.cos(pitch);
-            double fx = -Math.sin(yaw) * cosP, fy = -Math.sin(pitch), fz = Math.cos(yaw) * cosP;
-            double depth = dx * fx + dy * fy + dz * fz;
-            if (depth < 0.1) return null;
-            double rx = -Math.cos(yaw), rz = -Math.sin(yaw);
-            double ux = -rz * fy, uy = rz * fx - rx * fz, uz = rx * fy;
-            double vx = dx * rx + dz * rz;
-            double vy = dx * ux + dy * uy + dz * uz;
-            int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-            int fov = 70;
-            try {
-                fov = mc.options.getFov().getValue();
-            } catch (Throwable ignored) {}
-            double f = (h / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, fov)) / 2.0));
-            return new int[]{(int) (w / 2.0 + vx / depth * f), (int) (h / 2.0 - vy / depth * f)};
-        } catch (Throwable t) {
-            return null;
         }
     }
 

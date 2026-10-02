@@ -47,10 +47,10 @@ public class Projectiles extends Module {
                 } catch (Throwable t) {
                     continue;
                 }
-                int[] head = project(pos);
+                int[] head = com.anormal.client.util.ProjectionUtil.project(pos, tickDelta);
                 if (head == null) continue;
                 Vec3d tail = pos.subtract(vel.multiply(trailLength.getValue() / Math.max(0.2, vel.length())));
-                int[] tailS = project(tail);
+                int[] tailS = com.anormal.client.util.ProjectionUtil.project(tail, tickDelta);
                 int col = color.getValue();
                 if (tailS != null) line(context, tailS[0], tailS[1], head[0], head[1], col);
                 context.fill(head[0] - 1, head[1] - 1, head[0] + 2, head[1] + 2, col);
@@ -79,33 +79,6 @@ public class Projectiles extends Module {
         if (n.contains("snowball")) return "snowball";
         if (n.contains("arrow") || n.contains("trident") || n.contains("spectral")) return "arrow";
         return "";
-    }
-
-    private int[] project(Vec3d p) {
-        try {
-            Camera cam = mc.gameRenderer.getCamera();
-            Vec3d c = mc.player.getEyePos();
-            double dx = p.x - c.x, dy = p.y - c.y, dz = p.z - c.z;
-            double yaw = Math.toRadians(cam.getYaw());
-            double pitch = Math.toRadians(cam.getPitch());
-            double cosP = Math.cos(pitch);
-            double fx = -Math.sin(yaw) * cosP, fy = -Math.sin(pitch), fz = Math.cos(yaw) * cosP;
-            double depth = dx * fx + dy * fy + dz * fz;
-            if (depth < 0.1) return null;
-            double rx = -Math.cos(yaw), rz = -Math.sin(yaw);
-            double ux = -rz * fy, uy = rz * fx - rx * fz, uz = rx * fy;
-            double vx = dx * rx + dz * rz;
-            double vy = dx * ux + dy * uy + dz * uz;
-            int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-            int fov = 70;
-            try {
-                fov = mc.options.getFov().getValue();
-            } catch (Throwable ignored) {}
-            double f = (h / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, fov)) / 2.0));
-            return new int[]{(int) (w / 2.0 + vx / depth * f), (int) (h / 2.0 - vy / depth * f)};
-        } catch (Throwable t) {
-            return null;
-        }
     }
 
     private void line(DrawContext context, int x1, int y1, int x2, int y2, int col) {

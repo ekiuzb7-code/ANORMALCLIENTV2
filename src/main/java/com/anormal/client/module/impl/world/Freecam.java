@@ -173,8 +173,8 @@ public class Freecam extends Module {
     public void onRender2D(DrawContext context, float tickDelta) {
         // Character outline on the frozen body so you always see where YOU are
         if (!showPlayer.isEnabled() || mc.player == null || !active) return;
-        int[] feet = project(new Vec3d(anchorX, anchorY, anchorZ));
-        int[] head = project(new Vec3d(anchorX, anchorY + 1.8, anchorZ));
+        int[] feet = com.anormal.client.util.ProjectionUtil.project(new Vec3d(anchorX, anchorY, anchorZ), tickDelta);
+        int[] head = com.anormal.client.util.ProjectionUtil.project(new Vec3d(anchorX, anchorY + 1.8, anchorZ), tickDelta);
         if (feet == null || head == null) return;
         int top = Math.min(feet[1], head[1]);
         int bottom = Math.max(feet[1], head[1]);
@@ -189,33 +189,6 @@ public class Freecam extends Module {
         if (mc.textRenderer != null) {
             String label = "YOU";
             context.drawText(mc.textRenderer, label, cx - mc.textRenderer.getWidth(label) / 2, top - 11, col, true);
-        }
-    }
-
-    private int[] project(Vec3d p) {
-        try {
-            Camera cam = mc.gameRenderer.getCamera();
-            Vec3d c = new Vec3d(camX, camY, camZ);
-            double dx = p.x - c.x, dy = p.y - c.y, dz = p.z - c.z;
-            double yaw = Math.toRadians(cam.getYaw());
-            double pitch = Math.toRadians(cam.getPitch());
-            double cosP = Math.cos(pitch);
-            double fx = -Math.sin(yaw) * cosP, fy = -Math.sin(pitch), fz = Math.cos(yaw) * cosP;
-            double depth = dx * fx + dy * fy + dz * fz;
-            if (depth < 0.1) return null;
-            double rx = -Math.cos(yaw), rz = -Math.sin(yaw);
-            double ux = -rz * fy, uy = rz * fx - rx * fz, uz = rx * fy;
-            double cx = dx * rx + dz * rz;
-            double cy = dx * ux + dy * uy + dz * uz;
-            int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-            int fov = 70;
-            try {
-                fov = mc.options.getFov().getValue();
-            } catch (Throwable ignored) {}
-            double f = (h / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, fov)) / 2.0));
-            return new int[]{(int) (w / 2.0 + cx / depth * f), (int) (h / 2.0 - cy / depth * f)};
-        } catch (Throwable t) {
-            return null;
         }
     }
 

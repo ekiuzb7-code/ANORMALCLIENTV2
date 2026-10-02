@@ -93,7 +93,7 @@ public class BaseFinder extends Module {
             int col = color.getValue(), drawn = 0, limit = maxShown.getValue().intValue();
             for (Base b : bases) {
                 if (drawn++ >= limit) break;
-                int[] sc = project(new Vec3d(b.pos.getX() + 0.5, b.pos.getY() + 0.5, b.pos.getZ() + 0.5));
+                int[] sc = com.anormal.client.util.ProjectionUtil.project(new Vec3d(b.pos.getX() + 0.5, b.pos.getY() + 0.5, b.pos.getZ() + 0.5), tickDelta);
                 if (sc == null) continue;
                 context.fill(sc[0] - 4, sc[1] - 4, sc[0] + 4, sc[1] + 4, (col & 0x00FFFFFF) | 0x66000000);
                 RenderUtils.drawBorder(context, sc[0] - 4, sc[1] - 4, sc[0] + 4, sc[1] + 4, 1, col);

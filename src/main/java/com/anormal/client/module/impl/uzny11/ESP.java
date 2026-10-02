@@ -77,14 +77,14 @@ public class ESP extends Module {
                 Box box = entity.getBoundingBox();
                 double px = 0.0, pz = 0.0;
                 try {
-                    px = entity.getVelocity().x * tickDelta;
-                    pz = entity.getVelocity().z * tickDelta;
+                    px = entity.getVelocity().x * (tickDelta - 1.0f);
+                    pz = entity.getVelocity().z * (tickDelta - 1.0f);
                 } catch (Throwable ignored) {}
                 double cx0 = (box.minX + box.maxX) / 2.0 + px;
                 double cz0 = (box.minZ + box.maxZ) / 2.0 + pz;
-                int[] sTop = project(new Vec3d(cx0, box.maxY + 0.1, cz0), tickDelta);
-                int[] sBot = project(new Vec3d(cx0, box.minY, cz0), tickDelta);
-                int[] sMid = project(new Vec3d(cx0, (box.minY + box.maxY) / 2.0, cz0), tickDelta);
+                int[] sTop = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, box.maxY + 0.1, cz0), tickDelta);
+                int[] sBot = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, box.minY, cz0), tickDelta);
+                int[] sMid = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, (box.minY + box.maxY) / 2.0, cz0), tickDelta);
                 if (sTop == null || sBot == null || sMid == null) continue;
                 int h = Math.max(4, sBot[1] - sTop[1]);
                 int w = Math.max(4, h / 3);
@@ -124,37 +124,6 @@ public class ESP extends Module {
                     context.fill(x - w / 2 - 4, yBot - barH, x - w / 2 - 2, yBot, barCol);
                 }
             } catch (Throwable ignored) {}
-        }
-    }
-
-    private int[] project(Vec3d p, float tickDelta) {
-        try {
-            Camera cam = mc.gameRenderer.getCamera();
-            Vec3d c = mc.player.getEyePos();
-            double dx = p.x - c.x, dy = p.y - c.y, dz = p.z - c.z;
-            double yaw = Math.toRadians(cam.getYaw());
-            double pitch = Math.toRadians(cam.getPitch());
-            double cosP = Math.cos(pitch);
-            double fx = -Math.sin(yaw) * cosP, fy = -Math.sin(pitch), fz = Math.cos(yaw) * cosP;
-            double depth = dx * fx + dy * fy + dz * fz;
-            if (depth < 0.1) return null;
-            double rx = -Math.cos(yaw), rz = -Math.sin(yaw);
-            double ux = -rz * fy, uy = rz * fx - rx * fz, uz = rx * fy;
-            double cx = dx * rx + dz * rz;
-            double cy = dx * ux + dy * uy + dz * uz;
-            int w = mc.getWindow().getScaledWidth(), hh = mc.getWindow().getScaledHeight();
-            float effFov = 70.0f;
-            try {
-                effFov = ((com.anormal.client.mixin.GameRendererMixin) (Object) mc.gameRenderer).callGetFov(cam, tickDelta, true);
-            } catch (Throwable ignored) {
-                try {
-                    effFov = mc.options.getFov().getValue();
-                } catch (Throwable ignored2) {}
-            }
-            double f = (hh / 2.0) / Math.tan(Math.toRadians(Math.max(30, Math.min(110, effFov)) / 2.0));
-            return new int[]{(int) (w / 2.0 + cx / depth * f), (int) (hh / 2.0 - cy / depth * f)};
-        } catch (Throwable t) {
-            return null;
         }
     }
 }
