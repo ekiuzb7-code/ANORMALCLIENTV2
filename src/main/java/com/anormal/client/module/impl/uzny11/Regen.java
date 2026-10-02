@@ -34,12 +34,3 @@ public class Regen extends Module {
         ticks = 0;
     }
 }
-
-    public double getThreshold() {
-        return health.getValue();
-    }
-
-    public boolean shouldRegen() {
-        if (mc.player == null) return false;
-        return mc.player.getHealth() * 2.0 < health.getValue() * 2.0;
-    }

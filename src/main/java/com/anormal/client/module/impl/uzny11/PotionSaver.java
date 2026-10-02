@@ -36,9 +36,3 @@ public class PotionSaver extends Module {
         saving = false;
     }
 }
-
-    public boolean shouldSave() {
-        if (mc.player == null) return false;
-        boolean still = mc.player.forwardSpeed == 0 && mc.player.sidewaysSpeed == 0;
-        return still && !mc.player.getStatusEffects().isEmpty();
-    }
