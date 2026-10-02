@@ -6,6 +6,7 @@ import com.anormal.client.module.ModuleManager;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.ModeSetting;
+import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.theme.ThemeManager;
 import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
@@ -20,6 +21,8 @@ public class TextGUI extends Module {
     public final ColorSetting customColor = new ColorSetting("Custom Color", "Color when in custom mode", ColorUtils.rgba(255, 100, 30, 255));
     public final BooleanSetting background = new BooleanSetting("Background", "Draw dark background behind text", true);
     public final BooleanSetting watermark = new BooleanSetting("Watermark", "Show client brand header", true);
+    public final NumberSetting posX = new NumberSetting("Pos X", "Right-edge anchor X", 1918.0, 0.0, 1920.0, 1.0);
+    public final NumberSetting posY = new NumberSetting("Pos Y", "Top anchor Y", 4.0, 0.0, 1080.0, 1.0);
 
     public TextGUI() {
         super("TextGUI", "Displays active modules on the HUD screen", Category.CLIENT);
@@ -28,6 +31,8 @@ public class TextGUI extends Module {
         addSetting(customColor);
         addSetting(background);
         addSetting(watermark);
+        addSetting(posX);
+        addSetting(posY);
         setEnabled(true);
     }
 
@@ -36,7 +41,8 @@ public class TextGUI extends Module {
         if (mc.textRenderer == null) return;
 
         int screenWidth = mc.getWindow().getScaledWidth();
-        int y = 4;
+        int rightEdge = posX.getValue().intValue();
+        int y = posY.getValue().intValue();
 
         if (watermark.isEnabled()) {
             String clientTitle = "ANORMAL CLIENT";
@@ -65,7 +71,7 @@ public class TextGUI extends Module {
         for (Module module : activeModules) {
             String name = module.getName();
             int textWidth = mc.textRenderer.getWidth(name);
-            int x = screenWidth - textWidth - 8;
+            int x = rightEdge - textWidth - 6;
 
             int color;
             if (colorMode.is("Rainbow")) {
@@ -77,8 +83,8 @@ public class TextGUI extends Module {
             }
 
             if (background.isEnabled()) {
-                RenderUtils.fill(context, x - 4, y, screenWidth - 2, y + 12, ThemeManager.getBackgroundColor());
-                RenderUtils.fill(context, screenWidth - 4, y, screenWidth - 2, y + 12, color);
+                RenderUtils.fill(context, x - 4, y, rightEdge, y + 12, ThemeManager.getBackgroundColor());
+                RenderUtils.fill(context, rightEdge - 2, y, rightEdge, y + 12, color);
             }
 
             RenderUtils.drawText(context, mc.textRenderer, name, x, y + 2, color, true);

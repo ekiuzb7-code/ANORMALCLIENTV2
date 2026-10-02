@@ -110,6 +110,10 @@ public class HudEditorScreen extends Screen {
             case "PartyOverlay" -> new int[]{150, 80};
             case "Rearview" -> new int[]{130, 36};
             case "Scoreboard" -> new int[]{130, 100};
+            case "Watermark" -> new int[]{110, 16};
+            case "Waypoints" -> new int[]{150, 40};
+            case "PerformanceOverlay" -> new int[]{160, 70};
+            case "TextGUI" -> new int[]{130, 150};
             default -> new int[]{110, 18};
         };
     }
@@ -117,8 +121,10 @@ public class HudEditorScreen extends Screen {
     @Override
     protected void init() {
         elements.clear();
-        // Auto-discover EVERY movable overlay: any LEGIT module with posX/posY
-        for (Module m : ModuleManager.getModulesByCategory(Category.LEGIT)) {
+        // Auto-discover EVERY movable overlay in every section (not just Legit):
+        // any module with posX/posY (TextGUI, Waypoints, PerformanceOverlay included)
+        for (Module m : ModuleManager.getModules()) {
+            if (m.getCategory() == Category.UZNY11) continue;
             NumberSetting[] pos = findPosSettings(m);
             if (pos == null) continue;
             int[] size = defaultSize(m);

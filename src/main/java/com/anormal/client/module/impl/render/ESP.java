@@ -63,11 +63,131 @@ public class ESP extends Module {
             else if (entity instanceof AnimalEntity && animals.isEnabled()) shouldHighlight = true;
             else if (entity instanceof ItemEntity && items.isEnabled()) shouldHighlight = true;
 
-            // Glow + Outline modes use wall-through outline; box modes draw in onRender2D
+            // Glow + Outline modes use wall-through model outline; box modes draw in onRender2D
             try {
-                entity.setGlowing(shouldHighlight && (mode.is("Glow") || mode.is("Outline")));
+                boolean glowOn = shouldHighlight && (mode.is("Glow") || mode.is("Outline"));
+                entity.setGlowing(glowOn);
+                if (mode.is("Outline")) {
+                    if (shouldHighlight) assignTeam(entity);
+                    else removeFromTeams(entity);
+                }
             } catch (Throwable ignored) {}
         }
+    }
+
+    @Override
+    public void onDisable() {
+        if (mc.world == null) return;
+        for (Entity entity : mc.world.getEntities()) {
+            try {
+                entity.setGlowing(false);
+            } catch (Throwable ignored) {}
+        }
+        clearTeams();
+    }
+
+    // Per-type outline colors via client scoreboard teams: the model-hugging glow
+    // takes the team color, so players/mobs render in their own colors.
+    private net.minecraft.scoreboard.ScoreboardTeam team(String name, int rgb) {
+        try {
+            net.minecraft.scoreboard.Scoreboard board = mc.world.getScoreboard();
+            net.minecraft.scoreboard.ScoreboardTeam team = board.getTeam(name);
+            if (team == null) team = board.addTeam(name);
+            team.setColor(nearestFormatting(rgb));
+            return team;
+        } catch (Throwable ignored) {
+            return null;
+        }
+    }
+
+    private void assignTeam(Entity entity) {
+        try {
+            net.minecraft.scoreboard.Scoreboard board = mc.world.getScoreboard();
+            String entry = entity instanceof PlayerEntity
+                    ? entity.getName().getString()
+                    : entity.getUuid().toString();
+            String want;
+            int rgb;
+            if (entity instanceof PlayerEntity) {
+                want = "anormalP";
+                rgb = color.getValue();
+            } else if (entity instanceof Monster) {
+                want = "anormalM";
+                rgb = mobColor.getValue();
+            } else if (entity instanceof AnimalEntity) {
+                want = "anormalA";
+                rgb = animalColor.getValue();
+            } else {
+                want = "anormalI";
+                rgb = itemColor.getValue();
+            }
+            net.minecraft.scoreboard.ScoreboardTeam team = team(want, rgb);
+            if (team == null) return;
+            net.minecraft.scoreboard.ScoreboardTeam cur = board.getEntityTeam(entry);
+            if (cur != team) {
+                if (cur != null) {
+                    try {
+                        board.removePlayerFromTeam(entry, cur);
+                    } catch (Throwable ignored) {}
+                }
+                board.addPlayerToTeam(entry, team);
+            }
+        } catch (Throwable ignored) {}
+    }
+
+    private void removeFromTeams(Entity entity) {
+        try {
+            net.minecraft.scoreboard.Scoreboard board = mc.world.getScoreboard();
+            String entry = entity instanceof PlayerEntity
+                    ? entity.getName().getString()
+                    : entity.getUuid().toString();
+            net.minecraft.scoreboard.ScoreboardTeam cur = board.getEntityTeam(entry);
+            if (cur != null && cur.getName().startsWith("anormal")) {
+                board.removePlayerFromTeam(entry, cur);
+            }
+        } catch (Throwable ignored) {}
+    }
+
+    private void clearTeams() {
+        try {
+            net.minecraft.scoreboard.Scoreboard board = mc.world.getScoreboard();
+            for (String name : new String[]{"anormalP", "anormalM", "anormalA", "anormalI"}) {
+                try {
+                    net.minecraft.scoreboard.ScoreboardTeam team = board.getTeam(name);
+                    if (team != null) board.removeTeam(team);
+                } catch (Throwable ignored) {}
+            }
+        } catch (Throwable ignored) {}
+    }
+
+    private net.minecraft.util.Formatting nearestFormatting(int rgb) {
+        int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
+        int[][] table = {
+                {0, 0, 0}, {0, 0, 170}, {0, 170, 0}, {0, 170, 170}, {170, 0, 0},
+                {170, 0, 170}, {255, 170, 0}, {170, 170, 170}, {85, 85, 85}, {85, 85, 255},
+                {85, 255, 85}, {85, 255, 255}, {255, 85, 85}, {255, 85, 255}, {255, 255, 85}, {255, 255, 255}
+        };
+        net.minecraft.util.Formatting[] colors = {
+                net.minecraft.util.Formatting.BLACK, net.minecraft.util.Formatting.DARK_BLUE,
+                net.minecraft.util.Formatting.DARK_GREEN, net.minecraft.util.Formatting.DARK_AQUA,
+                net.minecraft.util.Formatting.DARK_RED, net.minecraft.util.Formatting.DARK_PURPLE,
+                net.minecraft.util.Formatting.GOLD, net.minecraft.util.Formatting.GRAY,
+                net.minecraft.util.Formatting.DARK_GRAY, net.minecraft.util.Formatting.BLUE,
+                net.minecraft.util.Formatting.GREEN, net.minecraft.util.Formatting.AQUA,
+                net.minecraft.util.Formatting.RED, net.minecraft.util.Formatting.LIGHT_PURPLE,
+                net.minecraft.util.Formatting.YELLOW, net.minecraft.util.Formatting.WHITE
+        };
+        int best = 7;
+        long bestDist = Long.MAX_VALUE;
+        for (int i = 0; i < 16; i++) {
+            long dr = r - table[i][0], dg = g - table[i][1], db = b - table[i][2];
+            long d = dr * dr + dg * dg + db * db;
+            if (d < bestDist) {
+                bestDist = d;
+                best = i;
+            }
+        }
+        return colors[best];
     }
 
     @Override
@@ -209,7 +329,10 @@ public class ESP extends Module {
     public void onDisable() {
         if (mc.world == null) return;
         for (Entity entity : mc.world.getEntities()) {
-            entity.setGlowing(false);
+            try {
+                entity.setGlowing(false);
+            } catch (Throwable ignored) {}
         }
+        clearTeams();
     }
 }

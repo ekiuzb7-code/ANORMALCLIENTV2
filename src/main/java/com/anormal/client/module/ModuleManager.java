@@ -66,17 +66,36 @@ public class ModuleManager {
         register(new ParticleOptimizer());
         register(new DynamicRenderDistance());
         register(new PerformanceOverlay());
+        register(new Waypoints());
         register(new Trajectories());
         register(new Search());
         register(new AntiDebuff());
         register(new Arrows());
         register(new Explosions());
+        register(new PortalFinder());
+        register(new BedESP());
+        register(new DonkeyFinder());
+        register(new ShulkerFinder());
+        register(new BaseFinder());
+        register(new EndPortalFinder());
+        register(new AncientCityFinder());
+        register(new StrongholdFinder());
+        register(new LogoutSpots());
+        register(new LogoutESP());
+        register(new BaseCoords());
+        register(new BaseManager());
 
         // --- PLAYER ---
         register(new FastPlace());
         register(new AutoTool());
         register(new NoClickDelay());
         register(new ChestStealer());
+        register(new NoHunger());
+        register(new AutoEat());
+        register(new StorageManager());
+        register(new ChestLabels());
+        register(new ShulkerLabels());
+        register(new PortalManager());
 
         // --- WORLD ---
         register(new Scaffold());
@@ -101,6 +120,7 @@ public class ModuleManager {
         register(new Blink());
         register(new FakeLag());
         register(new BackTrack());
+        register(new CoordinateLogger());
 
         // --- INVENTORY ---
         register(new InvCleaner());
@@ -137,6 +157,19 @@ public class ModuleManager {
         register(new TimeChanger());
         register(new Weather());
         register(new NoWeather());
+        register(new Watermark());
+        register(new ToolDurability());
+        register(new ArmorDurability());
+        register(new FoodStatus());
+        register(new ItemCounter());
+        register(new BlockCounter());
+        register(new EnchantHelper());
+        register(new AnvilHelper());
+        register(new MemoryHUD());
+        register(new RenderStats());
+        register(new DirectionHUD());
+        register(new TravelDistance());
+        register(new CoordinateShare());
 
         // --- UZNY11 ---
         register(new com.anormal.client.module.impl.uzny11.AimAssist());
@@ -272,6 +305,7 @@ public class ModuleManager {
         register(new Friends());
         register(new Profiles());
         register(new AntiBot());
+        register(new PlayerLogger());
     }
 
     public static void register(Module module) {
