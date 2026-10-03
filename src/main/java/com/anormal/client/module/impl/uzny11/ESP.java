@@ -75,16 +75,16 @@ public class ESP extends Module {
             try {
                 if (!wanted(entity)) continue;
                 Box box = entity.getBoundingBox();
-                double px = 0.0, pz = 0.0;
-                try {
-                    px = entity.getVelocity().x * (tickDelta - 1.0f);
-                    pz = entity.getVelocity().z * (tickDelta - 1.0f);
-                } catch (Throwable ignored) {}
-                double cx0 = (box.minX + box.maxX) / 2.0 + px;
-                double cz0 = (box.minZ + box.maxZ) / 2.0 + pz;
-                int[] sTop = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, box.maxY + 0.1, cz0), tickDelta);
-                int[] sBot = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, box.minY, cz0), tickDelta);
-                int[] sMid = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, (box.minY + box.maxY) / 2.0, cz0), tickDelta);
+                double hgt = box.maxY - box.minY;
+                double[] lc = com.anormal.client.util.ProjectionUtil.lerpEntity(entity.getId(),
+                        (box.minX + box.maxX) / 2.0, (box.minY + box.maxY) / 2.0,
+                        (box.minZ + box.maxZ) / 2.0, tickDelta);
+                double cx0 = Math.round(lc[0] * 16.0) / 16.0;
+                double cz0 = Math.round(lc[2] * 16.0) / 16.0;
+                double cyMid = lc[1];
+                int[] sTop = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, cyMid + hgt / 2.0 + 0.1, cz0), tickDelta);
+                int[] sBot = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, cyMid - hgt / 2.0, cz0), tickDelta);
+                int[] sMid = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, cyMid, cz0), tickDelta);
                 if (sTop == null || sBot == null || sMid == null) continue;
                 int h = Math.max(4, sBot[1] - sTop[1]);
                 int w = Math.max(4, h / 3);

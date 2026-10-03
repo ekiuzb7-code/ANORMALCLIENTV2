@@ -55,20 +55,11 @@ public class ClickGuiScreen extends Screen {
         // 3. Main Window Frame
         ThemeManager.renderWindow(context, guiX, guiY, guiWidth, guiHeight, "Anormal Client");
 
-        // 4. Top Header: brand banner texture (1024x256), scaled
+        // 4. Top Header: brand banner straddling the divider line (badge look)
         try {
-            double bs = 1.0;
-            try {
-                com.anormal.client.module.impl.client.ClientSettings cs =
-                        com.anormal.client.module.ModuleManager.getModule(
-                                com.anormal.client.module.impl.client.ClientSettings.class);
-                if (cs != null) bs = cs.bannerScale.getValue();
-            } catch (Throwable ignored) {}
-            int bw = Math.max(16, (int) (128 * bs));
-            int bh = Math.max(4, (int) (32 * bs));
-            context.drawTexturedQuad(
+            context.drawGuiTexture(net.minecraft.client.gl.RenderPipelines.GUI_TEXTURED,
                     net.minecraft.util.Identifier.of("anormalclient", "logo_banner.png"),
-                    guiX + 12, guiY + 4, guiX + 12 + bw, guiY + 4 + bh, 0.0f, 1.0f, 0.0f, 1.0f);
+                    guiX + 12, guiY + 10, 96, 24);
         } catch (Throwable ignored) {
             RenderUtils.drawText(context, textRenderer, "ANORMAL", guiX + 12, guiY + 8, 0xFFFFFFFF, true);
         }

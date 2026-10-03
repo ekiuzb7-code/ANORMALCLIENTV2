@@ -28,6 +28,7 @@ public class Waypoints extends Module {
     public final BooleanSetting showDistance = new BooleanSetting("Show Distance", "Show distance on marker", true);
     public final BooleanSetting showName = new BooleanSetting("Show Name", "Show name on marker", true);
     public final BooleanSetting showCoords = new BooleanSetting("Show Coords", "Show coordinates on marker", true);
+    public final BooleanSetting chatConfirm = new BooleanSetting("Chat Confirm", "Chat message when adding", true);
 
     public static final class Waypoint {
         public double x, y, z;
@@ -129,6 +130,7 @@ public class Waypoints extends Module {
         addSetting(showDistance);
         addSetting(showName);
         addSetting(showCoords);
+        addSetting(chatConfirm);
     }
 
     private String curDim() {
@@ -164,7 +166,7 @@ public class Waypoints extends Module {
                     w.name = "WP" + (points.size() + 1);
                     points.add(w);
                     slot.setValue((double) points.size());
-                    if (mc.inGameHud != null) {
+                    if (chatConfirm.isEnabled() && mc.inGameHud != null) {
                         mc.inGameHud.getChatHud().addMessage(Text.literal(
                                 String.format("§a[Waypoint %d] §f%.0f / %.0f / %.0f (%s)",
                                         points.size(), w.x, w.y, w.z, w.dim)));

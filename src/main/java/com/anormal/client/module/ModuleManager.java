@@ -80,6 +80,7 @@ public class ModuleManager {
         register(new EndPortalFinder());
         register(new AncientCityFinder());
         register(new StrongholdFinder());
+        register(new TrialChambersFinder());
         register(new LogoutSpots());
         register(new LogoutESP());
         register(new BaseCoords());

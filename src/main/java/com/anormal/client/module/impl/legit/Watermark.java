@@ -21,6 +21,7 @@ public class Watermark extends Module {
     public final ColorSetting textColor = new ColorSetting("Text Color", "ANORMAL text color", ColorUtils.rgba(255, 255, 255, 255));
     public final ColorSetting accentColor = new ColorSetting("Accent Color", "Version text color", ColorUtils.rgba(255, 170, 0, 255));
     public final BooleanSetting useTexture = new BooleanSetting("Use Texture", "Draw logo image instead of text", true);
+    public final ModeSetting logo = new ModeSetting("Logo", "Logo 1 wordmark or Logo 2 banner", "Logo 1", "Logo 1", "Logo 2");
     public final NumberSetting scale = new NumberSetting("Scale", "Logo image scale", 0.25, 0.1, 1.0, 0.05);
 
     public Watermark() {
@@ -34,11 +35,14 @@ public class Watermark extends Module {
         addSetting(textColor);
         addSetting(accentColor);
         addSetting(useTexture);
+        addSetting(logo);
         addSetting(scale);
     }
 
-    private static final net.minecraft.util.Identifier LOGO =
+    private static final net.minecraft.util.Identifier LOGO1 =
             net.minecraft.util.Identifier.of("anormalclient", "watermark.png");
+    private static final net.minecraft.util.Identifier LOGO2 =
+            net.minecraft.util.Identifier.of("anormalclient", "logo_banner.png");
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
@@ -46,13 +50,17 @@ public class Watermark extends Module {
         int x = posX.getValue().intValue();
         int y = posY.getValue().intValue();
 
-        // Logo image (512x128), scaled — exact brand artwork.
-        // drawTexturedQuad needs no render pipeline, so it cannot silently fail.
+        // Logo image, scaled — exact brand artwork (verified GUI_TEXTURED pipeline).
+        // Logo 1 = wordmark (512x128), Logo 2 = full banner (1024x256).
         if (useTexture.isEnabled()) {
             try {
-                int w = Math.max(8, (int) (512 * scale.getValue()));
-                int h = Math.max(2, (int) (128 * scale.getValue()));
-                context.drawTexturedQuad(LOGO, x, y, x + w, y + h, 0.0f, 1.0f, 0.0f, 1.0f);
+                boolean banner = logo.is("Logo 2");
+                int tw = banner ? 1024 : 512;
+                int th = banner ? 256 : 128;
+                int w = Math.max(8, (int) (tw * scale.getValue()));
+                int h = Math.max(2, (int) (th * scale.getValue()));
+                context.drawGuiTexture(net.minecraft.client.gl.RenderPipelines.GUI_TEXTURED,
+                        banner ? LOGO2 : LOGO1, x, y, w, h);
                 return;
             } catch (Throwable ignored) {}
         }
