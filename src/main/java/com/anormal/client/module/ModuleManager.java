@@ -43,6 +43,9 @@ public class ModuleManager {
         register(new Parkour());
         register(new Spider());
         register(new ElytraFly());
+        register(new NoFall());
+        register(new NoWeb());
+        register(new NoSlowdown());
 
         // --- RENDER ---
         register(new Fullbright());
@@ -51,6 +54,7 @@ public class ModuleManager {
         register(new Tracers());
         register(new BlockOverlay());
         register(new NoHurtCam());
+        register(new NoLevitation());
         register(new ClearWater());
         register(new FreeLook());
         register(new Health());

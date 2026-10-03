@@ -1,3 +1,97 @@
-🛠 SafeWalk Sozlamalari:
-• Sneak at edges (Checkbox: False) — Blok chetiga kelganda avtomatik enkayish (shift).
-• Sneak edge distance (Slider: 0.05m) — Enkayishni boshlash uchun blok chetigacha bo'lgan masofa (0.05m - 0.25m).
+1. NoBackground
+
+Vazifasi: O'yinning menyusi va yuklanish ekranlaridagi (pause/loading) tuproq rangli orqa fonni olib tashlaydi. Bu orqali menyuda turib ham orqa fonni ko'rish imkoniyati yaratiladi.
+
+Sozlamalari (Settings): Yo'q.
+
+3. NocomCrash
+
+Vazifasi: Maxsus (zararli) paketlarni serverga ko'p miqdorda jo'natish orqali zaif serverlarni qotirib qo'yish (crash) yoki ishdan chiqarish uchun mo'ljallangan exploit.
+
+Sozlamalari: Yo'q (ba'zi xususiy versiyalarda yuboriladigan paketlar sonini cheklash bo'lishi mumkin, lekin asosan faqat bitta yoqish tugmasidan iborat).
+
+4. NoFall
+
+Vazifasi: Balandlikdan qulaganda o'yinchidan jon (HP) ketishining oldini oladi.
+
+Sozlamalari:
+
+Mode: Ishlash rejimi (odatda Packet - serverga sizni yerda deb yolg'on ma'lumot yuboradi yoki Catch - tushishdan oldin havoda to'xtatib qoladi).
+
+5. NoFireOverlay
+
+Vazifasi: Qahramoningiz yonayotganda ekranning pastki qismini to'sib qo'yadigan olov animatsiyasini olib tashlaydi. Bu orqali PVP vaqtida ko'rish maydoni toza qoladi.
+
+Sozlamalari: Yo'q.
+
+6. NoFog
+
+Vazifasi: Uzoq masofalarni ko'rishni cheklab turadigan tumanni (fog) butunlay olib tashlaydi, natijada uzoq hududlar ochiq va tiniq ko'rinadi.
+
+Sozlamalari: Yo'q.
+
+7. NoHurtcam
+
+Vazifasi: Zarar (damage) olganda yoki urilganda ekranning qimirlab, qiyshayib ketish effektini (kamera tebranishini) bekor qiladi.
+
+Sozlamalari: Yo'q.
+
+8. NoLevitation
+
+Vazifasi: Shulker (Enddagi maxluq) urganida osmonga ko'tarilib ketish effektini (Levitation) e'tiborsiz qoldiradi.
+
+Sozlamalari: Yo'q.
+
+9. NoOverlay
+
+Vazifasi: Suv ostida, lava ichida yoki qandaydir blok ichida qamalib qolganda ekranni to'sib qo'yadigan rangli to'siqlarni (teksturalarni) o'chiradi.
+
+Sozlamalari:
+
+Water: Suv teksturasini o'chirish (yoqish/o'chirish).
+
+Lava: Lava teksturasini o'chirish.
+
+Blocks: Bloklar (masalan, qum ichida qolganda) teksturasini o'chirish.
+
+10. NoPumpkin
+
+Vazifasi: O'yinchi boshiga qovoq (carved pumpkin) kiyib olganida ekranda paydo bo'ladigan qora, ko'rishni cheklaydigan niqobni yashiradi.
+
+Sozlamalari: Yo'q.
+
+11. NoShieldOverlay
+
+Vazifasi: Qalqon (shield) bilan himoyalanayotganda u ekranning katta qismini egallab olmasligi uchun uning ko'rinishini yashiradi yoki sezilarli darajada kichraytiradi.
+
+Sozlamalari: Yo'q.
+
+12. NoSlowdown
+
+Vazifasi: Ovqat yeyayotganda, eliksir (potion) ichayotganda, kamonni tortganda yoki qalqonni ko'targanda o'yinchining tezligi pasayishini bekor qiladi. Oldingi tezlikda yugurishda davom eta olasiz.
+
+Sozlamalari:
+
+Items: Ovqat/kamon kabi buyumlardan foydalanganda sekinlashmaslik.
+
+Soul Sand: Jon qumi (Soul sand) ustida sekinlashmaslik.
+
+Slime Blocks: Shilimshiq bloklar (Slime block) ustida yurishni normallashtirish.
+
+13. NoVignette
+
+Vazifasi: G'orda yurganingizda yoki dunyo chegarasi (world border) ga yaqinlashganda ekran burchaklarida paydo bo'ladigan qorong'i soyalarni (vignette) tozalaydi.
+
+Sozlamalari: Yo'q.
+
+14. NoWeather
+
+Vazifasi: O'yindagi yomg'ir va qor yog'ish animatsiyalarini o'chiradi. Havo doimiy ochiq bo'lib ko'rinadi (kompyuter qotishini ham kamaytiradi).
+
+Sozlamalari: Yo'q (avtomatik barcha ob-havo effektlarini to'xtatadi).
+
+15. NoWeb
+
+Vazifasi: O'rgimchak to'rlari (cobweb) ichiga tushib qolganda sekinlashishni bekor qiladi. To'rlar xuddi oddiy havo yoki suv kabi o'tib ketiladigan holatga keladi.
+
+Sozlamalari: Yo'q.
