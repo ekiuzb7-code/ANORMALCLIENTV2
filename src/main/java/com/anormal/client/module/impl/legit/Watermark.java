@@ -74,8 +74,9 @@ public class Watermark extends Module {
                 } catch (Throwable ignored) {}
             }
             if (in == null) return;
+            final java.io.InputStream src = in;
             byte[] bytes;
-            try (in; java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream()) {
+            try (src; java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream()) {
                 in.transferTo(buf);
                 bytes = buf.toByteArray();
             }

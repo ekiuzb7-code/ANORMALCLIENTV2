@@ -7,40 +7,27 @@ Fabric Loom: 1.14.10
 
 Cannot remap modifiers because it does not exists in any of the targets [] or their parents.
 
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/Watermark.java:75: error: no suitable constructor found for NativeImageBackedTexture(NativeImage)
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/Watermark.java:78: error: variable in used as a try-with-resources resource neither final nor effectively final
 > Task :compileJava
-                        .registerTexture(id, new net.minecraft.client.texture.NativeImageBackedTexture(img));
-                                             ^
-    constructor NativeImageBackedTexture.NativeImageBackedTexture(Supplier<String>,NativeImage) is not applicable
-      (actual and formal argument lists differ in length)
-    constructor NativeImageBackedTexture.NativeImageBackedTexture(String,int,int,boolean) is not applicable
-      (actual and formal argument lists differ in length)
-    constructor NativeImageBackedTexture.NativeImageBackedTexture(Supplier<String>,int,int,boolean) is not applicable
-      (actual and formal argument lists differ in length)
+            try (in; java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream()) {
+                 ^
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 1 error
 
 > Task :compileJava FAILED
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1791010596126.json
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1791013304947.json
 
+[Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
 
 FAILURE: Build failed with an exception.
 
-[Incubating] Problems report is available at: file:///home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/build/reports/problems/problems-report.html
 * What went wrong:
 Execution failed for task ':compileJava'.
 > Compilation failed; see the compiler output below.
-  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/Watermark.java:75: error: no suitable constructor found for NativeImageBackedTexture(NativeImage)
-                          .registerTexture(id, new net.minecraft.client.texture.NativeImageBackedTexture(img));
-1 actionable task: 1 executed
-                                               ^
-      constructor NativeImageBackedTexture.NativeImageBackedTexture(Supplier<String>,NativeImage) is not applicable
-        (actual and formal argument lists differ in length)
-      constructor NativeImageBackedTexture.NativeImageBackedTexture(String,int,int,boolean) is not applicable
-        (actual and formal argument lists differ in length)
-      constructor NativeImageBackedTexture.NativeImageBackedTexture(Supplier<String>,int,int,boolean) is not applicable
-        (actual and formal argument lists differ in length)
+  /home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/Watermark.java:78: error: variable in used as a try-with-resources resource neither final nor effectively final
+              try (in; java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream()) {
+                   ^
   Note: Recompile with -Xlint:deprecation for details.
   Note: Some input files use or override a deprecated API.
   1 error
@@ -85,15 +72,9 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
 Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/Watermark.java:75: error: no suitable constructor found for NativeImageBackedTexture(NativeImage)
-                        .registerTexture(id, new net.minecraft.client.texture.NativeImageBackedTexture(img));
-                                             ^
-    constructor NativeImageBackedTexture.NativeImageBackedTexture(Supplier<String>,NativeImage) is not applicable
-      (actual and formal argument lists differ in length)
-    constructor NativeImageBackedTexture.NativeImageBackedTexture(String,int,int,boolean) is not applicable
-      (actual and formal argument lists differ in length)
-    constructor NativeImageBackedTexture.NativeImageBackedTexture(Supplier<String>,int,int,boolean) is not applicable
-      (actual and formal argument lists differ in length)
+/home/runner/work/ANORMALCLIENTV2/ANORMALCLIENTV2/src/main/java/com/anormal/client/module/impl/legit/Watermark.java:78: error: variable in used as a try-with-resources resource neither final nor effectively final
+            try (in; java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream()) {
+                 ^
 Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use or override a deprecated API.
 1 error
@@ -220,5 +201,6 @@ Note: Some input files use or override a deprecated API.
 	... 30 more
 
 
-BUILD FAILED in 22s
+BUILD FAILED in 23s
+1 actionable task: 1 executed
 Error: Process completed with exit code 1.
