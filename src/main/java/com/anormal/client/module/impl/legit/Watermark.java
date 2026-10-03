@@ -61,7 +61,18 @@ public class Watermark extends Module {
 
     private static void registerOne(net.minecraft.util.Identifier id, String path) {
         try {
-            java.io.InputStream in = Watermark.class.getResourceAsStream(path);
+            java.io.InputStream in = null;
+            // 1) Proper asset pipeline (same source the renderer reads)
+            try {
+                var opt = net.minecraft.client.MinecraftClient.getInstance().getResourceManager().getResource(id);
+                if (opt != null && opt.isPresent()) in = opt.get().getInputStream();
+            } catch (Throwable ignored) {}
+            // 2) Classpath fallback
+            if (in == null) {
+                try {
+                    in = Watermark.class.getResourceAsStream(path);
+                } catch (Throwable ignored) {}
+            }
             if (in == null) return;
             byte[] bytes;
             try (in; java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream()) {
