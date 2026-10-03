@@ -1,27 +1,30 @@
-CHATGPT UCHUN LOGO PROMPT (logo rasmini ham birga tashla!)
+ANORMAL V1 — BlockESPCoord
 
-Prompt (inglizcha nusxala):
----
-I have a Minecraft Fabric client called "ANORMAL v1". Attached is my logo: bold white "ANORMAL" text with a grey outlined "v1" badge, black background.
+BlockESPCoord
 
-Generate a complete matching asset pack for a Minecraft Fabric mod (package: assets/anormalclient/):
+* User istalgan Minecraft blockni tanlaydi.
+* Tanlangan blocklar dunyoda ESP orqali ko‘rsatiladi.
+* Bir nechta blockni bir vaqtda tanlash mumkin.
+* Masalan: Chest ON, Bed ON, Door OFF.
+* Dunyoda nechta tanlangan block bo‘lsa, hammasini ko‘rsatadi.
+* Block uzoqda yoki yaqinda bo‘lishidan qat’i nazar topib ko‘rsatadi.
+* Har bir block uchun uning nomi, distance va koordinatasi ko‘rsatiladi.
+* Masalan:
+  Chest
+  34m
+  X: 125 Y: 64 Z: -342
 
-1. icon.png (256x256) — the "A" lettermark from the logo, white bold on transparent background with subtle dark outline, centered, crisp at small sizes.
-2. logo_banner.png (1024x256) — full "ANORMAL v1" lockup recreated cleanly on transparent background (keep the same heavy sans style + grey v1 badge outline).
-3. watermark.png (512x128) — small "ANORMAL" text only, white bold with soft dark drop shadow, transparent background, readable at 100px wide.
-4. button.png (256x64, 9-slice friendly) — dark charcoal (#161616) rounded button with 2px orange (#EB641E) bottom accent line, matching the banner style.
-5. background.png (512x512, tileable) — very dark subtle carbon/diagonal texture for GUI panels.
+Settings:
 
-Style rules: flat, bold, minimal, no gradients except the subtle shadow; keep the exact orange #EB641E and charcoal #161616 palette; transparent backgrounds where noted.
-Also output a fabric.mod.json "icon" note: which file to reference as mod icon.
----
+* Block Selection
+* Block Name
+* Distance
+* Coordinates
+* Outline
+* Box
+* Tracer
+* Max Distance
+* Individual Block ON/OFF
 
-Qanday ishlatish:
-1. Yuqoridagi prompt + logo rasmini ChatGPT'ga yubor.
-2. Chiqqan PNG'larni `src/main/resources/assets/anormalclient/` ichiga qo'y:
-   icon.png -> gui/banner/ pastda ko'rsatilgan yo'llar.
-3. Menga qaysi fayllar tayyor bo'lganini ayt — men kodni ulayman:
-   - fabric.mod.json "icon": "assets/anormalclient/icon.png"
-   - ClickGUI sarlavha banneri: logo_banner.png chizish
-   - Watermark overlay: watermark.png texture render
-   - Tugmalar/panellar: button.png + background.png (NineSlice Unda? hozir oddiy fill — almashtiraman)
+Misol:
+Chest + Bed tanlansa, dunyodagi barcha topilgan Chest va Bed blocklari alohida ESP bilan ko‘rsatiladi va har birining koordinatasi hamda distance’i chiqadi.

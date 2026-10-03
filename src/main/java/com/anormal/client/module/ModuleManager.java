@@ -81,6 +81,17 @@ public class ModuleManager {
         register(new AncientCityFinder());
         register(new StrongholdFinder());
         register(new TrialChambersFinder());
+        register(new OreESP());
+        register(new ArmorStandESP());
+        register(new ItemFrameESP());
+        register(new PaintingESP());
+        register(new BannerESP());
+        register(new SignESP());
+        register(new BlockESPCoord());
+        register(new StructureESP());
+        register(new VillageESP());
+        register(new VehicleESP());
+        register(new ProjectileESP());
         register(new LogoutSpots());
         register(new LogoutESP());
         register(new BaseCoords());
@@ -159,6 +170,7 @@ public class ModuleManager {
         register(new Weather());
         register(new NoWeather());
         register(new Watermark());
+        register(new BiomeHUD());
         register(new ToolDurability());
         register(new ArmorDurability());
         register(new FoodStatus());
@@ -306,6 +318,7 @@ public class ModuleManager {
         register(new Friends());
         register(new Profiles());
         register(new AntiBot());
+        register(new NameProtect());
         register(new PlayerLogger());
     }
 

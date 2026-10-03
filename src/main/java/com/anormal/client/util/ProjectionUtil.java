@@ -43,6 +43,37 @@ public final class ProjectionUtil {
         return out;
     }
 
+    // Interpolated eye position for render time (shared by custom markers).
+    public static Vec3d eye(float tickDelta) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        if (mc.player == null) return new Vec3d(0, 0, 0);
+        try {
+            Vec3d target = mc.player.getEyePos();
+            if (!eyeInit || Math.abs(target.x - lastEyeX) > 64 || Math.abs(target.y - lastEyeY) > 64
+                    || Math.abs(target.z - lastEyeZ) > 64) {
+                prevEyeX = lastEyeX = target.x;
+                prevEyeY = lastEyeY = target.y;
+                prevEyeZ = lastEyeZ = target.z;
+                eyeInit = true;
+            }
+            double tt = Math.max(0.0, Math.min(1.0, tickDelta));
+            Vec3d out = new Vec3d(
+                    prevEyeX + (target.x - prevEyeX) * tt,
+                    prevEyeY + (target.y - prevEyeY) * tt,
+                    prevEyeZ + (target.z - prevEyeZ) * tt);
+            prevEyeX = lastEyeX = target.x;
+            prevEyeY = lastEyeY = target.y;
+            prevEyeZ = lastEyeZ = target.z;
+            return out;
+        } catch (Throwable t) {
+            try {
+                return mc.player.getEyePos();
+            } catch (Throwable ignored) {
+                return new Vec3d(0, 0, 0);
+            }
+        }
+    }
+
     public static int[] project(Vec3d p, float tickDelta) {
         MinecraftClient mc = MinecraftClient.getInstance();
         if (mc.player == null || mc.gameRenderer == null || mc.getWindow() == null) return null;

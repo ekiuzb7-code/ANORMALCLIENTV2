@@ -94,7 +94,7 @@ public class NameTags extends Module {
                 boolean showFx = player ? pEffects.isEnabled() : animal ? aEffects.isEnabled() : mEffects.isEnabled();
                 String name;
                 try {
-                    name = e.getName().getString();
+                    name = com.anormal.client.module.impl.client.NameProtect.replaceName(e.getName().getString());
                 } catch (Throwable t) {
                     continue;
                 }
