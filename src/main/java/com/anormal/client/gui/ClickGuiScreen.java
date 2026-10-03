@@ -55,13 +55,13 @@ public class ClickGuiScreen extends Screen {
         // 3. Main Window Frame
         ThemeManager.renderWindow(context, guiX, guiY, guiWidth, guiHeight, "Anormal Client");
 
-        // 4. Top Header: ANORMAL wordmark image straddling the divider (badge look)
+        // 4. Top Header: ANORMAL wordmark fully ABOVE the divider line.
         try {
             context.drawTexturedQuad(
                     com.anormal.client.module.impl.legit.Watermark.guiLogo(),
-                    guiX + 12, guiY + 10, guiX + 108, guiY + 34, 0.0f, 1.0f, 0.0f, 1.0f);
+                    guiX + 12, guiY + 0, guiX + 108, guiY + 24, 0.0f, 1.0f, 0.0f, 1.0f);
         } catch (Throwable ignored) {
-            RenderUtils.drawText(context, textRenderer, "§lANORMAL", guiX + 12, guiY + 10, 0xFFFFFFFF, true);
+            RenderUtils.drawText(context, textRenderer, "§lANORMAL", guiX + 12, guiY + 6, 0xFFFFFFFF, true);
         }
 
         // Search Bar at Top Right

@@ -169,7 +169,6 @@ public class ModuleManager {
         register(new TimeChanger());
         register(new Weather());
         register(new NoWeather());
-        register(new Watermark());
         register(new BiomeHUD());
         register(new ToolDurability());
         register(new ArmorDurability());
@@ -319,6 +318,8 @@ public class ModuleManager {
         register(new Profiles());
         register(new AntiBot());
         register(new NameProtect());
+        // Watermark renders last so the logo is never covered by other HUD
+        register(new Watermark());
         register(new PlayerLogger());
     }
 
