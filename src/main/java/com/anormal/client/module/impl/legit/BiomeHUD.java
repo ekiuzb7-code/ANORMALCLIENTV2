@@ -41,7 +41,7 @@ public class BiomeHUD extends Module {
                     biome = entry.getKey().map(k -> k.getValue().getPath()).orElse("???");
                 } catch (Throwable ignored) {}
                 try {
-                    temp = String.format("%.1f", entry.value().getTemperature(mc.player.getBlockPos()));
+                    temp = String.format("%.1f", entry.value().getTemperature());
                 } catch (Throwable ignored) {}
             } catch (Throwable ignored) {}
 

@@ -219,7 +219,6 @@ public class ESP extends Module {
                 double cx0 = Math.round(lc[0] * 16.0) / 16.0;
                 double cz0 = Math.round(lc[2] * 16.0) / 16.0;
                 double cyMid = lc[1];
-                double hgt = box.maxY - box.minY;
                 int[] sTop = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, cyMid + hgt / 2.0 + 0.1, cz0), tickDelta);
                 int[] sBot = com.anormal.client.util.ProjectionUtil.project(new Vec3d(cx0, cyMid - hgt / 2.0, cz0), tickDelta);
                 // X from MID-height projection: top/bottom centers skew under perspective,
