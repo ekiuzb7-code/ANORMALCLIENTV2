@@ -170,6 +170,8 @@ public class ModuleManager {
         register(new Weather());
         register(new NoWeather());
         register(new BiomeHUD());
+        register(new EnemyArmor());
+        register(new EnemyInventory());
         register(new ToolDurability());
         register(new ArmorDurability());
         register(new FoodStatus());
