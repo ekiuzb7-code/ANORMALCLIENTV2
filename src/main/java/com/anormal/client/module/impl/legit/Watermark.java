@@ -72,7 +72,7 @@ public class Watermark extends Module {
                 net.minecraft.client.texture.NativeImage img =
                         net.minecraft.client.texture.NativeImage.read(bin);
                 net.minecraft.client.MinecraftClient.getInstance().getTextureManager()
-                        .registerTexture(id, new net.minecraft.client.texture.NativeImageBackedTexture(img));
+                        .registerTexture(id, new net.minecraft.client.texture.NativeImageBackedTexture(() -> "anormal", img));
             }
         } catch (Throwable ignored) {}
     }
