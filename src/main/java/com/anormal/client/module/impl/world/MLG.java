@@ -68,8 +68,30 @@ public class MLG extends Module {
         } catch (Throwable ignored) {}
         if (onLethal.isEnabled() ? (falling < 3.0f && !lethal) : (falling + 3.0f < onDamage.getValue())) return;
 
-        BlockPos groundPos = mc.player.getBlockPos().down();
-        if (!mc.world.isAir(groundPos)) return;
+        // Find solid ground below (can't click air — water goes on top of ground)
+        BlockPos ground = null;
+        BlockPos feet = mc.player.getBlockPos();
+        for (int i = 1; i <= 12; i++) {
+            BlockPos p = feet.down(i);
+            try {
+                if (!mc.world.isAir(p)) {
+                    ground = p;
+                    break;
+                }
+            } catch (Throwable ignored) {
+                return;
+            }
+        }
+        if (ground == null) return;
+        // Place only when close to impact (ground within ~5 blocks below feet)
+        double drop = mc.player.getY() - (ground.getY() + 1.0);
+        if (drop > 6.0 || drop < 0.5) return;
+        final BlockPos airPos = ground.up();
+        try {
+            if (!mc.world.isAir(airPos)) return;
+        } catch (Throwable ignored) {
+            return;
+        }
         if (!silentAim.isEnabled()) {
             float cur = mc.player.getPitch();
             float step = (float) Math.max(-aimSpeed.getValue(), Math.min(aimSpeed.getValue(), 90.0f - cur));
@@ -81,12 +103,11 @@ public class MLG extends Module {
             if (waterSlot != -1) {
                 originalSlot = mc.player.getInventory().getSelectedSlot();
                 mc.player.getInventory().setSelectedSlot(waterSlot);
-                BlockPos airPos = mc.player.getBlockPos();
-                BlockHitResult bhr = new BlockHitResult(new Vec3d(airPos.getX() + 0.5, groundPos.getY() + 1.0, airPos.getZ() + 0.5), Direction.UP, groundPos, false);
+                BlockHitResult bhr = new BlockHitResult(new Vec3d(airPos.getX() + 0.5, airPos.getY() + 0.5, airPos.getZ() + 0.5), Direction.UP, ground, false);
                 mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
                 mc.player.swingHand(Hand.MAIN_HAND);
                 placedWater = true;
-                placedPos = mc.player.getBlockPos();
+                placedPos = airPos;
                 return;
             }
         }
@@ -96,8 +117,7 @@ public class MLG extends Module {
             if (webSlot != -1) {
                 originalSlot = mc.player.getInventory().getSelectedSlot();
                 mc.player.getInventory().setSelectedSlot(webSlot);
-                BlockPos airPos = mc.player.getBlockPos();
-                BlockHitResult bhr = new BlockHitResult(new Vec3d(airPos.getX() + 0.5, groundPos.getY() + 1.0, airPos.getZ() + 0.5), Direction.UP, groundPos, false);
+                BlockHitResult bhr = new BlockHitResult(new Vec3d(airPos.getX() + 0.5, airPos.getY() + 0.5, airPos.getZ() + 0.5), Direction.UP, ground, false);
                 mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
                 mc.player.swingHand(Hand.MAIN_HAND);
                 restoreSlot();
