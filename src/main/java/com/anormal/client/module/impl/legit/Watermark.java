@@ -50,8 +50,8 @@ public class Watermark extends Module {
         int x = posX.getValue().intValue();
         int y = posY.getValue().intValue();
 
-        // Logo image, scaled — exact brand artwork (verified GUI_TEXTURED pipeline).
-        // Logo 1 = wordmark (512x128), Logo 2 = full banner (1024x256).
+        // Logo image, scaled — exact brand artwork.
+        // drawTexturedQuad samples the loose PNG directly (GUI atlas has no such sprite).
         if (useTexture.isEnabled()) {
             try {
                 boolean banner = logo.is("Logo 2");
@@ -59,8 +59,8 @@ public class Watermark extends Module {
                 int th = banner ? 256 : 128;
                 int w = Math.max(8, (int) (tw * scale.getValue()));
                 int h = Math.max(2, (int) (th * scale.getValue()));
-                context.drawGuiTexture(net.minecraft.client.gl.RenderPipelines.GUI_TEXTURED,
-                        banner ? LOGO2 : LOGO1, x, y, w, h);
+                context.drawTexturedQuad(banner ? LOGO2 : LOGO1,
+                        x, y, x + w, y + h, 0.0f, (float) tw, 0.0f, (float) th);
                 return;
             } catch (Throwable ignored) {}
         }
