@@ -2,8 +2,8 @@ package com.anormal.client.module.impl.movement;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
-
 import com.anormal.client.setting.BooleanSetting;
+import com.anormal.client.setting.NumberSetting;
 import net.minecraft.util.math.BlockPos;
 
 public class SafeWalk extends Module {

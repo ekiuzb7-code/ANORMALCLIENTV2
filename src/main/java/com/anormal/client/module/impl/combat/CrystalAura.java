@@ -82,7 +82,6 @@ public class CrystalAura extends Module {
         if (!manual && cooldown <= 0) {
             if (tryPlace(target, waitForPlace())) return;
         }
-        return false;
     }
 
     // Breaks the best crystal in range, returns true if attacked

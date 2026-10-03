@@ -26,8 +26,10 @@ public class NoFall extends Module {
                 // Tell the server we're grounded every tick while airborne:
                 // fall distance never accumulates server-side.
                 Vec3d p = new Vec3d(mc.player.getX(), mc.player.getY(), mc.player.getZ());
-                mc.interactionManager.sendPacket(
-                        new PlayerMoveC2SPacket.PositionAndOnGround(p, true, false));
+                if (mc.getNetworkHandler() != null) {
+                    mc.getNetworkHandler().sendPacket(
+                            new PlayerMoveC2SPacket.PositionAndOnGround(p, true, false));
+                }
                 mc.player.fallDistance = 0.0f;
             } else {
                 // Catch: clamp descent + wipe accumulated distance before landing.
