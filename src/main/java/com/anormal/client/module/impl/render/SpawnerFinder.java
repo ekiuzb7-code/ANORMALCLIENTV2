@@ -20,6 +20,7 @@ import java.util.List;
 public class SpawnerFinder extends Module {
     public final NumberSetting scale = new NumberSetting("Scale", "Scale of the rendered overlays", 1.0, 0.5, 2.5, 0.1);
     public final BooleanSetting showDistance = new BooleanSetting("Show Distance", "Shows distance to the spawner on the overlay", true);
+    public final BooleanSetting showMob = new BooleanSetting("Show Mob", "Shows spawner kind (Dungeon/Trial)", true);
     public final ModeSetting filter = new ModeSetting("Spawners", "Which mob spawners to find", "All", "All", "Dungeon", "Trial");
     public final NumberSetting maxDistance = new NumberSetting("Max Distance", "Only renders spawners within this range", 48.0, 8.0, 96.0, 4.0);
     public final ColorSetting color = new ColorSetting("Color", "Spawner overlay color", ColorUtils.rgba(255, 60, 220, 255));
@@ -31,6 +32,7 @@ public class SpawnerFinder extends Module {
         super("SpawnerFinder", "Locates and highlights mob spawners through walls", Category.RENDER);
         addSetting(scale);
         addSetting(showDistance);
+        addSetting(showMob);
         addSetting(filter);
         addSetting(maxDistance);
         addSetting(color);
@@ -82,6 +84,16 @@ public class SpawnerFinder extends Module {
                 if (showDistance.isEnabled()) {
                     String d = (int) Math.sqrt(p.getSquaredDistance(mc.player.getBlockPos())) + "m";
                     RenderUtils.drawText(context, mc.textRenderer, d, sc[0] + s + 2, sc[1] - 4, c, true);
+                }
+                if (showMob.isEnabled()) {
+                    String kind = "Spawner";
+                    try {
+                        String path = Registries.BLOCK.getId(mc.world.getBlockState(p).getBlock()).getPath();
+                        if (path.contains("trial")) kind = "Trial Spawner";
+                        else if (path.equals("spawner")) kind = "Dungeon";
+                        else kind = path;
+                    } catch (Throwable ignored) {}
+                    RenderUtils.drawText(context, mc.textRenderer, "§e" + kind, sc[0] - mc.textRenderer.getWidth(kind) / 2, sc[1] + s + 2, c, true);
                 }
             }
         } catch (Throwable ignored) {}

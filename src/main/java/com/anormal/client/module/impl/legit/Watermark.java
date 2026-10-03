@@ -20,7 +20,7 @@ public class Watermark extends Module {
     public final BooleanSetting background = new BooleanSetting("Background", "Dark background panel", true);
     public final ColorSetting textColor = new ColorSetting("Text Color", "ANORMAL text color", ColorUtils.rgba(255, 255, 255, 255));
     public final ColorSetting accentColor = new ColorSetting("Accent Color", "Version text color", ColorUtils.rgba(255, 170, 0, 255));
-    public final BooleanSetting useTexture = new BooleanSetting("Use Texture", "Draw logo image instead of text", false);
+    public final BooleanSetting useTexture = new BooleanSetting("Use Texture", "Draw logo image instead of text", true);
     public final ModeSetting logo = new ModeSetting("Logo", "Logo 1 wordmark or Logo 2 banner", "Logo 2", "Logo 1", "Logo 2");
     public final NumberSetting scale = new NumberSetting("Scale", "Logo image scale", 0.25, 0.1, 1.0, 0.05);
 
@@ -44,6 +44,7 @@ public class Watermark extends Module {
     private static final net.minecraft.util.Identifier LOGO2 =
             net.minecraft.util.Identifier.of("anormalclient", "logo_banner.png");
     private static boolean texturesRegistered = false;
+    private static String texStatus = "not tried";
 
     public static net.minecraft.util.Identifier guiLogo() {
         ensureTextures();
@@ -62,18 +63,26 @@ public class Watermark extends Module {
     private static void registerOne(net.minecraft.util.Identifier id, String path) {
         try {
             java.io.InputStream in = null;
+            String via = "?";
             // 1) Proper asset pipeline (same source the renderer reads)
             try {
                 var opt = net.minecraft.client.MinecraftClient.getInstance().getResourceManager().getResource(id);
-                if (opt != null && opt.isPresent()) in = opt.get().getInputStream();
+                if (opt != null && opt.isPresent()) {
+                    in = opt.get().getInputStream();
+                    via = "resmgr";
+                }
             } catch (Throwable ignored) {}
             // 2) Classpath fallback
             if (in == null) {
                 try {
                     in = Watermark.class.getResourceAsStream(path);
+                    if (in != null) via = "classpath";
                 } catch (Throwable ignored) {}
             }
-            if (in == null) return;
+            if (in == null) {
+                texStatus = "missing:" + path;
+                return;
+            }
             final java.io.InputStream src = in;
             byte[] bytes;
             try (src; java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream()) {
@@ -85,8 +94,15 @@ public class Watermark extends Module {
                         net.minecraft.client.texture.NativeImage.read(bin);
                 net.minecraft.client.MinecraftClient.getInstance().getTextureManager()
                         .registerTexture(id, new net.minecraft.client.texture.NativeImageBackedTexture(() -> "anormal", img));
+                texStatus = "ok:" + via + ":" + img.getWidth() + "x" + img.getHeight();
             }
-        } catch (Throwable ignored) {}
+        } catch (Throwable t) {
+            texStatus = "err:" + t.getClass().getSimpleName();
+        }
+    }
+
+    public static String texStatus() {
+        return texStatus;
     }
 
     @Override
@@ -95,7 +111,7 @@ public class Watermark extends Module {
         int x = posX.getValue().intValue();
         int y = posY.getValue().intValue();
 
-        // Logo image, scaled — exact brand artwork, registered as GPU texture first.
+        // Logo image only — no text fallback (image or nothing).
         if (useTexture.isEnabled()) {
             try {
                 ensureTextures();
@@ -106,8 +122,8 @@ public class Watermark extends Module {
                 int h = Math.max(2, (int) (th * scale.getValue()));
                 context.drawTexturedQuad(banner ? LOGO2 : LOGO1,
                         x, y, x + w, y + h, 0.0f, 1.0f, 0.0f, 1.0f);
-                return;
             } catch (Throwable ignored) {}
+            return;
         }
 
         String main = style.is("Short") ? "AN" : (style.is("Minimal") ? "A" : "ANORMAL");

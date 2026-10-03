@@ -28,6 +28,7 @@ public class ClickGuiScreen extends Screen {
     private int editDrag = 0; // 0 none, 1 R, 2 G, 3 B
 
     private int scrollOffset = 0;
+    private com.anormal.client.setting.ModeSetting expandedMode = null;
 
     public ClickGuiScreen() {
         super(Text.literal("Anormal Client GUI"));
@@ -131,6 +132,9 @@ public class ClickGuiScreen extends Screen {
             if (m.isExpanded()) {
                 for (Setting<?> s : m.getSettings()) {
                     if (s.isVisible()) totalContentHeight += 20;
+                    if (s == expandedMode && s instanceof com.anormal.client.setting.ModeSetting em) {
+                        totalContentHeight += em.getModes().size() * 16;
+                    }
                 }
             }
         }
@@ -153,6 +157,19 @@ public class ClickGuiScreen extends Screen {
                     if (!setting.isVisible()) continue;
                     renderSetting(context, setting, contentX + 16, modY, contentWidth - 36, mouseX, mouseY);
                     modY += 20;
+                    // Expanded option list under a mode row: click an option to pick it
+                    if (setting == expandedMode && setting instanceof com.anormal.client.setting.ModeSetting em) {
+                        for (String opt : em.getModes()) {
+                            boolean sel = opt.equals(em.getValue());
+                            boolean hov = mouseX >= contentX + 26 && mouseX <= contentX + 6 + contentWidth - 26
+                                    && mouseY >= modY && mouseY <= modY + 14;
+                            RenderUtils.fill(context, contentX + 26, modY, contentX + 6 + contentWidth - 26, modY + 14,
+                                    sel ? ThemeManager.getAccentColor() : (hov ? ColorUtils.rgba(35, 40, 55, 220) : ColorUtils.rgba(16, 18, 24, 220)));
+                            RenderUtils.drawText(context, textRenderer, (sel ? "● " : "○ ") + opt,
+                                    contentX + 32, modY + 3, sel ? 0xFFFFFFFF : 0xFFBBBBBB, true);
+                            modY += 16;
+                        }
+                    }
                 }
                 if (module instanceof com.anormal.client.module.impl.world.XRay) {
                     int btnX = contentX + 16;
@@ -283,8 +300,8 @@ public class ClickGuiScreen extends Screen {
                             bool.toggle();
                             return;
                         } else if (setting instanceof ModeSetting mode) {
-                            if (button == 1) mode.cycleBack();
-                            else mode.cycle();
+                            // Click toggles the option list (no cycling arrows)
+                            expandedMode = (expandedMode == mode) ? null : mode;
                             return;
                         } else if (setting instanceof KeybindSetting key) {
                             listeningSetting = key;
@@ -322,6 +339,19 @@ public class ClickGuiScreen extends Screen {
                         }
                     }
                     modY += 20;
+                    // Option rows under an expanded mode: pick directly
+                    if (setting == expandedMode && setting instanceof ModeSetting em) {
+                        for (String opt : em.getModes()) {
+                            if (mouseX >= setX + 10 && mouseX <= setX + setW - 10 && mouseY >= modY && mouseY <= modY + 14) {
+                                try {
+                                    em.setMode(opt);
+                                } catch (Throwable ignored) {}
+                                expandedMode = null;
+                                return;
+                            }
+                            modY += 16;
+                        }
+                    }
                 }
                 if (module instanceof com.anormal.client.module.impl.world.XRay xrayModule) {
                     int btnX = contentX + 16;
@@ -360,8 +390,8 @@ public class ClickGuiScreen extends Screen {
         RenderUtils.drawText(context, textRenderer, keyText, x + width - keyWidth - 26, y + 7, 0xFF888888, true);
 
         // Expand settings indicator
-        String expandText = module.isExpanded() ? "▼" : "▶";
-        RenderUtils.drawText(context, textRenderer, expandText, x + width - 16, y + 7, ThemeManager.getAccentColor(), true);
+        String expandText = module.isExpanded() ? "-" : "+";
+        RenderUtils.drawText(context, textRenderer, expandText, x + width - 14, y + 7, ThemeManager.getAccentColor(), true);
     }
 
     private void renderSetting(DrawContext context, Setting<?> setting, int x, int y, int width, int mouseX, int mouseY) {
@@ -397,7 +427,7 @@ public class ClickGuiScreen extends Screen {
             String valStr = String.format("%.1f", num.getValue());
             RenderUtils.drawText(context, textRenderer, valStr, sliderX - textRenderer.getWidth(valStr) - 4, y + 5, 0xFFAAAAAA, true);
         } else if (setting instanceof ModeSetting mode) {
-            String modeStr = "< " + mode.getValue() + " >";
+            String modeStr = mode.getValue() + (setting == expandedMode ? "  [-]" : "  [+]");
             int mw = textRenderer.getWidth(modeStr);
             RenderUtils.drawText(context, textRenderer, modeStr, x + width - mw - 6, y + 5, ThemeManager.getAccentColor(), true);
         } else if (setting instanceof KeybindSetting key) {

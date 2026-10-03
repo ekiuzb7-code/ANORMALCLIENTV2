@@ -9,6 +9,8 @@ import net.minecraft.util.math.BlockPos;
 public class SafeWalk extends Module {
     public final BooleanSetting onGroundOnly = new BooleanSetting("On Ground Only", "Only prevent edge falls while on ground", true);
     public final BooleanSetting blocksOnly = new BooleanSetting("Blocks Only", "Only sneak on empty edges when holding blocks", false);
+    public final BooleanSetting sneakAtEdges = new BooleanSetting("Sneak At Edges", "Auto-sneak near block edge", true);
+    public final NumberSetting edgeDistance = new NumberSetting("Edge Distance", "Sneak within this of edge (m)", 0.05, 0.0, 0.25, 0.01);
 
     private boolean sneakedByModule = false;
 
@@ -16,6 +18,8 @@ public class SafeWalk extends Module {
         super("SafeWalk", "Prevents walking off block edges without slowing down", Category.MOVEMENT);
         addSetting(onGroundOnly);
         addSetting(blocksOnly);
+        addSetting(sneakAtEdges);
+        addSetting(edgeDistance);
     }
 
     @Override
@@ -30,10 +34,37 @@ public class SafeWalk extends Module {
             return;
         }
 
-        BlockPos under = mc.player.getBlockPos().down();
+        // Danger = over air (past edge) OR within edge distance of it.
+        // Instant release the moment you're back inside: no late stand-up.
         boolean atEdge = false;
         try {
-            atEdge = mc.world.isAir(under) && mc.player.isOnGround();
+            BlockPos under = mc.player.getBlockPos().down();
+            if (mc.world.isAir(under) && mc.player.isOnGround()) {
+                atEdge = true;
+            } else if (sneakAtEdges.isEnabled()) {
+                double px = mc.player.getX();
+                double pz = mc.player.getZ();
+                double fx = px - Math.floor(px);
+                double fz = pz - Math.floor(pz);
+                double edgeDist = Math.min(Math.min(fx, 1.0 - fx), Math.min(fz, 1.0 - fz));
+                // Player half-width eats into the margin on both sides
+                double margin = edgeDistance.getValue() + 0.3;
+                BlockPos feet = mc.player.getBlockPos();
+                boolean nearVoid = false;
+                outer:
+                for (int dx = -1; dx <= 1; dx++) {
+                    for (int dz = -1; dz <= 1; dz++) {
+                        BlockPos n = feet.add(dx, -1, dz);
+                        try {
+                            if (mc.world.isAir(n)) {
+                                nearVoid = true;
+                                break outer;
+                            }
+                        } catch (Throwable ignored) {}
+                    }
+                }
+                if (nearVoid && edgeDist < margin) atEdge = true;
+            }
         } catch (Throwable ignored) {}
         if (atEdge) {
             // At edge: sneak (stand still safely)

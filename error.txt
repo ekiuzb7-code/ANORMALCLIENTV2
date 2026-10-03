@@ -1,3 +1,3 @@
-EnemyArmor — targetning armor qismlari va durability holatini ko‘rsatadi.
-
-EnemyInventory — target inventorydagi ko‘rinadigan item ma’lumotlarini ko‘rsatadi.
+🛠 SafeWalk Sozlamalari:
+• Sneak at edges (Checkbox: False) — Blok chetiga kelganda avtomatik enkayish (shift).
+• Sneak edge distance (Slider: 0.05m) — Enkayishni boshlash uchun blok chetigacha bo'lgan masofa (0.05m - 0.25m).

@@ -104,7 +104,7 @@ public class Profiles extends Module {
                                 if (s instanceof BooleanSetting) ((Setting<Boolean>) (Setting) s).setValue(Boolean.parseBoolean(v));
                                 else if (s instanceof com.anormal.client.setting.NumberSetting) ((Setting<Double>) (Setting) s).setValue(Double.parseDouble(v));
                                 else if (s instanceof ModeSetting ms) {
-                                    if (ms.getModes().contains(v)) ((Setting<String>) (Setting) s).setValue(v);
+                                    if (ms.getModes().contains(v)) ms.setMode(v);
                                 } else ((Setting<Integer>) (Setting) s).setValue(Integer.parseInt(v));
                             } catch (Throwable ignored) {}
                             break;

@@ -76,10 +76,17 @@ public class CrystalAura extends Module {
         LivingEntity target = selectTarget();
         if (target == null) { lastTarget = null; return; }
         if (showTarget.isEnabled()) lastTarget = target;
-        // Auto place: no crystal in range to break -> put one on obsidian near target
+        // Break existing crystals FIRST (placing first starved detonation of ticks)
+        if (cooldown <= 0 && tryBreak(target, manual)) return;
+        // Auto place: nothing to break -> put one on obsidian near target
         if (!manual && cooldown <= 0) {
             if (tryPlace(target, waitForPlace())) return;
         }
+        return false;
+    }
+
+    // Breaks the best crystal in range, returns true if attacked
+    private boolean tryBreak(LivingEntity target, boolean manual) {
         EndCrystalEntity best = null;
         double bestEff = -1.0;
         for (Entity e : mc.world.getEntities()) {
@@ -90,22 +97,23 @@ public class CrystalAura extends Module {
             best = c;
             bestEff = eff;
         }
-        if (best == null) return;
+        if (best == null) return false;
         double self = Math.max(0.0, 4.0 - mc.player.distanceTo(best)) * 2.5;
         double cap = manual ? manualMaxSelf.getValue() : maxSelfDamage.getValue();
         boolean guard = manual ? manualAntiSuicide.isEnabled() : antiSuicide.isEnabled();
-        if (guard && (self > cap || mc.player.getHealth() - self <= 0.0)) return;
-        if (manual ? (!placeObsidian.isEnabled() && !heldCrystal()) : (!autoObsidian.isEnabled() && !heldCrystal())) return;
+        if (guard && (self > cap || mc.player.getHealth() - self <= 0.0)) return false;
+        if (manual ? (!placeObsidian.isEnabled() && !heldCrystal()) : (!autoObsidian.isEnabled() && !heldCrystal())) return false;
         String opt = manual ? manualOptimization.getValue() : optimization.getValue();
         int wait = manual ? manualDelay.getValue().intValue() : delay.getValue().intValue();
         boolean rapid = opt.equalsIgnoreCase("Rapid fire") && bestEff >= rapidMinEfficiency.getValue();
-        if (!rapid && cooldown > 0) return;
+        if (!rapid && cooldown > 0) return false;
         rotateTo(best, manual ? manualAimSpeed.getValue() : aimSpeed.getValue());
         mc.interactionManager.attackEntity(mc.player, best);
         mc.player.swingHand(Hand.MAIN_HAND);
         crystalCount++;
         if (showTarget.isEnabled()) lastCrystal = best;
         cooldown = rapid ? 0 : (opt.equalsIgnoreCase("Predict") ? Math.max(0, wait - 2) : wait);
+        return true;
     }
 
     private int waitForPlace() {
@@ -163,7 +171,13 @@ public class CrystalAura extends Module {
             if (antiSuicide.isEnabled() && (self > maxSelfDamage.getValue() || mc.player.getHealth() - self <= 0.0)) return false;
 
             int prev = mc.player.getInventory().getSelectedSlot();
-            mc.player.getInventory().setSelectedSlot(crystalSlot);
+            // Two-phase: swap one tick, place the next. Same-tick swap+place
+            // sends the OLD slot to the server (no crystal appears, hand flickers).
+            if (prev != crystalSlot) {
+                mc.player.getInventory().setSelectedSlot(crystalSlot);
+                cooldown = Math.max(1, Math.min(wait, 2));
+                return true;
+            }
             try {
                 BlockHitResult bhr = new BlockHitResult(
                         new Vec3d(bestBase.getX() + 0.5, bestBase.getY() + 1.0, bestBase.getZ() + 0.5),

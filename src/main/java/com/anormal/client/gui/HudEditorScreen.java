@@ -84,8 +84,198 @@ public class HudEditorScreen extends Screen {
         return new NumberSetting[]{px, py};
     }
 
+    // Live-measured boxes: same strings the modules draw, so frames match content.
+    // Falls back to defaultSize when the format is dynamic or unknown.
+    private int[] measureElement(Module module) {
+        try {
+            net.minecraft.client.MinecraftClient mc = net.minecraft.client.MinecraftClient.getInstance();
+            switch (module.getName()) {
+                case "Clock": {
+                    String t = "TIME: " + java.time.LocalTime.now().format(
+                            java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
+                    return new int[]{textRenderer.getWidth(t) + 8, 14};
+                }
+                case "FPS": {
+                    int fps = 60;
+                    try {
+                        fps = mc.getCurrentFps();
+                    } catch (Throwable ignored) {}
+                    return new int[]{textRenderer.getWidth("FPS: " + fps) + 8, 14};
+                }
+                case "Coords": {
+                    String c = "XYZ: 100.0 / 64.0 / 100.0 (N)";
+                    try {
+                        if (mc.player != null) {
+                            c = String.format("XYZ: %.1f / %.1f / %.1f", mc.player.getX(), mc.player.getY(), mc.player.getZ());
+                        }
+                    } catch (Throwable ignored) {}
+                    return new int[]{textRenderer.getWidth(c) + 8, 14};
+                }
+                case "ReachDisplay": {
+                    return new int[]{textRenderer.getWidth("Reach: 3.50 blocks") + 8, 14};
+                }
+                case "MemoryHUD": {
+                    long used = 0, total = 1;
+                    try {
+                        used = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
+                        total = Runtime.getRuntime().maxMemory() / 1048576L;
+                    } catch (Throwable ignored) {}
+                    String l1 = "RAM: " + used + "/" + total + " MB";
+                    String l2 = "Max: " + total + " MB";
+                    return new int[]{Math.max(textRenderer.getWidth(l1), textRenderer.getWidth(l2)) + 8, 28};
+                }
+                case "RenderStats": {
+                    int fps = 60, ents = 0;
+                    try {
+                        fps = mc.getCurrentFps();
+                    } catch (Throwable ignored) {}
+                    try {
+                        if (mc.world != null) {
+                            for (Object e : mc.world.getEntities()) {
+                                if (++ents > 500) break;
+                            }
+                        }
+                    } catch (Throwable ignored) {}
+                    String t = "FPS: " + fps + " " + String.format("%.1f", 1000.0 / Math.max(1, fps)) + "ms Ents: " + ents;
+                    return new int[]{textRenderer.getWidth(t) + 8, 14};
+                }
+                case "DirectionHUD": {
+                    float yaw = 0;
+                    try {
+                        if (mc.player != null) yaw = (mc.player.getYaw() % 360 + 360) % 360;
+                    } catch (Throwable ignored) {}
+                    String dir = yaw >= 315 || yaw < 45 ? "S" : (yaw >= 45 && yaw < 135 ? "W" : (yaw >= 135 && yaw < 225 ? "N" : "E"));
+                    String full = dir.equals("N") ? "North" : dir.equals("S") ? "South" : dir.equals("E") ? "East" : "West";
+                    return new int[]{textRenderer.getWidth("- " + dir + " - " + full + " [" + (int) yaw + "]") + 8, 14};
+                }
+                case "TravelDistance": {
+                    return new int[]{textRenderer.getWidth("Walked: 10000m (total 10000m)") + 8, 14};
+                }
+                case "CoordinateShare": {
+                    String t = "XYZ: 100 / -60 / 31 (overworld)";
+                    try {
+                        if (mc.player != null) {
+                            String dim = "";
+                            try {
+                                dim = mc.world.getRegistryKey().getValue().getPath();
+                            } catch (Throwable ignored) {}
+                            t = String.format("XYZ: %.0f / %.0f / %.0f (%s)", mc.player.getX(), mc.player.getY(), mc.player.getZ(), dim);
+                        }
+                    } catch (Throwable ignored) {}
+                    return new int[]{textRenderer.getWidth(t) + 8, 14};
+                }
+                case "PlayerLogger": {
+                    return new int[]{textRenderer.getWidth("Seen: 99") + 8, 14};
+                }
+                case "FoodStatus": {
+                    return new int[]{textRenderer.getWidth("Hunger: 20/20 Sat: 20.0") + 8, 14};
+                }
+                case "ItemCounter": {
+                    String label = "Obsidian";
+                    try {
+                        if (mc.player != null && !mc.player.getMainHandStack().isEmpty()) {
+                            label = mc.player.getMainHandStack().getName().getString();
+                        }
+                    } catch (Throwable ignored) {}
+                    return new int[]{textRenderer.getWidth(label + ": 64") + 8, 14};
+                }
+                case "BlockCounter": {
+                    return new int[]{textRenderer.getWidth("Obsidian: 64") + 8, 14};
+                }
+                case "ToolDurability": {
+                    return new int[]{textRenderer.getWidth("Diamond Pickaxe 1561") + 8, 14};
+                }
+                case "ArmorDurability": {
+                    return new int[]{textRenderer.getWidth("Elytra: 432/432 (100%)") + 8, 14};
+                }
+                case "EnchantHelper": {
+                    return new int[]{textRenderer.getWidth("No enchantments") + 8, 14};
+                }
+                case "AnvilHelper": {
+                    return new int[]{textRenderer.getWidth("Anvil: 12 levels") + 8, 14};
+                }
+                case "BiomeHUD": {
+                    return new int[]{textRenderer.getWidth("Plains | 0.8") + 8, 14};
+                }
+                case "DuelInfo": {
+                    return new int[]{120, 52};
+                }
+                case "TextGUI": {
+                    int count = 0;
+                    try {
+                        for (Module m : ModuleManager.getModules()) {
+                            if (m.isEnabled()) count++;
+                        }
+                    } catch (Throwable ignored) {}
+                    return new int[]{170, 20 + Math.max(1, count) * 13};
+                }
+                case "Scoreboard": {
+                    return new int[]{130, 60};
+                }
+                case "PartyOverlay": {
+                    int n = 0;
+                    try {
+                        if (mc.world != null && mc.player != null) {
+                            for (Object e : mc.world.getEntities()) {
+                                if (e instanceof net.minecraft.entity.player.PlayerEntity
+                                        && e != mc.player && n < 6) n++;
+                            }
+                        }
+                    } catch (Throwable ignored) {}
+                    return new int[]{150, 18 + Math.max(1, n) * 11};
+                }
+                case "PotionStatus": {
+                    int n = 0;
+                    try {
+                        if (mc.player != null) n = mc.player.getStatusEffects().size();
+                    } catch (Throwable ignored) {}
+                    return new int[]{150, 14 + Math.max(1, n) * 12};
+                }
+                case "ArmorStatus": {
+                    int n = 0;
+                    try {
+                        if (mc.player != null) {
+                            for (net.minecraft.entity.EquipmentSlot s : new net.minecraft.entity.EquipmentSlot[]{
+                                    net.minecraft.entity.EquipmentSlot.HEAD, net.minecraft.entity.EquipmentSlot.CHEST,
+                                    net.minecraft.entity.EquipmentSlot.LEGS, net.minecraft.entity.EquipmentSlot.FEET}) {
+                                if (!mc.player.getEquippedStack(s).isEmpty()) n++;
+                            }
+                        }
+                    } catch (Throwable ignored) {}
+                    return new int[]{72, Math.max(20, n * 18 + 4)};
+                }
+                case "Watermark": {
+                    try {
+                        com.anormal.client.module.impl.legit.Watermark wm =
+                                ModuleManager.getModule(com.anormal.client.module.impl.legit.Watermark.class);
+                        if (wm != null) {
+                            double s = wm.scale.getValue();
+                            boolean banner = wm.logo.is("Logo 2");
+                            int tw = banner ? 1024 : 512;
+                            int th = banner ? 256 : 128;
+                            return new int[]{(int) (tw * s) + 4, (int) (th * s) + 4};
+                        }
+                    } catch (Throwable ignored) {}
+                    return new int[]{132, 36};
+                }
+                case "PerformanceOverlay": {
+                    int fps = 60;
+                    try {
+                        fps = mc.getCurrentFps();
+                    } catch (Throwable ignored) {}
+                    String l1 = "FPS: " + fps + " 1% low: " + fps;
+                    String l2 = "Mem: 512 MB";
+                    return new int[]{Math.max(textRenderer.getWidth(l1), textRenderer.getWidth(l2)) + 8, 52};
+                }
+                default:
+                    return null;
+            }
+        } catch (Throwable ignored) {
+            return null;
+        }
+    }
+
     private static int[] defaultSize(Module module) {
-        // Tight boxes matching each module's real render geometry
         if (module instanceof com.anormal.client.module.impl.legit.Keystrokes ks) {
             try {
                 double scale = ks.scale.getValue();
@@ -109,16 +299,31 @@ public class HudEditorScreen extends Screen {
             case "ReachDisplay" -> new int[]{130, 16};
             case "Clock" -> new int[]{96, 16};
             case "FPS" -> new int[]{70, 16};
-            case "Coords" -> new int[]{180, 16};
-            case "DuelInfo" -> new int[]{130, 38};
-            case "PartyOverlay" -> new int[]{150, 80};
+            case "Coords" -> new int[]{200, 16};
+            case "DuelInfo" -> new int[]{120, 50};
+            case "PartyOverlay" -> new int[]{150, 50};
             case "Rearview" -> new int[]{130, 36};
             case "Scoreboard" -> new int[]{130, 100};
             case "Watermark" -> new int[]{132, 36};
             case "Waypoints" -> new int[]{150, 40};
-            case "PerformanceOverlay" -> new int[]{160, 70};
+            case "PerformanceOverlay" -> new int[]{150, 64};
             case "TextGUI" -> new int[]{130, 150};
-            default -> new int[]{110, 18};
+            case "ToolDurability" -> new int[]{100, 16};
+            case "ArmorDurability" -> new int[]{140, 16};
+            case "FoodStatus" -> new int[]{140, 16};
+            case "ItemCounter" -> new int[]{90, 16};
+            case "BlockCounter" -> new int[]{90, 16};
+            case "EnchantHelper" -> new int[]{90, 16};
+            case "AnvilHelper" -> new int[]{90, 16};
+            case "MemoryHUD" -> new int[]{120, 30};
+            case "RenderStats" -> new int[]{160, 16};
+            case "DirectionHUD" -> new int[]{70, 16};
+            case "TravelDistance" -> new int[]{140, 16};
+            case "CoordinateShare" -> new int[]{190, 16};
+            case "PlayerLogger" -> new int[]{120, 30};
+            case "EnemyArmor" -> new int[]{120, 92};
+            case "EnemyInventory" -> new int[]{150, 74};
+            default -> new int[]{90, 14};
         };
     }
 
@@ -131,7 +336,8 @@ public class HudEditorScreen extends Screen {
             if (m.getCategory() == Category.UZNY11) continue;
             NumberSetting[] pos = findPosSettings(m);
             if (pos == null) continue;
-            int[] size = defaultSize(m);
+            int[] size = measureElement(m);
+            if (size == null) size = defaultSize(m);
             elements.add(new HudElement(m.getName(), m, pos[0], pos[1], size[0], size[1]));
         }
     }
