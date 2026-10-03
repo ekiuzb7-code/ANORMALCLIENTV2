@@ -55,14 +55,8 @@ public class ClickGuiScreen extends Screen {
         // 3. Main Window Frame
         ThemeManager.renderWindow(context, guiX, guiY, guiWidth, guiHeight, "Anormal Client");
 
-        // 4. Top Header: brand banner straddling the divider line (badge look)
-        try {
-            context.drawGuiTexture(net.minecraft.client.gl.RenderPipelines.GUI_TEXTURED,
-                    net.minecraft.util.Identifier.of("anormalclient", "logo_banner.png"),
-                    guiX + 12, guiY + 10, 96, 24);
-        } catch (Throwable ignored) {
-            RenderUtils.drawText(context, textRenderer, "ANORMAL", guiX + 12, guiY + 8, 0xFFFFFFFF, true);
-        }
+        // 4. Top Header: brand text straddling the divider line (badge look)
+        RenderUtils.drawText(context, textRenderer, "§lANORMAL", guiX + 12, guiY + 10, 0xFFFFFFFF, true);
 
         // Search Bar at Top Right
         int searchW = 110;

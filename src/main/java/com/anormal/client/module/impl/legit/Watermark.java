@@ -20,7 +20,7 @@ public class Watermark extends Module {
     public final BooleanSetting background = new BooleanSetting("Background", "Dark background panel", true);
     public final ColorSetting textColor = new ColorSetting("Text Color", "ANORMAL text color", ColorUtils.rgba(255, 255, 255, 255));
     public final ColorSetting accentColor = new ColorSetting("Accent Color", "Version text color", ColorUtils.rgba(255, 170, 0, 255));
-    public final BooleanSetting useTexture = new BooleanSetting("Use Texture", "Draw logo image instead of text", true);
+    public final BooleanSetting useTexture = new BooleanSetting("Use Texture", "Draw logo image instead of text", false);
     public final ModeSetting logo = new ModeSetting("Logo", "Logo 1 wordmark or Logo 2 banner", "Logo 1", "Logo 1", "Logo 2");
     public final NumberSetting scale = new NumberSetting("Scale", "Logo image scale", 0.25, 0.1, 1.0, 0.05);
 
