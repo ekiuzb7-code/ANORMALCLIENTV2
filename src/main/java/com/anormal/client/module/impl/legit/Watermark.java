@@ -20,7 +20,7 @@ public class Watermark extends Module {
     public final BooleanSetting background = new BooleanSetting("Background", "Dark background panel", true);
     public final ColorSetting textColor = new ColorSetting("Text Color", "ANORMAL text color", ColorUtils.rgba(255, 255, 255, 255));
     public final ColorSetting accentColor = new ColorSetting("Accent Color", "Version text color", ColorUtils.rgba(255, 170, 0, 255));
-    public final BooleanSetting useTexture = new BooleanSetting("Use Texture", "Draw logo image instead of text", true);
+    public final BooleanSetting useTexture = new BooleanSetting("Use Texture", "Draw logo image instead of text", false);
     public final ModeSetting logo = new ModeSetting("Logo", "Logo 1 wordmark or Logo 2 banner", "Logo 2", "Logo 1", "Logo 2");
     public final NumberSetting scale = new NumberSetting("Scale", "Logo image scale", 0.25, 0.1, 1.0, 0.05);
 
@@ -43,6 +43,39 @@ public class Watermark extends Module {
             net.minecraft.util.Identifier.of("anormalclient", "watermark.png");
     private static final net.minecraft.util.Identifier LOGO2 =
             net.minecraft.util.Identifier.of("anormalclient", "logo_banner.png");
+    private static boolean texturesRegistered = false;
+
+    public static net.minecraft.util.Identifier guiLogo() {
+        ensureTextures();
+        return LOGO1;
+    }
+
+    // Upload PNGs as real GPU textures once. Loose files sampled directly
+    // render as garbage — registered textures draw exactly.
+    private static void ensureTextures() {
+        if (texturesRegistered) return;
+        texturesRegistered = true;
+        registerOne(LOGO1, "/assets/anormalclient/watermark.png");
+        registerOne(LOGO2, "/assets/anormalclient/logo_banner.png");
+    }
+
+    private static void registerOne(net.minecraft.util.Identifier id, String path) {
+        try {
+            java.io.InputStream in = Watermark.class.getResourceAsStream(path);
+            if (in == null) return;
+            byte[] bytes;
+            try (in; java.io.ByteArrayOutputStream buf = new java.io.ByteArrayOutputStream()) {
+                in.transferTo(buf);
+                bytes = buf.toByteArray();
+            }
+            try (java.io.ByteArrayInputStream bin = new java.io.ByteArrayInputStream(bytes)) {
+                net.minecraft.client.texture.NativeImage img =
+                        net.minecraft.client.texture.NativeImage.read(bin);
+                net.minecraft.client.MinecraftClient.getInstance().getTextureManager()
+                        .registerTexture(id, new net.minecraft.client.texture.NativeImageBackedTexture(img));
+            }
+        } catch (Throwable ignored) {}
+    }
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
@@ -50,17 +83,17 @@ public class Watermark extends Module {
         int x = posX.getValue().intValue();
         int y = posY.getValue().intValue();
 
-        // Logo image, scaled — exact brand artwork.
-        // drawTexturedQuad samples the loose PNG directly (GUI atlas has no such sprite).
+        // Logo image, scaled — exact brand artwork, registered as GPU texture first.
         if (useTexture.isEnabled()) {
             try {
+                ensureTextures();
                 boolean banner = logo.is("Logo 2");
                 int tw = banner ? 1024 : 512;
                 int th = banner ? 256 : 128;
                 int w = Math.max(8, (int) (tw * scale.getValue()));
                 int h = Math.max(2, (int) (th * scale.getValue()));
                 context.drawTexturedQuad(banner ? LOGO2 : LOGO1,
-                        x, y, x + w, y + h, 0.0f, (float) tw, 0.0f, (float) th);
+                        x, y, x + w, y + h, 0.0f, 1.0f, 0.0f, 1.0f);
                 return;
             } catch (Throwable ignored) {}
         }

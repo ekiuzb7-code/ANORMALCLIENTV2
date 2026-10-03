@@ -58,8 +58,8 @@ public class ClickGuiScreen extends Screen {
         // 4. Top Header: ANORMAL wordmark image straddling the divider (badge look)
         try {
             context.drawTexturedQuad(
-                    net.minecraft.util.Identifier.of("anormalclient", "watermark.png"),
-                    guiX + 12, guiY + 10, guiX + 108, guiY + 34, 0.0f, 512.0f, 0.0f, 128.0f);
+                    com.anormal.client.module.impl.legit.Watermark.guiLogo(),
+                    guiX + 12, guiY + 10, guiX + 108, guiY + 34, 0.0f, 1.0f, 0.0f, 1.0f);
         } catch (Throwable ignored) {
             RenderUtils.drawText(context, textRenderer, "§lANORMAL", guiX + 12, guiY + 10, 0xFFFFFFFF, true);
         }

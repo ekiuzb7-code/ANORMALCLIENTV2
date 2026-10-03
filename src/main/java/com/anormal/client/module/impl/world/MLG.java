@@ -26,6 +26,9 @@ public class MLG extends Module {
     private boolean placedWater = false;
     private BlockPos placedPos = null;
     private int originalSlot = -1;
+    private boolean pendingPlace = false;
+    private int pendingSlot = -1;
+    private BlockPos pendingGround = null;
     public MLG() {
         super("MLG", "Automatically uses water buckets or cobwebs to prevent fall damage", Category.WORLD);
         addSetting(onDamage); addSetting(onLethal); addSetting(aimSpeed); addSetting(silentAim);
@@ -36,6 +39,9 @@ public class MLG extends Module {
         placedWater = false;
         placedPos = null;
         originalSlot = -1;
+        pendingPlace = false;
+        pendingSlot = -1;
+        pendingGround = null;
     }
     @Override
     public void onTick() {
@@ -101,13 +107,35 @@ public class MLG extends Module {
             int waterSlot = findItem("water_bucket", true);
             if (waterSlot == -1 && checkInventory.isEnabled()) waterSlot = pullFromInventory("water_bucket");
             if (waterSlot != -1) {
-                originalSlot = mc.player.getInventory().getSelectedSlot();
-                mc.player.getInventory().setSelectedSlot(waterSlot);
-                BlockHitResult bhr = new BlockHitResult(new Vec3d(airPos.getX() + 0.5, airPos.getY() + 0.5, airPos.getZ() + 0.5), Direction.UP, ground, false);
+                // Two-phase: swap first, place NEXT tick. Same-tick swap+use sends
+                // the OLD slot to the server, so water never appears.
+                if (mc.player.getInventory().getSelectedSlot() != waterSlot && !pendingPlace) {
+                    originalSlot = mc.player.getInventory().getSelectedSlot();
+                    mc.player.getInventory().setSelectedSlot(waterSlot);
+                    pendingPlace = true;
+                    pendingSlot = waterSlot;
+                    pendingGround = ground;
+                    return;
+                }
+                BlockPos useGround = pendingPlace && pendingGround != null ? pendingGround : ground;
+                pendingPlace = false;
+                pendingSlot = -1;
+                pendingGround = null;
+                final BlockPos targetAir = useGround.up();
+                try {
+                    if (!mc.world.isAir(targetAir)) {
+                        restoreSlot();
+                        return;
+                    }
+                } catch (Throwable ignored) {
+                    restoreSlot();
+                    return;
+                }
+                BlockHitResult bhr = new BlockHitResult(new Vec3d(targetAir.getX() + 0.5, targetAir.getY() + 0.5, targetAir.getZ() + 0.5), Direction.UP, useGround, false);
                 mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
                 mc.player.swingHand(Hand.MAIN_HAND);
                 placedWater = true;
-                placedPos = airPos;
+                placedPos = targetAir;
                 return;
             }
         }
