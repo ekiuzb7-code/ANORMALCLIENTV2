@@ -34,6 +34,8 @@ public class ModuleManager {
         register(new JumpReset());
         register(new Criticals());
         register(new KeepSprint());
+        register(new FakeLagV2());
+        register(new BackTrackV2());
 
         // --- MOVEMENT ---
         register(new Sprint());
@@ -51,6 +53,7 @@ public class ModuleManager {
         // --- RENDER ---
         register(new Fullbright());
         register(new ESP());
+        register(new ESPv2());
         register(new PlayerESP());
         register(new Chams());
         register(new Tracers());

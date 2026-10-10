@@ -2,7 +2,6 @@ package com.anormal.client.mixin;
 
 import com.anormal.client.module.ModuleManager;
 import com.anormal.client.module.impl.world.XRay;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractBlock.AbstractBlockState.class)
+@Mixin(BlockState.class)
 public class XRayMixin {
 
     @Inject(method = "getRenderType", at = @At("HEAD"), cancellable = true, require = 0)
@@ -26,9 +25,17 @@ public class XRayMixin {
                 BlockState self = (BlockState) (Object) this;
                 Block block = self.getBlock();
 
-                // Hide all non-selected blocks including water/lava
+                // Hide all non-selected blocks
                 if (!xray.isVisibleBlock(block)) {
                     cir.setReturnValue(BlockRenderType.INVISIBLE);
+                    return;
+                }
+
+                // If transparent background is enabled and block is not selected,
+                // render with background opacity (handled by returning normal render type but with transparency)
+                if (xray.isTransparentBackground() && xray.getBackgroundOpacity() < 255) {
+                    // The background opacity is handled by the render system
+                    // Just return normal render type
                 }
             }
         } catch (Throwable ignored) {}
@@ -44,9 +51,8 @@ class FluidStateMixin {
             XRay xray = ModuleManager.getModule(XRay.class);
             if (xray != null && xray.isEnabled() && xray.isRealMode()) {
                 FluidState self = (FluidState) (Object) this;
-                // Check if this fluid's block is selected
-                Fluid fluid = self.getFluid();
-                Block block = fluid == Fluids.WATER ? Blocks.WATER : (fluid == Fluids.LAVA ? Blocks.LAVA : null);
+                net.minecraft.fluid.Fluid fluid = self.getFluid();
+                Block block = fluid == net.minecraft.fluid.Fluids.WATER ? Blocks.WATER : (fluid == net.minecraft.fluid.Fluids.LAVA ? Blocks.LAVA : null);
                 if (block != null && !xray.isVisibleBlock(block)) {
                     cir.setReturnValue(BlockRenderType.INVISIBLE);
                 }
