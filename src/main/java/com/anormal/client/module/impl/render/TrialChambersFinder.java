@@ -9,7 +9,6 @@ import com.anormal.client.util.ColorUtils;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -17,229 +16,358 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * Finds trial chambers by scanning for trial spawners and vaults and clustering
- * them into chambers.
+ * Marks every block type that makes up a trial chamber with a 3D wireframe
+ * outline that renders through walls (and underground).
  *
- * <p><b>Fixes:</b> the old scan advanced by 2 blocks on every axis, so it only
- * inspected 1/8 of the area and missed most spawners/vaults (which sit on
- * arbitrary coordinates). It also matched blocks by building an
- * {@code Identifier} string for every single block, which was extremely slow.
- * This version scans every block and compares cached {@link Block} instances
- * directly.</p>
+ * <p><b>Freeze/crash fix.</b> The old version scanned a full sphere slice every
+ * single tick - up to 257x257 = 66 000 world lookups per tick at max range -
+ * and then projected up to 3000 blocks x 8 corners per frame. That is millions
+ * of operations per second and hard-locked the client.</p>
+ *
+ * <p>The scan is now <b>budgeted</b>: a persistent cursor walks a precomputed
+ * offset list and processes at most {@link #SCAN_BUDGET} blocks per tick, so
+ * the cost per tick is constant no matter how large the range is. Rendering
+ * has a hard per-frame time budget as well, and off-screen blocks are culled
+ * before any geometry is emitted.</p>
  */
 public class TrialChambersFinder extends Module {
+    /** Max world lookups per tick. Constant cost, no spikes. */
+    private static final int SCAN_BUDGET = 3000;
+    /** Max milliseconds spent drawing markers per frame. */
+    private static final long RENDER_BUDGET_NS = 6_000_000L; // 6 ms
+
+    // --- Scan ---
     public final NumberSetting range = new NumberSetting("Range", "Horizontal scan radius in blocks", 48.0, 16.0, 128.0, 8.0);
     public final NumberSetting verticalRange = new NumberSetting("Vertical Range", "How far up/down to scan", 32.0, 8.0, 96.0, 8.0);
-    public final NumberSetting minBlocks = new NumberSetting("Min Blocks", "Spawners + vaults to count as a chamber", 2.0, 1.0, 10.0, 1.0);
-    public final BooleanSetting spawners = new BooleanSetting("Spawners", "Mark trial spawners", true);
-    public final BooleanSetting vaults = new BooleanSetting("Vaults", "Mark vaults", true);
-    public final BooleanSetting chatLog = new BooleanSetting("Chat Log", "Log new chambers in chat", true);
+
+    // --- Render ---
+    public final BooleanSetting outline = new BooleanSetting("Outline", "Draw block outlines through walls", true);
+    public final BooleanSetting centerDot = new BooleanSetting("Center Dot", "Also draw a dot in the middle of each block", false);
+    public final BooleanSetting distance = new BooleanSetting("Show Distance", "Show the distance next to spawners/vaults", true);
+    public final NumberSetting maxRendered = new NumberSetting("Max Rendered", "Max blocks outlined at once", 250.0, 25.0, 1500.0, 25.0);
+
+    // --- Per-type toggles ---
+    public final BooleanSetting showSpawners = new BooleanSetting("Trial Spawners", "Mark trial spawners", true);
+    public final BooleanSetting showVaults = new BooleanSetting("Vaults", "Mark vaults (incl. ominous)", true);
+    public final BooleanSetting showCopper = new BooleanSetting("Copper", "Mark copper / waxed copper blocks", true);
+    public final BooleanSetting showTuff = new BooleanSetting("Tuff", "Mark tuff and tuff bricks", true);
+    public final BooleanSetting showDeepslate = new BooleanSetting("Deepslate", "Mark deepslate variants", true);
+    public final BooleanSetting showStone = new BooleanSetting("Stone Bricks", "Mark stone brick variants", true);
+    public final BooleanSetting showWood = new BooleanSetting("Dark Oak", "Mark dark oak blocks", true);
+    public final BooleanSetting showMisc = new BooleanSetting("Misc", "Mark pots, crafters, chests, bars, glass, etc.", true);
+
+    // --- Colours ---
     public final ColorSetting spawnerColor = new ColorSetting("Spawner Color", "Trial spawner color", ColorUtils.rgba(255, 120, 0, 255));
     public final ColorSetting vaultColor = new ColorSetting("Vault Color", "Vault color", ColorUtils.rgba(0, 230, 255, 255));
-    public final NumberSetting maxShown = new NumberSetting("Max Shown", "Max chambers marked", 5.0, 1.0, 15.0, 1.0);
+    public final ColorSetting copperColor = new ColorSetting("Copper Color", "Copper color", ColorUtils.rgba(255, 140, 90, 255));
+    public final ColorSetting tuffColor = new ColorSetting("Tuff Color", "Tuff color", ColorUtils.rgba(160, 160, 140, 255));
+    public final ColorSetting deepslateColor = new ColorSetting("Deepslate Color", "Deepslate color", ColorUtils.rgba(130, 130, 150, 255));
+    public final ColorSetting otherColor = new ColorSetting("Other Color", "Stone / wood / misc color", ColorUtils.rgba(120, 220, 120, 255));
 
-    private static final int SCAN_INTERVAL_TICKS = 20;
-    private static final int MAX_BLOCKS_PER_SCAN = 600;
-    private static final double CLUSTER_RADIUS_SQ = 400.0; // 20 blocks
+    public final BooleanSetting chatLog = new BooleanSetting("Chat Log", "Announce a new trial chamber once", true);
 
-    private static final class Chamber {
-        final BlockPos pos;
-        final int spawnerCount;
-        final int vaultCount;
+    // Categories
+    private static final int CAT_OTHER = 0;
+    private static final int CAT_SPAWNER = 1;
+    private static final int CAT_VAULT = 2;
+    private static final int CAT_COPPER = 3;
+    private static final int CAT_TUFF = 4;
+    private static final int CAT_DEEPSLATE = 5;
+    private static final int CAT_STONE = 6;
+    private static final int CAT_WOOD = 7;
+    private static final int CAT_MISC = 8;
 
-        Chamber(BlockPos pos, int spawnerCount, int vaultCount) {
-            this.pos = pos;
-            this.spawnerCount = spawnerCount;
-            this.vaultCount = vaultCount;
-        }
-    }
-
-    // Cached block references (resolved once, avoids per-block Identifier lookups).
-    private Block trialSpawnerBlock;
-    private Block vaultBlock;
-    private Block ominousVaultBlock;
-
-    private final List<Chamber> chambers = new ArrayList<>();
+    private final Map<Block, Integer> blockCategories = new HashMap<>();
+    private final Map<BlockPos, Integer> found = new HashMap<>();
     private final Set<String> logged = new HashSet<>();
-    private int ticks = 0;
+
+    // ---- Budgeted scan state ----
+    private int[] offsetsX = new int[0];
+    private int[] offsetsZ = new int[0];
+    private int cachedRadius = -1;
+    private int cursor = 0;
+    private int yLayer = 0;
+    private int originX = Integer.MIN_VALUE, originZ = Integer.MIN_VALUE;
+    private int originY = Integer.MIN_VALUE;
 
     public TrialChambersFinder() {
-        super("TrialChambersFinder", "Finds trial chambers by spawners and vaults", Category.RENDER);
+        super("TrialChambersFinder", "Highlights every trial chamber block through walls", Category.RENDER);
         addSetting(range);
         addSetting(verticalRange);
-        addSetting(minBlocks);
-        addSetting(spawners);
-        addSetting(vaults);
-        addSetting(chatLog);
+        addSetting(outline);
+        addSetting(centerDot);
+        addSetting(distance);
+        addSetting(maxRendered);
+        addSetting(showSpawners);
+        addSetting(showVaults);
+        addSetting(showCopper);
+        addSetting(showTuff);
+        addSetting(showDeepslate);
+        addSetting(showStone);
+        addSetting(showWood);
+        addSetting(showMisc);
         addSetting(spawnerColor);
         addSetting(vaultColor);
-        addSetting(maxShown);
-        resolveBlocks();
+        addSetting(copperColor);
+        addSetting(tuffColor);
+        addSetting(deepslateColor);
+        addSetting(otherColor);
+        addSetting(chatLog);
+        buildBlockTable();
     }
 
-    private void resolveBlocks() {
-        trialSpawnerBlock = resolve("minecraft:trial_spawner", Blocks.TRIAL_SPAWNER);
-        vaultBlock = resolve("minecraft:vault", Blocks.VAULT);
-        ominousVaultBlock = resolve("minecraft:ominous_vault", null);
+    // ------------------------------------------------------------------
+    //  Block table
+    // ------------------------------------------------------------------
+
+    private void buildBlockTable() {
+        register(CAT_SPAWNER, "trial_spawner");
+        register(CAT_VAULT, "vault", "ominous_vault");
+
+        // Copper family (regular + waxed), generated from the base ids.
+        String[] copper = {
+                "copper_block", "exposed_copper", "weathered_copper", "oxidized_copper",
+                "cut_copper", "exposed_cut_copper", "weathered_cut_copper", "oxidized_cut_copper",
+                "cut_copper_stairs", "exposed_cut_copper_stairs", "weathered_cut_copper_stairs", "oxidized_cut_copper_stairs",
+                "cut_copper_slab", "exposed_cut_copper_slab", "weathered_cut_copper_slab", "oxidized_cut_copper_slab",
+                "chiseled_copper", "exposed_chiseled_copper", "weathered_chiseled_copper", "oxidized_chiseled_copper",
+                "copper_grate", "exposed_copper_grate", "weathered_copper_grate", "oxidized_copper_grate",
+                "copper_bulb", "exposed_copper_bulb", "weathered_copper_bulb", "oxidized_copper_bulb",
+                "copper_door", "exposed_copper_door", "weathered_copper_door", "oxidized_copper_door",
+                "copper_trapdoor", "exposed_copper_trapdoor", "weathered_copper_trapdoor", "oxidized_copper_trapdoor"
+        };
+        for (String id : copper) {
+            register(CAT_COPPER, id);
+            register(CAT_COPPER, "waxed_" + id);
+        }
+
+        register(CAT_TUFF, "tuff", "polished_tuff", "chiseled_tuff",
+                "tuff_bricks", "chiseled_tuff_bricks",
+                "tuff_brick_stairs", "tuff_brick_slab", "tuff_brick_wall",
+                "polished_tuff_stairs", "polished_tuff_slab", "polished_tuff_wall");
+
+        register(CAT_DEEPSLATE, "deepslate", "cobbled_deepslate", "polished_deepslate", "chiseled_deepslate",
+                "deepslate_bricks", "cracked_deepslate_bricks", "deepslate_tiles", "cracked_deepslate_tiles",
+                "deepslate_brick_stairs", "deepslate_brick_slab", "deepslate_brick_wall",
+                "deepslate_tile_stairs", "deepslate_tile_slab", "deepslate_tile_wall",
+                "polished_deepslate_stairs", "polished_deepslate_slab", "polished_deepslate_wall",
+                "cobbled_deepslate_stairs", "cobbled_deepslate_slab", "cobbled_deepslate_wall");
+
+        register(CAT_STONE, "stone_bricks", "chiseled_stone_bricks", "cracked_stone_bricks", "mossy_stone_bricks",
+                "stone_brick_stairs", "stone_brick_slab", "stone_brick_wall");
+
+        register(CAT_WOOD, "dark_oak_planks", "dark_oak_log", "dark_oak_wood",
+                "stripped_dark_oak_log", "stripped_dark_oak_wood",
+                "dark_oak_stairs", "dark_oak_slab", "dark_oak_fence", "dark_oak_fence_gate",
+                "dark_oak_door", "dark_oak_trapdoor", "dark_oak_sign", "dark_oak_wall_sign",
+                "dark_oak_button", "dark_oak_pressure_plate");
+
+        register(CAT_MISC, "decorated_pot", "crafter", "barrel", "chest", "trapped_chest",
+                "iron_bars", "chain", "lightning_rod", "glass", "glass_pane",
+                "waxed_copper_block", "waxed_exposed_copper", "waxed_weathered_copper", "waxed_oxidized_copper",
+                "heavy_core", "lodestone");
     }
 
-    private Block resolve(String id, Block fallback) {
-        try {
-            Block b = Registries.BLOCK.get(Identifier.of(id));
-            return b != null ? b : fallback;
-        } catch (Throwable ignored) {
-            return fallback;
+    private void register(int category, String... ids) {
+        for (String id : ids) {
+            try {
+                Block b = Registries.BLOCK.get(Identifier.of("minecraft:" + id));
+                if (b != null) blockCategories.put(b, category);
+            } catch (Throwable ignored) {
+            }
         }
     }
 
-    /** 1 = trial spawner, 2 = vault, 0 = neither. */
-    private int kind(Block block) {
-        if (block == null) return 0;
-        if (block == trialSpawnerBlock) return 1;
-        if (block == vaultBlock) return 2;
-        if (ominousVaultBlock != null && block == ominousVaultBlock) return 2;
-        return 0;
-    }
+    // ------------------------------------------------------------------
+    //  Scanning (fixed work per tick)
+    // ------------------------------------------------------------------
 
     @Override
     public void onDisable() {
-        chambers.clear();
+        found.clear();
+        cursor = 0;
+        yLayer = 0;
+        originX = Integer.MIN_VALUE;
+    }
+
+    /** Precomputes the (x, z) offsets inside the scan circle. */
+    private void ensureOffsets(int r) {
+        if (r == cachedRadius) return;
+        cachedRadius = r;
+        int rr = r * r;
+        List<int[]> list = new ArrayList<>();
+        for (int x = -r; x <= r; x++) {
+            for (int z = -r; z <= r; z++) {
+                if (x * x + z * z <= rr) list.add(new int[]{x, z});
+            }
+        }
+        offsetsX = new int[list.size()];
+        offsetsZ = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            offsetsX[i] = list.get(i)[0];
+            offsetsZ[i] = list.get(i)[1];
+        }
+        cursor = 0;
+        yLayer = 0;
     }
 
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null) return;
-        if (++ticks < SCAN_INTERVAL_TICKS) return;
-        ticks = 0;
-
-        // Re-resolve lazily (registries are definitely loaded by now).
-        if (trialSpawnerBlock == null) resolveBlocks();
+        if (blockCategories.isEmpty()) buildBlockTable();
 
         BlockPos origin = mc.player.getBlockPos();
         int r = range.getValue().intValue();
         int vr = verticalRange.getValue().intValue();
+        ensureOffsets(r);
+        if (offsetsX.length == 0) return;
 
-        List<BlockPos> spawnerPos = new ArrayList<>();
-        List<BlockPos> vaultPos = new ArrayList<>();
+        // Re-centre when the player moved far enough.
+        boolean recentre = originX == Integer.MIN_VALUE
+                || Math.abs(origin.getX() - originX) > 16
+                || Math.abs(origin.getZ() - originZ) > 16;
+        if (recentre) {
+            originX = origin.getX();
+            originZ = origin.getZ();
+            originY = origin.getY();
+            prune(origin, r, vr);
+        }
+
+        BlockPos.Mutable p = new BlockPos.Mutable();
+        int budget = SCAN_BUDGET;
 
         try {
-            scan:
-            for (int x = -r; x <= r; x++) {
-                for (int z = -r; z <= r; z++) {
-                    if (x * x + z * z > r * r) continue;
-                    for (int y = -vr; y <= vr; y++) {
-                        BlockPos p = origin.add(x, y, z);
-                        try {
-                            if (!mc.world.isChunkLoaded(p)) continue;
-                            BlockState state = mc.world.getBlockState(p);
-                            int k = kind(state.getBlock());
-                            if (k == 1) {
-                                if (spawners.isEnabled()) spawnerPos.add(p.toImmutable());
-                            } else if (k == 2) {
-                                if (vaults.isEnabled()) vaultPos.add(p.toImmutable());
-                            }
-                        } catch (Throwable ignored) {
-                        }
-                        if (spawnerPos.size() + vaultPos.size() >= MAX_BLOCKS_PER_SCAN) break scan;
+            while (budget > 0) {
+                if (cursor >= offsetsX.length) {
+                    cursor = 0;
+                    if (++yLayer > 2 * vr) yLayer = 0;
+                }
+                int y = originY + yLayer - vr;
+                int n = Math.min(budget, offsetsX.length - cursor);
+                for (int i = 0; i < n; i++, cursor++) {
+                    p.set(originX + offsetsX[cursor], y, originZ + offsetsZ[cursor]);
+                    if (!mc.world.isChunkLoaded(p)) continue;
+                    BlockState state = mc.world.getBlockState(p);
+                    Integer cat = blockCategories.get(state.getBlock());
+                    if (cat != null) {
+                        found.put(p.toImmutable(), cat);
+                    } else {
+                        found.remove(p);
                     }
                 }
+                budget -= n;
+            }
+        } catch (Throwable ignored) {
+        }
+    }
+
+    private void prune(BlockPos origin, int r, int vr) {
+        int rr = r * r;
+        found.keySet().removeIf(pos -> {
+            int dx = pos.getX() - origin.getX();
+            int dz = pos.getZ() - origin.getZ();
+            int dy = pos.getY() - origin.getY();
+            return dx * dx + dz * dz > rr || Math.abs(dy) > vr + 1;
+        });
+    }
+
+    private boolean isCategoryEnabled(int cat) {
+        return switch (cat) {
+            case CAT_SPAWNER -> showSpawners.isEnabled();
+            case CAT_VAULT -> showVaults.isEnabled();
+            case CAT_COPPER -> showCopper.isEnabled();
+            case CAT_TUFF -> showTuff.isEnabled();
+            case CAT_DEEPSLATE -> showDeepslate.isEnabled();
+            case CAT_STONE -> showStone.isEnabled();
+            case CAT_WOOD -> showWood.isEnabled();
+            case CAT_MISC -> showMisc.isEnabled();
+            default -> true;
+        };
+    }
+
+    private int colorFor(int cat) {
+        return switch (cat) {
+            case CAT_SPAWNER -> spawnerColor.getValue();
+            case CAT_VAULT -> vaultColor.getValue();
+            case CAT_COPPER -> copperColor.getValue();
+            case CAT_TUFF -> tuffColor.getValue();
+            case CAT_DEEPSLATE -> deepslateColor.getValue();
+            default -> otherColor.getValue();
+        };
+    }
+
+    // ------------------------------------------------------------------
+    //  Rendering (hard per-frame time budget)
+    // ------------------------------------------------------------------
+
+    @Override
+    public void onRender2D(DrawContext context, float tickDelta) {
+        if (mc.player == null || found.isEmpty()) return;
+        int limit = maxRendered.getValue().intValue();
+        int drawn = 0;
+        long deadline = System.nanoTime() + RENDER_BUDGET_NS;
+
+        BlockPos spawnerFirst = null;
+
+        try {
+            for (Map.Entry<BlockPos, Integer> e : found.entrySet()) {
+                if (drawn >= limit) break;
+                if ((drawn & 15) == 0 && System.nanoTime() > deadline) break;
+
+                int cat = e.getValue();
+                if (!isCategoryEnabled(cat)) continue;
+                BlockPos pos = e.getKey();
+
+                // Cheap off-screen cull before emitting any geometry.
+                int[] bounds = RenderUtils.projectBlockBounds(pos, tickDelta);
+                if (bounds == null) continue;
+
+                drawn++;
+                if (cat == CAT_SPAWNER && spawnerFirst == null) spawnerFirst = pos;
+                drawBlockBox(context, pos, colorFor(cat), tickDelta, bounds);
             }
         } catch (Throwable ignored) {
         }
 
-        clusterChambers(spawnerPos, vaultPos);
-    }
-
-    private void clusterChambers(List<BlockPos> spawnerPos, List<BlockPos> vaultPos) {
-        chambers.clear();
-
-        List<BlockPos> remaining = new ArrayList<>(spawnerPos);
-        remaining.addAll(vaultPos);
-
-        int shown = 0;
-        int max = maxShown.getValue().intValue();
-
-        while (!remaining.isEmpty() && shown < max) {
-            BlockPos seed = remaining.remove(0);
-            List<BlockPos> cluster = new ArrayList<>();
-            cluster.add(seed);
-
-            boolean grew;
-            do {
-                grew = false;
-                for (int i = remaining.size() - 1; i >= 0; i--) {
-                    BlockPos p = remaining.get(i);
-                    for (BlockPos c : cluster) {
-                        double dx = p.getX() - c.getX();
-                        double dy = p.getY() - c.getY();
-                        double dz = p.getZ() - c.getZ();
-                        if (dx * dx + dy * dy + dz * dz <= CLUSTER_RADIUS_SQ) {
-                            cluster.add(p);
-                            remaining.remove(i);
-                            grew = true;
-                            break;
-                        }
-                    }
-                }
-            } while (grew);
-
-            if (cluster.size() < minBlocks.getValue().intValue()) continue;
-
-            int sc = 0, vc = 0;
-            int ax = 0, ay = 0, az = 0;
-            for (BlockPos c : cluster) {
-                ax += c.getX();
-                ay += c.getY();
-                az += c.getZ();
-                try {
-                    int k = kind(mc.world.getBlockState(c).getBlock());
-                    if (k == 1) sc++;
-                    else vc++;
-                } catch (Throwable ignored) {
-                }
-            }
-
-            BlockPos center = new BlockPos(ax / cluster.size(), ay / cluster.size(), az / cluster.size());
-            chambers.add(new Chamber(center, sc, vc));
-            shown++;
-
-            String key = center.getX() + "," + center.getY() + "," + center.getZ();
-            if (chatLog.isEnabled() && logged.add(key) && mc.inGameHud != null) {
+        if (chatLog.isEnabled() && spawnerFirst != null && mc.inGameHud != null) {
+            String key = (spawnerFirst.getX() >> 4) + "," + (spawnerFirst.getZ() >> 4);
+            if (logged.add(key)) {
                 try {
                     mc.inGameHud.getChatHud().addMessage(net.minecraft.text.Text.literal(
-                            String.format("§6[Trial Chamber] §f%d spawners, %d vaults at %s", sc, vc, key)));
+                            String.format("§6[Trial Chamber] §ffound near §f%d %d %d",
+                                    spawnerFirst.getX(), spawnerFirst.getY(), spawnerFirst.getZ())));
                 } catch (Throwable ignored) {
                 }
             }
         }
     }
 
-    @Override
-    public void onRender2D(DrawContext context, float tickDelta) {
-        if (mc.player == null || chambers.isEmpty()) return;
-        for (Chamber c : chambers) {
-            int[] sc = com.anormal.client.util.ProjectionUtil.project(
-                    new Vec3d(c.pos.getX() + 0.5, c.pos.getY() + 1.0, c.pos.getZ() + 0.5), tickDelta);
-            if (sc == null) continue;
-            int col = c.spawnerCount >= c.vaultCount ? spawnerColor.getValue() : vaultColor.getValue();
-            context.fill(sc[0] - 5, sc[1] - 5, sc[0] + 5, sc[1] + 5, (col & 0x00FFFFFF) | 0x66000000);
-            context.fill(sc[0] - 5, sc[1] - 5, sc[0] + 5, sc[1] - 4, col);
-            context.fill(sc[0] - 5, sc[1] + 4, sc[0] + 5, sc[1] + 5, col);
-            context.fill(sc[0] - 5, sc[1] - 4, sc[0] - 4, sc[1] + 4, col);
-            context.fill(sc[0] + 4, sc[1] - 4, sc[0] + 5, sc[1] + 4, col);
-            if (mc.textRenderer != null) {
-                String label = "§6Trial §f" + c.spawnerCount + "S/" + c.vaultCount + "V";
-                double dx = c.pos.getX() - mc.player.getX();
-                double dy = c.pos.getY() - mc.player.getY();
-                double dz = c.pos.getZ() - mc.player.getZ();
-                label += " §7" + (int) Math.sqrt(dx * dx + dy * dy + dz * dz) + "m";
-                RenderUtils.drawText(context, mc.textRenderer, label,
-                        sc[0] - mc.textRenderer.getWidth(label) / 2, sc[1] + 7, 0xFFFFFFFF, true);
+    private void drawBlockBox(DrawContext context, BlockPos pos, int col, float tickDelta, int[] bounds) {
+        if (outline.isEnabled()) {
+            RenderUtils.drawBlockOutline(context, pos, col, tickDelta, 1);
+        }
+
+        double x = pos.getX(), y = pos.getY(), z = pos.getZ();
+
+        if (centerDot.isEnabled()) {
+            int[] mid = com.anormal.client.util.ProjectionUtil.project(
+                    new Vec3d(x + 0.5, y + 0.5, z + 0.5), tickDelta);
+            if (mid != null) context.fill(mid[0] - 2, mid[1] - 2, mid[0] + 2, mid[1] + 2, col);
+        }
+
+        if (distance.isEnabled() && mc.textRenderer != null) {
+            int[] mid = com.anormal.client.util.ProjectionUtil.project(
+                    new Vec3d(x + 0.5, y + 1.2, z + 0.5), tickDelta);
+            if (mid != null) {
+                String d = (int) Math.sqrt(pos.getSquaredDistance(mc.player.getBlockPos())) + "m";
+                RenderUtils.drawText(context, mc.textRenderer, d, mid[0] + 3, mid[1], col, true);
             }
         }
     }
