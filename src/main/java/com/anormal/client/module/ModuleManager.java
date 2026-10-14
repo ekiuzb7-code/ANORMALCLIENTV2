@@ -90,6 +90,7 @@ public class ModuleManager {
         register(new PerformanceOverlay());
         register(new Waypoints());
         register(new Trajectories());
+        register(new PearlTrajectory());
         register(new Search());
         register(new AntiDebuff());
         register(new Arrows());
@@ -104,6 +105,9 @@ public class ModuleManager {
         register(new StrongholdFinder());
         register(new TrialChambersFinder());
         register(new ChunkFinder());
+        register(new Bas3Finderv2());
+        register(new Bas3esp());
+        register(new AncientDebrisFinder());
         register(new OreESP());
         register(new ArmorStandESP());
         register(new ItemFrameESP());
@@ -130,6 +134,7 @@ public class ModuleManager {
         register(new ChestLabels());
         register(new ShulkerLabels());
         register(new PortalManager());
+        register(new AutoBaseHunt());
 
         // --- WORLD ---
         register(new Scaffold());
@@ -210,6 +215,8 @@ public class ModuleManager {
         register(new TextGUI());
         register(new ClientSettings());
         register(new Macros());
+        register(new ActionWheel());
+        register(new FarmFpsOptimizer());
         register(new Friends());
         register(new Profiles());
         register(new AntiBot());
@@ -237,6 +244,14 @@ public class ModuleManager {
     @SuppressWarnings("unchecked")
     public static <T extends Module> T getModule(Class<T> clazz) {
         return (T) BY_CLASS.get(clazz);
+    }
+
+    public static Module getModuleByName(String name) {
+        if (name == null) return null;
+        for (Module m : modules) {
+            if (m.getName().equalsIgnoreCase(name.trim())) return m;
+        }
+        return null;
     }
 
     public static void onTick() {
