@@ -2,6 +2,8 @@ package com.anormal.client.module.impl.world;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
+import com.anormal.client.module.ModuleManager;
+import com.anormal.client.module.impl.player.AutoTool;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.ModeSetting;
@@ -17,6 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
@@ -53,6 +56,7 @@ public class Tunnel extends Module {
     public final NumberSetting blocksPerTick = new NumberSetting("Blocks Per Tick", "Maximum blocks broken each tick", 2.0, 1.0, 20.0, 1.0);
     public final NumberSetting reach = new NumberSetting("Reach", "Only break blocks within this distance", 4.5, 1.0, 6.0, 0.5);
     public final BooleanSetting swing = new BooleanSetting("Swing", "Swing your arm while mining", true);
+    public final BooleanSetting autoTool = new BooleanSetting("Auto Tool", "Pick the best hotbar tool for every block (survival). Also turns the AutoTool module on", true);
 
     public final BooleanSetting autoTorch = new BooleanSetting("Auto Torch", "Place a torch every N blocks", false);
     public final NumberSetting torchInterval = new NumberSetting("Torch Interval", "Blocks between torches", 8.0, 2.0, 40.0, 1.0);
@@ -77,6 +81,10 @@ public class Tunnel extends Module {
     private int lastTorchStep = 0;
     private boolean blocked = false;
     private boolean walking = false;
+    private int walkTicks = 0;
+    private BlockPos currentTarget = null;
+    /** True when this module (not the user) switched the AutoTool module on. */
+    private boolean autoToolOwned = false;
 
     /** Blocks that are part of the slice currently being dug (for the animation). */
     private final List<BlockPos> miningTargets = new ArrayList<>();
@@ -94,6 +102,7 @@ public class Tunnel extends Module {
         addSetting(blocksPerTick);
         addSetting(reach);
         addSetting(swing);
+        addSetting(autoTool);
         addSetting(autoTorch);
         addSetting(torchInterval);
         addSetting(autoScaffold);
@@ -114,7 +123,10 @@ public class Tunnel extends Module {
         steps = 0;
         lastTorchStep = 0;
         blocked = false;
+        walkTicks = 0;
+        currentTarget = null;
         miningTargets.clear();
+        syncAutoTool();
     }
 
     @Override
@@ -122,43 +134,84 @@ public class Tunnel extends Module {
         releaseWalk();
         cursor = null;
         blocked = false;
+        currentTarget = null;
         miningTargets.clear();
+        if (autoToolOwned) {
+            AutoTool tool = ModuleManager.getModule(AutoTool.class);
+            if (tool != null && tool.isEnabled()) tool.setEnabled(false);
+            autoToolOwned = false;
+        }
+    }
+
+    /** Keeps the AutoTool module in step with this module's "Auto Tool" setting. */
+    private void syncAutoTool() {
+        try {
+            AutoTool tool = ModuleManager.getModule(AutoTool.class);
+            if (tool == null) return;
+            if (autoTool.isEnabled()) {
+                if (!tool.isEnabled()) {
+                    tool.setEnabled(true);
+                    autoToolOwned = true;
+                }
+            } else if (autoToolOwned) {
+                tool.setEnabled(false);
+                autoToolOwned = false;
+            }
+        } catch (Throwable ignored) {
+        }
     }
 
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
-        if (blocked) {
-            releaseWalk();
-            miningTargets.clear();
-            return;
-        }
+        syncAutoTool();
 
-        int prevX = dirX, prevZ = dirZ;
-        resolveDirection();
+        updateDirection();
 
-        // Turning re-anchors the tunnel so it really follows your view.
-        if (cursor == null || prevX != dirX || prevZ != dirZ) {
-            cursor = mc.player.getBlockPos().offset(horizontalDir(dirX, dirZ));
+        BlockPos feet = mc.player.getBlockPos();
+        if (cursor == null) {
+            cursor = feet.offset(horizontalDir(dirX, dirZ));
         }
 
         // If the player has drifted far away (e.g. they walked past the cursor),
         // re-anchor instead of digging a hole behind them.
-        BlockPos feet = mc.player.getBlockPos();
         int drift = Math.abs(feet.getX() - cursor.getX()) + Math.abs(feet.getZ() - cursor.getZ());
         if (drift > 6) {
             cursor = feet.offset(horizontalDir(dirX, dirZ));
+            currentTarget = null;
+            miningTargets.clear();
         }
 
-        if (mineSlice()) {
+        // Re-evaluated every tick so the module can never stay stuck "blocked" after the
+        // player turns away from the bedrock / lava that stopped it.
+        blocked = false;
+        int result = mineSlice();
+
+        if (result == SLICE_CLEAR) {
             advance();
+            currentTarget = null;
+            walkTicks = 8; // the slice ahead is clear: walk into it
+        } else if (result == SLICE_OUT_OF_REACH) {
+            // Nothing in this slice is close enough to hit. Re-anchor to the player instead of
+            // advancing, otherwise the cursor runs away through solid rock.
+            cursor = feet.offset(horizontalDir(dirX, dirZ));
+            currentTarget = null;
+            walkTicks = 0;
+        } else if (walkTicks > 0) {
+            walkTicks--;
+        }
+
+        if (blocked) {
+            releaseWalk();
+            return;
         }
 
         if (alignView.isEnabled() && !direction.is("Auto")) {
             mc.player.setYaw(yawFor(dirX, dirZ));
         }
 
-        if (autoWalk.isEnabled()) holdWalk();
+        // Only walk while there is open space ahead; pushing into rock just stutters survival mining.
+        if (autoWalk.isEnabled() && walkTicks > 0) holdWalk();
         else releaseWalk();
 
         if (jumpOnStairs.isEnabled() && !mode.is("Tunnel") && mc.player.isOnGround()
@@ -173,23 +226,50 @@ public class Tunnel extends Module {
     //  Direction
     // ------------------------------------------------------------------
 
-    private void resolveDirection() {
+    /** Result of {@link #mineSlice()}. */
+    private static final int SLICE_MINING = 0;
+    private static final int SLICE_CLEAR = 1;
+    private static final int SLICE_OUT_OF_REACH = -1;
+
+    /**
+     * Resolves the tunnel direction and re-anchors the cursor when it changed.
+     *
+     * <p>The old version compared raw yaw against fixed thresholds. Minecraft does not wrap
+     * yaw, so after a few full turns the value can sit outside {@code [-180, 180]} and every
+     * threshold missed, leaving the tunnel permanently on one direction. The yaw is now wrapped
+     * and handed to {@code Direction.fromHorizontalDegrees}, which is the same helper vanilla
+     * uses for horizontal facing.</p>
+     */
+    private void updateDirection() {
+        int previousX = dirX;
+        int previousZ = dirZ;
+
         switch (direction.getValue()) {
             case "North" -> { dirX = 0; dirZ = -1; }
             case "South" -> { dirX = 0; dirZ = 1; }
             case "East" -> { dirX = 1; dirZ = 0; }
             case "West" -> { dirX = -1; dirZ = 0; }
             default -> {
-                // Auto: snap the current yaw to the nearest cardinal. No yaw is
-                // written back, so the player can always turn and the tunnel
-                // follows them instead of locking to one direction.
-                float yaw = mc.player.getYaw();
-                if (yaw >= -45 && yaw < 45) { dirX = 0; dirZ = 1; }
-                else if (yaw >= 45 && yaw < 135) { dirX = -1; dirZ = 0; }
-                else if (yaw >= -135 && yaw < -45) { dirX = 1; dirZ = 0; }
-                else { dirX = 0; dirZ = -1; }
+                float yaw = MathHelper.wrapDegrees(mc.player.getYaw());
+                Direction facing = Direction.fromHorizontalDegrees(yaw);
+                dirX = facing.getOffsetX();
+                dirZ = facing.getOffsetZ();
             }
         }
+
+        if (dirX != previousX || dirZ != previousZ) {
+            cursor = mc.player.getBlockPos().offset(horizontalDir(dirX, dirZ));
+            currentTarget = null;
+            miningTargets.clear();
+            walkTicks = 0;
+        }
+    }
+
+    private String directionLabel() {
+        if (dirZ > 0) return "S";
+        if (dirZ < 0) return "N";
+        if (dirX > 0) return "E";
+        return "W";
     }
 
     private static float yawFor(int dx, int dz) {
@@ -210,8 +290,8 @@ public class Tunnel extends Module {
     //  Mining
     // ------------------------------------------------------------------
 
-    /** @return true when the whole slice is clear and the cursor may advance. */
-    private boolean mineSlice() {
+    /** @return {@link #SLICE_CLEAR}, {@link #SLICE_MINING} or {@link #SLICE_OUT_OF_REACH}. */
+    private int mineSlice() {
         int w = width.getValue().intValue();
         int h = height.getValue().intValue();
         int half = (w - 1) / 2;
@@ -220,9 +300,9 @@ public class Tunnel extends Module {
 
         miningTargets.clear();
 
-        int broken = 0;
-        int max = blocksPerTick.getValue().intValue();
-        boolean allClear = true;
+        List<BlockPos> work = new ArrayList<>();
+        boolean anyBlock = false;
+        boolean protectedBlock = false;
 
         for (int o = -half; o <= w - 1 - half; o++) {
             for (int y = 0; y < h; y++) {
@@ -230,61 +310,116 @@ public class Tunnel extends Module {
                 BlockState state = mc.world.getBlockState(p);
                 if (state.isAir()) continue;
 
-                if (!isMineable(p, state)) {
-                    allClear = false;
-                    continue;
+                if (ignoreFluids.isEnabled()) {
+                    try {
+                        if (!state.getFluidState().isEmpty()) continue;
+                    } catch (Throwable ignored) {
+                    }
                 }
 
-                if (miningTargets.size() < 64) miningTargets.add(p.toImmutable());
-
-                if (broken >= max) {
-                    allClear = false;
+                anyBlock = true;
+                if (isProtected(p, state)) {
+                    protectedBlock = true;
                     continue;
                 }
+                if (!isReachable(p)) continue;
+                work.add(p.toImmutable());
+            }
+        }
 
-                if (mine(p)) broken++;
-                else allClear = false;
+        for (int i = 0; i < work.size() && i < 64; i++) miningTargets.add(work.get(i));
+
+        // Stair Up needs headroom above the step. The slice alone stops at cursor.y + height - 1,
+        // which leaves the ceiling exactly where the player's head has to go, so they can never
+        // climb out. Clearing one extra block above the slice is what a hand dug staircase looks
+        // like and it is the only block that was missing.
+        if (mode.is("Stair Up")) {
+            BlockPos above = cursor.up(h);
+            BlockState state = mc.world.getBlockState(above);
+            if (!state.isAir() && !isProtected(above, state) && isReachable(above)) {
+                work.add(above);
+                anyBlock = true;
             }
         }
 
         if (autoScaffold.isEnabled()) scaffold();
 
-        return allClear && broken == 0;
+        if (!anyBlock) return SLICE_CLEAR;
+
+        if (work.isEmpty()) {
+            // Only protected blocks are left (bedrock / lava): stop where we are. If nothing was
+            // protected, the whole slice is simply too far away, so the caller re-anchors instead
+            // of walking the cursor off into the rock.
+            return protectedBlock ? SLICE_MINING : SLICE_OUT_OF_REACH;
+        }
+
+        Vec3d eye = mc.player.getEyePos();
+        work.sort(java.util.Comparator.comparingDouble(p -> eye.squaredDistanceTo(Vec3d.ofCenter(p))));
+
+        if (mc.player.isCreative()) {
+            int max = blocksPerTick.getValue().intValue();
+            for (int i = 0; i < work.size() && i < max; i++) mine(work.get(i));
+            return SLICE_MINING;
+        }
+
+        // Survival: the interaction manager tracks ONE block at a time. Switching targets every
+        // tick (the old code, 2 blocks/tick) resets the break progress so nothing ever broke.
+        // Stay on a single block until it is gone, with the right tool selected.
+        BlockPos target = (currentTarget != null && work.contains(currentTarget)) ? currentTarget : work.get(0);
+        currentTarget = target;
+        mine(target);
+        return SLICE_MINING;
     }
 
-    private boolean isMineable(BlockPos pos, BlockState state) {
+    /** Blocks that must never be mined; hitting one stops the tunnel until the player turns away. */
+    private boolean isProtected(BlockPos pos, BlockState state) {
         String path = Registries.BLOCK.getId(state.getBlock()).getPath();
 
         if (pauseOnObstacle.isEnabled() && (path.equals("bedrock") || path.contains("barrier")
                 || path.contains("portal") || path.contains("command_block")
                 || path.contains("structure_block") || path.contains("jigsaw"))) {
             blocked = true;
-            return false;
+            return true;
         }
 
         if (stopAtLava.isEnabled() && path.equals("lava")) {
             blocked = true;
-            return false;
+            return true;
         }
 
-        if (ignoreFluids.isEnabled()) {
-            try {
-                if (!state.getFluidState().isEmpty()) return false;
-            } catch (Throwable ignored) {
-            }
-        }
+        return false;
+    }
 
+    private boolean isReachable(BlockPos pos) {
         double dist = Math.sqrt(pos.getSquaredDistance(mc.player.getBlockPos()));
         return dist <= reach.getValue();
     }
 
     private boolean mine(BlockPos pos) {
         try {
-            mc.interactionManager.updateBlockBreakingProgress(pos, Direction.UP);
+            BlockState state = mc.world.getBlockState(pos);
+            if (autoTool.isEnabled()) selectTool(state);
+
+            Vec3d d = mc.player.getEyePos().subtract(Vec3d.ofCenter(pos));
+            Direction face = Direction.getFacing(d.x, d.y, d.z);
+
+            mc.interactionManager.updateBlockBreakingProgress(pos, face);
             if (swing.isEnabled()) mc.player.swingHand(Hand.MAIN_HAND);
             return true;
         } catch (Throwable t) {
             return false;
+        }
+    }
+
+    private void selectTool(BlockState state) {
+        try {
+            AutoTool tool = ModuleManager.getModule(AutoTool.class);
+            if (tool == null) return;
+            int slot = tool.bestSlotFor(state);
+            if (slot >= 0 && slot != mc.player.getInventory().getSelectedSlot()) {
+                mc.player.getInventory().setSelectedSlot(slot);
+            }
+        } catch (Throwable ignored) {
         }
     }
 
@@ -385,7 +520,7 @@ public class Tunnel extends Module {
 
         if (!showHud.isEnabled() || mc.textRenderer == null || cursor == null) return;
         try {
-            String line = "§6Tunnel §7| §f" + steps + " §7blocks";
+            String line = "§6Tunnel §7| §f" + directionLabel() + " §7| §f" + steps + " §7blocks";
             if (blocked) line += " §c(blocked)";
             int w = mc.textRenderer.getWidth(line);
             int x = mc.getWindow().getScaledWidth() / 2 - w / 2;

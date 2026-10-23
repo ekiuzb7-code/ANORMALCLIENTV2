@@ -82,6 +82,18 @@ public abstract class Module {
         setEnabled(!enabled);
     }
 
+    /**
+     * Called instead of {@link #toggle()} when the keybind is pressed.
+     *
+     * <p>Most modules just toggle. A module that owns a screen (AutoBuilder) overrides this to
+     * open or close its interface, so pressing the key again does not switch the feature off.</p>
+     *
+     * @return {@code true} when the module handled the press itself
+     */
+    public boolean onKeyPressed() {
+        return false;
+    }
+
     public boolean isExpanded() {
         return expanded;
     }
@@ -120,13 +132,21 @@ public abstract class Module {
         return settings;
     }
 
-    public void addSetting(Setting<?> setting) {
-        this.settings.add(setting);
+    protected <S extends Setting<?>> S addSetting(S setting) {
+        settings.add(setting);
+        return setting;
     }
 
     public void onEnable() {}
 
     public void onDisable() {}
+
+    /**
+     * Called every client tick regardless of enabled state.
+     * Used for toggle keys and background bookkeeping that must run even when off.
+     */
+    public void onTickAlways() {
+    }
 
     public void onTick() {}
 
