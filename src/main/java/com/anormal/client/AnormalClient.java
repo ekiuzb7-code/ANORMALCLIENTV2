@@ -23,7 +23,6 @@ public class AnormalClient implements ClientModInitializer {
 
     private static final boolean[] KEY_STATE = new boolean[GLFW.GLFW_KEY_LAST + 1];
     private static final boolean[] MOUSE_STATE = new boolean[8];
-    private static boolean rightShiftWasDown = false;
     /**
      * Modules currently active because their key is being held (Hold mode),
      * mapped to whether they were already enabled before the key went down.
@@ -88,6 +87,20 @@ public class AnormalClient implements ClientModInitializer {
             System.out.println("[" + CLIENT_NAME + "] HudRenderCallback note: " + t.getMessage());
         }
 
+        // Tick START phase: modules that must run before vanilla reads the input and moves the
+        // player (kuro's onPreTick equivalents - the ported movement modules).
+        try {
+            ClientTickEvents.START_CLIENT_TICK.register(client -> {
+                try {
+                    ModuleManager.onPreTick();
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        } catch (Throwable t) {
+            System.out.println("[" + CLIENT_NAME + "] START_CLIENT_TICK note: " + t.getMessage());
+        }
+
         // Register universal client tick event handler (robust GLFW polling across all MC versions)
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             try {
@@ -106,13 +119,8 @@ public class AnormalClient implements ClientModInitializer {
                 if (client.getWindow() != null) {
                     long window = client.getWindow().getHandle();
                     if (window != 0) {
-                        boolean rightShiftDown = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_RIGHT_SHIFT) == GLFW.GLFW_PRESS;
-                        if (rightShiftDown && !rightShiftWasDown) {
-                            if (client.currentScreen == null) {
-                                client.setScreen(new ClickGuiScreen());
-                            }
-                        }
-                        rightShiftWasDown = rightShiftDown;
+                        // GUI ochish endi ClientSettings modulining bindiga bog'langan
+                        // (default: Right Shift). Qattiq RShift tekshiruvi olib tashlandi.
 
                         if (client.currentScreen == null) {
                             for (Module module : ModuleManager.getModules()) {

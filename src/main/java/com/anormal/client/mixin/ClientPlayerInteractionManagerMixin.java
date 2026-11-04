@@ -40,6 +40,9 @@ public class ClientPlayerInteractionManagerMixin {
     @Inject(method = "attackEntity", at = @At("HEAD"), require = 0)
     private void anormal$hitSwap(PlayerEntity player, Entity target, CallbackInfo ci) {
         try {
+            // kuro FakePlayer: hitting the client-side dummy is fully simulated client-side.
+            if (com.anormal.client.module.impl.kuro.KuroFakePlayer.onAttack(target)) ci.cancel();
+
             HitSwap hitSwap = ModuleManager.getModule(HitSwap.class);
             if (hitSwap != null && hitSwap.isEnabled()) hitSwap.beforeAttack(target);
 
@@ -64,6 +67,18 @@ public class ClientPlayerInteractionManagerMixin {
             if (fastBreak != null && fastBreak.isEnabled()) {
                 blockBreakingCooldown = 0;
             }
+        } catch (Throwable ignored) {
+        }
+    }
+
+    /**
+     * kuro {@code AutoTunnel}: vanilla har tickda hujum tugmasi bosilmagan bo'lsa
+     * blok qazishni bekor qiladi; Auto Tunnel progressini saqlaydi.
+     */
+    @Inject(method = "cancelBlockBreaking", at = @At("HEAD"), cancellable = true, require = 0)
+    private void kuro$keepBreaking(CallbackInfo ci) {
+        try {
+            if (com.anormal.client.module.impl.kuro.KuroAutoTunnel.breaking()) ci.cancel();
         } catch (Throwable ignored) {
         }
     }

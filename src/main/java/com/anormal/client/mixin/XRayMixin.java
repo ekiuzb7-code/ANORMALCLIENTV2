@@ -26,7 +26,7 @@ public class XRayMixin {
     private void anormal$getRenderType(CallbackInfoReturnable<BlockRenderType> cir) {
         try {
             XRay xray = ModuleManager.getModule(XRay.class);
-            if (xray == null || !xray.isEnabled() || !xray.isRealMode()) return;
+            if (xray == null || !xray.isEnabled() || !xray.isRealHiding()) return;
 
             // Never hide the whole world if the whitelist is empty.
             if (xray.getSelectedBlocks().isEmpty()) return;

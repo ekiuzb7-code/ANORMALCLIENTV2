@@ -14,6 +14,13 @@ public enum Category {
     CLIENT("Client", "⚙"),
     MISC("Misc", "✦"),
     /**
+     * Ported-source tabs: selecting these shows modules imported from the
+     * Spectre / Kuro source trees. Hidden from the sidebar until the ▼
+     * source-view toggle (bottom of the category sidebar) is enabled.
+     */
+    SPECTRE("Spectre", "👻"),
+    KURO("Kuro", "🌑"),
+    /**
      * Not a module list - selecting this tab shows the author credits instead.
      * The GUI checks for this constant explicitly.
      */

@@ -20,6 +20,19 @@ import java.util.List;
 
 public class ClickGuiScreen extends Screen {
     private Category currentCategory = Category.COMBAT;
+
+    /** When true, the sidebar shows only the ported-source tabs (Spectre / Kuro). */
+    private boolean sourceView = false;
+
+    /** The tabs to render: everything normally, or just the two ported-source tabs. */
+    private Category[] visibleCategories() {
+        if (sourceView) {
+            return new Category[] { Category.SPECTRE, Category.KURO };
+        }
+        return java.util.Arrays.stream(Category.values())
+                .filter(c -> c != Category.SPECTRE && c != Category.KURO)
+                .toArray(Category[]::new);
+    }
     private String searchQuery = "";
     private boolean searchFocused = false;
     private KeybindSetting listeningSetting = null;
@@ -159,9 +172,13 @@ public class ClickGuiScreen extends Screen {
         RenderUtils.fill(context, sidebarX, sidebarY, sidebarX + sidebarWidth, sidebarY + sidebarHeight, ColorUtils.rgba(14, 16, 20, 160));
         RenderUtils.drawBorder(context, sidebarX, sidebarY, sidebarX + sidebarWidth, sidebarY + sidebarHeight, 1, ThemeManager.getBorderColor());
 
-        Category[] categories = Category.values();
+        Category[] categories = visibleCategories();
         int tabY = sidebarY + 4;
-        int tabPitch = Math.max(15, Math.min(28, (sidebarHeight - 8) / categories.length));
+        // Reserve room for the source-view toggle pinned to the sidebar's bottom.
+        int srcBtnH = 16;
+        int srcBtnY = sidebarY + sidebarHeight - srcBtnH - 6;
+        int tabReserve = 6 + srcBtnH + 6;
+        int tabPitch = Math.max(15, Math.min(28, (sidebarHeight - tabReserve) / categories.length));
         int tabHeight = tabPitch - 4;
 
         for (Category category : categories) {
@@ -180,6 +197,15 @@ public class ClickGuiScreen extends Screen {
 
             tabY += tabPitch;
         }
+
+        // Source-view toggle (▼): collapses the sidebar to the Spectre / Kuro tabs.
+        boolean srcHovered = mX >= sidebarX + 4 && mX <= sidebarX + sidebarWidth - 4 && mY >= srcBtnY && mY <= srcBtnY + srcBtnH;
+        int srcBg = sourceView ? ThemeManager.getAccentColor() : (srcHovered ? ThemeManager.getCardColor(false, true) : ColorUtils.rgba(20, 22, 28, 120));
+        int srcText = sourceView ? (activeTheme == Theme.BRUTALISM ? 0xFF000000 : 0xFFFFFFFF) : (srcHovered ? 0xFFE0E0E0 : ThemeManager.getTextColor(false));
+        int srcBorder = sourceView ? (activeTheme == Theme.BRUTALISM ? 0xFFFFFFFF : ThemeManager.getAccentColor()) : ThemeManager.getBorderColor();
+        RenderUtils.fill(context, sidebarX + 4, srcBtnY, sidebarX + sidebarWidth - 4, srcBtnY + srcBtnH, srcBg);
+        RenderUtils.drawBorder(context, sidebarX + 4, srcBtnY, sidebarX + sidebarWidth - 4, srcBtnY + srcBtnH, activeTheme == Theme.BRUTALISM ? 2 : 1, srcBorder);
+        RenderUtils.drawText(context, textRenderer, (sourceView ? "\u25B2 " : "\u25BC ") + com.anormal.client.i18n.I18n.tr(sourceView ? "Main" : "Sources"), sidebarX + 10, srcBtnY + Math.max(1, (srcBtnH - 8) / 2), srcText, true);
 
         // 6. Right Main Panel (Scrollable Module List)
         int contentX = sidebarX + sidebarWidth + 6;
@@ -235,7 +261,7 @@ public class ClickGuiScreen extends Screen {
             if (module.isExpanded()) {
                 for (Setting<?> setting : module.getSettings()) {
                     if (!setting.isVisible()) continue;
-                    renderSetting(context, setting, contentX + 16, modY, contentWidth - 36, mouseX, mouseY);
+                    renderSetting(context, module, setting, contentX + 16, modY, contentWidth - 36, mouseX, mouseY);
                     modY += 20;
                     // Expanded option list under a mode row: click an option to pick it
                     if (setting == expandedMode && setting instanceof com.anormal.client.setting.ModeSetting em) {
@@ -396,9 +422,27 @@ public class ClickGuiScreen extends Screen {
         int sidebarX = guiX + 8;
         int sidebarY = guiY + 26;
 
-        Category[] categories = Category.values();
+        Category[] categories = visibleCategories();
+        int sidebarHeight = guiHeight - 34;
+        int srcBtnH = 16;
+        int srcBtnY = sidebarY + sidebarHeight - srcBtnH - 6;
+
+        // Source-view toggle (▼): switch between the main tabs and the Spectre / Kuro tabs.
+        if (mouseX >= sidebarX + 4 && mouseX <= sidebarX + sidebarWidth - 4 && mouseY >= srcBtnY && mouseY <= srcBtnY + srcBtnH) {
+            sourceView = !sourceView;
+            if (sourceView) {
+                if (currentCategory != Category.SPECTRE && currentCategory != Category.KURO) currentCategory = Category.SPECTRE;
+            } else if (currentCategory == Category.SPECTRE || currentCategory == Category.KURO) {
+                currentCategory = Category.COMBAT;
+            }
+            scrollOffset = 0;
+            return;
+        }
+
+        // Reserve the same room as the toggle button drawn in render().
+        int tabReserve = 6 + srcBtnH + 6;
         int tabY = sidebarY + 4;
-        int tabPitch = Math.max(15, Math.min(28, ((guiHeight - 34) - 8) / categories.length));
+        int tabPitch = Math.max(15, Math.min(28, (sidebarHeight - tabReserve) / categories.length));
         int tabHeight = tabPitch - 4;
 
         for (Category category : categories) {
@@ -439,8 +483,10 @@ public class ClickGuiScreen extends Screen {
 
             if (mouseX >= cardX && mouseX <= cardX + cardW && mouseY >= modY && mouseY <= modY + 22) {
                 // Small "x" next to the keybind badge: clear the keybind instead of toggling.
+                // ClientSettings' bindi qulflangan (GUI ochish kaliti) — remove tugmasi ishlamaydi.
                 int clearX0 = cardX + cardW - 34;
                 if (button == 0 && module.getKey() != GLFW.GLFW_KEY_UNKNOWN
+                        && !com.anormal.client.module.impl.client.ClientSettings.isBindLocked(module)
                         && mouseX >= clearX0 && mouseX <= clearX0 + 12) {
                     module.setKey(GLFW.GLFW_KEY_UNKNOWN);
                     return;
@@ -502,7 +548,10 @@ public class ClickGuiScreen extends Screen {
                             return;
                         } else if (setting instanceof KeybindSetting key) {
                             // "x" on the right edge clears the bind without starting to listen.
-                            if (key.getValue() != GLFW.GLFW_KEY_UNKNOWN && mouseX >= setX + setW - 14) {
+                            // ClientSettings'ning xuddi shu Keybind'i qulflangan (GUI ochish kaliti).
+                            if (key.getValue() != GLFW.GLFW_KEY_UNKNOWN
+                                    && !com.anormal.client.module.impl.client.ClientSettings.isKeybindLocked(key)
+                                    && mouseX >= setX + setW - 14) {
                                 key.setValue(GLFW.GLFW_KEY_UNKNOWN);
                                 return;
                             }
@@ -743,7 +792,7 @@ public class ClickGuiScreen extends Screen {
         boolean hasKey = module.getKey() != GLFW.GLFW_KEY_UNKNOWN;
         RenderUtils.drawText(context, textRenderer, keyText, x + width - keyWidth - 38, y + 7, 0xFF888888, true);
 
-        if (hasKey) {
+        if (hasKey && !com.anormal.client.module.impl.client.ClientSettings.isBindLocked(module)) {
             int cx = x + width - 34;
             boolean hovClear = mouseX >= cx && mouseX <= cx + 12 && mouseY >= y + 5 && mouseY <= y + 17;
             RenderUtils.fill(context, cx, y + 5, cx + 12, y + 17,
@@ -756,7 +805,7 @@ public class ClickGuiScreen extends Screen {
         RenderUtils.drawText(context, textRenderer, expandText, x + width - 14, y + 7, ThemeManager.getAccentColor(), true);
     }
 
-    private void renderSetting(DrawContext context, Setting<?> setting, int x, int y, int width, int mouseX, int mouseY) {
+    private void renderSetting(DrawContext context, Module module, Setting<?> setting, int x, int y, int width, int mouseX, int mouseY) {
         String setDisplayName = com.anormal.client.i18n.I18n.tr(setting.getName());
         String setDisplayDesc = com.anormal.client.i18n.I18n.tr(setting.getDescription());
         boolean setHov = mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + 18;
@@ -850,12 +899,13 @@ public class ClickGuiScreen extends Screen {
             }
         } else if (setting instanceof KeybindSetting key) {
             boolean hasKey = key.getValue() != GLFW.GLFW_KEY_UNKNOWN;
+            boolean clearLocked = com.anormal.client.module.impl.client.ClientSettings.isKeybindLocked(key);
             String keyStr = (listeningSetting == key) ? "§e[...]" : "[" + key.getKeyName() + "]";
             int kw = textRenderer.getWidth(keyStr);
             int pad = hasKey ? 18 : 6;
             RenderUtils.drawText(context, textRenderer, keyStr, x + width - kw - pad, y + 5, 0xFF888888, true);
 
-            if (hasKey) {
+            if (hasKey && !clearLocked) {
                 int cx = x + width - 14;
                 boolean hovClear = mouseX >= cx && mouseX <= cx + 12 && mouseY >= y + 3 && mouseY <= y + 15;
                 RenderUtils.fill(context, cx, y + 4, cx + 12, y + 14,
@@ -1049,7 +1099,11 @@ public class ClickGuiScreen extends Screen {
 
         // 1. Keybind listening has top priority: ANY key (incl. mouse handled in mouseClicked) binds here
         if (listeningSetting != null) {
-            if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_DELETE
+            if (com.anormal.client.module.impl.client.ClientSettings.isKeybindLocked(listeningSetting)
+                    && (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_DELETE
+                        || keyCode == GLFW.GLFW_KEY_BACKSPACE)) {
+                listeningSetting = null;   // ClientSettings bindi o'chirilmasin — ESC faqat tinchlik bilan yopiladi
+            } else if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_DELETE
                     || keyCode == GLFW.GLFW_KEY_BACKSPACE) {
                 listeningSetting.setValue(GLFW.GLFW_KEY_UNKNOWN);
             } else {

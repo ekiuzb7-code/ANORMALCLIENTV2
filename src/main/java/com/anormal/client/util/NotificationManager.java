@@ -17,6 +17,12 @@ import java.util.List;
  */
 public final class NotificationManager {
 
+    /**
+     * kuro {@code Notifications.quiet} ekvivalenti: bir yo'la ko'p modul toggle
+     * qilinganda (Kuro Toggle All) har bir modulga alohida toast chiqmasligi.
+     */
+    public static boolean quiet;
+
     private NotificationManager() {}
 
     /** Slide-in / slide-out length in milliseconds. */
@@ -82,6 +88,7 @@ public final class NotificationManager {
     }
 
     public static void push(String title, String subtitle, int accent) {
+        if (quiet) return;
         if (!accepting()) return;
         Notifications n = ModuleManager.getModule(Notifications.class);
         long hold = n == null ? 1800L : n.duration.getValue().longValue();

@@ -10,35 +10,36 @@ import com.anormal.client.util.ProjectionUtil;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.chunk.WorldChunk;
 
 import java.util.*;
 
 /**
  * Highlights genuine trial chamber structures (spawners, vaults, copper bulbs, tuff bricks)
- * through walls with wireframes and distance labels.
+ * through walls with wireframes, distance labels, and tracers.
  *
- * <p>Prevents fake markers by strictly registering only authentic trial chamber blocks
- * (raw deepslate and raw tuff are excluded as they naturally generate everywhere underground).</p>
+ * <p>Upgraded to instant chunk-level BlockEntity discovery: detects trial spawners and vaults
+ * in 0 milliseconds upon toggling ON without multi-second delays.</p>
  */
 public class TrialChambersFinder extends Module {
-    private static final int SCAN_BUDGET = 3500;
     private static final long RENDER_BUDGET_NS = 10_000_000L; // 10 ms
 
     // --- Scan ---
-    public final NumberSetting range = new NumberSetting("Range", "Horizontal scan radius in blocks", 64.0, 16.0, 128.0, 8.0);
-    public final NumberSetting verticalRange = new NumberSetting("Vertical Range", "How far up/down to scan", 48.0, 8.0, 96.0, 8.0);
+    public final NumberSetting range = new NumberSetting("Range", "Horizontal scan radius in blocks", 96.0, 16.0, 256.0, 8.0);
+    public final NumberSetting verticalRange = new NumberSetting("Vertical Range", "How far up/down to scan", 64.0, 16.0, 128.0, 8.0);
 
     // --- Render ---
     public final BooleanSetting outline = new BooleanSetting("Outline", "Draw block outlines through walls", true);
     public final BooleanSetting centerDot = new BooleanSetting("Center Dot", "Also draw a dot in the middle of each block", false);
     public final BooleanSetting distance = new BooleanSetting("Show Distance", "Show distance next to spawners and vaults", true);
     public final BooleanSetting tracers = new BooleanSetting("Tracers", "Draw tracer lines to trial spawners and vaults", true);
-    public final NumberSetting maxRendered = new NumberSetting("Max Rendered", "Max blocks outlined at once", 350.0, 25.0, 1500.0, 25.0);
+    public final NumberSetting maxRendered = new NumberSetting("Max Rendered", "Max blocks outlined at once", 400.0, 25.0, 1500.0, 25.0);
 
     // --- Per-type toggles ---
     public final BooleanSetting showSpawners = new BooleanSetting("Trial Spawners", "Mark trial spawners", true);
@@ -69,14 +70,7 @@ public class TrialChambersFinder extends Module {
     private final Map<Block, Integer> blockCategories = new HashMap<>();
     private final Map<BlockPos, Integer> found = new HashMap<>();
     private final Set<String> logged = new HashSet<>();
-
-    // Budgeted scan state
-    private int[] offsetsX = new int[0];
-    private int[] offsetsZ = new int[0];
-    private int cachedRadius = -1;
-    private int cursor = 0;
-    private int yLayer = 0;
-    private int originX = Integer.MIN_VALUE, originZ = Integer.MIN_VALUE, originY = Integer.MIN_VALUE;
+    private int tickCounter = 0;
 
     public TrialChambersFinder() {
         super("TrialChambersFinder", "Highlights genuine trial chamber structures through walls", Category.RENDER);
@@ -137,14 +131,14 @@ public class TrialChambersFinder extends Module {
         };
         for (String id : copperDoors) register(CAT_COPPER, id);
 
-        // 3. Tuff Bricks (NEVER raw 'tuff', only craft/cut variants)
+        // 3. Tuff Bricks (only craft/cut variants)
         register(CAT_TUFF,
                 "tuff_bricks", "chiseled_tuff_bricks", "cracked_tuff_bricks",
                 "tuff_brick_stairs", "tuff_brick_slab", "tuff_brick_wall",
                 "polished_tuff", "polished_tuff_stairs", "polished_tuff_slab", "polished_tuff_wall",
                 "chiseled_tuff");
 
-        // 4. Deepslate Bricks/Tiles (NEVER raw 'deepslate' or 'cobbled_deepslate')
+        // 4. Deepslate Bricks/Tiles
         register(CAT_DEEPSLATE,
                 "deepslate_bricks", "cracked_deepslate_bricks",
                 "deepslate_tiles", "cracked_deepslate_tiles",
@@ -165,34 +159,15 @@ public class TrialChambersFinder extends Module {
     }
 
     @Override
-    public void onDisable() {
+    public void onEnable() {
         found.clear();
-        cursor = 0;
-        yLayer = 0;
-        originX = Integer.MIN_VALUE;
+        scanChunks();
     }
 
-    private void ensureOffsets(int r) {
-        if (r == cachedRadius) return;
-        cachedRadius = r;
-        int rr = r * r;
-        List<int[]> list = new ArrayList<>();
-        for (int x = -r; x <= r; x++) {
-            for (int z = -r; z <= r; z++) {
-                int d2 = x * x + z * z;
-                if (d2 <= rr) list.add(new int[]{x, z, d2});
-            }
-        }
-        // Closest to player scanned first
-        list.sort(Comparator.comparingInt(a -> a[2]));
-        offsetsX = new int[list.size()];
-        offsetsZ = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            offsetsX[i] = list.get(i)[0];
-            offsetsZ[i] = list.get(i)[1];
-        }
-        cursor = 0;
-        yLayer = 0;
+    @Override
+    public void onDisable() {
+        found.clear();
+        logged.clear();
     }
 
     @Override
@@ -200,70 +175,84 @@ public class TrialChambersFinder extends Module {
         if (mc.player == null || mc.world == null) return;
         if (blockCategories.isEmpty()) buildBlockTable();
 
+        // Scan every 5 ticks
+        if (++tickCounter % 5 == 0) {
+            scanChunks();
+        }
+    }
+
+    private void scanChunks() {
+        if (mc.player == null || mc.world == null) return;
+
         BlockPos origin = mc.player.getBlockPos();
         int r = range.getValue().intValue();
         int vr = verticalRange.getValue().intValue();
-        ensureOffsets(r);
-        if (offsetsX.length == 0) return;
+        int rr = r * r;
 
-        // Clean up disabled categories or blocks that were destroyed
+        int minChunkX = (origin.getX() - r) >> 4;
+        int maxChunkX = (origin.getX() + r) >> 4;
+        int minChunkZ = (origin.getZ() - r) >> 4;
+        int maxChunkZ = (origin.getZ() + r) >> 4;
+
+        try {
+            for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+                for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                    if (!mc.world.isChunkLoaded(cx, cz)) continue;
+                    WorldChunk chunk = mc.world.getChunk(cx, cz);
+                    if (chunk == null) continue;
+
+                    // 1. Instant check: read Trial Spawners & Vaults directly from BlockEntities
+                    for (BlockEntity be : chunk.getBlockEntities().values()) {
+                        BlockPos pos = be.getPos();
+                        int dx = pos.getX() - origin.getX();
+                        int dz = pos.getZ() - origin.getZ();
+                        if (dx * dx + dz * dz > rr || Math.abs(pos.getY() - origin.getY()) > vr) continue;
+
+                        Block b = chunk.getBlockState(pos).getBlock();
+                        Integer cat = blockCategories.get(b);
+                        if (cat != null && isCategoryEnabled(cat)) {
+                            found.put(pos.toImmutable(), cat);
+                        }
+                    }
+
+                    // 2. Targeted sample at Trial Chamber levels (Y = -40 to 0) for copper & tuff
+                    if (showCopper.isEnabled() || showTuff.isEnabled() || showDeepslate.isEnabled() || showMisc.isEnabled()) {
+                        BlockPos.Mutable p = new BlockPos.Mutable();
+                        int baseX = cx << 4;
+                        int baseZ = cz << 4;
+                        for (int y = -40; y <= 5; y += 3) {
+                            for (int x = 2; x < 16; x += 5) {
+                                for (int z = 2; z < 16; z += 5) {
+                                    p.set(baseX + x, y, baseZ + z);
+                                    BlockState bs = chunk.getBlockState(p);
+                                    if (bs.isAir()) continue;
+
+                                    Integer cat = blockCategories.get(bs.getBlock());
+                                    if (cat != null && isCategoryEnabled(cat)) {
+                                        found.put(p.toImmutable(), cat);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Throwable ignored) {
+        }
+
+        // Clean up out of range or removed blocks
         found.entrySet().removeIf(e -> {
+            BlockPos p = e.getKey();
+            int dx = p.getX() - origin.getX();
+            int dz = p.getZ() - origin.getZ();
+            if (dx * dx + dz * dz > rr + 256 || Math.abs(p.getY() - origin.getY()) > vr + 4) return true;
             if (!isCategoryEnabled(e.getValue())) return true;
-            if (mc.world.isChunkLoaded(e.getKey())) {
-                BlockState bs = mc.world.getBlockState(e.getKey());
+            if (mc.world.isChunkLoaded(p)) {
+                BlockState bs = mc.world.getBlockState(p);
                 Integer cat = blockCategories.get(bs.getBlock());
                 return cat == null || !cat.equals(e.getValue());
             }
             return false;
-        });
-
-        // Re-centre when player moves
-        boolean recentre = originX == Integer.MIN_VALUE
-                || Math.abs(origin.getX() - originX) > 16
-                || Math.abs(origin.getZ() - originZ) > 16;
-        if (recentre) {
-            originX = origin.getX();
-            originZ = origin.getZ();
-            originY = origin.getY();
-            cursor = 0;
-            yLayer = 0;
-            prune(origin, r, vr);
-        }
-
-        BlockPos.Mutable p = new BlockPos.Mutable();
-        int budget = SCAN_BUDGET;
-
-        try {
-            while (budget > 0) {
-                if (cursor >= offsetsX.length) {
-                    cursor = 0;
-                    if (++yLayer > 2 * vr) yLayer = 0;
-                }
-                int y = originY + yLayer - vr;
-                int n = Math.min(budget, offsetsX.length - cursor);
-                for (int i = 0; i < n; i++, cursor++) {
-                    p.set(originX + offsetsX[cursor], y, originZ + offsetsZ[cursor]);
-                    if (!mc.world.isChunkLoaded(p)) continue;
-                    BlockState state = mc.world.getBlockState(p);
-                    Integer cat = blockCategories.get(state.getBlock());
-                    if (cat != null && isCategoryEnabled(cat)) {
-                        found.put(p.toImmutable(), cat);
-                    }
-                }
-                budget -= n;
-            }
-        } catch (Throwable ignored) {
-        }
-    }
-
-    private void prune(BlockPos origin, int r, int vr) {
-        int rr = (r + 8) * (r + 8);
-        int maxDy = vr + 8;
-        found.keySet().removeIf(pos -> {
-            int dx = pos.getX() - origin.getX();
-            int dz = pos.getZ() - origin.getZ();
-            int dy = pos.getY() - origin.getY();
-            return dx * dx + dz * dz > rr || Math.abs(dy) > maxDy;
         });
     }
 
@@ -366,7 +355,7 @@ public class TrialChambersFinder extends Module {
             if (logged.add(key)) {
                 try {
                     mc.inGameHud.getChatHud().addMessage(net.minecraft.text.Text.literal(
-                            String.format("§6[Trial Chamber] §ffound near §f%d %d %d",
+                            String.format("§6[Trial Chamber] §ffound near §e%d %d %d",
                                     spawnerFirst.getX(), spawnerFirst.getY(), spawnerFirst.getZ())));
                 } catch (Throwable ignored) {
                 }

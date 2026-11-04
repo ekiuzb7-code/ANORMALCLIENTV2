@@ -16,6 +16,12 @@ public class NumberSetting extends Setting<Double> {
         return min;
     }
 
+    /** Primitive accessor used by the ported kuro modules, so `(int) setting.getAsDouble()` works. */
+    public double getAsDouble() {
+        Double value = getValue();
+        return value == null ? 0.0 : value;
+    }
+
     public double getMax() {
         return max;
     }

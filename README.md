@@ -1,6 +1,6 @@
-# Anormal Client (Minecraft 1.21.1 / Fabric)
+# Anormal Client (Minecraft 1.21.11 / Fabric)
 
-A modern, highly customizable Minecraft Client built on **Fabric (1.21.1)** with two dynamic switchable UI themes: **Vape V4 Theme** and **Glassmorphism Theme**.
+A modern, highly customizable Minecraft Client built on **Fabric (1.21.11)** with two dynamic switchable UI themes: **Vape V4 Theme** and **Glassmorphism Theme**.
 
 ---
 
@@ -50,4 +50,4 @@ Whenever you push commits to GitHub:
 1. GitHub Actions sets up **JDK 21**.
 2. Runs `./gradlew build`.
 3. Compiles the Fabric Mod JAR.
-4. Uploads the build artifact as `AnormalClient-1.21.1.jar` available for instant download in the Actions tab.
+4. Uploads the build artifact as `AnormalClient-1.21.11.jar` available for instant download in the Actions tab.

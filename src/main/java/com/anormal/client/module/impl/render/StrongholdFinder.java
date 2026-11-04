@@ -5,101 +5,201 @@ import com.anormal.client.module.Module;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.NumberSetting;
-import com.anormal.client.util.BlockESPHelper;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.ProjectionUtil;
 import com.anormal.client.util.RenderUtils;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.EndPortalFrameBlock;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.chunk.WorldChunk;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
- * Finds end portal frames marking strongholds.
+ * Finds End Portal rooms marking Strongholds through walls.
  *
- * <p>Migrated to the shared budgeted {@link BlockESPHelper}: no more 80-tick
- * freeze, no blink, independent vertical range for deep coverage.</p>
+ * <p>Upgraded to instant chunk search: scans portal depths (Y = -35 to 40)
+ * in loaded chunks, highlighting all 12 portal frames, eye count, and tracer lines.</p>
  */
 public class StrongholdFinder extends Module {
-    public final NumberSetting range = new NumberSetting("Range", "Horizontal search radius", 64.0, 16.0, 128.0, 8.0);
-    public final NumberSetting verticalRange = new NumberSetting("Vertical Range", "How far up and down to search", 48.0, 8.0, 160.0, 4.0);
-    public final NumberSetting scanSpeed = new NumberSetting("Scan Speed", "Blocks checked per tick", 8000.0, 2000.0, 30000.0, 500.0);
-    public final NumberSetting recentreDistance = new NumberSetting("Recentre Distance", "How far you may move before the search restarts", 8.0, 4.0, 32.0, 2.0);
-    public final BooleanSetting chatLog = new BooleanSetting("Chat Log", "Log new frames in chat", true);
-    public final ColorSetting color = new ColorSetting("Color", "Frame marker color", ColorUtils.rgba(120, 220, 60, 255));
-    public final NumberSetting maxShown = new NumberSetting("Max Shown", "Max frame markers drawn", 8.0, 1.0, 32.0, 1.0);
+    public final NumberSetting range = new NumberSetting("Range", "Horizontal search radius in blocks", 96.0, 16.0, 256.0, 8.0);
+    public final BooleanSetting chatLog = new BooleanSetting("Chat Log", "Log newly found portal coordinates in chat", true);
+    public final BooleanSetting outline = new BooleanSetting("Outline", "Draw 3D block outlines around portal frames", true);
+    public final BooleanSetting tracers = new BooleanSetting("Tracers", "Draw line to portal center", true);
+    public final BooleanSetting showDistance = new BooleanSetting("Show Distance", "Show distance and eye count tag", true);
+    public final ColorSetting color = new ColorSetting("Color", "Portal frame marker color", ColorUtils.rgba(100, 255, 60, 255));
+    public final NumberSetting maxShown = new NumberSetting("Max Shown", "Max portal frame markers drawn", 24.0, 1.0, 64.0, 1.0);
 
     private static final long RENDER_BUDGET_NS = 5_000_000L;
-    private final BlockESPHelper helper = new BlockESPHelper();
+
+    private final Map<BlockPos, Boolean> frames = new HashMap<>(); // Pos -> hasEye
     private final Set<String> logged = new HashSet<>();
-    private int prevSize = 0;
+    private int tickCounter = 0;
 
     public StrongholdFinder() {
-        super("StrongholdFinder", "Finds end portal frames marking strongholds", Category.RENDER);
+        super("StrongholdFinder", "Finds end portal frames and strongholds through walls", Category.RENDER);
         addSetting(range);
-        addSetting(verticalRange);
-        addSetting(scanSpeed);
-        addSetting(recentreDistance);
         addSetting(chatLog);
+        addSetting(outline);
+        addSetting(tracers);
+        addSetting(showDistance);
         addSetting(color);
         addSetting(maxShown);
     }
 
     @Override
+    public void onEnable() {
+        frames.clear();
+        scanChunksForPortal();
+    }
+
+    @Override
     public void onDisable() {
-        helper.reset();
+        frames.clear();
         logged.clear();
-        prevSize = 0;
     }
 
     @Override
     public void onTick() {
-        int col = color.getValue();
-        helper.tick(mc, range.getValue().intValue(), verticalRange.getValue().intValue(),
-                scanSpeed.getValue().intValue(), recentreDistance.getValue(),
-                state -> BlockESPHelper.pathEndsWith(state, "end_portal_frame") ? col : -1);
+        if (mc.player == null || mc.world == null) return;
 
-        if (chatLog.isEnabled() && mc.inGameHud != null && helper.found().size() > prevSize) {
-            for (BlockPos p : helper.found().keySet()) {
-                String key = p.getX() + "," + p.getY() + "," + p.getZ();
-                if (logged.add(key)) {
-                    try {
-                        mc.inGameHud.getChatHud().addMessage(Text.literal("§a[Stronghold] §fframe at " + key));
-                    } catch (Throwable ignored) {
+        // Scan every 5 ticks
+        if (++tickCounter % 5 == 0) {
+            scanChunksForPortal();
+        }
+    }
+
+    private void scanChunksForPortal() {
+        if (mc.player == null || mc.world == null) return;
+
+        BlockPos origin = mc.player.getBlockPos();
+        int r = range.getValue().intValue();
+        int rr = r * r;
+
+        int minChunkX = (origin.getX() - r) >> 4;
+        int maxChunkX = (origin.getX() + r) >> 4;
+        int minChunkZ = (origin.getZ() - r) >> 4;
+        int maxChunkZ = (origin.getZ() + r) >> 4;
+
+        BlockPos.Mutable p = new BlockPos.Mutable();
+
+        try {
+            for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+                for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                    if (!mc.world.isChunkLoaded(cx, cz)) continue;
+                    WorldChunk chunk = mc.world.getChunk(cx, cz);
+                    if (chunk == null) continue;
+
+                    int baseX = cx << 4;
+                    int baseZ = cz << 4;
+
+                    // Stronghold portal frames generate between Y = -35 and Y = 40
+                    for (int y = -35; y <= 40; y++) {
+                        for (int x = 0; x < 16; x++) {
+                            for (int z = 0; z < 16; z++) {
+                                p.set(baseX + x, y, baseZ + z);
+                                BlockState state = chunk.getBlockState(p);
+                                if (state.getBlock() == Blocks.END_PORTAL_FRAME || state.getBlock() == Blocks.END_PORTAL) {
+                                    boolean hasEye = false;
+                                    try {
+                                        if (state.contains(EndPortalFrameBlock.EYE)) {
+                                            hasEye = state.get(EndPortalFrameBlock.EYE);
+                                        }
+                                    } catch (Throwable ignored) {}
+
+                                    BlockPos imm = p.toImmutable();
+                                    frames.put(imm, hasEye);
+
+                                    // Announce in chat
+                                    if (chatLog.isEnabled() && mc.inGameHud != null) {
+                                        String chunkKey = cx + "," + cz;
+                                        if (logged.add(chunkKey)) {
+                                            int dist = (int) Math.sqrt(origin.getSquaredDistance(imm));
+                                            mc.inGameHud.getChatHud().addMessage(Text.literal(
+                                                    "§a[Stronghold] §fEnd Portal found at §eX: " + imm.getX() + ", Y: " + imm.getY() + ", Z: " + imm.getZ() +
+                                                            " §7(" + dist + "m)"));
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-        }
-        prevSize = helper.found().size();
+        } catch (Throwable ignored) {}
+
+        // Remove out of range or destroyed frames
+        frames.keySet().removeIf(pos -> {
+            int dx = pos.getX() - origin.getX();
+            int dz = pos.getZ() - origin.getZ();
+            if (dx * dx + dz * dz > rr + 256) return true;
+            if (mc.world.isChunkLoaded(pos)) {
+                BlockState bs = mc.world.getBlockState(pos);
+                return bs.getBlock() != Blocks.END_PORTAL_FRAME && bs.getBlock() != Blocks.END_PORTAL;
+            }
+            return false;
+        });
     }
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        if (mc.player == null || helper.found().isEmpty()) return;
+        if (mc.player == null || frames.isEmpty()) return;
 
         int col = color.getValue();
         int limit = maxShown.getValue().intValue();
         int drawn = 0;
         long deadline = System.nanoTime() + RENDER_BUDGET_NS;
 
-        for (Map.Entry<BlockPos, Integer> e : helper.found().entrySet()) {
-            if (drawn >= limit) break;
-            if ((drawn & 7) == 0 && System.nanoTime() > deadline) break;
+        int sw = mc.getWindow().getScaledWidth();
+        int sh = mc.getWindow().getScaledHeight();
 
-            BlockPos p = e.getKey();
-            int[] sc = com.anormal.client.util.ProjectionUtil.project(
-                    new Vec3d(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5), tickDelta);
-            if (sc == null) continue;
-            drawn++;
+        // Calculate portal center
+        double sumX = 0, sumY = 0, sumZ = 0;
+        int eyeCount = 0;
+        for (Map.Entry<BlockPos, Boolean> entry : frames.entrySet()) {
+            BlockPos p = entry.getKey();
+            sumX += p.getX();
+            sumY += p.getY();
+            sumZ += p.getZ();
+            if (entry.getValue()) eyeCount++;
+        }
+        int count = frames.size();
+        BlockPos portalCenter = new BlockPos((int) (sumX / count), (int) (sumY / count), (int) (sumZ / count));
 
-            context.fill(sc[0] - 4, sc[1] - 4, sc[0] + 4, sc[1] + 4, (col & 0x00FFFFFF) | 0x66000000);
-            RenderUtils.drawBorder(context, sc[0] - 4, sc[1] - 4, sc[0] + 4, sc[1] + 4, 1, col);
-            if (mc.textRenderer != null) {
-                String d = (int) Math.sqrt(p.getSquaredDistance(mc.player.getBlockPos())) + "m";
-                RenderUtils.drawText(context, mc.textRenderer, d, sc[0] + 6, sc[1] - 4, col, true);
+        // 1. Draw 3D outline for each frame block
+        for (BlockPos p : frames.keySet()) {
+            if (drawn >= limit || System.nanoTime() > deadline) break;
+
+            if (outline.isEnabled()) {
+                int[] bounds = RenderUtils.projectBlockBounds(p, tickDelta);
+                if (bounds != null) {
+                    RenderUtils.drawBlockOutline(context, p, col, tickDelta, 1);
+                    drawn++;
+                }
+            }
+        }
+
+        // 2. Tracer line to portal center
+        int[] centerScreen = ProjectionUtil.project(new Vec3d(portalCenter.getX() + 0.5, portalCenter.getY() + 0.5, portalCenter.getZ() + 0.5), tickDelta);
+        if (centerScreen != null) {
+            if (tracers.isEnabled()) {
+                int steps = Math.min(150, Math.max(Math.abs(centerScreen[0] - sw / 2), Math.abs(centerScreen[1] - sh / 2)));
+                for (int i = 0; i <= steps; i++) {
+                    int lx = sw / 2 + (centerScreen[0] - sw / 2) * i / Math.max(1, steps);
+                    int ly = sh / 2 + (centerScreen[1] - sh / 2) * i / Math.max(1, steps);
+                    context.fill(lx, ly, lx + 1, ly + 1, col);
+                }
+            }
+
+            // 3. Waypoint label
+            if (showDistance.isEnabled() && mc.textRenderer != null) {
+                double dist = Math.sqrt(mc.player.getBlockPos().getSquaredDistance(portalCenter));
+                String label = "§aStronghold Portal §7[" + eyeCount + "/12 Eyes] §f" + (int) dist + "m";
+                RenderUtils.drawText(context, mc.textRenderer, label, centerScreen[0] - mc.textRenderer.getWidth(label) / 2, centerScreen[1] - 12, 0xFFFFFFFF, true);
             }
         }
     }

@@ -150,5 +150,13 @@ public abstract class Module {
 
     public void onTick() {}
 
+    /**
+     * Called at the START of the client tick, before vanilla reads the input and moves the player.
+     * kuro's modules do their movement work in this phase (kuro: {@code onPreTick}), so ports keep
+     * the same ordering: a velocity set here is the one the tick's movement starts from, and a key
+     * held here is already down when the input is read.
+     */
+    public void onPreTick() {}
+
     public void onRender2D(DrawContext context, float tickDelta) {}
 }

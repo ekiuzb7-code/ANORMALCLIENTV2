@@ -38,6 +38,20 @@ public class ConnectionMixin {
                 backTrack.queueIncoming(packet);
                 ci.cancel();
             }
+
+            com.anormal.client.module.impl.world.BackTrack backTrackV1 = ModuleManager.getModule(com.anormal.client.module.impl.world.BackTrack.class);
+            if (backTrackV1 != null && backTrackV1.isEnabled() && backTrackV1.shouldQueueIncomingPacket(packet)) {
+                backTrackV1.queueIncoming(packet);
+                ci.cancel();
+            }
+        } catch (Throwable ignored) {
+        }
+
+        // KuroFreeze: server sizni ko'chirganda (PlayerPositionLook) yangi nuqtadan ushlash
+        try {
+            if (packet instanceof net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket) {
+                com.anormal.client.module.impl.kuro.KuroFreeze.onServerTeleport();
+            }
         } catch (Throwable ignored) {
         }
 
@@ -50,6 +64,17 @@ public class ConnectionMixin {
                 if (autoFish != null && autoFish.isEnabled()) {
                     autoFish.onBiteSound(sound.getX(), sound.getY(), sound.getZ());
                 }
+            }
+        } catch (Throwable ignored) {
+        }
+
+        // KuroAutoFish: kuro sound-paket hook'i (handleSoundEvent TAIL)ga to'g'ridan-to'g'ri
+        // o'xshash yashirgap. Faqat bobber splash yo'ldan o'tish mantiq masalan.
+        try {
+            if (packet instanceof PlaySoundS2CPacket sound
+                    && sound.getSound().value().id().getPath().equals("entity.fishing_bobber.splash")) {
+                com.anormal.client.module.impl.kuro.KuroAutoFish.onSound("entity.fishing_bobber.splash",
+                        sound.getX(), sound.getY(), sound.getZ());
             }
         } catch (Throwable ignored) {
         }

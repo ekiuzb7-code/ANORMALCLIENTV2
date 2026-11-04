@@ -29,7 +29,7 @@ public class FluidRendererMixin {
                                 BlockState blockState, FluidState fluidState, CallbackInfo ci) {
         try {
             XRay xray = ModuleManager.getModule(XRay.class);
-            if (xray == null || !xray.isEnabled() || !xray.isRealMode()) return;
+            if (xray == null || !xray.isEnabled() || !xray.isRealHiding()) return;
 
             Block fluidBlock = fluidState.getBlockState().getBlock();
             if (!xray.isVisibleBlock(fluidBlock)) {

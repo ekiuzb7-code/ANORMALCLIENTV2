@@ -69,9 +69,18 @@ public class InteractionManagerMixin {
             com.anormal.client.module.impl.render.Effects effects = ModuleManager.getModule(com.anormal.client.module.impl.render.Effects.class);
             if (effects != null && effects.isEnabled()) effects.onAttack(target);
 
+            // Kuro HitSounds: needs the hit moment to wait for the server's hurt confirmation.
+            com.anormal.client.module.impl.kuro.KuroHitSounds.onAttack(target);
+
             if (target instanceof LivingEntity living) {
-                com.anormal.client.module.impl.combat.BackTrackV2 backTrack = ModuleManager.getModule(com.anormal.client.module.impl.combat.BackTrackV2.class);
+                com.anormal.client.module.impl.combat.BackTrackV2 backTrackV2 = ModuleManager.getModule(com.anormal.client.module.impl.combat.BackTrackV2.class);
+                if (backTrackV2 != null && backTrackV2.isEnabled()) backTrackV2.onAttack(living);
+
+                com.anormal.client.module.impl.world.BackTrack backTrack = ModuleManager.getModule(com.anormal.client.module.impl.world.BackTrack.class);
                 if (backTrack != null && backTrack.isEnabled()) backTrack.onAttack(living);
+
+                com.anormal.client.module.impl.world.FakeLag fakeLag = ModuleManager.getModule(com.anormal.client.module.impl.world.FakeLag.class);
+                if (fakeLag != null && fakeLag.isEnabled()) fakeLag.onAttack(living);
             }
         } catch (Throwable ignored) {
         }

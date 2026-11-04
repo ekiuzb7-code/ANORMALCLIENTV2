@@ -40,7 +40,7 @@ public class Zoom extends Module {
     private double savedSensitivity = -1.0;
 
     public Zoom() {
-        super("Zoom", "Allows you to zoom in", Category.RENDER);
+        super("Zoom", "Allows you to zoom in", Category.WORLD);
         addSetting(level);
         addSetting(scroll);
         addSetting(scrollStep);

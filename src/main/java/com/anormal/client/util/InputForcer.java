@@ -3,9 +3,9 @@ package com.anormal.client.util;
 import net.minecraft.client.MinecraftClient;
 
 /**
- * Lets modules hold movement keys on the player's behalf.
+ * Lets modules hold keys on the player's behalf.
  *
- * <p>Naively calling {@code forwardKey.setPressed(true)} once per tick is not
+ * <p>Naively calling {@code key.setPressed(true)} once per tick is not
  * enough: {@code KeyBinding.updatePressedStates()} rebuilds every binding from
  * the real hardware state (it is called from {@code Mouse}), which silently
  * cancels the fake press before the next movement tick. {@code KeyBindingMixin}
@@ -23,8 +23,16 @@ public final class InputForcer {
     public static volatile boolean jump;
     public static volatile boolean sneak;
 
+    /**
+     * Right-click (item use) forced down — kuro {@code ForcedKeys} uchun
+     * ekvivalent (Kuro Auto Eat porti ishlatadi).
+     */
+    public static volatile boolean use;
+    /** Left-click (attack) forced down — Kuro Auto Miner porti ishlatadi. */
+    public static volatile boolean attack;
+
     public static void clear() {
-        forward = backward = left = right = jump = sneak = false;
+        forward = backward = left = right = jump = sneak = use = attack = false;
     }
 
     /** Re-asserts the forced keys. Called from the KeyBinding hook. */
@@ -37,6 +45,8 @@ public final class InputForcer {
             if (right) mc.options.rightKey.setPressed(true);
             if (jump) mc.options.jumpKey.setPressed(true);
             if (sneak) mc.options.sneakKey.setPressed(true);
+            if (use) mc.options.useKey.setPressed(true);
+            if (attack) mc.options.attackKey.setPressed(true);
         } catch (Throwable ignored) {
         }
     }

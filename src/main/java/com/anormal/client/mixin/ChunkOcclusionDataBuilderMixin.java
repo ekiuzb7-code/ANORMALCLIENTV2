@@ -24,7 +24,7 @@ public class ChunkOcclusionDataBuilderMixin {
     private void anormal$markClosed(BlockPos pos, CallbackInfo ci) {
         try {
             XRay xray = ModuleManager.getModule(XRay.class);
-            if (xray != null && xray.isEnabled() && xray.isRealMode()) {
+            if (xray != null && xray.isEnabled() && xray.isRealHiding()) {
                 ci.cancel();
             }
         } catch (Throwable ignored) {

@@ -2,10 +2,19 @@ name: Build Minecraft Client JAR
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "**" ]   # har qanday branchga push bo'lsa build qilinadi
+    tags: [ "v*" ]       # v tagdar push bo'lsa build + Release qilinadi
   pull_request:
     branches: [ "main", "master" ]
   workflow_dispatch:
+
+# Eskirgan pushni bekor qilish (resurs tejitish uchun)
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -21,8 +30,8 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      # Uses the project's Gradle wrapper (see gradle/wrapper/gradle-wrapper.properties),
-      # which pins a Gradle version compatible with Fabric Loom 1.14.
+      # Gradle, Loom, Minecraft jar va yarn mappings keshlanadi.
+      # Birinchi build sekin (~5-10 daq), keyingilar tez bo'ladi.
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
@@ -35,10 +44,32 @@ jobs:
       - name: Upload Mod JAR Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AnormalClient-1.21.11
-          # Only the runnable, remapped mod jar - not the -dev / -sources jars.
+          name: AnormalClient-${{ github.run_number }}
+          # Faqat ishlatiladigan remapped jar (dev/sources jarlarsiz)
           path: |
             build/libs/AnormalClient-*.jar
             !build/libs/*-dev.jar
             !build/libs/*-sources.jar
           if-no-files-found: error
+          retention-days: 30
+
+  # Faqat "v*" tag push qilinganda: jar GitHub Releases sahifasiga qo'shiladi
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download built JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: AnormalClient-${{ github.run_number }}
+          path: dist
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.jar
+          generate_release_notes: true

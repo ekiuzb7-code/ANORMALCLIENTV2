@@ -37,7 +37,7 @@ public class FreeLook extends Module {
     private boolean active = false;
 
     public FreeLook() {
-        super("FreeLook", "Detached 3rd-person camera allowing free view rotations", Category.RENDER, GLFW.GLFW_KEY_V);
+        super("FreeLook", "Detached 3rd-person camera allowing free view rotations", Category.WORLD, GLFW.GLFW_KEY_V);
         // Freecam / FreeLook are only useful while the key is held.
         getKeybindModeSetting().setValue("Hold");
         addSetting(activate);

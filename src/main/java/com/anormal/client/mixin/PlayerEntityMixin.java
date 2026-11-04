@@ -42,6 +42,9 @@ public class PlayerEntityMixin {
             SafeWalk safeWalk = ModuleManager.getModule(SafeWalk.class);
             if (safeWalk != null && safeWalk.isEnabled())
                 cir.setReturnValue(true);
+            // Kuro port: clip only while it has found a harmful drop in the direction of travel.
+            if (com.anormal.client.module.impl.kuro.KuroSafeWalk.clip())
+                cir.setReturnValue(true);
         } catch (Throwable ignored) {
         }
     }

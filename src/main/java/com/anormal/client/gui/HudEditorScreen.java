@@ -323,19 +323,6 @@ public class HudEditorScreen extends Screen {
     }
 
     private static int[] defaultSize(Module module) {
-        if (module instanceof com.anormal.client.module.impl.legit.Keystrokes ks) {
-            try {
-                double scale = ks.scale.getValue();
-                int size = (int) (20 * scale);
-                int gap = (int) (2 * scale);
-                int w = size * 3 + gap * 2;
-                int h = (size + gap) * 2;
-                if (ks.showLmbRmb.isEnabled()) h += (int) (22 * scale) + gap;
-                if (ks.showSpace.isEnabled()) h += (int) (12 * scale) + gap;
-                return new int[]{w + 4, h + 4};
-            } catch (Throwable ignored) {}
-            return new int[]{72, 114};
-        }
         return switch (module.getName()) {
             // The music card draws through DrawContext directly (it is scaled by a matrix), so the
             // fill-based measuring pass cannot see it. Its size is deterministic, so report it here.

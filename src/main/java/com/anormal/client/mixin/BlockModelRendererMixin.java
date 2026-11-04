@@ -38,7 +38,7 @@ public class BlockModelRendererMixin {
                                                CallbackInfoReturnable<Boolean> cir) {
         try {
             XRay xray = ModuleManager.getModule(XRay.class);
-            if (xray == null || !xray.isEnabled() || !xray.isRealMode()) return;
+            if (xray == null || !xray.isEnabled() || !xray.isRealHiding()) return;
 
             // Never blank the whole world if the whitelist is empty.
             if (xray.getSelectedBlocks().isEmpty()) return;

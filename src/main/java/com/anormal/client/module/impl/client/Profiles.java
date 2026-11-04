@@ -82,7 +82,6 @@ public class Profiles extends Module {
                 case "LongRange" -> presetLongRange();
             }
             on("TextGUI");
-            on("Keystrokes");
             on("FPS");
         } catch (Throwable ignored) {
         }

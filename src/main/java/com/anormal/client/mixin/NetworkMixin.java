@@ -75,13 +75,13 @@ public abstract class NetworkMixin {
                 return;
             }
 
-            // Legacy FakeLag (kept for compatibility)
+            // Vape v4.21 FakeLag
             if (com.anormal.client.module.impl.world.FakeLag.isFlushing()) return;
             com.anormal.client.module.impl.world.FakeLag fakeLag =
                     ModuleManager.getModule(com.anormal.client.module.impl.world.FakeLag.class);
-            if (fakeLag != null && fakeLag.isEnabled() && fakeLag.isHolding()) {
-                com.anormal.client.module.impl.world.FakeLag.queue(packet);
+            if (fakeLag != null && fakeLag.isEnabled() && fakeLag.shouldQueuePacket(packet)) {
                 ci.cancel();
+                return;
             }
         } catch (Throwable ignored) {
         }

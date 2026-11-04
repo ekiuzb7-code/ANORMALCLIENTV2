@@ -180,6 +180,25 @@ public class Waypoints extends Module {
         return points.get(i);
     }
 
+    /** Add Here tugmasi: turib turgan joyni ro'yxaga qo'shadi. */
+    public void addHereNow() {
+        if (points.size() < 30) {
+            try {
+                Waypoint w = new Waypoint(mc.player.getX(), mc.player.getY(), mc.player.getZ(),
+                        curDim(), color.getValue());
+                w.name = "WP" + (points.size() + 1);
+                points.add(w);
+                slot.setValue((double) points.size());
+                if (chatConfirm.isEnabled() && mc.inGameHud != null) {
+                    mc.inGameHud.getChatHud().addMessage(Text.literal(
+                            String.format("§a[Waypoint %d] §f%.0f / %.0f / %.0f (%s)",
+                                    points.size(), w.x, w.y, w.z, w.dim)));
+                }
+            } catch (Throwable ignored) {}
+        }
+        saveWaypoints();
+    }
+
     @Override
     public void onTick() {
         if (mc.player == null) return;
@@ -192,21 +211,7 @@ public class Waypoints extends Module {
         }
         if (addHere.isEnabled()) {
             addHere.setValue(false);
-            if (points.size() < 30) {
-                try {
-                    Waypoint w = new Waypoint(mc.player.getX(), mc.player.getY(), mc.player.getZ(),
-                            curDim(), color.getValue());
-                    w.name = "WP" + (points.size() + 1);
-                    points.add(w);
-                    slot.setValue((double) points.size());
-                    if (chatConfirm.isEnabled() && mc.inGameHud != null) {
-                        mc.inGameHud.getChatHud().addMessage(Text.literal(
-                                String.format("§a[Waypoint %d] §f%.0f / %.0f / %.0f (%s)",
-                                        points.size(), w.x, w.y, w.z, w.dim)));
-                    }
-                } catch (Throwable ignored) {}
-            }
-            saveWaypoints();
+            addHereNow();
         }
         if (delete.isEnabled()) {
             delete.setValue(false);

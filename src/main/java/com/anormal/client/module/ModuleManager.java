@@ -9,6 +9,7 @@ import com.anormal.client.module.impl.optimization.*;
 import com.anormal.client.module.impl.player.*;
 import com.anormal.client.module.impl.render.*;
 import com.anormal.client.module.impl.world.*;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 
 import java.util.ArrayList;
@@ -215,7 +216,6 @@ public class ModuleManager {
         register(new AsyncChunkMeshing());
 
         // --- LEGIT & OVERLAYS ---
-        register(new Keystrokes());
         register(new ArmorStatus());
         register(new Coords());
         register(new FPS());
@@ -288,13 +288,133 @@ public class ModuleManager {
         register(new com.anormal.client.module.impl.misc.FakeItem());
         register(new com.anormal.client.module.impl.render.PearlTrajectoryV2());
         register(new com.anormal.client.module.impl.render.OverworldRay());
-        register(new com.anormal.client.module.impl.world.SusChunkFinder());
+        register(new com.anormal.client.module.impl.kuro.KuroSusChunkFinder());
         register(new com.anormal.client.module.impl.world.RtpBaseFinder());
         register(new com.anormal.client.module.impl.client.NameProtectV2());
 
         // Watermark renders last so the logo is never covered by other HUD
         register(new Watermark());
         register(new PlayerLogger());
+
+        // ── Ported from kuro (Mojmap -> Yarn 1.21.11): Category.KURO must contain
+        //    every module until the source is fully converted. Class names are
+        //    Kuro-prefixed so the duplicate-simple-name guard stays quiet; the
+        //    modules keep their original display names.
+        register(new com.anormal.client.module.impl.kuro.KuroVelocity());
+        register(new com.anormal.client.module.impl.kuro.KuroAttackPackets());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoTotem());
+        register(new com.anormal.client.module.impl.kuro.KuroCriticals());
+        register(new com.anormal.client.module.impl.kuro.KuroAntiBot());
+        register(new com.anormal.client.module.impl.kuro.KuroHoverTotem());
+        register(new com.anormal.client.module.impl.kuro.KuroHitboxExpand());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoReplenish());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoDtap());
+        register(new com.anormal.client.module.impl.kuro.KuroReach());
+        register(new com.anormal.client.module.impl.kuro.KuroNoFall());
+        register(new com.anormal.client.module.impl.kuro.KuroKeepSprint());
+        register(new com.anormal.client.module.impl.kuro.KuroNoJumpDelay());
+        register(new com.anormal.client.module.impl.kuro.KuroTriggerBot());
+        register(new com.anormal.client.module.impl.kuro.KuroJumpReset());
+        register(new com.anormal.client.module.impl.kuro.KuroWTap());
+        register(new com.anormal.client.module.impl.kuro.KuroBacktrack());
+        register(new com.anormal.client.module.impl.kuro.KuroAimAssist());
+        register(new com.anormal.client.module.impl.kuro.KuroSpearSwap());
+        register(new com.anormal.client.module.impl.kuro.KuroBreachSwap());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoShieldBreak());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoWeapon());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoArmor());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoBox());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoCobweb());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoMLG());
+        register(new com.anormal.client.module.impl.kuro.KuroBowAim());
+        register(new com.anormal.client.module.impl.kuro.KuroCrystalAura());
+        register(new com.anormal.client.module.impl.kuro.KuroCrystalDtap());
+        register(new com.anormal.client.module.impl.kuro.KuroFastCrystal());
+        register(new com.anormal.client.module.impl.kuro.KuroHitbox());
+        register(new com.anormal.client.module.impl.kuro.KuroSimpleCrystalAura());
+        register(new com.anormal.client.module.impl.kuro.KuroSurround());
+        register(new com.anormal.client.module.impl.kuro.KuroKillAura());
+        register(new com.anormal.client.module.impl.kuro.KuroSilentAura());
+        register(new com.anormal.client.module.impl.kuro.KuroAttackAura());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoMace());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoClicker());
+        register(new com.anormal.client.module.impl.kuro.KuroHitSounds());
+        register(new com.anormal.client.module.impl.kuro.KuroProjectileAimBot());
+        register(new com.anormal.client.module.impl.kuro.KuroTotemPops());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoAnchor());
+        register(new com.anormal.client.module.impl.kuro.KuroAnchorAura());
+        register(new com.anormal.client.module.impl.kuro.KuroAnchorBomb());
+        register(new com.anormal.client.module.impl.kuro.KuroSafeAnchor());
+
+        // ── kuro movement tab (kuro's Category.MOVEMENT, one-to-one ports)
+        register(new com.anormal.client.module.impl.kuro.KuroBhop());
+        register(new com.anormal.client.module.impl.kuro.KuroBoatFly());
+        register(new com.anormal.client.module.impl.kuro.KuroElytraFly());
+        register(new com.anormal.client.module.impl.kuro.KuroElytraHop());
+        register(new com.anormal.client.module.impl.kuro.KuroElytraSwap());
+        register(new com.anormal.client.module.impl.kuro.KuroEntitySpeed());
+        register(new com.anormal.client.module.impl.kuro.KuroFlight());
+        register(new com.anormal.client.module.impl.kuro.KuroNoSlow());
+        register(new com.anormal.client.module.impl.kuro.KuroNoWeb());
+        register(new com.anormal.client.module.impl.kuro.KuroSafeWalk());
+        register(new com.anormal.client.module.impl.kuro.KuroScaffold());
+        register(new com.anormal.client.module.impl.kuro.KuroSprint());
+        register(new com.anormal.client.module.impl.kuro.KuroStep());
+        
+        // ── kuro utility/world tab (kuro's utility & world modules, one-to-one ports)
+        register(new com.anormal.client.module.impl.kuro.KuroAutoWalk());
+        register(new com.anormal.client.module.impl.kuro.KuroFastPlace());
+        register(new com.anormal.client.module.impl.kuro.KuroChestStealer());
+        register(new com.anormal.client.module.impl.kuro.KuroToggleAll());
+        register(new com.anormal.client.module.impl.kuro.KuroStopwatch());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoTool());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoEat());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoFish());
+        register(new com.anormal.client.module.impl.kuro.KuroMacro());
+        register(new com.anormal.client.module.impl.kuro.KuroMacroRecord());
+        register(new com.anormal.client.module.impl.kuro.KuroInvSorter());
+        register(new com.anormal.client.module.impl.kuro.KuroPearlCatch());
+        register(new com.anormal.client.module.impl.kuro.KuroPearlFinder());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoTunnel());
+        register(new com.anormal.client.module.impl.kuro.KuroDingDongBuilder());
+        register(new com.anormal.client.module.impl.kuro.KuroFakePlayer());
+        register(new com.anormal.client.module.impl.kuro.KuroAncientDebris());
+        register(new com.anormal.client.module.impl.kuro.KuroBaritoneControl());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoMiner());
+        register(new com.anormal.client.module.impl.kuro.KuroAutoBuild());
+        register(new com.anormal.client.module.impl.kuro.KuroFullbright());
+        register(new com.anormal.client.module.impl.kuro.KuroFoundList());
+        register(new com.anormal.client.module.impl.kuro.KuroTracers());
+        register(new com.anormal.client.module.impl.kuro.KuroClock());
+        register(new com.anormal.client.module.impl.kuro.KuroSnowflakes());
+        register(new com.anormal.client.module.impl.kuro.KuroReachCircle());
+        register(new com.anormal.client.module.impl.kuro.KuroPlayerInfo());
+        register(new com.anormal.client.module.impl.kuro.KuroItemEsp());
+        register(new com.anormal.client.module.impl.kuro.KuroNewChunks());
+        register(new com.anormal.client.module.impl.kuro.KuroNametags());
+        register(new com.anormal.client.module.impl.kuro.KuroTrailTracker());
+        register(new com.anormal.client.module.impl.kuro.KuroPlayerIndicator());
+        register(new com.anormal.client.module.impl.kuro.KuroStashFinder());
+        register(new com.anormal.client.module.impl.kuro.KuroGeodeEsp());
+        register(new com.anormal.client.module.impl.kuro.KuroBlockEsp());
+        register(new com.anormal.client.module.impl.kuro.KuroHud());
+        register(new com.anormal.client.module.impl.kuro.KuroPlayerTrails());
+        register(new com.anormal.client.module.impl.kuro.KuroCoordShare());
+        register(new com.anormal.client.module.impl.kuro.KuroJumpBubbles());
+        register(new com.anormal.client.module.impl.kuro.KuroLogoutSpots());
+        register(new com.anormal.client.module.impl.kuro.KuroNoBreakDelay());
+        register(new com.anormal.client.module.impl.kuro.KuroFreeze());
+        register(new com.anormal.client.module.impl.kuro.KuroChatTimestamps());
+        register(new com.anormal.client.module.impl.kuro.KuroChatMentions());
+        register(new com.anormal.client.module.impl.kuro.KuroUsernameHider());
+        register(new com.anormal.client.module.impl.kuro.KuroSkyModule());
+        register(new com.anormal.client.module.impl.kuro.KuroSidebarUi());
+        register(new com.anormal.client.module.impl.kuro.KuroBlobUi());
+        register(new com.anormal.client.module.impl.kuro.KuroGlassUi());
+        register(new com.anormal.client.module.impl.kuro.KuroRadialMenu());
+        register(new com.anormal.client.module.impl.kuro.KuroConfigModule());
+        register(new com.anormal.client.module.impl.kuro.KuroKnifeModule());
+        register(new com.anormal.client.module.impl.kuro.KuroFreecam());
     }
 
     public static void register(Module module) {
@@ -326,6 +446,29 @@ public class ModuleManager {
     }
 
     public static void onTick() {
+        // Kuro tick-start hook (kuro START_CLIENT_TICK'dagi ish): ushlangan hujum
+        // paketlari hech qanday modul ishga tushmasidan oldin chiqadi, vanilla
+        // harakat paketi bilan bir xil sim-tartibida.
+        MinecraftClient kuroMc = MinecraftClient.getInstance();
+        try {
+            // Rotatsiya delta trackeri: har bir tick HEAD'ida yangilanadi, graf
+            // kutayotgan modullar ishlaganda aynan "o'tgan tick'dagi delta"ni
+            // ko'rsatadi (Grim DuplicateRotPlace bypass). Dunyadan chiqib ketganda
+            // namunalar eskiradi — clear qilamiz.
+            if (kuroMc != null && kuroMc.player != null) {
+                com.anormal.client.util.kuro.KuroRotationConvergenceTracker.update();
+            } else {
+                com.anormal.client.util.kuro.KuroRotationConvergenceTracker.reset();
+            }
+            com.anormal.client.util.kuro.KuroSwapStateManager.tickEarly();
+            com.anormal.client.util.kuro.KuroTickPhase.startTick();
+            com.anormal.client.util.kuro.KuroSwapLimit.nextTick();
+            com.anormal.client.util.kuro.KuroServerSync.nextTick();
+            com.anormal.client.module.impl.kuro.KuroAttackPackets.flush();
+            com.anormal.client.util.kuro.KuroCombatControl.tick();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
         for (Module module : modules) {
             try {
                 // Background hooks run even when the module is off (toggle keys, caches).
@@ -339,6 +482,32 @@ public class ModuleManager {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        }
+        // Tick POST: tayyorlangan hotbar qaytishlari modullar ishini chalg'itmasligi
+        // uchun barcha onTick'lar bitib keyin bajariladi.
+        try {
+            com.anormal.client.util.kuro.KuroSwapStateManager.tickPost();
+            if (kuroMc == null || kuroMc.player == null) {
+                com.anormal.client.util.kuro.KuroSwapStateManager.clear();
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    /**
+     * Tick START phase (START_CLIENT_TICK), i.e. before vanilla reads the input and moves the player.
+     * kuro's modules hang their movement work off this phase (kuro: {@code onPreTick}), so a port that
+     * sets velocity or holds a key does it in the same order the original did.
+     */
+    public static void onPreTick() {
+        for (Module module : modules) {
+            if (!module.isEnabled()) continue;
+            try {
+                module.onPreTick();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

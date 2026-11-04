@@ -44,7 +44,7 @@ public class Notifications extends Module {
     public final BooleanSetting sound = new BooleanSetting("Sound", "Play a click when a notification appears", false);
 
     public Notifications() {
-        super("Notifications", "Smooth animated toasts for module toggles", Category.CLIENT);
+        super("Notifications", "Smooth animated toasts for module toggles", Category.LEGIT);
         addSetting(position);
         addSetting(duration);
         addSetting(maxVisible);

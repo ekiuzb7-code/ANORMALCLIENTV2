@@ -8,175 +8,218 @@ import com.anormal.client.setting.NumberSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.minecraft.util.math.Vec3d;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * FakeLag — Ported directly from Vape v4.21 (gg.vape.module.world.FakeLag).
+ *
+ * <p>Supports all 3 Vape v4.21 modes:
+ * <ul>
+ *   <li><b>Latency:</b> Delays outgoing movement packets by a fixed/configurable time window.</li>
+ *   <li><b>Dynamic:</b> Holds packets dynamically based on distance & angle to the current combat target.</li>
+ *   <li><b>Repel:</b> Queues combat & movement packets on attack to create a repel/kb delay advantage.</li>
+ * </ul>
+ */
 public class FakeLag extends Module {
-    public final ModeSetting style = new ModeSetting("Style", "V1 or V2 implementation", "V1", "V1", "V2");
+    public final ModeSetting mode = new ModeSetting("Mode", "Latency constant, Dynamic combat, Repel keeps distance",
+            "Latency", "Latency", "Dynamic", "Repel");
 
-    // --- V1 settings ---
-    public final ModeSetting mode = new ModeSetting("Mode", "Latency constant, Dynamic combat, Repel keeps distance", "Latency", "Latency", "Dynamic", "Repel");
-    public final NumberSetting delay = new NumberSetting("Delay", "Packet hold time in milliseconds", 100.0, 20.0, 1000.0, 10.0);
-    public final NumberSetting transmissionOffset = new NumberSetting("Transmission Offset", "Extra hold for Repel mode", 40.0, 0.0, 200.0, 10.0);
+    public final NumberSetting delay = new NumberSetting("Delay", "Packet hold time in milliseconds",
+            100.0, 10.0, 1000.0, 10.0);
 
-    // --- V2 settings ---
-    public final ModeSetting lbMode = new ModeSetting("V2 Mode", "Constant lags always, Dynamic only near enemies", "Dynamic", "Constant", "Dynamic");
-    public final NumberSetting lbRange = new NumberSetting("V2 Range", "Enemy distance triggering lag", 3.5, 1.0, 10.0, 0.5);
-    public final NumberSetting lbMinDelay = new NumberSetting("V2 Min Delay", "Min hold time (ms)", 300.0, 0.0, 1000.0, 25.0);
-    public final NumberSetting lbMaxDelay = new NumberSetting("V2 Max Delay", "Max hold time (ms)", 300.0, 0.0, 1000.0, 25.0);
-    public final NumberSetting recoilTime = new NumberSetting("Recoil", "Cooldown after flush", 0.0, 0.0, 1000.0, 25.0);
+    public final NumberSetting transmissionOffset = new NumberSetting("Transmission Offset", "Extra delay for Repel/Dynamic",
+            40.0, 0.0, 200.0, 10.0);
 
-    public final BooleanSetting flushOnHurt = new BooleanSetting("Flush On Hurt", "Release packets when damaged", true);
+    public final BooleanSetting flushOnHurt = new BooleanSetting("Flush On Hurt", "Release packets immediately when taking damage", true);
 
-    private static final List<Packet<?>> QUEUE = new ArrayList<>();
-    private static boolean flushing = false;
-    private volatile boolean holding = false;
-    private long holdStart = 0;
-    private long holdFor = 100;
-    private long recoilUntil = 0;
+    private static final class QueuedPacket {
+        final Packet<?> packet;
+        final long sendTime;
+
+        QueuedPacket(Packet<?> packet, long sendTime) {
+            this.packet = packet;
+            this.sendTime = sendTime;
+        }
+    }
+
+    private final Queue<QueuedPacket> pendingPackets = new ConcurrentLinkedQueue<>();
+    private static volatile boolean flushing = false;
+
+    private LivingEntity targetEntity = null;
+    private long flushDeadline = 0L;
+    private Vec3d lastPositionSnapshot = null;
 
     public FakeLag() {
-        super("FakeLag", "Holds movement packets: server sees your old position", Category.WORLD);
-        addSetting(style);
+        super("FakeLag", "Vape v4.21 FakeLag: simulates lag via packet delay buffers", Category.WORLD);
         addSetting(mode);
         addSetting(delay);
         addSetting(transmissionOffset);
-        addSetting(lbMode);
-        addSetting(lbRange);
-        addSetting(lbMinDelay);
-        addSetting(lbMaxDelay);
-        addSetting(recoilTime);
         addSetting(flushOnHurt);
     }
 
     @Override
     public void onEnable() {
-        holding = false;
-        holdStart = 0;
-        recoilUntil = 0;
+        flushing = false;
+        pendingPackets.clear();
+        targetEntity = null;
+        flushDeadline = 0L;
+        lastPositionSnapshot = null;
     }
 
     @Override
     public void onDisable() {
         flush();
-        holding = false;
+        pendingPackets.clear();
+        targetEntity = null;
     }
 
     @Override
     public void onTick() {
-        if (mc.player == null || mc.world == null) return;
+        if (mc.player == null || mc.world == null) {
+            flush();
+            return;
+        }
+
         long now = System.currentTimeMillis();
 
-        if (flushOnHurt.isEnabled() && mc.player.hurtTime > 0 && !QUEUE.isEmpty()) {
+        // Flush on hurt (matches Vape v4.21)
+        if (flushOnHurt.isEnabled() && mc.player.hurtTime > 0 && !pendingPackets.isEmpty()) {
             flush();
-            holding = false;
-            recoilUntil = now + (style.is("V2") ? recoilTime.getValue().longValue() : 0);
             return;
         }
 
-        if (holding) {
-            if (now - holdStart >= holdFor) {
+        // Repel mode target tracking & hurt-time check
+        if (mode.is("Repel") && targetEntity != null) {
+            if (!targetEntity.isAlive() || now >= flushDeadline || (targetEntity.hurtTime > 0 && targetEntity.hurtTime <= 3)) {
                 flush();
-                holding = false;
-                if (style.is("V2")) recoilUntil = now + recoilTime.getValue().longValue();
+                targetEntity = null;
             }
-            return;
         }
 
-        if (now < recoilUntil) return;
-
-        int holdMs = style.is("V2") ? lbHoldMs() : vapeHoldMs();
-        if (holdMs > 0) {
-            holdFor = holdMs;
-            holdStart = now;
-            holding = true;
-        }
+        // Flush expired packets in FIFO order
+        dispatchExpired(now);
     }
 
-    // ---------- V1 branch ----------
-    private int vapeHoldMs() {
-        int base = Math.max(20, delay.getValue().intValue());
+    private void dispatchExpired(long now) {
+        if (flushing || pendingPackets.isEmpty()) return;
+        flushing = true;
         try {
-            if (mode.is("Latency")) return base;
-            LivingEntity near = nearestEnemy(8.0);
-            if (mode.is("Dynamic")) {
-                if (near == null) return 0;
-                double d = mc.player.distanceTo(near);
-                double factor = Math.max(0.4, Math.min(1.6, 1.6 - d / 8.0));
-                return Math.max(20, (int) (base * factor));
-            }
-            if (near == null || mc.player.distanceTo(near) > 6.0) return 0;
-            return base + Math.max(0, transmissionOffset.getValue().intValue());
-        } catch (Throwable ignored) {
-            return base;
-        }
-    }
-
-    // ---------- V2 branch ----------
-    private int lbHoldMs() {
-        try {
-            boolean wantHold = lbMode.is("Constant") || nearestEnemy(lbRange.getValue()) != null;
-            if (!wantHold) return 0;
-            double min = Math.min(lbMinDelay.getValue(), lbMaxDelay.getValue());
-            double max = Math.max(lbMinDelay.getValue(), lbMaxDelay.getValue());
-            return Math.max(20, (int) (min + Math.random() * Math.max(1.0, max - min)));
-        } catch (Throwable ignored) {
-            return 0;
-        }
-    }
-
-    private LivingEntity nearestEnemy(double range) {
-        try {
-            LivingEntity best = null;
-            double bestDist = range;
-            for (Entity e : mc.world.getEntities()) {
-                if (e instanceof LivingEntity living && e != mc.player && living.isAlive()) {
-                    double d = mc.player.distanceTo(living);
-                    if (d < bestDist) {
-                        bestDist = d;
-                        best = living;
-                    }
+            Iterator<QueuedPacket> iterator = pendingPackets.iterator();
+            while (iterator.hasNext()) {
+                QueuedPacket qp = iterator.next();
+                if (now < qp.sendTime) break;
+                if (mc.getNetworkHandler() != null) {
+                    mc.getNetworkHandler().getConnection().send(qp.packet, null);
                 }
-            }
-            return best;
-        } catch (Throwable ignored) {
-            return null;
-        }
-    }
-
-    // Called by NetworkMixin on the network thread
-    public static synchronized void queue(Packet<?> packet) {
-        if (QUEUE.size() < 2000) QUEUE.add(packet);
-    }
-
-    public static synchronized boolean isFlushing() {
-        return flushing;
-    }
-
-    public boolean isHolding() {
-        return isEnabled() && holding;
-    }
-
-    public static synchronized void flush() {
-        if (QUEUE.isEmpty()) return;
-        try {
-            if (net.minecraft.client.MinecraftClient.getInstance().getNetworkHandler() == null) {
-                QUEUE.clear();
-                return;
-            }
-            flushing = true;
-            List<Packet<?>> copy = new ArrayList<>(QUEUE);
-            QUEUE.clear();
-            for (Packet<?> p : copy) {
-                try {
-                    net.minecraft.client.MinecraftClient.getInstance().getNetworkHandler().sendPacket(p);
-                } catch (Throwable ignored) {}
+                iterator.remove();
             }
         } catch (Throwable ignored) {
-            QUEUE.clear();
         } finally {
             flushing = false;
         }
+    }
+
+    public void flush() {
+        if (pendingPackets.isEmpty()) return;
+        flushing = true;
+        try {
+            while (!pendingPackets.isEmpty()) {
+                QueuedPacket qp = pendingPackets.poll();
+                if (qp != null && mc.getNetworkHandler() != null) {
+                    mc.getNetworkHandler().getConnection().send(qp.packet, null);
+                }
+            }
+        } catch (Throwable ignored) {
+        } finally {
+            flushing = false;
+        }
+    }
+
+    public boolean shouldQueuePacket(Packet<?> packet) {
+        if (flushing || mc.player == null || mc.world == null) return false;
+        if (!(packet instanceof PlayerMoveC2SPacket)) return false;
+
+        long now = System.currentTimeMillis();
+        long baseDelay = delay.getValue().longValue();
+
+        if (mode.is("Latency")) {
+            long sendTime = now + baseDelay;
+            pendingPackets.add(new QueuedPacket(packet, sendTime));
+            return true;
+        }
+
+        if (mode.is("Repel")) {
+            if (targetEntity != null && targetEntity.isAlive()) {
+                long sendTime = now + baseDelay + transmissionOffset.getValue().longValue() + ThreadLocalRandom.current().nextInt(50);
+                pendingPackets.add(new QueuedPacket(packet, sendTime));
+                return true;
+            }
+            return false;
+        }
+
+        // Dynamic mode (matches Vape v4.21 FakeLagPacketDelaySubModule)
+        if (mode.is("Dynamic")) {
+            LivingEntity enemy = nearestEnemy(8.0);
+            if (enemy == null) {
+                dispatchExpired(now);
+                return false;
+            }
+
+            double dist = mc.player.distanceTo(enemy);
+            Vec3d currentPos = new Vec3d(mc.player.getX(), mc.player.getY(), mc.player.getZ());
+            Vec3d enemyPos = new Vec3d(enemy.getX(), enemy.getY(), enemy.getZ());
+
+            // If player is moving away from target, release packets
+            if (lastPositionSnapshot != null) {
+                double prevDist = lastPositionSnapshot.distanceTo(enemyPos);
+                if (dist > prevDist + 0.03) {
+                    flush();
+                    lastPositionSnapshot = currentPos;
+                    return false;
+                }
+            }
+            lastPositionSnapshot = currentPos;
+
+            long sendTime = now + baseDelay + transmissionOffset.getValue().longValue();
+            pendingPackets.add(new QueuedPacket(packet, sendTime));
+            return true;
+        }
+
+        return false;
+    }
+
+    public void onAttack(Entity target) {
+        if (target instanceof LivingEntity living) {
+            this.targetEntity = living;
+            long extra = (long) ThreadLocalRandom.current().nextInt(100);
+            this.flushDeadline = System.currentTimeMillis() + delay.getValue().longValue() + extra;
+        }
+    }
+
+    private LivingEntity nearestEnemy(double maxDist) {
+        if (mc.world == null || mc.player == null) return null;
+        LivingEntity best = null;
+        double bestDist = maxDist;
+        for (Entity e : mc.world.getEntities()) {
+            if (e instanceof LivingEntity living && e != mc.player && living.isAlive()) {
+                double d = mc.player.distanceTo(living);
+                if (d < bestDist) {
+                    bestDist = d;
+                    best = living;
+                }
+            }
+        }
+        return best;
+    }
+
+    public static boolean isFlushing() {
+        return flushing;
     }
 }

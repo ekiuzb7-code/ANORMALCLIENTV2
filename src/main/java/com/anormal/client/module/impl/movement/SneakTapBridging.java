@@ -57,8 +57,17 @@ public class SneakTapBridging extends Module {
             "Follow Input", "Follow Input", "Follow View");
 
     public final ModeSetting rotationMode = new ModeSetting("Rotation Mode",
-            "Silent turns to the block only for the click, Visible keeps the camera there, None never turns (detectable)",
-            "Silent", "Silent", "Visible", "None");
+            "Visible turns camera to block edge (like video), Silent turns only for packet, None leaves camera alone",
+            "Visible", "Visible", "Silent", "None");
+
+    public final BooleanSetting autoAim = new BooleanSetting("Auto Aim",
+            "Turns camera to face the bridge placement edge (like video)", true);
+
+    public final NumberSetting aimPitch = new NumberSetting("Aim Pitch",
+            "Camera pitch angle when aiming at the edge", 79.5, 65.0, 88.0, 0.5);
+
+    public final BooleanSetting fastSneakTap = new BooleanSetting("Fast Sneak-Tap",
+            "Instantly sneak at edge, place block, and immediately stand up (video speedbridge)", true);
 
     public final NumberSetting startDelay = new NumberSetting("Start Delay",
             "Milliseconds to wait after the module turns on", 0.0, 0.0, 3000.0, 50.0);
@@ -82,8 +91,8 @@ public class SneakTapBridging extends Module {
     //  Sneak timing
     // ------------------------------------------------------------------
     public final ModeSetting sneakMode = new ModeSetting("Sneak Mode",
-            "Which sneak behaviour to use", "Sneak-Tap",
-            "Manual", "Sneak-Tap", "Continuous Sneak", "Auto Edge Sneak");
+            "Which sneak behaviour to use", "Speedbridge (Video)",
+            "Speedbridge (Video)", "Sneak-Tap", "Manual", "Continuous Sneak", "Auto Edge Sneak");
 
     public final ModeSetting timingMode = new ModeSetting("Timing Mode",
             "Fixed uses the durations as-is, Adaptive learns from placements, Place Sync waits for the block",
@@ -324,6 +333,9 @@ public class SneakTapBridging extends Module {
         addSetting(directionMode);
         addSetting(buildDirection);
         addSetting(rotationMode);
+        addSetting(autoAim);
+        addSetting(aimPitch);
+        addSetting(fastSneakTap);
         addSetting(startDelay);
         addSetting(onlyWhileMoving);
         addSetting(onlyWithBlocks);
@@ -637,6 +649,11 @@ public class SneakTapBridging extends Module {
     // ==================================================================
 
     private void tickSneak(long now, boolean hasBlocks) {
+        if (sneakMode.is("Speedbridge (Video)") || fastSneakTap.isEnabled()) {
+            handleSpeedbridge(now, hasBlocks);
+            return;
+        }
+
         boolean want;
 
         if (sneakMode.is("Manual")) {
@@ -658,6 +675,93 @@ public class SneakTapBridging extends Module {
             return;
         }
         applyKey(K_SNEAK, want);
+    }
+
+    private void handleSpeedbridge(long now, boolean hasBlocks) {
+        if (autoAim.isEnabled() && (playerMoving() || autoMovementWanted())) {
+            applyAutoAim();
+        }
+
+        boolean nearEdge = isNearEdge();
+        if (nearEdge) {
+            applyKey(K_SNEAK, true);
+            sneakPhase = true;
+            if (hasBlocks && autoPlaceBlock.isEnabled()) {
+                tickFastPlacement(now);
+            }
+        } else {
+            // Quickly stand up (un-sneak) when walking across block, like in the video
+            if (now - lastPlaceAt > 50L) {
+                applyKey(K_SNEAK, false);
+                sneakPhase = false;
+            }
+        }
+    }
+
+    private void applyAutoAim() {
+        if (mc.player == null) return;
+        float currentYaw = mc.player.getYaw();
+        float snappedYaw = Math.round(currentYaw / 45.0f) * 45.0f;
+        float targetPitch = aimPitch.getValue().floatValue();
+        mc.player.setYaw(snappedYaw);
+        mc.player.setPitch(targetPitch);
+    }
+
+    private boolean isNearEdge() {
+        if (mc.player == null || mc.world == null || !mc.player.isOnGround()) return false;
+        double px = mc.player.getX();
+        double py = mc.player.getY();
+        double pz = mc.player.getZ();
+
+        double dirX = stepX;
+        double dirZ = stepZ;
+        if (dirX == 0 && dirZ == 0) {
+            double rad = Math.toRadians(bridgeYaw);
+            dirX = -Math.sin(rad);
+            dirZ = Math.cos(rad);
+        }
+
+        double testX = px + Math.signum(dirX) * 0.32;
+        double testZ = pz + Math.signum(dirZ) * 0.32;
+        BlockPos testPos = BlockPos.ofFloored(testX, py - 0.5, testZ);
+        return isReplaceableAt(testPos);
+    }
+
+    private void tickFastPlacement(long now) {
+        if (now - lastPlaceAt < ms(placementDelay)) return;
+        ensureBlockSlot();
+        BlockPos ground = mc.player.getBlockPos().down();
+        Direction face = getBridgeFace();
+        if (face == null) return;
+        BlockPos target = ground.offset(face);
+        if (!isReplaceableAt(target)) return;
+
+        Vec3d hitVec = new Vec3d(
+                ground.getX() + 0.5 + face.getOffsetX() * 0.5,
+                ground.getY() + 0.85,
+                ground.getZ() + 0.5 + face.getOffsetZ() * 0.5
+        );
+        BlockHitResult hit = new BlockHitResult(hitVec, face, ground, false);
+        var result = mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, hit);
+        if (result.isAccepted()) {
+            mc.player.swingHand(Hand.MAIN_HAND);
+            lastPlaceAt = now;
+        }
+    }
+
+    private Direction getBridgeFace() {
+        BlockPos ground = mc.player.getBlockPos().down();
+        if (stepZ != 0 && isReplaceableAt(ground.add(0, 0, stepZ))) {
+            return stepZ > 0 ? Direction.SOUTH : Direction.NORTH;
+        }
+        if (stepX != 0 && isReplaceableAt(ground.add(stepX, 0, 0))) {
+            return stepX > 0 ? Direction.EAST : Direction.WEST;
+        }
+        float yaw = MathHelper.wrapDegrees(mc.player.getYaw());
+        if (yaw >= -45 && yaw <= 45) return Direction.NORTH;
+        if (yaw > 45 && yaw <= 135) return Direction.EAST;
+        if (yaw < -45 && yaw >= -135) return Direction.WEST;
+        return Direction.SOUTH;
     }
 
     private boolean sneakTapPhase(long now) {
