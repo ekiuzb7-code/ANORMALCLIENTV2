@@ -45,6 +45,11 @@ public class SusChunkFeedMixin {
 
             SusChunkCache.get().setLoaded(cx, cz, true);
 
+            // Spectre section: Quantum compares the re-sent chunk against its snapshot on the next tick.
+            com.anormal.client.module.impl.spectre.SpectreQuantum.onChunkData(cx, cz);
+            // Spectre section: Render Util keeps the flagged chunk set that Quantum fills.
+            com.anormal.client.module.impl.spectre.SpectreRenderUtil.flag(cx, cz);
+
             List<?> list = ((ChunkDataAccessor) (Object) data).anormal$getBlockEntities();
             if (list == null) return;
 

@@ -24,7 +24,12 @@ public enum Category {
      * Not a module list - selecting this tab shows the author credits instead.
      * The GUI checks for this constant explicitly.
      */
-    DEVELOPER("Developer", "★");
+    DEVELOPER("Developer", "★"),
+    /**
+     * Not a module list either - shows every module that currently carries a keybind, with the
+     * bound key, a clear button and a global "Unbind All".
+     */
+    KEYBINDS("Keybinds", "⌨");
 
     private final String name;
     private final String icon;
@@ -51,5 +56,10 @@ public enum Category {
     /** True when this tab shows the credits panel instead of modules. */
     public boolean isInfoOnly() {
         return this == DEVELOPER;
+    }
+
+    /** True when this tab is drawn by its own panel instead of the module list. */
+    public boolean isCustomPanel() {
+        return this == DEVELOPER || this == KEYBINDS;
     }
 }

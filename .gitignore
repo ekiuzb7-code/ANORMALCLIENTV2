@@ -1,6 +1,8 @@
 # Gradle build & cache directories
+# NOTE: anchored to the repo root — a bare "build/" also ignored the
+# src/main/java/.../autobuilder2/build source package, which broke CI.
 .gradle/
-build/
+/build/
 out/
 bin/
 

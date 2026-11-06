@@ -25,6 +25,12 @@ public class XRayMixin {
     @Inject(method = "getRenderType", at = @At("HEAD"), cancellable = true, require = 0)
     private void anormal$getRenderType(CallbackInfoReturnable<BlockRenderType> cir) {
         try {
+            // Spectre section: the Spectre X-Ray port owns its own ore set and answers first.
+            if (com.anormal.client.module.impl.spectre.SpectreXray.hidesBlock((BlockState) (Object) this)) {
+                cir.setReturnValue(BlockRenderType.INVISIBLE);
+                return;
+            }
+
             XRay xray = ModuleManager.getModule(XRay.class);
             if (xray == null || !xray.isEnabled() || !xray.isRealHiding()) return;
 

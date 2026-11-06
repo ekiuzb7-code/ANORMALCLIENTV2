@@ -27,10 +27,21 @@ public class EntityRendererMixin {
                                       CallbackInfoReturnable<Boolean> cir) {
         try {
             if (entity == null) return;
+            // Spectre section: No Render can hide falling blocks entirely.
+            if (entity instanceof net.minecraft.entity.FallingBlockEntity
+                    && com.anormal.client.module.impl.spectre.SpectreNoRender.hideFallingBlocks()) {
+                cir.setReturnValue(false);
+                return;
+            }
             if (FogCull.shouldCull(entity)
                     || SmartCulling.shouldCull(entity)
                     || EntityLodOptimizer.shouldHide(entity)) {
                 cir.setReturnValue(false);
+                return;
+            }
+            // Spectre section: SpectrePerformance turns the view-frustum skip on and off.
+            if (!com.anormal.client.module.impl.spectre.SpectrePerformance.frustumCulling()) {
+                cir.setReturnValue(true);
             }
         } catch (Throwable ignored) {
         }

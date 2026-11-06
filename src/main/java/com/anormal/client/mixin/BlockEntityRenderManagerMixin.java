@@ -30,6 +30,12 @@ public class BlockEntityRenderManagerMixin {
         try {
             if (state == null || state.pos == null) return;
             String type = state.type == null ? "" : state.type.toString();
+            // Spectre section: No Render - hide the spinning mob inside spawners.
+            if (type.contains("spawner")
+                    && com.anormal.client.module.impl.spectre.SpectreNoRender.hideSpawnerMob()) {
+                ci.cancel();
+                return;
+            }
             if (BlockEntityOptimizer.shouldCull(state.pos, type)) ci.cancel();
         } catch (Throwable ignored) {
         }

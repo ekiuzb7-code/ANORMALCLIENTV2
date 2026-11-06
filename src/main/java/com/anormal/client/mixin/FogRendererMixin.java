@@ -56,10 +56,29 @@ public class FogRendererMixin {
     private static float adjust(int slot, float original) {
         try {
             NoFog noFog = ModuleManager.getModule(NoFog.class);
-            if (noFog == null || !noFog.isEnabled()) return original;
-            return noFog.adjustFog(slot, original);
+            if (noFog != null && noFog.isEnabled()) return noFog.adjustFog(slot, original);
+
+            // Spectre section: No Render - push the lava fog out of sight while submerged.
+            if (ScreenFog.hideLavaFog()) return LAVA_FOG_DISTANCE;
+            return original;
         } catch (Throwable ignored) {
             return original;
+        }
+    }
+
+    /** Slot values are distances; anything past the render distance is "no fog". */
+    private static final float LAVA_FOG_DISTANCE = 4096.0F;
+
+    private static final class ScreenFog {
+        private static boolean hideLavaFog() {
+            try {
+                if (!com.anormal.client.module.impl.spectre.SpectreNoRender.hideLavaFog()) return false;
+                var mc = net.minecraft.client.MinecraftClient.getInstance();
+                var player = mc.player;
+                return player != null && player.isSubmergedIn(net.minecraft.registry.tag.FluidTags.LAVA);
+            } catch (Throwable ignored) {
+                return false;
+            }
         }
     }
 }

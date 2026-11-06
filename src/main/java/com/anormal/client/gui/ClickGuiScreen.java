@@ -316,9 +316,11 @@ public class ClickGuiScreen extends Screen {
             context.disableScissor();
         } catch (Throwable ignored) {}
 
-        // Developer tab: author credits instead of a module list.
+        // Panels that replace the module list entirely.
         if (infoOnly) {
             renderDeveloperPanel(context, contentX, contentY, contentWidth, contentHeight, mouseX, mouseY);
+        } else if (currentCategory == Category.KEYBINDS) {
+            renderKeybindsPanel(context, contentX, contentY, contentWidth, contentHeight, mouseX, mouseY);
         }
 
         // Scrollbar track & thumb
@@ -449,6 +451,9 @@ public class ClickGuiScreen extends Screen {
             if (mouseX >= sidebarX + 4 && mouseX <= sidebarX + sidebarWidth - 4 && mouseY >= tabY && mouseY <= tabY + tabHeight) {
                 currentCategory = category;
                 scrollOffset = 0;
+                kbScroll = 0;
+                expandedMode = null;
+                expandedMulti = null;
                 return;
             }
             tabY += tabPitch;
@@ -468,6 +473,12 @@ public class ClickGuiScreen extends Screen {
         // Developer tab: the credit rows are clickable to copy the handle.
         if (currentCategory.isInfoOnly()) {
             if (button == 0) handleDeveloperClick(mouseX, mouseY);
+            return;
+        }
+
+        // Keybinds tab: its own list of bound modules.
+        if (currentCategory == Category.KEYBINDS) {
+            handleKeybindsClick(mouseX, mouseY, button, contentX, contentY, contentWidth, contentHeight);
             return;
         }
 
@@ -750,6 +761,202 @@ public class ClickGuiScreen extends Screen {
             return true;
         }
         return false;
+    }
+
+    // ------------------------------------------------------------------
+    //  Keybinds tab
+    // ------------------------------------------------------------------
+
+    /** Scroll position of the keybind list (independent from the module list). */
+    private int kbScroll = 0;
+    private int kbMaxScroll = 0;
+    private static final int KB_ROW_H = 20;
+    private static final int KB_ROW_GAP = 3;
+
+    /** Every module that currently carries a keybind, filtered by the search box. */
+    private List<Module> keybindModules() {
+        String q = searchQuery.toLowerCase();
+        return ModuleManager.getModules().stream()
+                .filter(m -> m.getKey() != GLFW.GLFW_KEY_UNKNOWN)
+                .filter(m -> q.isEmpty()
+                        || m.getName().toLowerCase().contains(q)
+                        || com.anormal.client.i18n.I18n.tr(m.getName()).toLowerCase().contains(q)
+                        || m.getKeybindSetting().getKeyName().toLowerCase().contains(q))
+                .sorted(java.util.Comparator.comparing(
+                        m -> com.anormal.client.i18n.I18n.tr(m.getName()), String.CASE_INSENSITIVE_ORDER))
+                .toList();
+    }
+
+    private int kbRowY(int contentY, int index) {
+        return contentY + 30 + index * (KB_ROW_H + KB_ROW_GAP) - kbScroll;
+    }
+
+    private int kbRowX(int contentX) {
+        return contentX + 8;
+    }
+
+    private int kbRowW(int contentWidth) {
+        return contentWidth - 16;
+    }
+
+    /** Clears every keybind except the ones the client itself needs (GUI key). */
+    private void unbindAllKeybinds() {
+        for (Module m : ModuleManager.getModules()) {
+            if (m.getKey() == GLFW.GLFW_KEY_UNKNOWN) continue;
+            if (com.anormal.client.module.impl.client.ClientSettings.isBindLocked(m)) continue;
+            m.setKey(GLFW.GLFW_KEY_UNKNOWN);
+        }
+        kbScroll = 0;
+    }
+
+    private void renderKeybindsPanel(DrawContext context, int x, int y, int w, int h,
+                                     int mouseX, int mouseY) {
+        List<Module> bound = keybindModules();
+
+        // Header: title + count on the left, "Unbind All" on the right.
+        String title = "\u2328 " + com.anormal.client.i18n.I18n.tr("Keybinds") + " (" + bound.size() + ")";
+        RenderUtils.drawText(context, textRenderer, title, x + 10, y + 10, 0xFFFFFFFF, true);
+
+        int btnW = 88;
+        int btnH = 16;
+        int btnX = x + w - btnW - 8;
+        int btnY = y + 6;
+        boolean btnHover = mouseX >= btnX && mouseX <= btnX + btnW && mouseY >= btnY && mouseY <= btnY + btnH;
+        boolean anyBound = ModuleManager.getModules().stream()
+                .anyMatch(m -> m.getKey() != GLFW.GLFW_KEY_UNKNOWN
+                        && !com.anormal.client.module.impl.client.ClientSettings.isBindLocked(m));
+        RenderUtils.fill(context, btnX, btnY, btnX + btnW, btnY + btnH,
+                btnHover && anyBound ? ColorUtils.rgba(200, 60, 60, 230) : ColorUtils.rgba(24, 27, 35, 220));
+        RenderUtils.drawBorder(context, btnX, btnY, btnX + btnW, btnY + btnH, 1,
+                btnHover && anyBound ? 0xFFFF8888 : ThemeManager.getBorderColor());
+        RenderUtils.drawText(context, textRenderer, "\u2716 " + com.anormal.client.i18n.I18n.tr("Unbind All"),
+                btnX + 6, btnY + 4, anyBound ? 0xFFFFFFFF : 0xFF777777, true);
+
+        int listTop = y + 30;
+        int listBottom = y + h - 4;
+        int visibleH = Math.max(1, listBottom - listTop);
+
+        int total = bound.size() * (KB_ROW_H + KB_ROW_GAP);
+        kbMaxScroll = Math.max(0, total - visibleH);
+        kbScroll = Math.max(0, Math.min(kbScroll, kbMaxScroll));
+
+        try {
+            context.enableScissor(x + 1, listTop, x + w - 2, listBottom);
+        } catch (Throwable ignored) {
+        }
+
+        if (bound.isEmpty()) {
+            String empty = searchQuery.isEmpty()
+                    ? com.anormal.client.i18n.I18n.tr("No keybinds set")
+                    : com.anormal.client.i18n.I18n.tr("Nothing matches the search");
+            RenderUtils.drawText(context, textRenderer, "\u00a78" + empty,
+                    x + (w - textRenderer.getWidth(empty)) / 2, listTop + 24, 0xFF888888, true);
+        }
+
+        int rowX = kbRowX(x);
+        int rowW = kbRowW(w);
+        for (int i = 0; i < bound.size(); i++) {
+            Module module = bound.get(i);
+            int rowY = kbRowY(y, i);
+            if (rowY + KB_ROW_H < listTop || rowY > listBottom) continue;
+
+            boolean hovered = mouseX >= rowX && mouseX <= rowX + rowW
+                    && mouseY >= rowY && mouseY <= rowY + KB_ROW_H;
+
+            RenderUtils.fill(context, rowX, rowY, rowX + rowW, rowY + KB_ROW_H,
+                    hovered ? ColorUtils.rgba(34, 38, 50, 240) : ColorUtils.rgba(20, 22, 28, 220));
+            RenderUtils.drawBorder(context, rowX, rowY, rowX + rowW, rowY + KB_ROW_H, 1,
+                    module.isEnabled() ? ThemeManager.getAccentColor() : ColorUtils.rgba(42, 47, 60, 200));
+
+            // Enabled modules keep the accent strip so the list reads like the module cards.
+            if (module.isEnabled()) {
+                RenderUtils.fill(context, rowX, rowY, rowX + 3, rowY + KB_ROW_H, ThemeManager.getAccentColor());
+            }
+
+            String name = com.anormal.client.i18n.I18n.tr(module.getName());
+            RenderUtils.drawText(context, textRenderer, name, rowX + 9, rowY + 6,
+                    module.isEnabled() ? 0xFFFFFFFF : ThemeManager.getTextColor(false), true);
+
+            String category = com.anormal.client.i18n.I18n.tr(module.getCategory().getRawName());
+            RenderUtils.drawText(context, textRenderer, "\u00a78" + category,
+                    rowX + 9 + textRenderer.getWidth(name) + 8, rowY + 6, 0xFF7A8090, false);
+
+            // Key badge: click to rebind, "x" to clear.
+            boolean locked = com.anormal.client.module.impl.client.ClientSettings.isBindLocked(module);
+            boolean listening = listeningSetting == module.getKeybindSetting();
+            String keyStr = listening ? "[...]" : "[" + module.getKeybindSetting().getKeyName() + "]";
+            int kw = textRenderer.getWidth(keyStr);
+            int clearW = locked ? 0 : 14;
+            int badgeX = rowX + rowW - kw - 10 - clearW;
+            RenderUtils.fill(context, badgeX - 4, rowY + 4, badgeX + kw + 4, rowY + KB_ROW_H - 4,
+                    listening ? ColorUtils.rgba(70, 60, 20, 230) : ColorUtils.rgba(30, 33, 42, 220));
+            RenderUtils.drawText(context, textRenderer, keyStr, badgeX, rowY + 6,
+                    listening ? 0xFFFFDD55 : 0xFFDDDDDD, true);
+
+            if (!locked) {
+                int cx = rowX + rowW - clearW - 2;
+                boolean hovClear = mouseX >= cx && mouseX <= cx + 12
+                        && mouseY >= rowY + 4 && mouseY <= rowY + KB_ROW_H - 4;
+                RenderUtils.fill(context, cx, rowY + 4, cx + 12, rowY + KB_ROW_H - 4,
+                        hovClear ? ColorUtils.rgba(200, 60, 60, 230) : ColorUtils.rgba(38, 40, 48, 200));
+                RenderUtils.drawText(context, textRenderer, "x", cx + 4, rowY + 6,
+                        hovClear ? 0xFFFFFFFF : 0xFF999999, true);
+            }
+        }
+
+        try {
+            context.disableScissor();
+        } catch (Throwable ignored) {
+        }
+
+        // Scrollbar for long lists.
+        if (kbMaxScroll > 0) {
+            int sbX = x + w - 6;
+            int thumbH = Math.max(16, (int) (visibleH * ((float) visibleH / (float) total)));
+            int thumbY = listTop + (int) ((visibleH - thumbH) * ((float) kbScroll / (float) kbMaxScroll));
+            RenderUtils.fill(context, sbX, listTop, sbX + 4, listBottom, ColorUtils.rgba(20, 20, 25, 150));
+            RenderUtils.fill(context, sbX, thumbY, sbX + 4, thumbY + thumbH, ThemeManager.getAccentColor());
+        }
+    }
+
+    private void handleKeybindsClick(int mouseX, int mouseY, int button,
+                                     int contentX, int contentY, int contentWidth, int contentHeight) {
+        if (button != 0) return;
+
+        // "Unbind All" header button.
+        int btnW = 88;
+        int btnH = 16;
+        int btnX = contentX + contentWidth - btnW - 8;
+        int btnY = contentY + 6;
+        if (mouseX >= btnX && mouseX <= btnX + btnW && mouseY >= btnY && mouseY <= btnY + btnH) {
+            unbindAllKeybinds();
+            return;
+        }
+
+        int listTop = contentY + 30;
+        int listBottom = contentY + contentHeight - 4;
+        if (mouseY < listTop || mouseY > listBottom) return;
+
+        List<Module> bound = keybindModules();
+        int rowX = kbRowX(contentX);
+        int rowW = kbRowW(contentWidth);
+        for (int i = 0; i < bound.size(); i++) {
+            Module module = bound.get(i);
+            int rowY = kbRowY(contentY, i);
+            if (mouseY < rowY || mouseY > rowY + KB_ROW_H) continue;
+            if (mouseX < rowX || mouseX > rowX + rowW) return;
+
+            boolean locked = com.anormal.client.module.impl.client.ClientSettings.isBindLocked(module);
+            if (!locked && mouseX >= rowX + rowW - 16) {
+                module.setKey(GLFW.GLFW_KEY_UNKNOWN);
+                return;
+            }
+            // Anywhere else on the row (notably the key badge) starts listening for a new key.
+            listeningSetting = module.getKeybindSetting();
+            editingString = null;
+            expandedMode = null;
+            return;
+        }
     }
 
     private void copyToClipboard(String text) {
@@ -1068,6 +1275,10 @@ public class ClickGuiScreen extends Screen {
         // amount, then clamped to the real content bounds.
         int step = (int) Math.round(verticalAmount * 26.0);
         if (step == 0) step = verticalAmount > 0 ? 1 : -1;
+        if (currentCategory == Category.KEYBINDS) {
+            kbScroll = Math.max(0, Math.min(kbMaxScroll, kbScroll - step));
+            return true;
+        }
         scrollOffset = Math.max(0, Math.min(lastMaxScroll, scrollOffset - step));
         return true;
     }

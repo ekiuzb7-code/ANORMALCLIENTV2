@@ -30,6 +30,14 @@ public abstract class KuroHeldItemRendererMixin {
             at = @At("HEAD"), cancellable = true, require = 0)
     private void kuro$knife(LivingEntity entity, ItemStack stack, ItemDisplayContext context, MatrixStack pose,
                             OrderedRenderCommandQueue collector, int light, CallbackInfo ci) {
+        // Spectre section: Freecam can hide the hands while the camera is detached.
+        if (com.anormal.client.module.impl.spectre.SpectreFreecam.hidesHands()) {
+            ci.cancel();
+            return;
+        }
+        // Spectre section: the Spectre Hand Pose port offsets the first-person transform.
+        com.anormal.client.module.impl.spectre.SpectreHands.apply(pose, context);
+
         KuroKnifeModule knife = KuroKnifeModule.get();
         if (knife == null || !knife.isEnabled()) return;
         if (KnifeRenderer.render(stack, context, pose, collector, light, knife.size(), knife.matchMaterial(),

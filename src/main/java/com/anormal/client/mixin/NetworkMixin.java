@@ -66,6 +66,31 @@ public abstract class NetworkMixin {
                 }
             }
 
+            // Spectre-section packet modules (Air Stuck freeze, Donut NoFall replacement): the
+            // dispatcher either cancels the packet or returns a replacement for vanilla to send.
+            try {
+                boolean[] cancelled = new boolean[1];
+                net.minecraft.network.packet.Packet<?> replacement =
+                        com.anormal.client.module.impl.spectre.SpectrePackets.onSend(packet, cancelled);
+                if (cancelled[0]) {
+                    ci.cancel();
+                    return;
+                }
+                if (replacement != null && replacement != packet) {
+                    ci.cancel();
+                    if (!anormal$reSending) {
+                        anormal$reSending = true;
+                        try {
+                            sendPacket(replacement);
+                        } finally {
+                            anormal$reSending = false;
+                        }
+                    }
+                    return;
+                }
+            } catch (Throwable ignored) {
+            }
+
             // Freecam: freeze the body on the server by dropping movement packets.
             if (!(packet instanceof PlayerMoveC2SPacket)) return;
 

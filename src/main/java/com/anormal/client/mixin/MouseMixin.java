@@ -42,6 +42,11 @@ public class MouseMixin {
             if (zoom != null && zoom.isControllingScroll() && vertical != 0) {
                 zoom.onMouseScroll(vertical);
                 ci.cancel();
+                return;
+            }
+            // Spectre section: SpectreZoom scroll step while zoomed.
+            if (com.anormal.client.module.impl.spectre.SpectreZoom.scroll(vertical)) {
+                ci.cancel();
             }
         } catch (Throwable ignored) {}
     }

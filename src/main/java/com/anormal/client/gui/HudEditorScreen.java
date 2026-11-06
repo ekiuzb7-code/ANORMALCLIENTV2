@@ -54,6 +54,19 @@ public class HudEditorScreen extends Screen {
         public void setPos(int x, int y) {
             posX.setValue((double) x);
             posY.setValue((double) y);
+            // Manually placed beats auto-centred: if the module has a "Center" toggle,
+            // dragging switches it off so the stored X/Y Pos is actually used.
+            try {
+                for (Field f : module.getClass().getFields()) {
+                    if (f.getType() != com.anormal.client.setting.BooleanSetting.class) continue;
+                    com.anormal.client.setting.BooleanSetting s =
+                            (com.anormal.client.setting.BooleanSetting) f.get(module);
+                    if (s != null && "Center".equalsIgnoreCase(s.getName())) {
+                        s.setValue(false);
+                        break;
+                    }
+                }
+            } catch (Throwable ignored) {}
         }
 
         /**
@@ -337,6 +350,7 @@ public class HudEditorScreen extends Screen {
                 yield new int[]{(int) (268 * scale), (int) (92 * scale)};
             }
             case "Radar" -> new int[]{74, 74};
+            case "SpectreRegionMap" -> new int[]{90, 110};
             case "TargetInfo" -> new int[]{124, 40};
             case "InventoryOverlay" -> new int[]{170, 66};
             case "ArmorStatus" -> new int[]{72, 80};

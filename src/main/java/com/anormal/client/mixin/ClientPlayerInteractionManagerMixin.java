@@ -46,6 +46,22 @@ public class ClientPlayerInteractionManagerMixin {
             HitSwap hitSwap = ModuleManager.getModule(HitSwap.class);
             if (hitSwap != null && hitSwap.isEnabled()) hitSwap.beforeAttack(target);
 
+            // Spectre section: hit particles on every landed attack.
+            com.anormal.client.module.impl.spectre.SpectreHitParticles.onAttack(target);
+
+            // Spectre section: W Tap Recode arms its tap on every landed attack.
+            com.anormal.client.module.impl.spectre.SpectreWTapRecode.onAttack();
+            // Spectre section: Sprint's Unsprint On Hit reacts to the same hit.
+            com.anormal.client.module.impl.spectre.SpectreSprint.onAttack();
+            com.anormal.client.module.impl.spectre.SpectreTargetEsp.onAttack(target);
+            com.anormal.client.module.impl.spectre.SpectreGlowEsp.onAttack(target);
+
+            // Spectre section: Crystal Optimizer removes the crystal, Mace swaps for a smash hit.
+            com.anormal.client.module.impl.spectre.SpectreCrystalOptimizer.onAttack(target);
+            com.anormal.client.module.impl.spectre.SpectreMace spectreMace =
+                    ModuleManager.getModule(com.anormal.client.module.impl.spectre.SpectreMace.class);
+            if (spectreMace != null && spectreMace.isEnabled()) spectreMace.beforeAttack(player, target);
+
             // A manual attack is the natural way to choose a lock target.
             TargetLock targetLock = ModuleManager.getModule(TargetLock.class);
             if (targetLock != null && targetLock.isEnabled()) targetLock.lockOn(target);
@@ -79,6 +95,18 @@ public class ClientPlayerInteractionManagerMixin {
     private void kuro$keepBreaking(CallbackInfo ci) {
         try {
             if (com.anormal.client.module.impl.kuro.KuroAutoTunnel.breaking()) ci.cancel();
+        } catch (Throwable ignored) {
+        }
+    }
+
+    /**
+     * Spectre section: Friend Guard. Hitting a friend is cancelled before the packet leaves,
+     * which is the same interception point Spectre uses.
+     */
+    @Inject(method = "attackEntity", at = @At("HEAD"), cancellable = true, require = 0)
+    private void spectre$friendGuard(PlayerEntity player, Entity target, CallbackInfo ci) {
+        try {
+            if (com.anormal.client.module.impl.spectre.SpectreFriendGuard.intercepts(target)) ci.cancel();
         } catch (Throwable ignored) {
         }
     }

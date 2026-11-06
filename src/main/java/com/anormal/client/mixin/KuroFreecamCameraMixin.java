@@ -33,6 +33,15 @@ public abstract class KuroFreecamCameraMixin {
             setRotation(f.yaw, f.pitch);
             setPos(f.lx(tickProgress), f.ly(tickProgress), f.lz(tickProgress));
         }
+
+        // Spectre section: the Spectre Freecam port positions the camera while it is active.
+        if (com.anormal.client.module.impl.spectre.SpectreFreecam.cameraActive()) {
+            setRotation(com.anormal.client.module.impl.spectre.SpectreFreecam.cameraYaw(),
+                    com.anormal.client.module.impl.spectre.SpectreFreecam.cameraPitch());
+            setPos(com.anormal.client.module.impl.spectre.SpectreFreecam.cameraX(tickProgress),
+                    com.anormal.client.module.impl.spectre.SpectreFreecam.cameraY(tickProgress),
+                    com.anormal.client.module.impl.spectre.SpectreFreecam.cameraZ(tickProgress));
+        }
     }
 
     // kamera uzilganda real o'yinchi modeli chizilsin

@@ -36,6 +36,12 @@ public class InGameHudMixin {
             CustomCrosshair crosshair = ModuleManager.getModule(CustomCrosshair.class);
             if (crosshair != null && crosshair.shouldHideVanilla()) {
                 ci.cancel();
+                return;
+            }
+            com.anormal.client.module.impl.spectre.SpectreCustomCrosshair spectreCrosshair =
+                    ModuleManager.getModule(com.anormal.client.module.impl.spectre.SpectreCustomCrosshair.class);
+            if (spectreCrosshair != null && spectreCrosshair.shouldHideVanilla()) {
+                ci.cancel();
             }
         } catch (Throwable ignored) {
         }
@@ -47,11 +53,16 @@ public class InGameHudMixin {
         try {
             if (texture == null) return;
             String path = texture.getPath().toLowerCase();
-            if (path.contains("fire") && (NoRender.hideFireOverlay() || NoAnimation.hideFireOverlay())) {
+            // Spectre section: the overlay textures are also how SpectreNoRender tells them apart.
+            boolean spectreFire = com.anormal.client.module.impl.spectre.SpectreNoRender.hideFireOverlay();
+            boolean spectrePumpkin = com.anormal.client.module.impl.spectre.SpectreNoRender.hidePumpkinPowderSnow();
+            if (path.contains("fire") && (NoRender.hideFireOverlay() || NoAnimation.hideFireOverlay() || spectreFire)) {
                 ci.cancel();
             } else if (path.contains("underwater") && NoRender.hideWaterOverlay()) {
                 ci.cancel();
             } else if (path.contains("lava") && NoRender.hideLavaOverlay()) {
+                ci.cancel();
+            } else if (spectrePumpkin && (path.contains("pumpkin") || path.contains("powder"))) {
                 ci.cancel();
             }
         } catch (Throwable ignored) {
@@ -61,7 +72,9 @@ public class InGameHudMixin {
     @Inject(method = "renderVignetteOverlay", at = @At("HEAD"), cancellable = true, require = 0)
     private void anormal$vignette(DrawContext context, Entity entity, CallbackInfo ci) {
         try {
-            if (NoRender.hideVignette()) ci.cancel();
+            // Spectre section: blindness and darkness are both the dark vignette pass.
+            if (NoRender.hideVignette()
+                    || com.anormal.client.module.impl.spectre.SpectreNoRender.hideBlindnessDarkness()) ci.cancel();
         } catch (Throwable ignored) {
         }
     }
@@ -69,7 +82,8 @@ public class InGameHudMixin {
     @Inject(method = "renderPortalOverlay", at = @At("HEAD"), cancellable = true, require = 0)
     private void anormal$portal(DrawContext context, float nauseaStrength, CallbackInfo ci) {
         try {
-            if (NoRender.hidePortalOverlay() || NoAnimation.hidePortalOverlay()) ci.cancel();
+            if (NoRender.hidePortalOverlay() || NoAnimation.hidePortalOverlay()
+                    || com.anormal.client.module.impl.spectre.SpectreNoRender.hideNauseaPortal()) ci.cancel();
         } catch (Throwable ignored) {
         }
     }
@@ -77,7 +91,8 @@ public class InGameHudMixin {
     @Inject(method = "renderNauseaOverlay", at = @At("HEAD"), cancellable = true, require = 0)
     private void anormal$nausea(DrawContext context, float nauseaStrength, CallbackInfo ci) {
         try {
-            if (NoRender.hideNausea() || NoAnimation.hideNausea()) ci.cancel();
+            if (NoRender.hideNausea() || NoAnimation.hideNausea()
+                    || com.anormal.client.module.impl.spectre.SpectreNoRender.hideNauseaPortal()) ci.cancel();
         } catch (Throwable ignored) {
         }
     }
