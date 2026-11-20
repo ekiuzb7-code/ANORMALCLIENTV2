@@ -1,0 +1,204 @@
+Colour of the planned blocks	Цвет планируемых блоков
+Colour of the player dots	Цвет точек игроков
+Colour of your marker	Цвет вашего маркера
+Colour punch	Насыщенность цвета
+Colour used when the pearl hits an entity	Цвет при попадании жемчуга в сущность
+Combat Only	Только в бою
+Combat hit visual animations (14 themes) and satisfying hit sounds	Визуальные анимации ударов (14 тем) и приятные звуки попадания
+Compact plates with name, health bar, armour and IRL time	Компактные плашки с именем, здоровьем, бронёй и реальным временем
+Compass Arrow	Стрелка компаса
+Compass needle colour	Цвет стрелки компаса
+Compass needle length	Длина стрелки компаса
+Config	Конфиг
+Config slots: save / load / delete / list module profiles (kuro port)	Слоты конфигов: сохранение / загрузка / удаление / список профилей (kuro port)
+Container color	Цвет контейнера
+Container marker	Маркер контейнера
+Containers	Контейнеры
+Contrast	Контраст
+Control boats	Управление лодками
+Control camels	Управление верблюдами
+Control horses and donkeys	Управление лошадьми и ослами
+Control pigs	Управление свиньями
+Control striders	Управление страйдерами
+Cooldown	Кулдаун
+Cooldown (s)	Кулдаун (с)
+Cooldown Bypass	Обход кулдауна
+Cooldown offset in ticks (negative = attack before full charge)	Смещение кулдауна в тиках (минус = удар до полной зарядки)
+Coord Share	Обмен координатами
+Coordinate text format	Формат текста координат
+Copies your coordinates to the clipboard and/or posts them in chat (kuro port)	Копирует координаты в буфер и/или пишет в чат (kuro port)
+Copper Ore	Медная руда
+Copy your armor and held items	Копирует вашу броню и предметы в руке
+Corner frame of the build	Угловая рамка постройки
+Cosmetic client-side trails behind players	Косметические клиентские следы за игроками
+Count	Количество
+Count Absorption	Учитывать поглощение
+Count chests, barrels and hoppers	Считать сундуки, бочки и воронки
+Count furnaces, dispensers and anvils	Считать печи, раздатчики и наковальни
+Count redstone components	Считать редстоун-компоненты
+Countdown length	Длительность отсчёта
+Critical Spawner	Критический спавнер
+Crits	Криты
+Crosshair Pick	Выбор через прицел
+Crosshair color	Цвет прицела
+Crystal Aura	Аура кристаллов
+Crystal Color	Цвет кристаллов
+Crystal Optimizer	Оптимизатор кристаллов
+Crystal tint	Оттенок кристаллов
+CrystalDtap	CrystalDtap
+Custom Accent	Свой акцент
+Custom Tracer Color	Свой цвет трейсера
+Custom or accent colours	Свои или акцентные цвета
+Cut the post-break delay	Срезает задержку после ломания
+Cycle color hue continuously	Постоянно меняет оттенок
+Cycle effect hue continuously	Постоянно меняет оттенок эффекта
+Damage Flash	Вспышка урона
+Damage Mode	Режим урона
+Damage ratio to place	Соотношение урона для установки
+Dark disc behind the dots	Тёмный диск за точками
+Dark plate behind the text	Тёмная плашка за текстом
+Degrees per tick for the arrow keys	Градусов за тик для стрелок
+Delay (s)	Задержка (с)
+Delay while slow	Задержка при замедлении
+Delays or ghost-lags enemy positions (kuro port)	Задерживает позиции врагов (kuro port)
+Denoise	Шумоподавление
+Depth filter	Фильтр глубины
+Detail	Детализация
+Detect Block Updates	Отслеживать обновления блоков
+Detection	Обнаружение
+Detonate after charging	Взрыв после зарядки
+Diagonal Walls	Диагональные стены
+Diameter of hit animation in blocks	Диаметр анимации удара в блоках
+Diameter of the radar	Диаметр радара
+Diamond Ore	Алмазная руда
+Different chime for a killing hit	Другой звук для смертельного удара
+Digs a tunnel straight ahead in the direction you face	Копает туннель прямо по направлению взгляда
+Ding Dong Builder	Ding Dong строитель
+Dip If Burning	Окунается при горении
+Dip in lava while fire resistant	Погружается в лаву при огнестойкости
+Disable On Disconnect	Выключать при отключении
+Disable On Find	Выключать при находке
+Disable On Input	Выключать при вводе
+Disable On Leave	Выключать при выходе
+Disable On Y Change	Выключать при смене Y
+Discard new trap entities immediately	Сразу отбрасывает новые trap-сущности
+Disconnect when a player appears	Отключается при появлении игрока
+Display distance in blocks	Показывать дистанцию в блоках
+Display player name above	Показывать имя игрока сверху
+Distance Colors	Цвета по дистанции
+Distance Offscreen	Дистанция вне экрана
+Distance for other players	Дистанция для других игроков
+Distance from the center	Расстояние от центра
+Distance from your chunk	Расстояние от вашего чанка
+Distance where near fades to far	Дистанция перехода ближнего к дальнему
+Do not attack from the click that activated the module (unused without a rotation engine)	Не атакует с клика, включившего модуль (без rotation engine не используется)
+Do not delay or ghost friends	Не задерживает друзей
+Do not detonate when too much self damage	Не взрывает при большом уроне себе
+Do not detonate without the cover block	Не взрывает без блока-крышки
+Do not force sprint in water	Не форсирует спринт в воде
+Do not hit targets that are blocking	Не бьёт цели со щитом
+Do not re-place when the crosshair only flickers between faces of the same block	Не ставит снова, если прицел мигает по граням одного блока
+Do not sprint while you have Invisibility	Не спринтует при невидимости
+Do not trace friends	Не рисует трейсеры друзьям
+Do nothing unless you hold the forward key	Ничего не делает без клавиши вперёд
+Do nothing while standing on the ground	Ничего не делает, стоя на земле
+Do nothing while you are airborne	Ничего не делает в воздухе
+Doesn't anchor if a body is nearby.	Не ставит якорь, если рядом тело.
+Double vertical speed scale	Двойной масштаб вертикальной скорости
+DoubleAnchor	DoubleAnchor
+Downward drift when nothing is pressed	Снос вниз без нажатий
+Downward speed while jump is not held	Скорость вниз без прыжка
+Draw 3D block outlines around portal frames	3D контуры вокруг рамок портала
+Draw 3D outline at city center	3D контур в центре города
+Draw 3D wireframe boxes around ores	3D каркасы вокруг руд
+Draw HUD text with a shadow	Рисует текст HUD с тенью
+Draw Tracer Color	Цвет трейсера
+Draw a 3D box	Рисует 3D рамку
+Draw a 3D box marker	Рисует 3D маркер-рамку
+Draw a beam down from each block entity	Луч вниз от каждого блока-сущности
+Draw a beam over flagged chunks	Луч над помеченными чанками
+Draw a box around found spawners	Рамка вокруг найденных спавнеров
+Draw a box at the predicted impact block.	Рамка на предсказанном блоке удара.
+Draw a dot in the center	Точка в центре
+Draw a drop shadow under the text	Тень под текстом
+Draw a frame around every HUD overlay	Рамка вокруг каждого оверлея HUD
+Draw a half-range ring	Кольцо половинной дистанции
+Draw a halo ring around each relic	Кольцо-ореол вокруг реликвий
+Draw a line to each found block	Линия к каждому найденному блоку
+Draw a line to each geode	Линия к каждой геоде
+Draw a small box where the arrow lands	Рамка в месте попадания стрелы
+Draw a soft glow behind the path	Мягкое свечение за траекторией
+Draw a soft outer glow	Мягкое внешнее свечение
+Draw a subtle dark outline	Тонкий тёмный контур
+Draw beams over flagged chunks	Лучи над помеченными чанками
+Draw block outlines	Рисует контуры блоков
+Draw boxes in the world	Рисует рамки в мире
+Draw detected activity	Рисует обнаруженную активность
+Draw dropped items	Рисует выброшенные предметы
+Draw elapsed / remaining time	Рисует прошедшее / оставшееся время
+Draw hostile and passive mobs	Рисует враждебных и мирных мобов
+Draw invisible entities too	Рисует и невидимых сущностей
+Draw labels with a shadow	Подписи с тенью
+Draw line to portal center	Линия к центру портала
+Draw lines from crosshair to containers	Линии от прицела к контейнерам
+Draw lines to valuable ores (Diamonds, Debris, Emeralds)	Линии к ценным рудам (алмазы, обломки, изумруды)
+Draw lines towards city center	Линии к центру города
+Draw other players	Рисует других игроков
+Draw text with a shadow	Рисует текст с тенью
+Draw the N marker while rotating	Рисует метку N при вращении
+Draw the base as a 3D box in the world	Рисует базу как 3D рамку в мире
+Draw the bases as 3D boxes	Рисует базы как 3D рамки
+Draw the centre marker	Рисует маркер центра
+Draw the ghost body box	Рисует рамку призрачного тела
+Draw the ground ring	Рисует кольцо на земле
+Draw the held item	Рисует предмет в руке
+Draw the held item on the HUD so changes can be checked in game	Рисует предмет в руке на HUD для проверки изменений
+Draw the item box outline	Рисует контур рамки предмета
+Draw the preview arc	Рисует дугу предпросмотра
+Draw the projectile marker	Рисует маркер снаряда
+Draw the reach meter	Рисует индикатор дальности
+Draw the readout with a shadow	Рисует показания с тенью
+Draw the target's hitbox in the world	Рисует хитбокс цели в мире
+Draw the text with a shadow	Рисует текст с тенью
+Draw the trail of pearls already thrown	Рисует след уже брошенных жемчугов
+Draw the translucent fill	Рисует полупрозрачную заливку
+Draw the wireframe outline	Рисует каркасный контур
+Draw through walls	Рисует через стены
+Draw tracer lines	Рисует трейсеры
+Draw tracer lines from the camera to revealed + cached ore positions.	Трейсеры от камеры к найденным и закэшированным рудам.
+Draw tracer lines to sections	Трейсеры к секциям
+Draw translucent fills	Рисует полупрозрачные заливки
+Draws hitboxes through walls (kuro port)	Рисует хитбоксы через стены (kuro port)
+Draws the arrow's flight path and landing spot (kuro port)	Рисует траекторию стрелы и место падения (kuro port)
+Drift	Снос
+Drill Instabreak	Дрель Instabreak
+Drop a vertical stem line at the entity	Вертикальная линия у сущности
+Durability	Прочность
+Duration of hit animation in ms	Длительность анимации удара (мс)
+Dust Size	Размер частиц
+Dust color	Цвет частиц
+Dust color source	Источник цвета частиц
+Dust particle size	Размер частиц пыли
+Dynamic Gap	Динамический зазор
+Dynamic gap amount	Величина динамического зазора
+Ease the camera motion	Сглаживает движение камеры
+Easing on the way in and out	Сглаживание на входе и выходе
+Eat at or below this food level	Ест при этом уровне еды или ниже
+Eat at or below this health (0 = never)	Ест при этом здоровье или ниже (0 = никогда)
+Eats the best food in your inventory when you are hungry	Ест лучшую еду из инвентаря при голоде
+Edge brightness	Яркость краёв
+Edge darkening	Затемнение краёв
+Edit both hands together	Редактировать обе руки вместе
+Editing	Редактирование
+Effects	Эффекты
+Elytra Fly	Полёт на элитре
+Elytra Hop	Прыжок на элитре
+Elytra Swap	Смена элитры
+Emerald Ore	Изумрудная руда
+Enable vertical pitch tracking	Включить вертикальное отслеживание наклона
+Enchantment to prefer on the mace	Предпочитаемое зачарование на булаве
+End Color	Конечный цвет
+Entity Fire	Огонь сущностей
+Entity Speed	Скорость сущностей
+Equips the best armor from the inventory (kuro port)	Надевает лучшую броню из инвентаря (kuro port)
+Everything	Всё

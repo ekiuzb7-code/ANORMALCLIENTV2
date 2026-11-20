@@ -6,13 +6,24 @@ import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.ProjectionUtil;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.painting.PaintingEntity;
 import net.minecraft.registry.Registries;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.Locale;
+
+/**
+ * Marks paintings.
+ *
+ * <p>Modernised: the marker follows the painting's real size (a 4x2 painting is not drawn like a
+ * 1x1), the colour fades with distance, the tracer is a single line and the label is a chip that
+ * also reports the painting's block size.</p>
+ */
 public class PaintingESP extends Module {
     public final BooleanSetting outline = new BooleanSetting("Outline", "Glow outline", true);
     public final BooleanSetting box = new BooleanSetting("Box", "Draw box marker", true);
@@ -66,36 +77,56 @@ public class PaintingESP extends Module {
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        if (mc.player == null || mc.world == null) return;
-        for (Entity e : mc.world.getEntities()) {
-            try {
-                if (!isPainting(e) || !e.isAlive()) continue;
-                double d = mc.player.distanceTo(e);
-                if (d > range.getValue()) continue;
-                if (Math.abs(e.getY() - mc.player.getY()) > verticalRange.getValue()) continue;
-                int[] sc = com.anormal.client.util.ProjectionUtil.project(
-                        new Vec3d(e.getX(), e.getY() + 0.8, e.getZ()), tickDelta);
-                if (sc == null) continue;
-                int col = color.getValue();
-                if (box.isEnabled()) {
-                    context.fill(sc[0] - 5, sc[1] - 4, sc[0] + 5, sc[1] + 4, (col & 0x00FFFFFF) | 0x55000000);
-                    context.fill(sc[0] - 5, sc[1] - 4, sc[0] + 5, sc[1] - 3, col);
-                    context.fill(sc[0] - 5, sc[1] + 3, sc[0] + 5, sc[1] + 4, col);
-                }
-                if (tracer.isEnabled()) {
-                    int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-                    int steps = Math.min(200, Math.max(Math.abs(sc[0] - w / 2), Math.abs(sc[1] - h / 2)));
-                    for (int i = 0; i <= steps; i++) {
-                        int x = w / 2 + (sc[0] - w / 2) * i / Math.max(1, steps);
-                        int y = h / 2 + (sc[1] - h / 2) * i / Math.max(1, steps);
-                        context.fill(x, y, x + 1, y + 1, col);
+        if (mc.player == null || mc.world == null || mc.textRenderer == null) return;
+        try {
+            int centreX = RenderUtils.screenWidth() / 2;
+            int centreY = RenderUtils.screenHeight() / 2;
+            int base = color.getValue();
+            double max = range.getValue();
+
+            for (Entity e : mc.world.getEntities()) {
+                try {
+                    if (!isPainting(e) || !e.isAlive()) continue;
+                    double d = mc.player.distanceTo(e);
+                    if (d > max) continue;
+                    if (Math.abs(e.getY() - mc.player.getY()) > verticalRange.getValue()) continue;
+
+                    Vec3d lerped = ProjectionUtil.lerpPos(e, tickDelta);
+                    Box bb = e.getBoundingBox();
+                    int[] sTop = ProjectionUtil.project(new Vec3d(lerped.x, bb.maxY, lerped.z), tickDelta);
+                    int[] sBot = ProjectionUtil.project(new Vec3d(lerped.x, bb.minY, lerped.z), tickDelta);
+                    if (sTop == null || sBot == null) continue;
+
+                    int height = Math.max(4, Math.abs(sBot[1] - sTop[1]));
+                    int blocksW = Math.max(1, (int) Math.round(Math.max(bb.maxX - bb.minX, bb.maxZ - bb.minZ)));
+                    int blocksH = Math.max(1, (int) Math.round(bb.maxY - bb.minY));
+                    int width = Math.max(4, (int) Math.round(height * (blocksW / (double) blocksH)));
+                    int x = (sTop[0] + sBot[0]) / 2;
+                    int yTop = Math.min(sTop[1], sBot[1]);
+                    int yBot = yTop + height;
+                    int col = RenderUtils.fadeByDistance(base, d, max);
+
+                    if (tracer.isEnabled()) {
+                        RenderUtils.drawLine(context, centreX, centreY, x, yBot, col, 1.0f);
                     }
-                }
-                if (showDistance.isEnabled() && mc.textRenderer != null) {
-                    String t = "Painting " + (int) d + "m";
-                    RenderUtils.drawText(context, mc.textRenderer, t, sc[0] + 7, sc[1] - 4, 0xFFAAAAAA, true);
-                }
-            } catch (Throwable ignored) {}
-        }
+
+                    if (box.isEnabled()) {
+                        RenderUtils.fill(context, x - width / 2, yTop, x + width / 2, yBot,
+                                (col & 0x00FFFFFF) | 0x2E000000);
+                        RenderUtils.drawCorners(context, x - width / 2, yTop, x + width / 2, yBot,
+                                col, Math.max(3, width / 4));
+                    } else {
+                        RenderUtils.fill(context, x - 2, (yTop + yBot) / 2 - 2,
+                                x + 2, (yTop + yBot) / 2 + 2, col);
+                    }
+
+                    String size = blocksW + "x" + blocksH;
+                    String label = showDistance.isEnabled()
+                            ? String.format(Locale.ROOT, "Painting %s  %dm", size, (int) d)
+                            : "Painting " + size;
+                    RenderUtils.drawChip(context, mc.textRenderer, label, x, yTop - 13, col);
+                } catch (Throwable ignored) {}
+            }
+        } catch (Throwable ignored) {}
     }
 }

@@ -33,6 +33,7 @@ public class Search extends Module {
     public final BooleanSetting onlyCaves = new BooleanSetting("Only Caves", "Only highlight blocks exposed to air", true);
     public final ModeSetting searchBlocks = new ModeSetting("Search Blocks", "Which blocks to highlight", "Ores", "Ores", "Valuables", "Storage", "Spawners");
     public final BooleanSetting tracers = new BooleanSetting("Tracers", "Draw lines from camera to highlighted blocks", false);
+    public final NumberSetting maxShown = new NumberSetting("Max Shown", "Max highlighted blocks", 256.0, 32.0, 1024.0, 32.0);
     public final ColorSetting color = new ColorSetting("Color", "Highlight color", ColorUtils.rgba(255, 140, 0, 255));
 
     private static final long RENDER_BUDGET_NS = 5_000_000L;
@@ -49,6 +50,7 @@ public class Search extends Module {
         addSetting(onlyCaves);
         addSetting(searchBlocks);
         addSetting(tracers);
+        addSetting(maxShown);
         addSetting(color);
     }
 
@@ -118,7 +120,7 @@ public class Search extends Module {
                     scanSpeed.getValue().intValue(), scratch,
                     state -> !state.isAir() && isWanted(state),
                     (pos, state) -> {
-                        if (cache.size() >= 128) return;
+                        if (cache.size() >= maxShown.getValue().intValue()) return;
                         BlockPos imm = pos.toImmutable();
                         if (onlyCaves.isEnabled() && !exposed(imm)) return;
                         cache.add(imm);
@@ -154,11 +156,9 @@ public class Search extends Module {
             if (s == null) continue;
             drawn++;
 
-            context.fill(s[0] - 3, s[1] - 3, s[0] + 3, s[1] + 3, (c & 0x00FFFFFF) | 0x55000000);
-            context.fill(s[0] - 3, s[1] - 3, s[0] + 3, s[1] - 2, c);
-            context.fill(s[0] - 3, s[1] + 2, s[0] + 3, s[1] + 3, c);
-            context.fill(s[0] - 3, s[1] - 2, s[0] - 2, s[1] + 2, c);
-            context.fill(s[0] + 2, s[1] - 2, s[0] + 3, s[1] + 2, c);
+            // Real block outline (the old version drew a 6x6 dot, despite the module being
+            // described as wireframe outlines).
+            com.anormal.client.util.RenderUtils.drawBlockOutline(context, p, c, tickDelta, 1);
             if (tracers.isEnabled()) line(context, w / 2, h / 2, s[0], s[1], c);
         }
     }

@@ -1,0 +1,249 @@
+Explode Delay	Задержка взрыва
+Explode ratio	Доля взрыва
+Exposed Scan	Открытое сканирование
+Exposed-scan overworld-ore tracker with a persistent cross-session cache. Finds revealed ores (diamond, emerald, gold, ...) without a seed — works on servers where seedcracking is blocked.	Сканер открытых руд с постоянным кэшем между сессиями. Находит открытые руды (алмаз, изумруд, золото, ...) без сида — работает на серверах с блокировкой сид-крекинга.
+Extra aim-detection distance	Доп. дистанция обнаружения цели
+Extra chunks around you	Доп. чанки вокруг вас
+Extra delay for Repel/Dynamic	Доп. задержка для Repel/Dynamic
+Extra ticks between steps	Доп. тики между шагами
+Extra ticks between the steps	Доп. тики между шагами
+Eye Color	Цвет глаз
+Eye Glow	Свечение глаз
+Eye glow colour	Цвет свечения глаз
+Eyes-to-floor distance at which the water goes down (bucket reach is ~4.5)	Дистанция от глаз до пола для постановки воды (дальность ведра ~4.5)
+Face Only	Только лицо
+Face Place	Установка по грани
+Fade Trail	Затухающий след
+Fade the line towards the impact point so the near part stays readable	Затухание линии к точке удара, чтобы ближняя часть читалась
+Faint missing blocks	Тусклые недостающие блоки
+Fake Item	Фейковый предмет
+Fake Pay	Фейковая оплата
+Fake Player	Фейковый игрок
+Fake Stats	Фейковая статистика
+FakeLag execution mode	Режим выполнения FakeLag
+Fakes /pay on DonutSMP instead of sending it — cancel the command and echo a local "You paid" line, ding and all.	Подделывает /pay на DonutSMP: отменяет команду и выводит локальную строку "You paid".
+Fakes Money, Shards, Playtime, and Rank in the DonutSMP scoreboard sidebar. Client-side only.	Подделывает деньги, шарды, время игры и ранг в сайдбаре DonutSMP. Только на клиенте.
+Fall Speed	Скорость падения
+Fall distance that arms the module	Дистанция падения для активации
+Fall distance that still counts as safe	Дистанция падения, считающаяся безопасной
+Fall height that dips	Высота падения для погружения
+Fallback to a mace without Density/Breach	Откат на булаву без Density/Breach
+Falling from height dips in	Погружается при падении с высоты
+Far Color	Дальний цвет
+Far-section color	Цвет дальней секции
+Fast Sneak-Tap	Быстрый sneak-tap
+Fast crystal placement and instant breaking (kuro port)	Быстрая установка кристаллов и мгновенное ломание (kuro port)
+FastCrystal	FastCrystal
+Field of view cone that targets must be inside	Конус обзора, в котором должна быть цель
+Field of view in degrees	Поле зрения в градусах
+Fill Boxes Only	Заполнять только рамки
+Fill Empty Slots	Заполнять пустые слоты
+Fill flat boxes instead of screen quads	Заливает плоские рамки вместо экранных квадов
+Fill strength	Сила заливки
+Fill strength (%)	Сила заливки (%)
+Finds ancient cities and sculk catalysts at Y = -51	Находит древние города и скалк-катализаторы на Y = -51
+Finds ancient debris in loaded chunks and marks it through walls	Находит древние обломки в загруженных чанках и помечает через стены
+Finds and outlines mined-out (old) amethyst geodes	Находит и обводит выработанные (старые) аметистовые геоды
+Finds clusters of storage blocks in loaded chunks	Находит скопления блоков хранения в чанках
+Finds end portal frames and strongholds through walls	Находит рамки энд-портала и крепости через стены
+Flagged chunk colour	Цвет помеченного чанка
+Flash bright red when player takes damage	Ярко-красная вспышка при уроне игроку
+Flash colour on hit	Цвет вспышки при попадании
+Flash on hit	Вспышка при попадании
+Flies the boat you are riding (kuro port)	Заставляет лодку летать (kuro port)
+Flight Time	Время полёта
+Flight speed in blocks per tick	Скорость полёта в блоках за тик
+Flow	Поток
+Fly speed	Скорость полёта
+Follows trails of fresh chunks with an arrow to the trail head	Ведёт по следам свежих чанков стрелкой к началу следа
+Food level to eat at (20 = full)	Уровень еды для еды (20 = полный)
+Footsteps	Шаги
+Force Pop	Форс-поп
+Force the slowest, softest zoom	Форсирует самый медленный и мягкий зум
+Forge World Items	Подделка предметов мира
+Format	Формат
+Found List	Список найденного
+Frame colour	Цвет рамки
+Frame thickness in pixels	Толщина рамки в пикселях
+Free flight with the movement keys (kuro port)	Свободный полёт на клавишах движения (kuro port)
+Freeze	Заморозка
+Friend Color	Цвет друга
+Friend damage cap	Лимит урона другу
+Friend explode cap	Лимит взрыва по другу
+Friend ratio	Доля для друзей
+Friend tint	Оттенок друзей
+Friend tracer color	Цвет трейсера друзей
+Friends never trigger the module	Друзья никогда не активируют модуль
+From Weapons Only	Только от оружия
+Frustum Culling	Отсечение по фрустуму
+Full-draw preview while a bow is merely held	Предпросмотр полного натяжения при удержании лука
+Fully grown clusters required	Только полностью выросшие скопления
+Gap between cells	Зазор между ячейками
+Gauge, percent or both	Индикатор, процент или оба
+Gem Color	Цвет самоцвета
+Gem tint	Оттенок самоцвета
+Geode ESP	ESP геод
+Geodes drawn at once	Геод за раз
+Ghost Arc	Призрачная дуга
+Ghost Box	Призрачная рамка
+Ghost hitbox = keep the crosshair box Delay ms in the past. Delay packets = hold the server's position updates.	Призрачный хитбокс = рамка прицела отстаёт на Delay мс. Задержка пакетов = удержание обновлений позиции сервера.
+Give up waiting for the safety block	Перестаёт ждать блок безопасности
+Glass UI	Стеклянный UI
+Glass or wireframe spirit	Стеклянный или каркасный дух
+Glide	Планирование
+Glide speed in blocks per tick	Скорость планирования в блоках за тик
+Glide speed multiplier	Множитель скорости планирования
+Glint	Блеск
+Glint brightness	Яркость блеска
+Glint on armour	Блеск на броне
+Glint on items	Блеск на предметах
+Glint scroll speed	Скорость прокрутки блеска
+Glint stripe size	Размер полосы блеска
+Global frame outline, glow and text glow for HUD overlays	Общая рамка, свечение и свечение текста для оверлеев HUD
+Glow Color	Цвет свечения
+Glow Strength	Сила свечения
+Glow breathes slowly	Свечение медленно пульсирует
+Glow cells needed before a chunk is flagged	Светящихся ячеек до пометки чанка
+Glow the eyes	Подсвечивает глаза
+Glow the gem	Подсвечивает самоцвет
+Glowing rings spread on the ground where players jump (kuro port)	Светящиеся кольца на земле при прыжках игроков (kuro port)
+Gold Ore	Золотая руда
+Gradient	Градиент
+Gradient Sky	Градиентное небо
+Gradient partner	Партнёр градиента
+Gradient, solid or rainbow	Градиент, сплошной или радуга
+Grid Size	Размер сетки
+Ground Seal	Печать земли
+Group size cut-off	Порог размера группы
+Group size to report	Размер группы для отчёта
+Grouping radius (blocks)	Радиус группировки (блоки)
+Grow the outer box	Увеличивает внешнюю рамку
+Guard Slot	Слот защиты
+HUD	HUD
+HUD Editor	Редактор HUD
+HUD position	Позиция HUD
+HUD scale (0.05 = tiny, 2.0 = huge)	Масштаб HUD (0.05 = крошечный, 2.0 = огромный)
+HUD text colour	Цвет текста HUD
+Half your own hitbox is added	Добавляется половина вашего хитбокса
+Halo	Ореол
+Halo behind HUD text (costs extra draws)	Ореол за текстом HUD (доп. отрисовка)
+Halo colour	Цвет ореола
+Hand size (0.05 = barely visible, 2.0 = huge)	Размер руки (0.05 = почти не видно, 2.0 = огромный)
+Hands	Руки
+Height Offset	Смещение по высоте
+Height of one module row	Высота строки модуля
+Height the effect rises in blocks	Высота подъёма эффекта в блоках
+Hide Item Name	Скрывать название предмета
+Hide Selected Slot	Скрывать выбранный слот
+Hide Tooltips	Скрывать подсказки
+Hide blindness and darkness	Скрывает слепоту и тьму
+Hide falling blocks	Скрывает падающие блоки
+Hide nausea and portal distortion	Скрывает тошноту и искажение портала
+Hide non-selected blocks via mixin	Скрывает невыбранные блоки через mixin
+Hide ores that are fully buried	Скрывает полностью закопанные руды
+Hide pumpkin and powder-snow overlays	Скрывает оверлеи тыквы и рыхлого снега
+Hide rain and snow	Скрывает дождь и снег
+Hide the burning overlay	Скрывает оверлей горения
+Hide the fire on entities	Скрывает огонь на сущностях
+Hide the held item name	Скрывает название предмета в руке
+Hide the lava fog	Скрывает лавовый туман
+Hide the selected slot frame	Скрывает рамку выбранного слота
+Hide the spinning mob inside spawners	Скрывает вращающегося моба в спавнере
+Hide the totem pop overlay	Скрывает оверлей поп-тотема
+Hides your real skin with a preset (Steve/Alex) client-side only.	Скрывает ваш скин пресетом (Steve/Alex), только на клиенте.
+Hides your username in the DonutSMP scoreboard sidebar with a preset name. Client-side only.	Скрывает ваш ник в сайдбаре DonutSMP пресетом. Только на клиенте.
+Highlight Friends	Подсветка друзей
+Highlight Source Chunks	Подсветка исходных чанков
+Highlight colour	Цвет подсветки
+Highlight end crystals	Подсветка энд-кристаллов
+Highlight hostile mobs	Подсветка враждебных мобов
+Highlight passive mobs	Подсветка мирных мобов
+Highlight players	Подсветка игроков
+Highlight revealed Coal Ore (very abundant).	Подсвечивает найденную угольную руду (очень много).
+Highlight revealed Copper Ore (abundant).	Подсвечивает найденную медную руду (много).
+Highlight revealed Diamond Ore.	Подсвечивает найденную алмазную руду.
+Highlight revealed Emerald Ore.	Подсвечивает найденную изумрудную руду.
+Highlight revealed Gold Ore.	Подсвечивает найденную золотую руду.
+Highlight revealed Iron Ore (abundant).	Подсвечивает найденную железную руду (много).
+Highlight revealed Lapis Lazuli Ore.	Подсвечивает найденный лазурит.
+Highlight revealed Redstone Ore.	Подсвечивает найденный редстоун.
+Highlight selected blocks through walls	Подсвечивает выбранные блоки через стены
+Highlight the upcoming blocks	Подсвечивает будущие блоки
+Highlights ender pearls other players threw	Подсвечивает жемчуг других игроков
+Highlights your username in chat and pings you (kuro port)	Подсвечивает ваш ник в чате и пингует (kuro port)
+Hit Delay	Задержка удара
+Hit Effect	Эффект удара
+Hit Entities	Бить сущностей
+Hit Flash	Вспышка удара
+Hit Life (ms)	Жизнь удара (мс)
+Hit Size	Размер удара
+Hit Sound	Звук удара
+Hit Sounds	Звуки ударов
+Hit crystals the moment they appear	Бьёт кристаллы сразу при появлении
+Hit sound frequency pitch	Высота звука удара
+Hit sound volume percentage	Громкость звука удара (%)
+Hitbox	Хитбокс
+HitboxExpand	HitboxExpand
+Hits with a Breach mace and swaps back (kuro port)	Бьёт булавой Breach и возвращается (kuro port)
+Hold Attack	Удержание атаки
+Hold W to accelerate along your view	Держите W для ускорения по направлению взгляда
+Hold altitude when looking level	Держит высоту при взгляде прямо
+Hold the position: on the server (hold packets) or locally (kuro port)	Держит позицию: на сервере (пакеты) или локально (kuro port)
+Holds sprint whenever you are allowed to (kuro port)	Держит спринт, когда разрешено (kuro port)
+Holds the break key and tunnels forward in the direction you faced	Держит клавишу ломания и копает туннель по направлению взгляда
+Holds the forward key for you	Держит клавишу вперёд за вас
+Hole fill color	Цвет заливки дыры
+Hole outline color	Цвет контура дыры
+Home Number	Номер дома
+Hood scale	Масштаб капюшона
+Hood shape	Форма капюшона
+Hop-glide-hop along the ground with a spear jab (kuro port)	Прыжок-планирование с ударом копья (kuro port)
+Horizontal air speed while hopping (0 = vanilla)	Горизонтальная скорость в воздухе при прыжке (0 = ваниль)
+Horizontal padding around the name	Горизонтальные отступы вокруг имени
+Horizontal pull speed	Горизонтальная скорость притяжения
+Horizontal rotating rings around targets	Горизонтальные вращающиеся кольца вокруг целей
+Horizontal scan radius (chunks)	Горизонтальный радиус сканирования (чанки)
+Horizontal search radius in blocks	Горизонтальный радиус поиска в блоках
+Horses	Лошади
+Hostile Color	Цвет враждебных
+Hotbar Refill	Пополнение хотбара
+Hotbar Slot	Слот хотбара
+Hotbar slot to hold while exploding (1-9)	Слот хотбара при взрыве (1-9)
+Hotbar slot used by refill	Слот хотбара для пополнения
+HoverTotem	HoverTotem
+How close a player must get	Насколько близко должен подойти игрок
+How close an enemy must be	Насколько близко должен быть враг
+How detailed the model is	Насколько детализирована модель
+How far a spawner may be mined	Насколько далеко можно ломать спавнер
+How far above and below you to search	Насколько выше и ниже искать
+How far above the head the tag floats	Насколько выше головы висит тег
+How far along the flight time the target is extrapolated	Насколько экстраполируется цель по времени полёта
+How far back the players you aim at lag	Насколько отстают игроки, в которых вы целитесь
+How far beside/above to check	Насколько в сторону/вверх проверять
+How far the enemy may be	Насколько далеко может быть враг
+How far the halo spreads	Насколько распространяется ореол
+How far you may move before auxiliary search recentres	Насколько можно сдвинуться до перецентровки поиска
+How fast the aim converges	Как быстро сходится прицел
+How geodes are detected	Как обнаруживаются геоды
+How high the next layer sits	Насколько высоко следующий слой
+How line-like	Насколько похоже на линию
+How long the last hit target stays marked (ms)	Сколько держится метка последней цели (мс)
+How long the tap holds (ms)	Сколько держится тап (мс)
+How long to keep sneaking after the edge	Сколько приседать после края
+How loud	Насколько громко
+How many blocks of tunnel to check	Сколько блоков туннеля проверять
+How many crystals to place (1-2)	Сколько кристаллов ставить (1-2)
+How many drawn	Сколько рисуется
+How many macro slots	Сколько слотов макросов
+How many relics orbit you	Сколько реликвий вращается вокруг
+How many tags may draw at once	Сколько тегов рисуется за раз
+How many targets are drawn	Сколько целей рисуется
+How much of the horizontal knockback to keep	Сколько горизонтального отбрасывания сохранять
+How much of the vertical knockback to keep	Сколько вертикального отбрасывания сохранять
+How much of the world stays visible	Сколько мира остаётся видимым
+How other players are shown	Как показываются другие игроки
+How sneaking is applied	Как применяется присед
+How softly the zoom settles	Насколько мягко оседает зум
+How solid ghost blocks look	Насколько плотно выглядят призрачные блоки
+How targets are drawn	Как рисуются цели
+How the dummy moves	Как двигается dummy

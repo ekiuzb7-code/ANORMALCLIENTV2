@@ -22,6 +22,9 @@ public class KuroNoBreakDelay extends Module {
 
     @Override
     public void onTickAlways() {
+        // onTickAlways() runs for every module, enabled or not. Without this guard the vanilla
+        // post-break cooldown was zeroed in every session even with the module switched off.
+        if (!isEnabled()) return;
         if (mc.player == null || mc.interactionManager == null) return;
         ((ClientPlayerInteractionManagerAccessor) mc.interactionManager).lucid$setBlockBreakingCooldown(0);
     }

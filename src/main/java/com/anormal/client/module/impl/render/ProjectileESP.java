@@ -6,12 +6,31 @@ import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.ProjectionUtil;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.Registries;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Marks flying projectiles with their real flight path.
+ *
+ * <p><b>What was wrong:</b> the old marker drew a full 3D box through
+ * {@code RenderUtils.drawBox3D}, which fills the whole projected screen rectangle and connects
+ * corners across the screen. For an arrow a couple of blocks away that produced huge diamonds and
+ * long lines lying across the HUD, all stacked on top of each other. Every projectile also had a
+ * tracer from the crosshair, so a field of arrows turned into a web of crossing lines.</p>
+ *
+ * <p><b>Now:</b> each projectile gets a compact screen-space diamond whose size is clamped by
+ * distance, the tracer is only an off-screen indicator, the flight path is skipped for projectiles
+ * that have already landed (velocity near zero), stops at the first solid block, and labels are
+ * nudged apart instead of overlapping.</p>
+ */
 public class ProjectileESP extends Module {
     public final BooleanSetting arrows = new BooleanSetting("Arrows", "Mark arrows", true);
     public final BooleanSetting spectralArrows = new BooleanSetting("Spectral Arrows", "Mark spectral arrows", true);
@@ -24,14 +43,17 @@ public class ProjectileESP extends Module {
     public final BooleanSetting bobber = new BooleanSetting("Fishing Bobber", "Mark fishing bobbers", false);
     public final BooleanSetting showName = new BooleanSetting("Show Name", "Show projectile name", true);
     public final BooleanSetting showDistance = new BooleanSetting("Show Distance", "Show distance", true);
-    public final BooleanSetting box = new BooleanSetting("Box", "Draw box marker", true);
-    public final BooleanSetting tracer = new BooleanSetting("Tracer", "Line from crosshair", true);
+    public final BooleanSetting box = new BooleanSetting("Marker", "Draw the projectile marker", true);
+    public final BooleanSetting tracer = new BooleanSetting("Tracer",
+            "Off-screen indicator line (only shown when the projectile is outside the view)", true);
     public final BooleanSetting trajectory = new BooleanSetting("Trajectory", "Draw flight path", true);
     public final NumberSetting range = new NumberSetting("Range", "Max distance", 48.0, 8.0, 128.0, 8.0);
-    public final NumberSetting verticalRange = new NumberSetting("Vertical Range",
-            "How far above and below you to search", 48.0, 8.0, 160.0, 4.0);
     public final NumberSetting maxDistance = new NumberSetting("Max Distance", "Skip beyond this", 200.0, 50.0, 500.0, 25.0);
     public final ColorSetting color = new ColorSetting("Color", "Marker color", ColorUtils.rgba(255, 85, 85, 255));
+
+    private static final int TRACE_STEPS = 24;
+    /** Below this speed a projectile has landed, so a predicted path would be a vertical droop. */
+    private static final double MOVING_EPSILON = 0.02;
 
     public ProjectileESP() {
         super("ProjectileESP", "Marks flying projectiles with paths", Category.RENDER);
@@ -50,7 +72,6 @@ public class ProjectileESP extends Module {
         addSetting(tracer);
         addSetting(trajectory);
         addSetting(range);
-        addSetting(verticalRange);
         addSetting(maxDistance);
         addSetting(color);
     }
@@ -78,65 +99,124 @@ public class ProjectileESP extends Module {
     public void onRender2D(DrawContext context, float tickDelta) {
         if (mc.player == null || mc.world == null) return;
         double maxR = Math.min(range.getValue(), maxDistance.getValue());
-        for (Entity e : mc.world.getEntities()) {
+        int col = color.getValue();
+        int traceCol = (col & 0x00FFFFFF) | 0x70000000;
+        int sw = RenderUtils.screenWidth();
+        int sh = RenderUtils.screenHeight();
+        int cx = sw / 2, cy = sh / 2;
+
+        // Label boxes already drawn this frame; a new one is nudged down instead of overlapping.
+        List<int[]> labels = new ArrayList<>();
+
+        for (Entity entity : mc.world.getEntities()) {
             try {
-                if (e == mc.player || !e.isAlive()) continue;
-                String k = kind(e);
-                if (k == null) continue;
-                double d = mc.player.distanceTo(e);
-                if (d > maxR) continue;
-                int col = color.getValue();
-                int[] sc = com.anormal.client.util.ProjectionUtil.project(
-                        new Vec3d(e.getX(), e.getY() + 0.3, e.getZ()), tickDelta);
-                if (trajectory.isEnabled()) {
-                    try {
-                        Vec3d v = e.getVelocity();
-                        Vec3d prev = new Vec3d(e.getX(), e.getY() + 0.3, e.getZ());
-                        for (int i = 1; i <= 12; i++) {
-                            Vec3d next = new Vec3d(prev.x + v.x * 2, prev.y + v.y * 2 - i * 0.35, prev.z + v.z * 2);
-                            int[] a = com.anormal.client.util.ProjectionUtil.project(prev, tickDelta);
-                            int[] b = com.anormal.client.util.ProjectionUtil.project(next, tickDelta);
-                            if (a != null && b != null) {
-                                int steps = Math.min(30, Math.max(Math.abs(b[0] - a[0]), Math.abs(b[1] - a[1])));
-                                for (int s = 0; s <= steps; s++) {
-                                    int x = a[0] + (b[0] - a[0]) * s / Math.max(1, steps);
-                                    int y = a[1] + (b[1] - a[1]) * s / Math.max(1, steps);
-                                    context.fill(x, y, x + 1, y + 1, col);
-                                }
-                            }
-                            prev = next;
-                        }
-                    } catch (Throwable ignored) {}
-                }
+                if (entity == mc.player || !entity.isAlive()) continue;
+                String kind = kind(entity);
+                if (kind == null) continue;
+                double dist = mc.player.distanceTo(entity);
+                if (dist > maxR) continue;
+
+                Vec3d pos = ProjectionUtil.lerpPos(entity, tickDelta);
+                int[] sc = ProjectionUtil.project(pos.add(0.0, 0.3, 0.0), tickDelta);
                 if (sc == null) continue;
+
+                boolean onScreen = sc[0] >= -4 && sc[0] <= sw + 4 && sc[1] >= -4 && sc[1] <= sh + 4;
+
+                if (trajectory.isEnabled()) {
+                    Vec3d velocity = entity.getVelocity();
+                    if (velocity.lengthSquared() > MOVING_EPSILON) {
+                        drawTrajectory(context, pos, velocity, traceCol, tickDelta);
+                    }
+                }
+
                 if (box.isEnabled()) {
-                    context.fill(sc[0] - 3, sc[1] - 3, sc[0] + 3, sc[1] + 3, (col & 0x00FFFFFF) | 0x66000000);
-                    context.fill(sc[0] - 3, sc[1] - 3, sc[0] + 3, sc[1] - 2, col);
-                    context.fill(sc[0] - 3, sc[1] + 2, sc[0] + 3, sc[1] + 3, col);
+                    drawMarker(context, sc[0], sc[1], markerRadius(dist), col);
                 }
-                if (tracer.isEnabled()) {
-                    int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-                    int steps = Math.min(200, Math.max(Math.abs(sc[0] - w / 2), Math.abs(sc[1] - h / 2)));
-                    for (int i = 0; i <= steps; i++) {
-                        int x = w / 2 + (sc[0] - w / 2) * i / Math.max(1, steps);
-                        int y = h / 2 + (sc[1] - h / 2) * i / Math.max(1, steps);
-                        context.fill(x, y, x + 1, y + 1, col);
+
+                // A tracer is only useful when the projectile is out of view - drawing one for
+                // every on-screen projectile was what turned the HUD into a web of lines.
+                if (tracer.isEnabled() && !onScreen) {
+                    double dx = sc[0] - cx, dy = sc[1] - cy;
+                    double len = Math.hypot(dx, dy);
+                    if (len > 0.001) {
+                        double reach = Math.min(sw, sh) / 2.0 - 26.0;
+                        int ex = (int) (cx + dx / len * reach);
+                        int ey = (int) (cy + dy / len * reach);
+                        RenderUtils.drawLine(context, cx, cy, ex, ey, traceCol, 1.0f);
                     }
                 }
-                if (mc.textRenderer != null) {
-                    StringBuilder label = new StringBuilder();
-                    if (showName.isEnabled()) label.append("§c").append(k);
-                    if (showDistance.isEnabled()) {
-                        if (label.length() > 0) label.append(" ");
-                        label.append("§f").append((int) d).append("m");
-                    }
-                    if (label.length() > 0) {
-                        String text = label.toString();
-                        RenderUtils.drawText(context, mc.textRenderer, text,
-                                sc[0] - mc.textRenderer.getWidth(text) / 2, sc[1] + 5, 0xFFFFFFFF, true);
+
+                if (!onScreen || mc.textRenderer == null) continue;
+
+                StringBuilder label = new StringBuilder();
+                if (showName.isEnabled()) label.append(kind);
+                if (showDistance.isEnabled()) {
+                    if (label.length() > 0) label.append("  ");
+                    label.append((int) dist).append('m');
+                }
+                if (label.length() == 0) continue;
+
+                int textW = mc.textRenderer.getWidth(label.toString());
+                int lx = sc[0] - textW / 2 - 6;
+                int top = sc[1] + 6;
+                for (int[] prev : labels) {
+                    if (lx < prev[0] + prev[2] && lx + textW + 12 > prev[0]
+                            && top < prev[1] + prev[3] && top + 11 > prev[1]) {
+                        top = prev[1] + prev[3] + 2;
                     }
                 }
-            } catch (Throwable ignored) {}
+                RenderUtils.drawChip(context, mc.textRenderer, label.toString(), sc[0], top, col);
+                labels.add(new int[]{lx, top, textW + 12, 11});
+            } catch (Throwable ignored) {
+            }
+        }
+    }
+
+    /**
+     * Marker radius: big enough to be readable far away, clamped so a projectile standing next to
+     * the camera cannot cover the screen.
+     */
+    private int markerRadius(double dist) {
+        return (int) Math.max(4, Math.min(15, 96.0 / Math.max(1.0, dist)));
+    }
+
+    /** Compact diamond marker + centre dot. No screen-space fill, no perspective sprawl. */
+    private void drawMarker(DrawContext context, int x, int y, int r, int col) {
+        RenderUtils.drawLine(context, x, y - r, x + r, y, col, 1.0f);
+        RenderUtils.drawLine(context, x + r, y, x, y + r, col, 1.0f);
+        RenderUtils.drawLine(context, x, y + r, x - r, y, col, 1.0f);
+        RenderUtils.drawLine(context, x - r, y, x, y - r, col, 1.0f);
+        RenderUtils.fill(context, x - 1, y - 1, x + 2, y + 2, col);
+    }
+
+    /**
+     * Simulates the real projectile physics a few ticks ahead (gravity + 0.99 drag), stopping at
+     * the first non-air block so the path does not shoot through terrain.
+     */
+    private void drawTrajectory(DrawContext context, Vec3d start, Vec3d initial,
+                                int color, float tickDelta) {
+        Vec3d velocity = initial;
+        Vec3d prev = start;
+        for (int i = 0; i < TRACE_STEPS; i++) {
+            velocity = new Vec3d(velocity.x * 0.99, (velocity.y - 0.05) * 0.99, velocity.z * 0.99);
+            Vec3d next = prev.add(velocity);
+
+            boolean blocked = false;
+            try {
+                blocked = !mc.world.getBlockState(BlockPos.ofFloored(next)).isAir();
+            } catch (Throwable ignored) {
+            }
+            if (blocked) break;
+
+            int[] a = ProjectionUtil.project(prev, tickDelta);
+            int[] b = ProjectionUtil.project(next, tickDelta);
+            if (a != null && b != null) {
+                // Fade the tail so the near path reads brighter than the predicted end.
+                int alpha = 0xC0 - i * 5;
+                int shade = ((Math.max(0x30, alpha)) << 24) | (color & 0x00FFFFFF);
+                RenderUtils.drawLine(context, a[0], a[1], b[0], b[1], shade, 1.0f);
+            }
+            prev = next;
         }
     }
 }

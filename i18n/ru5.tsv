@@ -1,0 +1,72 @@
+How the periodic drop is applied	Как применяется периодический сброс
+How the target is selected	Как выбирается цель
+HudTheme	Тема HUD
+Hue cycling speed	Скорость смены оттенка
+Human-like noise in the aim	Человеческий шум в прицеле
+Humanize	Очеловечивание
+Humanize Delays	Очеловечивание задержек
+If Unguarded	Если без защиты
+Ignore Face Jitter	Игнорировать дрожание грани
+Ignore Terrain	Игнорировать рельеф
+Ignore armour-damage rules for low targets	Игнорировать правила урона брони для низких целей
+Ignore blast resistance	Игнорировать взрывостойкость
+Ignore falls below this distance	Игнорировать падения ниже этой дистанции
+Ignore non-player entities	Игнорировать не-игроков
+Ignore players sharing your nametag colour	Игнорировать игроков с вашим цветом ника
+Ignore players sleeping in a bed	Игнорировать спящих в кровати
+Ignore the weapon filter	Игнорировать фильтр оружия
+In Flight	В полёте
+In Liquids	В жидкостях
+In Water	В воде
+Include Dimension	Указывать измерение
+Include Uppercase Characters	Включать заглавные буквы
+Include absorption hearts	Учитывать сердца поглощения
+Include entity hitboxes in the collision check (pearls can land on players/mobs).	Учитывать хитбоксы сущностей (жемчуг может попасть в игрока/моба).
+Include invisible players	Учитывать невидимых игроков
+Include sleeping players	Учитывать спящих игроков
+Include the KuroHitboxExpand targeting margin	Учитывать запас KuroHitboxExpand
+Include your own pops	Учитывать свои попы
+Inlay Color	Цвет вставки
+Inlay colour	Цвет вставки
+Instant double anchor burst — pops two totems by timing a second anchor to the enemy's i-frame drop.	Мгновенный двойной взрыв якорей — лопает два тотема, подгадывая второй якорь под i-frame врага.
+Instant swap or paced swap	Мгновенный или размеренный свап
+Instantly sneak at edge, place block, and immediately stand up (video speedbridge)	Мгновенно приседает на краю, ставит блок и сразу встаёт (видео-спидбридж)
+Intensity	Интенсивность
+Inv Sorter	Сортировщик инвентаря
+Inventory slots used	Используемые слоты
+Inventory swap or hotbar swap	Свап в инвентаре или хотбаре
+Iron Ore	Железная руда
+Item ESP	ESP предметов
+Item tint	Оттенок предметов
+Jitter the loop delay ±1-2 ticks each cycle so the timing looks less automated.	Колеблет задержку цикла на ±1-2 тика, чтобы тайминги не выглядели автоматическими.
+Jump Bubbles	Пузыри прыжка
+Jump If	Прыгать если
+Jump into a glide from the ground	Прыжок в планирование с земли
+Jump style	Стиль прыжка
+Jumps automatically every time you land while moving (kuro port)	Прыгает автоматически при каждой посадке в движении (kuro port)
+Jumps the moment you are hit to cut knockback (kuro port)	Прыгает в момент удара, чтобы срезать отбрасывание (kuro port)
+Ka Time	Время Kill Aura
+Keep For (min)	Хранить (мин)
+Keep In Rain	Сохранять в дождь
+Keep Instant Delay	Сохранять мгновенную задержку
+Keep Value	Сохранять значение
+Keep Walking	Продолжать идти
+Keep active this long after an attack (ms)	Активно столько после удара (мс)
+Keep anchoring while the key is held	Продолжает ставить якоря при удержании клавиши
+Keep instant-mineable blocks vanilla-fast	Оставляет мгновенно ломаемые блоки ванильными
+Keep showing the last reach after 5s	Показывает последнюю дальность и после 5с
+Keep sprinting after a normal hit	Продолжать спринт после обычного удара
+Keep sprinting while taking knockback	Продолжать спринт при отбрасывании
+Keep targeting invisible players	Продолжать целиться в невидимых
+Keep the arc while the shot flies	Сохранять дугу, пока летит стрела
+Keep the body walking	Держит тело в движении
+Keep the night tint even at noon	Сохранять ночной оттенок даже в полдень
+Keep the tint while raining	Сохранять оттенок в дождь
+Keep tracking after enemy leaves range (ms)	Продолжать слежение после выхода врага из радиуса (мс)
+Keep you in the middle of the bridge while you walk (only when the module is not driving the keys)	Держит вас в центре моста при ходьбе (когда модуль не управляет клавишами)
+Keeps you from walking off edges that would hurt (kuro port)	Не даёт упасть с опасных краёв (kuro port)
+Key	Клавиша
+Keys Move Body	Клавиши двигают тело
+Kill Aura	Kill Aura
+Kuro Freecam	Kuro Freecam
+KuroAttackPackets	KuroAttackPackets

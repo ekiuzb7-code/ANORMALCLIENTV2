@@ -45,6 +45,7 @@ public final class SettingsPanel {
         for (Setting<?> s : settings) {
             if (s instanceof com.anormal.client.lucid.StringSetting) continue;
             if (s instanceof KeybindSetting) continue;
+            if (s instanceof com.anormal.client.setting.ActionSetting) continue;
             if (!s.isVisible()) continue;
             n++;
         }

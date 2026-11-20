@@ -52,6 +52,12 @@ public class Watermark extends Module {
         return LOGO1;
     }
 
+    /** The 1024x256 banner logo, registered the same way as the HUD watermark. */
+    public static net.minecraft.util.Identifier bannerLogo() {
+        ensureTextures();
+        return LOGO2;
+    }
+
     // Upload PNGs as real GPU textures once. Loose files sampled directly
     // render as garbage — registered textures draw exactly.
     private static void ensureTextures() {

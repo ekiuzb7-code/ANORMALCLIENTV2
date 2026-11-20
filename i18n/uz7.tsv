@@ -1,0 +1,198 @@
+NCP Bypass	NCP chetlab o'tish
+Name Color	Nom rangi
+Name Protect	Nom himoyasi
+Name, ping, health and armour above players' heads	O'yinchilar boshi ustida nom, ping, salomatlik va zirh
+NameShower	NameShower
+Nausea & Portal	Ko'ngil aynishi va portal
+Near Color	Yaqin rang
+Near-section color	Yaqin bo'lim rangi
+Nearest crystal in, nearest obsidian out (kuro port)	Eng yaqin kristall kiradi, eng yaqin obsidian chiqadi (kuro port)
+Nether Colors	Nether ranglari
+Nether Coords	Nether koordinatalari
+Nether Quartz	Nether kvartsi
+Never count as sneaking while flying	Uchayotganda hech qachon sneak hisoblanmaydi
+Never highlight yourself	O'zingizni hech qachon ajratmaydi
+Never place on bedrock	Bedrock ustiga hech qachon qo'ymaydi
+Never pop a friend	Do'stni hech qachon pop qilmaydi
+Never pop yourself	O'zingizni hech qachon pop qilmaysiz
+Never show item tooltips	Buyum tooltip'larini hech qachon ko'rsatmaydi
+Never smash a friend	Do'stga hech qachon smash qilmaydi
+Never take more than this yourself	O'zingiz bu miqdordan ko'p olmaysiz
+Never walk into unloaded chunks	Yuklanmagan chunk'larga hech qachon kirmaydi
+New Chunks	Yangi chunklar
+Next-gen Player ESP with 3D Skeleton, Solid body, and 3D/2D boxes	Yangi avlod Player ESP: 3D skelet, qattiq tana va 3D/2D ramkalar
+Night Sky Color	Tungi osmon rangi
+Night tint	Tungi tus
+No Break Delay	Sindirish kechikishisiz
+No Slow	Sekinlashuvsiz
+No Sneak	Sneak'siz
+No Unloaded Chunks	Yuklanmagan chunk'siz
+No Water	Suvsiz
+No Web	To'rsiz
+No delay between right-clicks while holding a crystal	Kristal ushlaganda o'ng kliklar orasida kechikish yo'q
+Normal or safe estimates	Oddiy yoki xavfsiz hisoblar
+North Marker	Shimol belgisi
+Notification Mode	Bildirishnoma rejimi
+Notify on newly found sections	Yangi topilgan bo'limlar haqida xabar beradi
+Number of cloth folds	Mato burmalari soni
+Number of effect streams / particles	Effekt oqimlari / zarrachalar soni
+Obsidian Delay	Obsidian kechikishi
+Occasional larger flakes	Ba'zan kattaroq bo'laklar
+Off = only from a sword	O'chiq = faqat qilichdan
+Off, Smart (wait for crits) or Only (crits required)	O'chiq, Smart (kritlarni kutadi) yoki Only (krit shart)
+Off-screen indicator line (only shown when the projectile is outside the view)	Ekran tashqarisidagi ko'rsatkich chizig'i (snaryad ko'rinishdan tashqarida bo'lsa)
+Off: enabling performs one sell run and disables itself when done (glazed semantics). On: stay enabled and auto-start a run once enough matching stacks pile up.	O'chiq: yoqilganda bir marta sotadi va tugagach o'chadi. Yoniq: yoqilgan qoladi va yetarli stack yig'ilganda avto boshlaydi.
+Offhand	Ikkinchi qo'l
+Offhand Offset X	Ikkinchi qo'l siljishi X
+Offhand Offset Y	Ikkinchi qo'l siljishi Y
+Offhand Offset Z	Ikkinchi qo'l siljishi Z
+Offhand Scale	Ikkinchi qo'l o'lchami
+Offhand X	Ikkinchi qo'l X
+Offhand Y	Ikkinchi qo'l Y
+Offhand Z	Ikkinchi qo'l Z
+Offhand scale	Ikkinchi qo'l o'lchami
+Offset Z	Siljish Z
+On Friends	Do'stlarga
+On Press	Bosilganda
+One interpolated position packet per this many blocks	Shuncha blokda bitta interpolatsiya paketi
+One-shot Spear lunge macro using attribute swapping: swap to a hotbar Spear, STAB to lunge, swap back to your original slot — bypasses the Spear's attack-charge gate. Hold the trigger key to repeat.	Atribut almashtirishga asoslangan bir martalik nayza lunge makrosi: hotbardan nayzaga o'tadi, STAB bilan lunge qiladi, asl joyga qaytadi — nayzaning zaryad cheklovini chetlab o'tadi. Takrorlash uchun tugmani ushlab turing.
+One-shot inventory sort	Bir martalik inventar saralash
+Only Air Blocks	Faqat havo bloklari
+Only Charge	Faqat zaryadlash
+Only Crits	Faqat kritlar
+Only Own	Faqat o'ziniki
+Only Weapon	Faqat qurol
+Only While Held	Faqat ushlab turganda
+Only While Idle	Faqat bo'sh turganda
+Only With Chest	Faqat sandiq bilan
+Only act while the attack key is held	Faqat hujum tugmasi bosilganda ishlaydi
+Only activate if the hotbar Spear actually has the Lunge enchantment (otherwise the swap is pointless).	Hotbardagi nayzada haqiqatan Lunge sehri bo'lsagina faollashadi (aks holda almashtirish ma'nosiz).
+Only aim while the attack button is held	Faqat hujum tugmasi bosilganda nishonlaydi
+Only apply the boost while sprinting	Tezlikni faqat yugurayotganda qo'llaydi
+Only apply while the vehicle touches the ground	Faqat transport yerga tekkan paytda qo'llanadi
+Only arm a tap while on the ground	Tapni faqat yerda turganda faollashtiradi
+Only arm from another melee weapon	Faqat boshqa yaqin quroldan faollashtiradi
+Only arm while holding a melee weapon	Faqat yaqin qurol ushlaganda faollashtiradi
+Only assist when holding a sword, axe or mace	Faqat qilich, bolta yoki mace ushlaganda yordam beradi
+Only assist while holding left click	Faqat chap klik ushlanganda yordam beradi
+Only attack while the left mouse button is held	Faqat chap sichqoncha bosilganda hujum qiladi
+Only auto-log while actually taking damage (not on low-health join debuffs).	Faqat haqiqatan zarar olganda avto-chiqadi (join debuff'larda emas).
+Only auto-trigger when no screen is already open (anti-conflict).	Faqat hech qanday ekran ochiq bo'lmaganda avto-ishga tushadi (konfliktga qarshi).
+Only blocks a real click could place from where you stand	Faqat turgan joyingizdan haqiqiy klik qo'yishi mumkin bo'lgan bloklar
+Only break crystals under the crosshair	Faqat nishon ostidagi kristallarni sindiradi
+Only click while the button is held	Faqat tugma ushlanganda kliklaydi
+Only detonate anchors that you placed yourself.	Faqat o'zingiz qo'ygan anchorlarni portlatadi.
+Only detonate when a sword/axe is available for the detonate slot.	Portlatish joyi uchun qilich/bolta mavjud bo'lgandagina portlatadi.
+Only draw markers within this range	Belgilarni faqat shu masofada chizadi
+Only fill this close	Faqat shu yaqinlikda to'ldiradi
+Only fire the axe hit when the attack cooldown is charged, so it lands at full power (clean shield break).	Bolta zarbasini faqat hujum cooldown'i to'lganda uradi, to'liq kuchda tekkani uchun (toza qalqon sindirish).
+Only flag players this close	Faqat shu yaqinlikdagi o'yinchilarni belgilaydi
+Only hit while the attack key is held	Faqat hujum tugmasi bosilganda uradi
+Only manage the slot while already holding a weapon (or managing it)	Joyni faqat qurol ushlaganda (yoki boshqarayotganda) boshqaradi
+Only mark animals carrying a chest	Faqat sandiq ko'targan hayvonlarni belgilaydi
+Only mark players	Faqat o'yinchilarni belgilaydi
+Only mask while a capture overlay is up	Faqat capture qatlami ochiq bo'lganda yashiradi
+Only outline the hit face	Faqat urilgan yuzni konturlaydi
+Only place into air/replaceable blocks, so no block is wasted	Faqat havo/almashtiriladigan bloklarga qo'yadi, blok behuda ketmasligi uchun
+Only placements a real click could also do	Faqat haqiqiy klik ham qila oladigan joylashlar
+Only run while the use key is held	Faqat ishlatish tugmasi bosilganda ishlaydi
+Only show ghosts near you	Arvohlarni faqat yaqin atrofda ko'rsatadi
+Only show the trajectory when holding an Ender Pearl.	Traektoriyani faqat Ender Pearl ushlaganda ko'rsatadi.
+Only spawn on critical hits	Faqat kritik zarbalarda paydo bo'ladi
+Only strike when the attack cooldown is fully charged (smash damage scales with it). Arming early makes this nearly always ready.	Faqat hujum cooldown'i to'liq to'lganda uradi (smash zarari shunga bog'liq). Erta faollashtirish uni deyarli doim tayyor qiladi.
+Only swap to a mace while falling	Faqat tushayotganda mace'ga o'tadi
+Only swap to a mace with the Breach enchantment (off = any mace)	Faqat Breach sehridagi mace'ga o'tadi (o'chiq = har qanday mace)
+Only tap while on the ground	Faqat yerda turganda tap qiladi
+Only target other players (skip mobs).	Faqat boshqa o'yinchilarni nishonlaydi (moblarni o'tkazib yuboradi).
+Only track spawners and ender chests	Faqat spawner va ender sandiqlarni kuzatadi
+Only trigger on other players (skip mobs/animals).	Faqat boshqa o'yinchilarda ishga tushadi (mob/hayvonlarni o'tkazib yuboradi).
+Only trigger while holding a sword	Faqat qilich ushlaganda ishga tushadi
+Only true air counts as passable	Faqat haqiqiy havo o'tish mumkin deb hisoblanadi
+Only use obsidian - any other hotbar block is ignored	Faqat obsidian ishlatadi — hotbardagi boshqa bloklar e'tiborsiz
+Only while fighting	Faqat jangda
+Only while holding a sword, axe, mace or trident	Faqat qilich, bolta, mace yoki trident ushlaganda
+Opacity of the body ring	Tana halqasi shaffofligi
+Opacity strength for solid body mode	Qattiq tana rejimida shaffoflik kuchi
+Open the gap while moving / recovering	Harakat/tiklanish paytida oraliqni ochadi
+Orbit speed	Aylanish tezligi
+Orbit speed in blatant mode	Blatant rejimda aylanish tezligi
+Origin	Manba
+Others	Boshqalar
+Others Label	Boshqalar yorlig'i
+Others' Pearls	Boshqalarning pearllari
+Others' Shots	Boshqalarning o'qlari
+Out Of Water	Suvdan tashqarida
+Outline strength	Kontur kuchi
+Outline the spots still to fill	Hali to'ldirilishi kerak joylarni konturlaydi
+Outline, fill or both	Kontur, to'ldirish yoki ikkalasi
+Outlines dropped items through walls with names and counts	Tashlangan buyumlarni nom va son bilan devor orqasidan konturlaydi
+Outlines your chosen blocks in loaded chunks	Tanlangan bloklaringizni yuklangan chunklarda konturlaydi
+Overhead cone limit (kept for setting parity)	Tepadagi konus chegarasi (sozlama mosligi uchun)
+Overworld Coords	Overworld koordinatalari
+OverworldRay	OverworldRay
+Own Pops	O'z poplari
+Packet cap: too many packets gets you kicked or ignored	Paket chegarasi: ko'p paket sizni kick yoki ignore qiladi
+Padding	Bo'shliq
+Palette used for the sky tint	Osmon tusi uchun palitra
+Panel X position	Panel X pozitsiyasi
+Panel Y position	Panel Y pozitsiyasi
+Panel opacity	Panel shaffofligi
+Panel scale	Panel o'lchami
+Panic: toggle this module too	Panik: bu modulni ham almashtiradi
+Particle type	Zarracha turi
+Particles per hit	Har zarbada zarrachalar
+Passive Color	Passiv rangi
+Passive Mobs	Passiv moblar
+Passive tint	Passiv tuslanishi
+Path	Yo'l
+Path Color	Yo'l rangi
+Path colour	Yo'l rangi
+Path line colour	Yo'l chizig'i rangi
+Path line width	Yo'l chizig'i qalinligi
+Pattern Size	Naqsh o'lchami
+Pause hiding modules on detection	Aniqlanganda modullarni yashirishni to'xtatadi
+Pause while mining blocks	Blok qaziayotganda to'xtaydi
+Pause while target is on hurt time	Nishon hurt time'da bo'lganda to'xtaydi
+Pearl Catch	Pearl tutish
+Pearl Finder	Pearl topuvchi
+Pearl box color	Pearl ramkasi rangi
+Persistent Cache	Doimiy kesh
+Picks the best weapon in your hotbar for the target (kuro port)	Nishon uchun hotbardagi eng yaxshi qurolni tanlaydi (kuro port)
+Piece	Bo'lak
+Pigs	Cho'chqalar
+Pitch Lock	Pitch qulflanishi
+Pitch step share of remaining distance (0..1)	Qolgan masofadan pitch ulushi (0..1)
+Pitch used for the jab (the lunge goes where you look)	Jab uchun pitch (lunge qaragan tomonga ketadi)
+Pixels per chunk	Chunk uchun piksel
+Place + break crystals near the target (kuro port)	Nishon yonida kristal qo'yib sindiradi (kuro port)
+Place On Ground	Yerga qo'yish
+Place obsidian when needed	Kerak bo'lganda obsidian qo'yadi
+Place obsidian when the crosshair is not on a base	Nishon bazada bo'lmaganda obsidian qo'yadi
+Place only within Enemy range of a player	Faqat o'yinchining Enemy masofasida qo'yadi
+Place the second anchor	Ikkinchi anchorni qo'yadi
+Place, charge and detonate an anchor at the closest target automatically (kuro port)	Eng yaqin nishonga anchorni avtomatik qo'yadi, zaryadlaydi va portlatadi (kuro port)
+Place, charge, cover, detonate — one key (kuro port)	Qo'y, zaryadla, qopla, portlat — bitta tugma (kuro port)
+Places / charges / detonates anchors near targets (kuro port)	Nishonlar yonida anchor qo'yadi / zaryadlaydi / portlatadi (kuro port)
+Places blocks where you look so you can bridge (kuro port)	Qaragan joyingizga blok qo'yib ko'prik yasash imkonini beradi (kuro port)
+Plan diagonal corners	Diagonal burchaklarni rejalashtiradi
+Planned platform radius	Rejalashtirilgan platforma radiusi
+Play a note on a new flag	Yangi flag'da nota chaladi
+Play a note when a spawner is found	Spawner topilganda nota chaladi
+Play a sound with the notification	Bildirishnoma bilan ovoz chaladi
+Play only after damage is accepted	Faqat zarar qabul qilingandan keyin chaladi
+Play the arrow-hit ding when a payment is faked.	To'lov soxtalashtirilganda o'q-tegish dingini chaladi.
+Player Indicator	O'yinchi ko'rsatkichi
+Player Info	O'yinchi ma'lumoti
+Player Scale	O'yinchi o'lchami
+Player Trails	O'yinchi izlari
+Player indicator scale	O'yinchi ko'rsatkichi o'lchami
+Player keeps the body still, Camera turns both	O'yinchi tanani qimirlatmaydi, kamera ikkalasini ham buradi
+Player tint	O'yinchi tuslanishi
+Player tracer color	O'yinchi kuzatuv rangi
+PlayerESPv2	PlayerESPv2
+Plays back the macro recorded by Macro Record	Macro Record yozgan makroni qayta ijro etadi
+Pop Burst	Pop portlashi
+Pop Glyph	Pop belgisi
+Powder Snow	Powder snow
+Powder snow counts as a walkable surface	Powder snow yurish mumkin yuza deb hisoblanadi
+Pumpkin & Powder Snow	Qovoq va powder snow

@@ -8,6 +8,8 @@ import com.anormal.client.setting.NumberSetting;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.Comparator;
@@ -87,16 +89,23 @@ public final class SpectreAimAssist extends Module {
         float diffYaw = MathHelper.wrapDegrees(targetYaw - player.getYaw());
         float diffPitch = MathHelper.wrapDegrees(targetPitch - player.getPitch());
         float distance = MathHelper.sqrt(diffYaw * diffYaw + diffPitch * diffPitch);
-        float baseSpeed = speed.getValue().floatValue() * 0.18F;
-        float curve = (float) Math.pow(Math.min(distance / 12.0F, 1.0F), 2.2);
-        float randomScale = 0.8F + random.nextFloat() * 0.4F;
-        float factor = distance < 0.45F ? 0.0F : baseSpeed * curve * randomScale;
+        if (distance < 0.05F) return;
+        // Fraction of the remaining angle per tick: quick far away, gentle up close,
+        // but never zero — the old pow(.,2.2) curve quantized the step to 0 and stalled.
+        float curve = 0.35F + 0.65F * Math.min(distance / 15.0F, 1.0F);
+        float randomScale = 0.85F + random.nextFloat() * 0.3F;
+        float factor = speed.getValue().floatValue() * curve * randomScale;
 
-        float yawStep = quantize(diffYaw * factor);
-        float pitchStep = quantize(diffPitch * factor);
+        float yawStep = quantize(diffYaw * factor, diffYaw);
+        float pitchStep = quantize(diffPitch * factor, diffPitch);
         if (yawStep != 0.0F || pitchStep != 0.0F) {
-            player.setYaw(player.getYaw() + yawStep);
-            player.setPitch(MathHelper.clamp(player.getPitch() + pitchStep, -90.0F, 90.0F));
+            float oldYaw = player.getYaw();
+            float oldPitch = player.getPitch();
+            player.setYaw(oldYaw + yawStep);
+            player.setPitch(MathHelper.clamp(oldPitch + pitchStep, -90.0F, 90.0F));
+            // Keep the interpolated render camera glued to the new rotation.
+            player.lastYaw += player.getYaw() - oldYaw;
+            player.lastPitch += player.getPitch() - oldPitch;
         }
     }
 
@@ -134,18 +143,26 @@ public final class SpectreAimAssist extends Module {
         if (everything.isEnabled()) return true;
         ItemStack held = player.getMainHandStack();
         if (held.isEmpty()) return false;
-        String name = held.getItem().toString().toLowerCase();
-        return (sword.isEnabled() && name.contains("sword"))
-                || (axe.isEnabled() && name.contains("axe"))
-                || (mace.isEnabled() && name.contains("mace"))
-                || (spearTrident.isEnabled() && (name.contains("trident") || name.contains("spear")));
+        // Tag-based checks: ItemTags.AXES does NOT contain pickaxes, unlike a raw
+        // "axe" substring match on the item id.
+        if (sword.isEnabled() && held.isIn(ItemTags.SWORDS)) return true;
+        if (axe.isEnabled() && held.isIn(ItemTags.AXES)) return true;
+        if (mace.isEnabled() && held.isOf(Items.MACE)) return true;
+        if (spearTrident.isEnabled()) {
+            String id = net.minecraft.registry.Registries.ITEM.getId(held.getItem()).getPath();
+            if (id.contains("spear") || held.isOf(Items.TRIDENT)) return true;
+        }
+        return false;
     }
 
     /** Spectre snaps every step to the mouse sensitivity grid so the movement looks vanilla. */
-    private float quantize(float value) {
+    private float quantize(float value, float raw) {
         float sensitivity = mc.options.getMouseSensitivity().getValue().floatValue();
         float f = sensitivity * 0.6F + 0.2F;
         float gcd = f * f * f * 8.0F * 0.15F;
-        return Math.round(value / gcd) * gcd;
+        float q = Math.round(value / gcd) * gcd;
+        // Never stall short of the target: a sub-grid remainder still creeps one grid cell.
+        if (q == 0.0F && raw != 0.0F) q = Math.copySign(gcd, raw);
+        return q;
     }
 }

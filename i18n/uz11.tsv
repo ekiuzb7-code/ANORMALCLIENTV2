@@ -1,0 +1,168 @@
+Label each cell with its region id	Har bir katakka mintaqa ID'sini yozadi
+Label range in blocks	Yorliq masofasi (blok)
+Label scale	Yorliq o'lchami
+Label used for other players	Boshqa o'yinchilar uchun ishlatiladigan yorliq
+Landing	Qo'nish
+Landing Delay	Qo'nish kechikishi
+Landing Info	Qo'nish ma'lumoti
+Landing colour	Qo'nish rangi
+Lapis Ore	Lapis rudasi
+Launch, obsidian, two crystals, both popped at once (kuro port)	Uchirish, obsidian, ikkita kristall — ikkalasi bir zumda pop (kuro port)
+Lava Dip Fall Height	Lavaga tushish balandligi
+Lava Dip If Resistant	Olovga chidamli bo'lsa lavaga tushish
+Lava Dip On Fall	Yiqilishda lavaga tushish
+Lava Dip On Sneak	Sneak'da lavaga tushish
+Lava Fog	Lava tumani
+Lava Mode	Lava rejimi
+Lava surface mode	Lava yuzasi rejimi
+Layer Height	Qatlam balandligi
+Left	Chap
+Left Max CPS	Chap maks. CPS
+Left Min CPS	Chap min. CPS
+Left button mode	Chap tugma rejimi
+Lifetime	Umr
+Limit	Chegara
+Line Color	Chiziq rangi
+Line from crosshair to each base	Crosshair'dan har bir bazaga chiziq
+Line from crosshair to the base	Crosshair'dan bazaga chiziq
+Lines from the crosshair to every loaded player	Crosshair'dan har bir yuklangan o'yinchiga chiziqlar
+Lines to nearest sections	Eng yaqin bo'limlarga chiziqlar
+Link Hands	Qo'llarni bog'lash
+LiquidBounce-style FakeLag (holds outgoing movement packets)	LiquidBounce uslubidagi FakeLag (chiqish harakat paketlarini ushlab turadi)
+List text colour	Ro'yxat matni rangi
+List vanished players on screen	Yashiringan o'yinchilarni ekranda ko'rsatadi
+Load Key	Yuklash tugmasi
+Lock Yaw	Yaw'ni qotirish
+Locked pitch	Qotirilgan pitch
+Log newly found portal coordinates in chat	Yangi topilgan portal koordinatalarini chatga yozadi
+Logout Spots	Chiqish joylari
+Longer block/entity interaction range (kuro port)	Uzunroq blok/entity bilan ishlash masofasi (kuro port)
+Look	Qarash
+Look speed towards the spawner	Spawnerga qarash tezligi
+Look the name up on Mojang	Ismni Mojang'dan tekshiradi
+Look-at raycast range	Qarash raycast masofasi
+Low Distance	Past masofa
+Low Hop height	Past sakrash balandligi
+Lower Sensitivity	Sezgirlikni pasaytirish
+Lowest Y scanned	Skanerlangan eng past Y
+LungeSwapper	Lunge almashtirgich
+Mace smash, shield break va rocket dive (kuro port)	Mace smash, qalqon sindirish va rocket dive (kuro port)
+MaceBomber	Mace bombardimonchisi
+Machine color	Mashina rangi
+Machine marker	Mashina belgisi
+Machines	Mashinalar
+Macro	Makro
+Predict	Bashorat
+Predict the flight of the pearl you are holding	Ushlab turgan pearl uchishini bashorat qiladi
+Predicts and draws the flight path of an Ender Pearl before you throw it (real-time physics sim).	Ender Pearl tashlashdan oldin uning uchish yo'lini bashorat qiladi va chizadi (real vaqt fizikasi).
+Prefer	Afzal ko'rish
+Prefer a pickaxe that instantly breaks the block	Blokni bir zumda sindiradigan pickaxe'ni afzal ko'radi
+Prefer borderless capture	Chegarasiz capture'ni afzal ko'radi
+Prefixes every chat line with the real-world time (kuro port)	Har chat satriga real vaqtni qo'shadi (kuro port)
+Press jump after the throw for extra height	Qo'shimcha balandlik uchun tashlashdan keyin sakrashni bosing
+Press this key to enable/disable Fake Item. Click here to rebind.	Fake Item'ni yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to enable/disable accurate placement. Click here to rebind.	Aniq qo'yishni (accurate placement) yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to enable/disable auto-log. Click here to rebind.	Avto-loginni yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to enable/disable auto-loot. Click here to rebind.	Avto-loot'ni yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to enable/disable auto-sell. Click here to rebind.	Avto-sotishni yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to enable/disable fake pay. Click here to rebind.	Soxta to'lovni yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to enable/disable fake stats. Click here to rebind.	Soxta statistikani yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to enable/disable name protection. Click here to rebind.	Ism himoyasini yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to enable/disable skin protection. Click here to rebind.	Skin himoyasini yoqish/o'chirish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press this key to start/stop the RTP base-finding macro. Click here to rebind.	RTP baza qidirish makrosini boshlash/to'xtatish uchun shu tugmani bosing. Qayta bog'lash uchun shu yerni bosing.
+Press to lunge-swap: swap to a hotbar Spear, left-click to lunge, swap back to your original slot. Hold to repeat.	Lunge-swap uchun bosing: hotbar'dagi Spear'ga o'tadi, lunge uchun chap klik, keyin asl slotga qaytadi. Takrorlash uchun ushlab turing.
+Prevent Spawn	Spawn'ni bloklash
+Preview	Ko'rish
+Preview bows and crossbows	Kamondan va arbaletdan otishni ko'rsatadi
+Preview ender pearls	Ender pearlarni ko'rsatadi
+Preview snowballs, eggs and bottles	Qor to'pi, tuxum va shishalarni ko'rsatadi
+Preview the held weapon	Ushlab turgan qurolni ko'rsatadi
+Preview the planned layer	Rejalashtirilgan qatlamni ko'rsatadi
+Preview tridents	Tridentlarni ko'rsatadi
+Primary colour	Asosiy rang
+Primary effect color	Asosiy effekt rangi
+Primary relic colour	Asosiy relik rangi
+Primary ring colour	Asosiy halqa rangi
+Primary skeleton / box color	Asosiy skelet / ramka rangi
+Primary spark colour	Asosiy uchqun rangi
+Print a chat message	Chatga xabar yozadi
+Print the chunk centre	Chunk markazini yozadi
+Projectile Aim	Snaryad nishonlash
+Pulse the aura	Aurani pulsatsiya qilish
+Pulse the vignette	Vignetteni pulsatsiya qilish
+Push the hand away (positive) or pull it closer (negative)	Qo'lni uzoqlashtiradi (musbat) yoki yaqinlashtiradi (manfiy)
+Put the chestplate back after landing	Qo'ngandan keyin chestplate'ni qaytaradi
+Safe Walk	Xavfsiz yurish
+Safety Slot	Xavfsizlik sloti
+Save every revealed ore to disk and reload it next session, so your ore map grows across sessions. Per-server + per-dimension.	Har bir ochilgan rudani diskka saqlaydi va keyingi sessiyada yuklaydi, shunda ruda xaritangiz sessiyalar bo'ylab o'sadi. Har server + har o'lchov uchun.
+Scale mouse sensitivity while zoomed	Zoom paytida sichqoncha sezgirligini masshtablaydi
+Scale of the tag	Yorliq o'lchami
+Scan Budget ms	Skanerlash byudjeti (ms)
+Scan below this Y	Shu Y dan pastni skanerlaydi
+Scan loaded chunks for already-revealed ores (the only approach that works without a seed). Leave ON.	Yuklangan chunklarni allaqachon ochilgan rudalar uchun skanerlaydi (seed'siz ishlaydigan yagona usul). Yoniq qoldiring.
+Scan radius (blocks)	Skanerlash radiusi (blok)
+Scan time budget per tick	Har tik uchun skanerlash vaqt byudjeti
+Scoring method	Baholash usuli
+Scroll Speed	Scroll tezligi
+Scroll wheel changes speed	Scroll g'ildiragi tezlikni o'zgartiradi
+Sculk indicators to count as a city	Shahar deb hisoblash uchun sculk belgilari
+Second Color	Ikkinchi rang
+Secondary relic colour	Ikkilamchi relik rangi
+Secondary ring colour	Ikkilamchi halqa rangi
+Secondary spark colour	Ikkilamchi uchqun rangi
+Secondary tint	Ikkilamchi tusk
+Seconds before reconnecting	Qayta ulanishdan oldingi sekundlar
+Seconds before rejoining	Qayta qo'shilishdan oldingi sekundlar
+Seconds between command hops	Buyruq hop'lari orasidagi sekundlar
+Seconds the spirit lives	Ruh yashaydigan sekundlar
+See Through	Ko'rish (See Through)
+Selects the fastest tool for the block you are mining	Qazirayotgan blokingiz uchun eng tez asbobni tanlaydi
+Self Rings	O'z halqalari
+Send the break at this progress	Sindirishni shu progressda yuboradi
+Send the messages in random order	Xabarlarni tasodifiy tartibda yuboradi
+Send the rotation without moving your camera (off = the character visibly turns)	Rotatsiyani kamerani buramasdan yuboradi (o'chiq = personaj ko'rinib buriladi)
+Sends Baritone's own #commands for you	Baritone'ning #buyruqlarini siz uchun yuboradi
+Separate Armor	Alohida zirh
+Sets the speed of the entity you are riding (kuro port)	Minayotgan entityingiz tezligini belgilaydi (kuro port)
+Sheen	Yaltirash
+Sheen Color	Yaltirash rangi
+Shift-clicks everything out of an open chest or shulker box	Ochiq sandiq yoki shulkerdan hammasini Shift-klik bilan chiqaradi
+Shorter right-click repeat delay	Qisqaroq o'ng klik takror kechikishi
+Show Height	Balandlikni ko'rsatish
+Show Here	Shu yerda ko'rsatish
+Show Items	Buyumlarni ko'rsatish
+Show Landing	Qo'nishni ko'rsatish
+Show Lava	Lavani ko'rsatish
+Show Legend	Legenda ko'rsatish
+Show Mobs	Moblarni ko'rsatish
+Show Names	Ismlarni ko'rsatish
+Show Nametag	Nametag ko'rsatish
+Show Players	O'yinchilarni ko'rsatish
+Show Rank	Darajani ko'rsatish
+Show Region IDs	Mintaqa ID'larini ko'rsatish
+Show Time	Vaqtni ko'rsatish
+Show Unbound	Bog'lanmaganlarni ko'rsatish
+Show Water	Suvni ko'rsatish
+Show a chat confirmation	Chatda tasdiq ko'rsatadi
+Show a health bar	Jon panelini ko'rsatadi
+Show a hint when a hit is held back	Zarba ushlab qolinsa maslahat ko'rsatadi
+Show a notification when traps are removed	Traplar olib tashlanganda xabar ko'rsatadi
+Show ambient rings around own player	O'z o'yinchingiz atrofida halqalar ko'rsatadi
+Show armour durability	Zirh chidamliligini ko'rsatadi
+Show break progress	Sindirish progressini ko'rsatadi
+Silent Aura	Silent aura
+Simple Crystal Aura	Oddiy Crystal Aura
+Skin Protect	Skin himoyasi
+SkinShower	Skin ko'rsatkichi
+Smash Assist	Smash yordamchisi
+SpearSwap	Spear almashtirgich
+Spectral Pendant	Spektral marjon
+Spectre HUD	Spectre HUD
+Stash Finder	Stash qidiruvchi
+Stopwatch	Sekundomer
+Sus Chunk Finder	Shubhali chunk qidiruvchi
+S-tap instead of W-tap when the target is close	Nishon yaqin bo'lsa W-tap o'rniga S-tap
+TotemPops	Totem poplari
+Trail Tracker	Iz kuzatuvchisi
+Username Hider	Ismni yashirish
+Worth Display	Qiymat ko'rsatkichi

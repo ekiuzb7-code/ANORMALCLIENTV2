@@ -37,6 +37,9 @@ public abstract class KuroHeldItemRendererMixin {
         }
         // Spectre section: the Spectre Hand Pose port offsets the first-person transform.
         com.anormal.client.module.impl.spectre.SpectreHands.apply(pose, context);
+        // World section: ViewModel's distance / side / up offsets and scale. Applied after the
+        // Spectre pose so the user's own viewmodel settings win when both are on.
+        com.anormal.client.module.impl.world.ViewModel.apply(pose, context);
 
         KuroKnifeModule knife = KuroKnifeModule.get();
         if (knife == null || !knife.isEnabled()) return;

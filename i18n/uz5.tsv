@@ -1,0 +1,72 @@
+How the periodic drop is applied	Davriy tushish qanday qo'llanadi
+How the target is selected	Nishon qanday tanlanadi
+HudTheme	HUD mavzusi
+Hue cycling speed	Rang tusini aylantirish tezligi
+Human-like noise in the aim	Nishonda odamsimon shovqin
+Humanize	Odamsimonlashtirish
+Humanize Delays	Kechikishlarni odamsimonlashtirish
+If Unguarded	Agar himoyasiz bo'lsa
+Ignore Face Jitter	Yuz titrashini e'tiborsiz qoldirish
+Ignore Terrain	Relyefni e'tiborsiz qoldirish
+Ignore armour-damage rules for low targets	Past nishonlar uchun zirh-zarar qoidalarini e'tiborsiz qoldiradi
+Ignore blast resistance	Portlashga chidamlilikni e'tiborsiz qoldirish
+Ignore falls below this distance	Shu masofadan qisqa tushishlarni e'tiborsiz qoldiradi
+Ignore non-player entities	O'yinchi bo'lmagan entitylarni e'tiborsiz qoldirish
+Ignore players sharing your nametag colour	Sizning nom rangingizni bo'lishadigan o'yinchilarni e'tiborsiz qoldiradi
+Ignore players sleeping in a bed	Krovatda uxlayotgan o'yinchilarni e'tiborsiz qoldirish
+Ignore the weapon filter	Qurol filtrini e'tiborsiz qoldirish
+In Flight	Uchishda
+In Liquids	Suyuqliklarda
+In Water	Suvda
+Include Dimension	O'lchamni qo'shish
+Include Uppercase Characters	Katta harflarni qo'shish
+Include absorption hearts	Yutilish yuraklarini qo'shish
+Include entity hitboxes in the collision check (pearls can land on players/mobs).	Kolliziya tekshiruviga entity hitbox'larini qo'shadi (pearl o'yinchi/mobga tushishi mumkin).
+Include invisible players	Ko'rinmas o'yinchilarni qo'shish
+Include sleeping players	Uxlayotgan o'yinchilarni qo'shish
+Include the KuroHitboxExpand targeting margin	KuroHitboxExpand nishon chegarasini qo'shish
+Include your own pops	O'z poplaringizni qo'shish
+Inlay Color	Inley rangi
+Inlay colour	Inley rangi
+Instant double anchor burst — pops two totems by timing a second anchor to the enemy's i-frame drop.	Tezkor qo'sh anchor portlashi — ikkinchi anchorni dushmanning i-frame tushishiga vaqtlab, ikki totemni pop qiladi.
+Instant swap or paced swap	Darhol yoki sekin almashtirish
+Instantly sneak at edge, place block, and immediately stand up (video speedbridge)	Chekkada darhol sneak qilib blok qo'yadi va darhol turadi (video speedbridge)
+Intensity	Intensivlik
+Inv Sorter	Inventar saralagich
+Inventory slots used	Ishlatilgan inventar joylari
+Inventory swap or hotbar swap	Inventar yoki hotbar almashtirish
+Iron Ore	Temir rudasi
+Item ESP	Buyum ESP
+Item tint	Buyum tuslanishi
+Jitter the loop delay ±1-2 ticks each cycle so the timing looks less automated.	Har siklда loop kechikishini ±1-2 tikga tebratadi, vaqt avtomatlashtirilgandek ko'rinmasligi uchun.
+Jump Bubbles	Sakrash pufakchalari
+Jump If	Sakrash sharti
+Jump into a glide from the ground	Yerdan sakrab suzishga o'tadi
+Jump style	Sakrash uslubi
+Jumps automatically every time you land while moving (kuro port)	Harakatlanib qo'nganda avtomatik sakraydi (kuro port)
+Jumps the moment you are hit to cut knockback (kuro port)	Urilgan paytda tepkini kamaytirish uchun sakraydi (kuro port)
+Ka Time	Kill aura vaqti
+Keep For (min)	Saqlash (min)
+Keep In Rain	Yomg'irda ham saqlash
+Keep Instant Delay	Tezkor kechikishni saqlash
+Keep Value	Qiymatni saqlash
+Keep Walking	Yurishda davom etish
+Keep active this long after an attack (ms)	Zarbadan keyin shuncha vaqt faol qoladi (ms)
+Keep anchoring while the key is held	Tugma ushlanganda anchorlashda davom etadi
+Keep instant-mineable blocks vanilla-fast	Darhol sindiriladigan bloklarni vanilla tezligida qoldiradi
+Keep showing the last reach after 5s	5s dan keyin ham oxirgi masofani ko'rsatadi
+Keep sprinting after a normal hit	Oddiy zarbadan keyin yugurishda davom etadi
+Keep sprinting while taking knockback	Tepki olayotganda yugurishda davom etadi
+Keep targeting invisible players	Ko'rinmas o'yinchilarni nishonlashda davom etish
+Keep the arc while the shot flies	O'q uchayotganda yoyni saqlaydi
+Keep the body walking	Tanani yurishda ushlab turadi
+Keep the night tint even at noon	Tushda ham tungi tusni saqlaydi
+Keep the tint while raining	Yomg'irda ham tusni saqlaydi
+Keep tracking after enemy leaves range (ms)	Dushman masofadan chiqqach shuncha vaqt kuzatadi (ms)
+Keep you in the middle of the bridge while you walk (only when the module is not driving the keys)	Yurganda ko'prik markazida ushlab turadi (modul tugmalarni boshqarmaganda)
+Keeps you from walking off edges that would hurt (kuro port)	Zarar yetkazadigan chekkadan tushib ketishdan saqlaydi (kuro port)
+Key	Klavisha
+Keys Move Body	Tugmalar tanani boshqaradi
+Kill Aura	Kill Aura
+Kuro Freecam	Kuro Freecam
+KuroAttackPackets	KuroAttackPackets

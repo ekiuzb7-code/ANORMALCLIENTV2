@@ -40,6 +40,7 @@ public class MLG extends Module {
     private int pendingSlot = -1;
     private BlockPos pendingGround = null;
     private boolean pendingIsCobweb = false;
+    private int pendingTicks = 0;
     private int pickupCooldown = 0;
 
     public MLG() {
@@ -69,6 +70,7 @@ public class MLG extends Module {
         pendingSlot = -1;
         pendingGround = null;
         pendingIsCobweb = false;
+        pendingTicks = 0;
         pickupCooldown = 0;
     }
 
@@ -80,24 +82,21 @@ public class MLG extends Module {
         if (placedWater) {
             pickupCooldown++;
             boolean landed = mc.player.isOnGround() || mc.player.isTouchingWater() || pickupCooldown > 15;
-            if (landed && pickUp.isEnabled() && placedPos != null) {
-                try {
+            if (landed) {
+                if (pickUp.isEnabled() && placedPos != null) {
                     int emptyBucketSlot = findItem("bucket", true);
                     if (emptyBucketSlot != -1) {
-                        mc.player.getInventory().setSelectedSlot(emptyBucketSlot);
-                        BlockHitResult bhr = new BlockHitResult(
-                                new Vec3d(placedPos.getX() + 0.5, placedPos.getY() + 0.5, placedPos.getZ() + 0.5),
-                                Direction.UP, placedPos, false);
-                        mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
-                        mc.player.swingHand(Hand.MAIN_HAND);
+                        if (mc.player.getInventory().getSelectedSlot() != emptyBucketSlot) {
+                            // Wait one tick: scooping right after a hotbar swap gets rejected by the server.
+                            mc.player.getInventory().setSelectedSlot(emptyBucketSlot);
+                            return;
+                        }
+                        try {
+                            placeAt(placedPos, Direction.UP,
+                                    new Vec3d(placedPos.getX() + 0.5, placedPos.getY() + 0.9, placedPos.getZ() + 0.5), true);
+                        } catch (Throwable ignored) {}
                     }
-                } catch (Throwable ignored) {}
-                restoreSlotAndInventory();
-                placedWater = false;
-                placedPos = null;
-                pickupCooldown = 0;
-                return;
-            } else if (landed && !pickUp.isEnabled()) {
+                }
                 restoreSlotAndInventory();
                 placedWater = false;
                 placedPos = null;
@@ -109,32 +108,38 @@ public class MLG extends Module {
         // 2. Execute pending delayed place (tick delay ensures server has received slot packet)
         if (pendingPlace && pendingGround != null) {
             BlockPos targetAir = pendingGround.up();
+            pendingTicks++;
+            boolean done = false;
             try {
-                if (mc.world.isAir(targetAir) || mc.world.getBlockState(targetAir).isReplaceable()) {
-                    if (!silentAim.isEnabled()) {
-                        mc.player.setPitch(90.0f);
-                    }
-                    BlockHitResult bhr = new BlockHitResult(
+                boolean stillFree = mc.world.isAir(targetAir) || mc.world.getBlockState(targetAir).isReplaceable();
+                if (!stillFree || mc.player.isOnGround()) {
+                    done = true;                     // landed, or something already fills the spot
+                } else if (mc.player.getInventory().getSelectedSlot() != pendingSlot && pendingTicks <= 10) {
+                    return;                          // server has not seen the hotbar swap yet
+                } else {
+                    if (!silentAim.isEnabled()) mc.player.setPitch(90.0f);
+                    boolean placed = placeAt(pendingGround, Direction.UP,
                             new Vec3d(pendingGround.getX() + 0.5, pendingGround.getY() + 1.0, pendingGround.getZ() + 0.5),
-                            Direction.UP, pendingGround, false);
-                    mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
-                    mc.player.swingHand(Hand.MAIN_HAND);
-
-                    if (!pendingIsCobweb) {
+                            !pendingIsCobweb);
+                    if (placed && !pendingIsCobweb) {
                         placedWater = true;
                         placedPos = targetAir;
                         pickupCooldown = 0;
                     } else {
                         restoreSlotAndInventory();
                     }
+                    done = true;
                 }
             } catch (Throwable ignored) {
                 restoreSlotAndInventory();
+                done = true;
             }
+            if (!done) return;
             pendingPlace = false;
             pendingSlot = -1;
             pendingGround = null;
             pendingIsCobweb = false;
+            pendingTicks = 0;
             return;
         }
 
@@ -165,9 +170,8 @@ public class MLG extends Module {
         }
         try {
             ItemStack boots = mc.player.getEquippedStack(EquipmentSlot.FEET);
-            if (!boots.isEmpty() && boots.toString().toLowerCase().contains("feather_falling")) {
-                estimatedDamage *= 0.52f;
-            }
+            int feather = enchantLevel(boots, "feather_falling");
+            if (feather > 0) estimatedDamage *= Math.max(0.0f, 1.0f - 0.12f * feather);
         } catch (Throwable ignored) {}
 
         float currentHealth = mc.player.getHealth() + mc.player.getAbsorptionAmount();
@@ -244,34 +248,51 @@ public class MLG extends Module {
         if (originalSlot == -1) {
             originalSlot = mc.player.getInventory().getSelectedSlot();
         }
-        if (mc.player.getInventory().getSelectedSlot() != slot) {
+        // A hotbar swap made only this tick is not known to the server yet, so it always goes through the delayed path.
+        boolean justSwapped = swappedHotbarSlot == slot && swappedInvSlot != -1;
+        if (mc.player.getInventory().getSelectedSlot() != slot || justSwapped) {
             mc.player.getInventory().setSelectedSlot(slot);
             pendingPlace = true;
             pendingSlot = slot;
             pendingGround = ground;
             pendingIsCobweb = isCobweb;
-        } else {
-            // Already holding, can place immediately
-            try {
-                if (!silentAim.isEnabled()) {
-                    mc.player.setPitch(90.0f);
-                }
-                BlockHitResult bhr = new BlockHitResult(
-                        new Vec3d(ground.getX() + 0.5, ground.getY() + 1.0, ground.getZ() + 0.5),
-                        Direction.UP, ground, false);
-                mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
-                mc.player.swingHand(Hand.MAIN_HAND);
-                if (!isCobweb) {
-                    placedWater = true;
-                    placedPos = ground.up();
-                    pickupCooldown = 0;
-                } else {
-                    restoreSlotAndInventory();
-                }
-            } catch (Throwable ignored) {
-                restoreSlotAndInventory();
-            }
+            pendingTicks = justSwapped ? 0 : 1;   // swapped items need one more tick to arrive
+            return;
         }
+        // Already holding, can place immediately
+        if (!silentAim.isEnabled()) mc.player.setPitch(90.0f);
+        boolean placed = placeAt(ground, Direction.UP,
+                new Vec3d(ground.getX() + 0.5, ground.getY() + 1.0, ground.getZ() + 0.5), !isCobweb);
+        if (placed && !isCobweb) {
+            placedWater = true;
+            placedPos = ground.up();
+            pickupCooldown = 0;
+        } else {
+            restoreSlotAndInventory();
+        }
+    }
+
+    /**
+     * Clicks a block face to use the held item. Buckets need a real "right click in the air" on some
+     * servers, so a rejected block click falls back to one aimed straight down.
+     */
+    private boolean placeAt(BlockPos anchor, Direction side, Vec3d hitVec, boolean allowItemFallback) {
+        try {
+            BlockHitResult bhr = new BlockHitResult(hitVec, side, anchor, false);
+            if (mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr).isAccepted()) {
+                mc.player.swingHand(Hand.MAIN_HAND);
+                return true;
+            }
+            if (allowItemFallback) {
+                float prevPitch = mc.player.getPitch();
+                mc.player.setPitch(90.0f);
+                boolean ok = mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND).isAccepted();
+                if (ok) mc.player.swingHand(Hand.MAIN_HAND);
+                if (!ok || silentAim.isEnabled()) mc.player.setPitch(prevPitch);
+                return ok;
+            }
+        } catch (Throwable ignored) {}
+        return false;
     }
 
     private void restoreSlotAndInventory() {
@@ -344,5 +365,17 @@ public class MLG extends Module {
             }
         } catch (Throwable ignored) {}
         return -1;
+    }
+
+    /** Enchantment level by registry path, e.g. "feather_falling". 0 when absent. */
+    private int enchantLevel(ItemStack stack, String path) {
+        try {
+            var component = stack.getEnchantments();
+            for (var entry : component.getEnchantments()) {
+                String id = entry.getKey().map(key -> key.getValue().getPath()).orElse("");
+                if (id.equals(path)) return component.getLevel(entry);
+            }
+        } catch (Throwable ignored) {}
+        return 0;
     }
 }

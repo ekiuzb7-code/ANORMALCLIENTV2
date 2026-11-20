@@ -69,6 +69,20 @@ public class InteractionManagerMixin {
             com.anormal.client.module.impl.render.Effects effects = ModuleManager.getModule(com.anormal.client.module.impl.render.Effects.class);
             if (effects != null && effects.isEnabled()) effects.onAttack(target);
 
+            // ReachDisplay: eye-to-hitbox distance of the attack that was just sent. This is the
+            // single choke point (vanilla click and auras both go through here), and without a
+            // caller the display had nothing to show and never rendered at all.
+            try {
+                net.minecraft.util.math.Vec3d eye = player.getEyePos();
+                net.minecraft.util.math.Box bb = target.getBoundingBox();
+                double dx = Math.max(bb.minX - eye.x, Math.max(0.0, eye.x - bb.maxX));
+                double dy = Math.max(bb.minY - eye.y, Math.max(0.0, eye.y - bb.maxY));
+                double dz = Math.max(bb.minZ - eye.z, Math.max(0.0, eye.z - bb.maxZ));
+                com.anormal.client.module.impl.legit.ReachDisplay.updateReach(
+                        Math.sqrt(dx * dx + dy * dy + dz * dz));
+            } catch (Throwable ignored) {
+            }
+
             // Kuro HitSounds: needs the hit moment to wait for the server's hurt confirmation.
             com.anormal.client.module.impl.kuro.KuroHitSounds.onAttack(target);
 

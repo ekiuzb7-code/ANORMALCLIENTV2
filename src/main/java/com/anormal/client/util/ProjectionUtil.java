@@ -204,4 +204,10 @@ public final class ProjectionUtil {
         if (!frameValid) beginFrame(tickDelta);
         return camPitch;
     }
+
+    /** Vertical focal length in pixels for the current render frame (0 when unavailable). */
+    public static double focal() {
+        if (!frameValid) beginFrame(0.0f);
+        return frameValid ? focal : 0.0;
+    }
 }

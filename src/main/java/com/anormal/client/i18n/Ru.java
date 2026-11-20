@@ -3160,7 +3160,6 @@ final class Ru {
                 {"DirectionHUD", "HUD направления"},
                 {"DonkeyFinder", "Поиск ослов"},
                 {"DuelInfo", "Инфо о дуэли"},
-                {"DynamicRenderDistance", "Динамическая дальность"},
                 {"ESP", "ESP"},
                 {"ESPv2", "ESP v2"},
                 {"ElytraFly", "Полёт на элитре"},
@@ -3168,7 +3167,6 @@ final class Ru {
                 {"EndPortalFinder", "Поиск портала Края"},
                 {"EnemyArmor", "Броня врага"},
                 {"EnemyInventory", "Инвентарь врага"},
-                {"EntityCulling", "Отсечение сущностей"},
                 {"Explosions", "Взрывы"},
                 {"FPS", "FPS"},
                 {"FakeLag", "FakeLag"},
@@ -3224,11 +3222,9 @@ final class Ru {
                 {"PaintingESP", "ESP картин"},
                 {"Panic", "Паника"},
                 {"Parkour", "Паркур"},
-                {"ParticleOptimizer", "Оптимизатор частиц"},
                 {"PartyOverlay", "Оверлей группы"},
                 {"PearlCatch", "Ловля жемчуга"},
                 {"PearlTrajectory", "Траектория жемчуга"},
-                {"PerformanceOverlay", "Оверлей производительности"},
                 {"PlayerESP", "ESP игроков"},
                 {"PlayerLogger", "Журнал игроков"},
                 {"PortalFinder", "Поиск порталов"},
@@ -3968,8 +3964,39 @@ final class Ru {
             d6(),
             d7(),
             d8(),
-            d9()
+            d9(),
+            d10()
     };
+
+    // BannerESP + MusicPlayer additions
+    private static String[][] d10() {
+        return new String[][] {
+                {"Use Banner Color", "Использовать цвет баннера"},
+                {"Tint each marker with the banner's own dye", "Красит каждый маркер цветом самого баннера"},
+                {"Translucent fill inside the marker", "Полупрозрачная заливка внутри маркера"},
+                {"Outline thickness in pixels", "Толщина контура в пикселях"},
+                {"MusicPlayer", "Музыкальный плеер"},
+                {"Plays local audio files with a now-playing card on the HUD", "Проигрывает локальные аудиофайлы с карточкой «сейчас играет» на HUD"},
+                {"Card X position", "Позиция карточки по X"},
+                {"Card Y position", "Позиция карточки по Y"},
+                {"Card scale", "Масштаб карточки"},
+                {"Playback volume", "Громкость воспроизведения"},
+                {"Show Album Art", "Показывать обложку"},
+                {"Draw the cover image", "Рисует изображение обложки"},
+                {"Show Times", "Показывать время"},
+                {"Draw the seek bar", "Рисует полосу перемотки"},
+                {"Show Volume", "Показывать громкость"},
+                {"Draw the volume slider", "Рисует ползунок громкости"},
+                {"Dark rounded card", "Тёмная скруглённая карточка"},
+                {"Glass Style", "Стеклянный стиль"},
+                {"Frosted glass panel with a glowing border (matches the Glassmorphism theme)", "Матовое стекло с подсвеченной рамкой (в стиле Glassmorphism)"},
+                {"Accent", "Акцент"},
+                {"Progress and button colour", "Цвет прогресса и кнопок"},
+                {"now playing", "сейчас играет"},
+                {"No tracks", "Нет треков"},
+                {"Right-click the module to add songs", "ПКМ по модулю: добавить песни"},
+        };
+    }
 
 
     // kuro-setting additions
@@ -5020,5 +5047,6 @@ final class Ru {
         for (String[][] chunk : CHUNKS) {
             for (String[] e : chunk) m.put(e[0], e[1]);
         }
+        ExtraRu.load(m);
     }
 }

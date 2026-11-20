@@ -2,6 +2,7 @@ package com.anormal.client.module.impl.inventory;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
+import com.anormal.client.util.InventoryClicks;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
@@ -41,25 +42,48 @@ public class Refill extends Module {
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
+        // Only the player's own handler is valid here; a click carrying another screen's sync id
+        // is rejected (and on strict servers kickable).
+        if (!InventoryClicks.playerHandlerOpen()) return;
         if (cooldown > 0) {
             cooldown--;
             return;
         }
-        if (hotbarClear.isEnabled() && clearOne()) {
+        // Clearing only makes sense once the hotbar is actually full - otherwise it would throw
+        // away building blocks and gear for no reason.
+        if (hotbarClear.isEnabled() && !hasEmptyHotbarSlot() && clearOne()) {
             cooldown = delay.getValue().intValue();
             return;
         }
         if (refillOne()) cooldown = delay.getValue().intValue();
     }
 
+    private boolean hasEmptyHotbarSlot() {
+        for (int i = 0; i < 9; i++) {
+            if (mc.player.getInventory().getStack(i).isEmpty()) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Drops one disposable item to free a hotbar slot. Only genuine junk is dropped: clearing the
+     * first non-healing slot blindly used to discard blocks, gear and pearls.
+     */
     private boolean clearOne() {
         for (int hot = 0; hot < 9; hot++) {
             ItemStack s = mc.player.getInventory().getStack(hot);
-            if (s.isEmpty() || isHeal(s) || isKept(s)) continue;
-            mc.interactionManager.clickSlot(mc.player.playerScreenHandler.syncId, hot + 36, 1, SlotActionType.THROW, mc.player);
-            return true;
+            if (s.isEmpty() || isHeal(s) || isKept(s) || !isDisposable(s)) continue;
+            if (InventoryClicks.playerClick(InventoryClicks.screenSlot(hot), 1, SlotActionType.THROW)) return true;
         }
         return false;
+    }
+
+    private boolean isDisposable(ItemStack s) {
+        String p = Registries.ITEM.getId(s.getItem()).getPath();
+        return p.equals("stick") || p.equals("string") || p.equals("flint") || p.equals("feather")
+                || p.equals("glass_bottle") || p.equals("rotten_flesh") || p.equals("poisonous_potato")
+                || p.endsWith("_seeds") || p.equals("wheat_seeds") || p.equals("bone") || p.equals("egg")
+                || p.equals("snowball") || p.equals("cobweb");
     }
 
     private boolean refillOne() {
@@ -74,8 +98,8 @@ public class Refill extends Module {
         for (int idx : sourceOrder()) {
             ItemStack s = mc.player.getInventory().getStack(idx);
             if (!s.isEmpty() && isHeal(s)) {
-                mc.interactionManager.clickSlot(mc.player.playerScreenHandler.syncId, idx, 0, SlotActionType.QUICK_MOVE, mc.player);
-                return true;
+                // Shift-click from a main inventory slot lands in a free hotbar slot (vanilla routing).
+                if (InventoryClicks.playerClick(idx, 0, SlotActionType.QUICK_MOVE)) return true;
             }
         }
         return false;

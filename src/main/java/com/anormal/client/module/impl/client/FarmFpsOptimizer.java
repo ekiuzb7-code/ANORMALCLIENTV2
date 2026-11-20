@@ -31,7 +31,7 @@ public class FarmFpsOptimizer extends Module {
     public final BooleanSetting redstone = new BooleanSetting("Redstone", "Hide redstone dust lines and particles", true);
 
     public FarmFpsOptimizer() {
-        super("FarmFpsOptimizer", "Removes farm lag (items, xp, tnt, piston sounds) boosting FPS 2x", Category.CLIENT);
+        super("FarmFpsOptimizer", "Removes farm lag (items, xp, tnt, piston sounds) boosting FPS 2x", Category.OPTIMIZATION);
         INSTANCE = this;
         addSetting(items);
         addSetting(xpOrbs);
@@ -62,5 +62,40 @@ public class FarmFpsOptimizer extends Module {
 
     public static boolean shouldCancelRedstoneRender() {
         return INSTANCE != null && INSTANCE.isEnabled() && INSTANCE.redstone.isEnabled();
+    }
+
+    /** Drops explosion and redstone particles before they are even allocated. */
+    public static boolean shouldHideParticle(Object particle) {
+        if (INSTANCE == null || !INSTANCE.isEnabled() || particle == null) return false;
+        String id = particle.getClass().getSimpleName().toLowerCase();
+        if (INSTANCE.explosions.isEnabled() && id.contains("explosion")) return true;
+        return INSTANCE.redstone.isEnabled() && (id.contains("dust") || id.contains("redstone"));
+    }
+
+    /** Moving pistons render as block entities; every farm has hundreds of them. */
+    public static boolean shouldHidePiston() {
+        return INSTANCE != null && INSTANCE.isEnabled() && INSTANCE.pistons.isEnabled();
+    }
+
+    private static final java.util.HashMap<String, long[]> RECENT_SOUNDS = new java.util.HashMap<>();
+
+    /** Mutes one sound id once it exceeds the spam budget inside a one-second window. */
+    public static boolean shouldMuteSound(Object sound) {
+        if (INSTANCE == null || !INSTANCE.isEnabled() || !INSTANCE.sounds.isEnabled()) return false;
+        if (!(sound instanceof net.minecraft.client.sound.SoundInstance instance)) return false;
+        String id;
+        try {
+            id = instance.getId().toString();
+        } catch (Throwable t) {
+            return false;
+        }
+        long now = System.currentTimeMillis();
+        long[] slot = RECENT_SOUNDS.computeIfAbsent(id, k -> new long[] { now, 0L });
+        if (now - slot[0] > 1000L) {
+            slot[0] = now;
+            slot[1] = 0L;
+        }
+        slot[1]++;
+        return slot[1] > INSTANCE.soundSpam.getValue().intValue();
     }
 }

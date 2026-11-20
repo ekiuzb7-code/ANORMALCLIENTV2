@@ -5,6 +5,7 @@ import com.anormal.client.module.Module;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
+import com.anormal.client.util.InventoryClicks;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -21,6 +22,8 @@ public class AutoHotbar extends Module {
     private static final String[] POTION = {"splash_potion", "mushroom_stew", "_sword", "ender_pearl", "golden_apple", "_pickaxe", "water_bucket", "cobweb", "bow"};
 
     private int cooldown = 0;
+    /** "On Key" mode sorts one item per tick, then switches itself off. */
+    private boolean onceMode = false;
 
     public AutoHotbar() {
         super("AutoHotbar", "Automatically organizes and slots hotbar items into preferred slots", Category.INVENTORY);
@@ -33,18 +36,24 @@ public class AutoHotbar extends Module {
     @Override
     public void onEnable() {
         cooldown = 0;
-        if (activation.is("On Key") && mc.player != null && mc.interactionManager != null) {
-            if (openInventory.isEnabled() && mc.currentScreen == null) mc.setScreen(new InventoryScreen(mc.player));
-            for (int i = 0; i < 9 && sortOne(); i++) {
-            }
-            setEnabled(false);
+        onceMode = activation.is("On Key");
+        if (!onceMode && mc.player != null && mc.currentScreen == null && openInventory.isEnabled()) {
+            mc.setScreen(new InventoryScreen(mc.player));
         }
     }
 
     @Override
+    public void onDisable() {
+        onceMode = false;
+    }
+
+    @Override
     public void onTick() {
-        if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
-        if (!activation.is("Toggle")) return;
+        if (mc.player == null || mc.world == null || mc.interactionManager == null) {
+            setEnabled(false);
+            return;
+        }
+        if (!onceMode && !activation.is("Toggle")) return;
         if (cooldown > 0) {
             cooldown--;
             return;
@@ -53,7 +62,16 @@ public class AutoHotbar extends Module {
             mc.setScreen(new InventoryScreen(mc.player));
             return;
         }
-        if (sortOne()) cooldown = delay.getValue().intValue();
+        // One click per tick, and only on the handler the server actually has open.
+        if (!InventoryClicks.playerHandlerOpen()) return;
+        if (sortOne()) {
+            cooldown = Math.max(1, delay.getValue().intValue());
+            return;
+        }
+        if (onceMode) {
+            onceMode = false;
+            setEnabled(false);
+        }
     }
 
     private boolean sortOne() {
@@ -64,12 +82,13 @@ public class AutoHotbar extends Module {
             if (!cur.isEmpty() && Registries.ITEM.getId(cur.getItem()).getPath().contains(frag)) continue;
             int src = findSource(frag, hot);
             if (src == -1) continue;
-            mc.interactionManager.clickSlot(mc.player.playerScreenHandler.syncId, src, hot, SlotActionType.SWAP, mc.player);
+            if (!InventoryClicks.playerClick(src, hot, SlotActionType.SWAP)) return false;
             return true;
         }
         return false;
     }
 
+    /** @return player-handler screen slot of a matching item, or -1 */
     private int findSource(String frag, int skipHot) {
         for (int i = 9; i < 36; i++) {
             ItemStack s = mc.player.getInventory().getStack(i);
@@ -78,7 +97,7 @@ public class AutoHotbar extends Module {
         for (int i = 0; i < 9; i++) {
             if (i == skipHot) continue;
             ItemStack s = mc.player.getInventory().getStack(i);
-            if (!s.isEmpty() && Registries.ITEM.getId(s.getItem()).getPath().contains(frag)) return i + 36;
+            if (!s.isEmpty() && Registries.ITEM.getId(s.getItem()).getPath().contains(frag)) return InventoryClicks.screenSlot(i);
         }
         return -1;
     }

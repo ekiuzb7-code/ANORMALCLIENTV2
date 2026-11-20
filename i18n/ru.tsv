@@ -1,0 +1,136 @@
+-1 = none, 0..399 keyboard, 1000+ mouse button +1000	-1 = нет, 0..399 клавиатура, 1000+ кнопка мыши +1000
+0 = Click, 1 = Hold	0 = Клик, 1 = Удержание
+0 = default (sword → axe → mace), 1 = knockback, 2 = damage, 3 = speed	0 = по умолчанию (меч → топор → булава), 1 = отбрасывание, 2 = урон, 3 = скорость
+0 = forever	0 = навсегда
+0 = melee hit, 1 = wind charge, 2 = none	0 = ближний удар, 1 = ветряной заряд, 2 = нет
+0 = only when empty	0 = только когда пусто
+0 = silent (F5 shows it), 1 = camera turns your view	0 = тихо (F5 показывает), 1 = камера поворачивает обзор
+0 = snap instantly, 100 = slowest human-like movement (30 is a good combat value)	0 = мгновенно, 100 = самое медленное движение (30 — хорошее боевое значение)
+0 = snap instantly, 100 = slowest human-like movement (35 is a good combat value)	0 = мгновенно, 100 = самое медленное движение (35 — хорошее боевое значение)
+1 fast .. 4 slow	1 быстро .. 4 медленно
+1 silent smooth, 2 snap, 3 HvH, 4 camera	1 тихо плавно, 2 мгновенно, 3 HvH, 4 камера
+1 steady, 2 smooth, 3 Baritone default	1 ровно, 2 плавно, 3 по умолчанию Baritone
+1x1 Fill	1x1 заливка
+1x1 Line	1x1 линия
+3D Outlines	3D контуры
+3x1 Fill	3x1 заливка
+3x1 Line	3x1 линия
+3x1 hole fill color	3x1 цвет заливки дыры
+3x1 hole outline color	3x1 цвет контура дыры
+A crystal still present after this long gets hit again	Кристалл, продержавшийся дольше, бьётся снова
+AC Profile	Профиль AC
+Abilities uses the vanilla fly flag, Velocity drives the motion	Abilities использует ванильный флаг полёта, Velocity задаёт движение
+Acceleration	Ускорение
+Acceleration Step	Шаг ускорения
+Accent + meter color	Акцент + цвет индикатора
+Accent colour	Акцентный цвет
+Accessory size	Размер аксессуара
+AccuratePlacement	AccuratePlacement
+Action Bar	Панель действий
+Action Wheel Editor	Редактор колеса действий
+Add a moving glint	Добавляет движущийся блеск
+Add the pendant	Добавляет подвеску
+Advanced Debug	Расширенная отладка
+After the axe breaks the shield, swap to a mace and perform a falling smash on the same target (requires a mace in the hotbar).	После слома щита топором переключается на булаву и делает падающий удар по той же цели (нужна булава в хотбаре).
+Aim 1.5 ticks ahead of their motion	Целится на 1.5 тика вперёд по движению
+Aim Part	Часть прицела
+Aim Point	Точка прицела
+Aim Preview	Предпросмотр прицела
+Aim at friends too	Целится и в друзей
+Aim at nothing while using/eating	Не целится при использовании/еде
+Aim at targets behind blocks	Целится в цели за блоками
+Aim at the anchor for you	Целится в якорь за вас
+Aim only while you are pulling the bow	Целится только при натяжении лука
+Aim server-side only	Целится только на сервере
+Aim smoothing curve	Кривая сглаживания прицела
+Aim with look packets, camera stays put	Целится look-пакетами, камера не двигается
+Allow axes	Разрешить топоры
+Allow maces	Разрешить булавы
+Allow riptide dashes on dry land	Разрешить рывок riptide на суше
+Allow swords	Разрешить мечи
+Allow tridents out of water	Разрешить трезубцы вне воды
+Alpha of the fill (0 = fill off)	Альфа заливки (0 = заливка выключена)
+Also apply in water	Также применять в воде
+Also attack players without armor	Атакует и игроков без брони
+Also change the offhand swing	Меняет взмах второй руки
+Also converge the pitch	Также сводит наклон
+Also draw rings for other players	Рисует кольца и для других игроков
+Also fill the block under you	Заливает блок под вами
+Also hood friends	Надевает капюшон и на друзей
+Also list modules without a key	Показывает модули без клавиши
+Also mask empty slots	Маскирует пустые слоты
+Also move a hovered totem into a hotbar slot	Переносит наведённый тотем в слот хотбара
+Also move the pitch	Также двигает наклон
+Also outline the chunks Quantum read from	Обводит чанки, прочитанные Quantum
+Also refill the chosen hotbar slot	Пополняет выбранный слот хотбара
+Also refill the offhand slot	Пополняет слот второй руки
+Also ring your block at head height	Обводит ваш блок на высоте головы
+Also show the bolt for loaded crossbows	Показывает болт у заряженных арбалетов
+Also show the nether conversion	Показывает пересчёт в Нижний мир
+Also show the payment message above the hotbar.	Показывает сообщение об оплате над хотбаром.
+Also show your own pops	Показывает и ваши собственные попы
+Also sprint while strafing or walking backwards	Спринт при стрейфе и ходьбе назад
+Also swap when clicking empty air (needed for the dash)	Меняет предмет и при клике в воздух (нужно для рывка)
+Also target living mobs (zombies etc.) instead of players only — lets you test the dive in a singleplayer world.	Целится и в живых мобов (зомби и т.п.), а не только в игроков — можно тестировать дайв в одиночной игре.
+Also track pearls thrown by other players	Отслеживает жемчуг, брошенный другими игроками
+Also trigger when Triggerbot attacks a blocking enemy, even without left-click held. Requires Triggerbot enabled.	Срабатывает, когда Triggerbot бьёт врага со щитом, даже без зажатой ЛКМ. Нужен включённый Triggerbot.
+Also trigger while eating / holding up a shield.	Срабатывает и при еде / поднятом щите.
+Also uses axes for normal hits	Использует топоры для обычных ударов
+Also uses maces for normal hits	Использует булавы для обычных ударов
+Also uses swords for normal hits	Использует мечи для обычных ударов
+Also wear for friends	Надевает и на друзей
+Also wear it for friends	Надевает и на друзей
+Also web the block above their feet	Обкладывает паутиной блок над ногами
+Always Night Sky	Всегда ночное небо
+Always draw on top	Всегда рисовать сверху
+Always sprint while gliding	Всегда спринт при полёте
+Ambient	Окружение
+Anchor Aura	Аура якорей
+Anchor Bomb	Бомба якорей
+Anchor Macro	Макрос якорей
+Anchors the spot closest to the nearest enemy	Ставит якорь в ближайшей к врагу точке
+Animal tracer color	Цвет трейсера животных
+Animate the arc	Анимирует дугу
+Animate the gradient	Анимирует градиент
+Anormal Client GUI	Anormal Client GUI
+Anti Friend Pop	Защита от попов друзей
+Anti Kick Delay	Задержка анти-кика
+Anti Kick Mode	Режим анти-кика
+Anti Kick Off Time	Время отключения анти-кика
+Anti Self Pop	Защита от своего попа
+Anti-cheat timing profile	Профиль таймингов античита
+Anticheat pacing	Темп античита
+Any Item	Любой предмет
+Any Weapon	Любое оружие
+Append a random suffix to bypass chat filters	Добавляет случайный суффикс для обхода фильтров чата
+Append the dimension name	Добавляет название измерения
+Append the distance to each name	Добавляет дистанцию к каждому имени
+Append the spawner Y level	Добавляет уровень Y спавнера
+Apply inside chat messages	Применять внутри сообщений чата
+Apply while in water/lava	Применять в воде/лаве
+Apply while sneaking	Применять при приседании
+Arc colour	Цвет дуги
+Arc style	Стиль дуги
+Arc thickness	Толщина дуги
+Arm / dot / circle length	Длина руки / точки / круга
+Arm thickness	Толщина руки
+Armor Color	Цвет брони
+Armor HUD	HUD брони
+Armor Layout	Раскладка брони
+Armor Stands	Стойки для брони
+Arrow Color	Цвет стрелки
+Arrow Size	Размер стрелки
+Arrow distance from screen centre	Расстояние стрелки от центра экрана
+Arrow keys rotate the view	Стрелки вращают обзор
+Arrow ring distance	Дистанция кольца стрелок
+Arrow size	Размер стрелки
+Arrows Control Opposite	Стрелки управляют наоборот
+Arrows around the crosshair point to every player	Стрелки вокруг прицела указывают на каждого игрока
+Artificial blocks needed to flag	Искусственных блоков для флага
+Ascent	Подъём
+Assist jumps while riding	Помогает прыгать верхом
+Assist while holding a mace	Помогает с булавой
+Assist while holding a spear or trident	Помогает с копьём или трезубцем
+Assist while holding a sword	Помогает с мечом
+Assist while holding an axe	Помогает с топором
+Assist with any item	Помогает с любым предметом

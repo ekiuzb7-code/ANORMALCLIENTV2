@@ -2,6 +2,7 @@ package com.anormal.client.module.impl.player;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
+import com.anormal.client.util.InventoryClicks;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.NumberSetting;
 import net.minecraft.item.ItemStack;
@@ -61,7 +62,7 @@ public class ChestStealer extends Module {
                 ItemStack stack = handler.getSlot(i).getStack();
                 if (blacklist.isEnabled() && isJunk(stack)) continue;
                 if (bestOnly.isEnabled() && !isUpgrade(stack)) continue;
-                mc.interactionManager.clickSlot(handler.syncId, i, 0, SlotActionType.QUICK_MOVE, mc.player);
+                if (!InventoryClicks.click(handler, i, 0, SlotActionType.QUICK_MOVE)) return;
                 tookSomething = true;
                 break;
             } catch (Throwable ignored) {}
@@ -70,7 +71,9 @@ public class ChestStealer extends Module {
         if (tookSomething) {
             int min = Math.min(minDelay.getValue().intValue(), maxDelay.getValue().intValue());
             int max = Math.max(minDelay.getValue().intValue(), maxDelay.getValue().intValue());
-            timer = min + (max > min ? (int) (Math.random() * (max - min + 1)) : 0);
+            // At least one tick between clicks: two QUICK_MOVE packets inside the same tick are a
+            // common inventory rate-check trigger and desync the slot the client is looking at.
+            timer = Math.max(1, min + (max > min ? (int) (Math.random() * (max - min + 1)) : 0));
         } else if (!keepOpen.isEnabled()) {
             // Chest empty (or nothing worth taking): close it
             try {

@@ -33,13 +33,18 @@ public class Explosions extends Module {
     public void onRender2D(DrawContext context, float tickDelta) {
         if (mc.player == null || mc.world == null || mc.textRenderer == null) return;
         int h = mc.getWindow().getScaledHeight();
-        double f = focal(h);
+        // Same focal as every other world marker, so sprint FOV / zoom / effects stay consistent.
+        double f = com.anormal.client.util.ProjectionUtil.focal();
+        if (f <= 0.0) f = focal(h);
         try {
             for (Entity e : mc.world.getEntities()) {
                 if (!(e instanceof TntEntity tnt)) continue;
                 double dist = mc.player.distanceTo(e);
                 if (dist > maxDistance.getValue() || dist < 0.5) continue;
-                int[] s = com.anormal.client.util.ProjectionUtil.project(new Vec3d(e.getX(), e.getY() + 0.5, e.getZ()), tickDelta);
+                // Interpolated position: a fuse marker drawn from the raw tick position jitters
+                // badly while the TNT flies.
+                Vec3d mark = com.anormal.client.util.ProjectionUtil.lerpPos(e, tickDelta).add(0.0, 0.5, 0.0);
+                int[] s = com.anormal.client.util.ProjectionUtil.project(mark, tickDelta);
                 if (s == null) continue;
                 int outer = Math.min(220, (int) (f * 8.0 / dist));
                 circle(context, s[0], s[1], outer, damageColor.getValue());

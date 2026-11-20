@@ -136,6 +136,23 @@ public final class WorldRender3D {
         ).build()
     );
 
+    /**
+     * Custom POSITION_COLOR QUADS layer WITH the normal depth test and depth write. Used by
+     * cosmetics that have to be occluded by the world (a hat behind your head must not draw over
+     * it). Same vertex format / blend as {@link #QUADS_NO_DEPTH}.
+     */
+    public static final RenderLayer QUADS_DEPTH = RenderLayer.of(
+        "lucidclient:quads_depth",
+        RenderSetup.builder(
+            RenderPipeline.builder(RenderPipelines.POSITION_COLOR_SNIPPET)
+                .withLocation("pipeline/lucidclient_quads_depth")
+                .withCull(false)
+                .withVertexFormat(VertexFormats.POSITION_COLOR,
+                                  VertexFormat.DrawMode.QUADS)
+                .build()
+        ).build()
+    );
+
     private static MatrixStack matrices;
     private static Vec3d cachedCamPos;
 
@@ -365,5 +382,44 @@ public final class WorldRender3D {
         if (matrices == null || consumers == null || camera == null) return;
         Vec3d from = camera.getCameraPos();
         drawLine(consumers, from, toWorld, color);
+    }
+
+    /**
+     * One flat triangle on a POSITION_COLOR QUADS layer (the 4th vertex repeats the 3rd, which is
+     * a valid degenerate quad). Each corner takes its own ARGB colour, so the GPU interpolates a
+     * gradient across the face.
+     */
+    public static void triangle(VertexConsumerProvider consumers, RenderLayer layer,
+                                Vec3d a, Vec3d b, Vec3d c,
+                                int colorA, int colorB, int colorC) {
+        if (matrices == null || consumers == null || layer == null) return;
+        VertexConsumer vc = consumers.getBuffer(layer);
+        MatrixStack.Entry entry = matrices.peek();
+        vertex(vc, entry, a, colorA);
+        vertex(vc, entry, b, colorB);
+        vertex(vc, entry, c, colorC);
+        vertex(vc, entry, c, colorC);
+    }
+
+    /** One flat quad (4 corners, 4 colours) on a POSITION_COLOR QUADS layer. */
+    public static void quad(VertexConsumerProvider consumers, RenderLayer layer,
+                            Vec3d a, Vec3d b, Vec3d c, Vec3d d,
+                            int colorA, int colorB, int colorC, int colorD) {
+        if (matrices == null || consumers == null || layer == null) return;
+        VertexConsumer vc = consumers.getBuffer(layer);
+        MatrixStack.Entry entry = matrices.peek();
+        vertex(vc, entry, a, colorA);
+        vertex(vc, entry, b, colorB);
+        vertex(vc, entry, c, colorC);
+        vertex(vc, entry, d, colorD);
+    }
+
+    /** Emits one POSITION_COLOR vertex (position + colour, no normal / no UV). */
+    private static void vertex(VertexConsumer vc, MatrixStack.Entry entry, Vec3d p, int color) {
+        float a = ((color >>> 24) & 0xFF) / 255f;
+        float r = ((color >> 16) & 0xFF) / 255f;
+        float g = ((color >> 8) & 0xFF) / 255f;
+        float b = (color & 0xFF) / 255f;
+        vc.vertex(entry, (float) p.x, (float) p.y, (float) p.z).color(r, g, b, a);
     }
 }

@@ -1,0 +1,1839 @@
+0 = snap instantly, 100 = slowest human-like movement (30 is a good combat value)
+0 = snap instantly, 100 = slowest human-like movement (35 is a good combat value)
+1x1 Fill
+1x1 Line
+3D Outlines
+3x1 Fill
+3x1 Line
+3x1 hole fill color
+3x1 hole outline color
+AC Profile
+Abilities uses the vanilla fly flag, Velocity drives the motion
+Acceleration
+Acceleration Step
+Accent + meter color
+Accent colour
+Accessory size
+AccuratePlacement
+Action Bar
+Action Wheel Editor
+Add a moving glint
+Add the pendant
+Advanced Debug
+After the axe breaks the shield, swap to a mace and perform a falling smash on the same target (requires a mace in the hotbar).
+Aim Part
+Aim Point
+Aim Preview
+Aim at targets behind blocks
+Aim smoothing curve
+Allow axes
+Allow maces
+Allow riptide dashes on dry land
+Allow swords
+Allow tridents out of water
+Also apply in water
+Also change the offhand swing
+Also draw rings for other players
+Also hood friends
+Also list modules without a key
+Also mask empty slots
+Also move a hovered totem into a hotbar slot
+Also outline the chunks Quantum read from
+Also refill the chosen hotbar slot
+Also refill the offhand slot
+Also show the nether conversion
+Also show the payment message above the hotbar.
+Also show your own pops
+Also target living mobs (zombies etc.) instead of players only — lets you test the dive in a singleplayer world.
+Also track pearls thrown by other players
+Also trigger when Triggerbot attacks a blocking enemy, even without left-click held. Requires Triggerbot enabled.
+Also trigger while eating / holding up a shield.
+Also wear for friends
+Also wear it for friends
+Always Night Sky
+Always draw on top
+Always sprint while gliding
+Ambient
+Anchor Aura
+Anchor Bomb
+Anchor Macro
+Animal tracer color
+Animate the arc
+Animate the gradient
+Anormal Client GUI
+Anti Friend Pop
+Anti Kick Delay
+Anti Kick Mode
+Anti Kick Off Time
+Anti Self Pop
+Anti-cheat timing profile
+Anticheat pacing
+Any Item
+Any Weapon
+Append a random suffix to bypass chat filters
+Append the dimension name
+Append the distance to each name
+Append the spawner Y level
+Apply inside chat messages
+Apply while in water/lava
+Apply while sneaking
+Arc colour
+Arc style
+Arc thickness
+Arm / dot / circle length
+Arm thickness
+Armor Color
+Armor HUD
+Armor Layout
+Armor Stands
+Arrow Color
+Arrow distance from screen centre
+Arrow keys rotate the view
+Arrows Control Opposite
+Arrows around the crosshair point to every player
+Artificial blocks needed to flag
+Ascent
+Assist jumps while riding
+Assist while holding a mace
+Assist while holding a spear or trident
+Assist while holding a sword
+Assist while holding an axe
+Assist with any item
+Attack Aura
+Attack while falling with a mace
+Attack while you hold the left button and the crosshair is on a target
+Attacks the entity under your crosshair (kuro port)
+Attacks the nearest valid target (kuro port)
+Audio cue when hitting an enemy
+Aura
+Aura Color
+Aura Reach
+Aura colour
+Aura halo size
+Aura size
+Aura strength
+Aurora Color
+Auto Anchor
+Auto Build
+Auto Clicker
+Auto Disconnect
+Auto Eat
+Auto Fish
+Auto Hover
+Auto Miner
+Auto Obsidian
+Auto Split Messages
+Auto Swap
+Auto Take Off
+Auto Trigger
+Auto Tunnel
+Auto-Sneak On Containers
+Auto-fire when a valid target + placement is found. Off = wait for manual trigger().
+Auto-swaps to an axe to break a blocking enemy's shield, then swaps back. Optional mace stun-slam.
+AutoBox
+AutoCobweb
+AutoDtap
+AutoLog
+AutoLoot
+AutoMLG
+AutoMine
+AutoReplenish
+AutoSell
+AutoShieldBreak
+AutoWeapon
+Automatically blows up respawn anchors for you
+Automatically breaks blocks (crosshair / tunnel / whitelist modes). No left-click needed.
+Automatically disconnects from the server when your health drops below a set threshold.
+Automatically moves all items from an opened storage block into your inventory.
+Automatically sells whitelisted items through the DonutSMP /sell GUI — deposits, clicks the confirm button and answers the server dialog.
+Axe-blocks a shielding player to disable the shield (kuro port)
+BG Opacity
+Back Delay
+Background Alpha
+Backtrack (kuro)
+Backtracked position color
+Baritone
+Base dot radius in pixels
+Behind Wall Color
+Bhop
+Blend from Colour to End Colour along the path
+Blend towards the horizon colour
+Blindness & Darkness
+Blob UI
+Block Bounce
+Block ESP
+Blocks Per Packet
+Blocks checked per tick (auxiliary)
+Blocks from the centre to the edge
+Blocks per second
+Blocks per second in open air
+Blocks per second while inside geometry
+Blocks the spirit rises
+Blur strength
+Boat Fly
+Body Glow
+Body Ring Alpha
+Body Ring Radius
+Body Rings
+Body part aimed at
+Body rendering style
+Bold Rank
+Boost speed while moving/strafing
+Borderless Fullscreen
+Bounce
+Bounce off solid blocks
+BowAim
+Bows & Crossbows
+Box Color
+Box color
+Box the landing spot
+BreachSwap
+Break At
+Breathe
+Builds a schematic with Baritone and restocks from a refill chest
+Builds a small fixed structure where you look
+Burst on totem pops
+Burst spark shape
+Burst spread
+Bypass
+Camels
+Camera Sensitivity
+Camera mode mouse scale
+Camera pitch angle when aiming at the edge
+Cancel On Self Hit
+Cancels fall damage (kuro port)
+Cap on interpolated position packets per teleport
+Cap the strafe speed (anti-anticheat burst)
+Casts, waits for the bite and reels in for you
+Cell Gap
+Cell Size
+Cells per side (3 = 3x3, 5 = 5x5)
+Center the map on screen (otherwise X/Y Pos is used)
+Change the zoom with the mouse wheel
+Character
+Character scale
+Characters per split
+Charge Scale
+Charge Ticks
+Charge anchors but never detonate them.
+Charges and detonates the anchor you place (kuro port)
+Chat
+Chat Confirmation
+Chat Mentions
+Chat Timestamps
+Chat message when a staff member joins or leaves
+Chat message when it triggers
+Chest Stealer
+Chunk Color
+Chunk Tracers
+Chunk marker
+Chunk radius
+Chunk radius kept loaded
+Chunk radius to scan
+Chunks
+Chunks scanned per tick
+Chunks/Tick
+Cinematic Camera
+Circular minimap showing nearby players and mobs
+Clamp the pitch while gliding
+Clear On Toggle
+Clear the markers when the module is toggled
+Click Simulation
+ClickGUI layout: Anormal classic frame or Vape frames
+Client HUD: title, keybinds, armor, target and module list
+Client-side dummy player to test combat modules
+Client-side night vision so caves stay bright
+Client-side time of day
+Cloth Color
+Cloth Detail
+Cloth colour
+Coal Ore
+Color for coal-ore positions. Click to cycle.
+Color for copper-ore positions. Click to cycle.
+Color for diamond-ore positions. Click to cycle.
+Color for emerald-ore positions. Click to cycle.
+Color for gold-ore positions. Click to cycle.
+Color for iron-ore positions. Click to cycle.
+Color for lapis-ore positions. Click to cycle.
+Color for redstone-ore positions. Click to cycle.
+Color when player is behind blocks
+Color while on target
+Colored Markers
+Colour at the end of the path
+Colour for friends
+Colour for hostile mobs
+Colour for passive mobs
+Colour for players
+Colour of the player dots
+Colour of your marker
+Colour punch
+Colour used when the pearl hits an entity
+Combat Only
+Combat hit visual animations (14 themes) and satisfying hit sounds
+Compact plates with name, health bar, armour and IRL time
+Compass Arrow
+Compass needle colour
+Compass needle length
+Config
+Config slots: save / load / delete / list module profiles (kuro port)
+Container color
+Container marker
+Containers
+Contrast
+Control boats
+Control camels
+Control horses and donkeys
+Control pigs
+Control striders
+Cooldown
+Cooldown (s)
+Cooldown Bypass
+Coord Share
+Coordinate text format
+Copies your coordinates to the clipboard and/or posts them in chat (kuro port)
+Copper Ore
+Cosmetic client-side trails behind players
+Count
+Count Absorption
+Count chests, barrels and hoppers
+Count furnaces, dispensers and anvils
+Count redstone components
+Critical Spawner
+Crits
+Crosshair Pick
+Crosshair color
+Crystal Aura
+Crystal Color
+Crystal Optimizer
+Crystal tint
+CrystalDtap
+Custom Accent
+Custom Tracer Color
+Custom or accent colours
+Cut the post-break delay
+Cycle color hue continuously
+Cycle effect hue continuously
+Damage Flash
+Damage Mode
+Damage ratio to place
+Dark disc behind the dots
+Dark plate behind the text
+Degrees per tick for the arrow keys
+Delay (s)
+Delay while slow
+Delays or ghost-lags enemy positions (kuro port)
+Denoise
+Depth filter
+Detail
+Detect Block Updates
+Detection
+Diagonal Walls
+Diameter of hit animation in blocks
+Diameter of the radar
+Diamond Ore
+Digs a tunnel straight ahead in the direction you face
+Ding Dong Builder
+Dip If Burning
+Dip in lava while fire resistant
+Disable On Disconnect
+Disable On Find
+Disable On Input
+Disable On Leave
+Disable On Y Change
+Discard new trap entities immediately
+Disconnect when a player appears
+Display distance in blocks
+Display player name above
+Distance Colors
+Distance Offscreen
+Distance from the center
+Distance where near fades to far
+Do not force sprint in water
+Do not hit targets that are blocking
+Do not re-place when the crosshair only flickers between faces of the same block
+Do not trace friends
+Doesn't anchor if a body is nearby.
+Double vertical speed scale
+DoubleAnchor
+Downward drift when nothing is pressed
+Draw 3D block outlines around portal frames
+Draw 3D outline at city center
+Draw 3D wireframe boxes around ores
+Draw HUD text with a shadow
+Draw Tracer Color
+Draw a 3D box
+Draw a 3D box marker
+Draw a beam down from each block entity
+Draw a beam over flagged chunks
+Draw a box around found spawners
+Draw a box at the predicted impact block.
+Draw a dot in the center
+Draw a drop shadow under the text
+Draw a frame around every HUD overlay
+Draw a half-range ring
+Draw a halo ring around each relic
+Draw a line to each found block
+Draw a line to each geode
+Draw a soft glow behind the path
+Draw a soft outer glow
+Draw a subtle dark outline
+Draw beams over flagged chunks
+Draw block outlines
+Draw detected activity
+Draw dropped items
+Draw elapsed / remaining time
+Draw hostile and passive mobs
+Draw labels with a shadow
+Draw line to portal center
+Draw lines from crosshair to containers
+Draw lines to valuable ores (Diamonds, Debris, Emeralds)
+Draw lines towards city center
+Draw other players
+Draw text with a shadow
+Draw the N marker while rotating
+Draw the base as a 3D box in the world
+Draw the bases as 3D boxes
+Draw the centre marker
+Draw the ghost body box
+Draw the ground ring
+Draw the held item
+Draw the held item on the HUD so changes can be checked in game
+Draw the item box outline
+Draw the preview arc
+Draw the projectile marker
+Draw the reach meter
+Draw the readout with a shadow
+Draw the text with a shadow
+Draw the trail of pearls already thrown
+Draw the translucent fill
+Draw the wireframe outline
+Draw through walls
+Draw tracer lines
+Draw tracer lines from the camera to revealed + cached ore positions.
+Draw tracer lines to sections
+Draw translucent fills
+Draws hitboxes through walls (kuro port)
+Draws the arrow's flight path and landing spot (kuro port)
+Drift
+Drill Instabreak
+Drop a vertical stem line at the entity
+Durability
+Duration of hit animation in ms
+Dust Size
+Dust color
+Dust color source
+Dust particle size
+Dynamic Gap
+Dynamic gap amount
+Ease the camera motion
+Easing on the way in and out
+Eat at or below this food level
+Eat at or below this health (0 = never)
+Eats the best food in your inventory when you are hungry
+Edge brightness
+Edge darkening
+Edit both hands together
+Editing
+Effects
+Elytra Fly
+Elytra Hop
+Elytra Swap
+Emerald Ore
+Enable vertical pitch tracking
+Enchantment to prefer on the mace
+End Color
+Entity Fire
+Entity Speed
+Equips the best armor from the inventory (kuro port)
+Everything
+Explode Delay
+Explode ratio
+Exposed Scan
+Exposed-scan overworld-ore tracker with a persistent cross-session cache. Finds revealed ores (diamond, emerald, gold, ...) without a seed — works on servers where seedcracking is blocked.
+Extra chunks around you
+Extra delay for Repel/Dynamic
+Eye Color
+Eye Glow
+Eye glow colour
+Face Only
+Face Place
+Fade Trail
+Fade the line towards the impact point so the near part stays readable
+Fake Item
+Fake Pay
+Fake Player
+Fake Stats
+Fake o'yinchi nishonlarni chiqarib tashlaydi (kuro port)
+FakeLag execution mode
+Fakes /pay on DonutSMP instead of sending it — cancel the command and echo a local \"You paid\" line, ding and all.
+Fakes Money, Shards, Playtime, and Rank in the DonutSMP scoreboard sidebar. Client-side only.
+Fall Speed
+Fall height that dips
+Falling from height dips in
+Far Color
+Far-section color
+Fast Sneak-Tap
+Fast crystal placement and instant breaking (kuro port)
+FastCrystal
+Field of view cone that targets must be inside
+Field of view in degrees
+Fill Boxes Only
+Fill Empty Slots
+Fill flat boxes instead of screen quads
+Fill strength
+Fill strength (%)
+Finds ancient cities and sculk catalysts at Y = -51
+Finds ancient debris in loaded chunks and marks it through walls
+Finds and outlines mined-out (old) amethyst geodes
+Finds clusters of storage blocks in loaded chunks
+Finds end portal frames and strongholds through walls
+Flagged chunk colour
+Flash bright red when player takes damage
+Flash colour on hit
+Flash on hit
+Flies the boat you are riding (kuro port)
+Flight Time
+Flow
+Fly speed
+Follows trails of fresh chunks with an arrow to the trail head
+Footsteps
+Force Pop
+Force the slowest, softest zoom
+Forge World Items
+Format
+Found List
+Frame colour
+Frame thickness in pixels
+Free flight with the movement keys (kuro port)
+Freeze
+Friend Color
+Friend damage cap
+Friend explode cap
+Friend ratio
+Friend tint
+Friend tracer color
+Friends never trigger the module
+From Weapons Only
+Frustum Culling
+Gap between cells
+Gauge, percent or both
+Gem Color
+Gem tint
+Geode ESP
+Ghost Arc
+Ghost Box
+Glass UI
+Glass or wireframe spirit
+Glide
+Glide speed multiplier
+Glint
+Glint brightness
+Glint on armour
+Glint on items
+Glint scroll speed
+Glint stripe size
+Global frame outline, glow and text glow for HUD overlays
+Glow Color
+Glow Strength
+Glow cells needed before a chunk is flagged
+Glow the eyes
+Glow the gem
+Glowing rings spread on the ground where players jump (kuro port)
+Gold Ore
+Gradient
+Gradient Sky
+Gradient partner
+Gradient, solid or rainbow
+Grid Size
+Ground Seal
+Guard Slot
+HUD
+HUD Editor
+HUD scale (0.05 = tiny, 2.0 = huge)
+HUD text colour
+Halo
+Halo behind HUD text (costs extra draws)
+Halo colour
+Hand size (0.05 = barely visible, 2.0 = huge)
+Hands
+Height Offset
+Height of one module row
+Height the effect rises in blocks
+Hide Item Name
+Hide Selected Slot
+Hide Tooltips
+Hide blindness and darkness
+Hide falling blocks
+Hide nausea and portal distortion
+Hide non-selected blocks via mixin
+Hide ores that are fully buried
+Hide pumpkin and powder-snow overlays
+Hide rain and snow
+Hide the burning overlay
+Hide the fire on entities
+Hide the held item name
+Hide the lava fog
+Hide the selected slot frame
+Hide the spinning mob inside spawners
+Hide the totem pop overlay
+Hides your real skin with a preset (Steve/Alex) client-side only.
+Hides your username in the DonutSMP scoreboard sidebar with a preset name. Client-side only.
+Highlight Friends
+Highlight Source Chunks
+Highlight colour
+Highlight end crystals
+Highlight hostile mobs
+Highlight passive mobs
+Highlight players
+Highlight revealed Coal Ore (very abundant).
+Highlight revealed Copper Ore (abundant).
+Highlight revealed Diamond Ore.
+Highlight revealed Emerald Ore.
+Highlight revealed Gold Ore.
+Highlight revealed Iron Ore (abundant).
+Highlight revealed Lapis Lazuli Ore.
+Highlight revealed Redstone Ore.
+Highlight selected blocks through walls
+Highlights ender pearls other players threw
+Highlights your username in chat and pings you (kuro port)
+Hit Delay
+Hit Effect
+Hit Entities
+Hit Flash
+Hit Life (ms)
+Hit Size
+Hit Sound
+Hit Sounds
+Hit sound frequency pitch
+Hit sound volume percentage
+Hitbox
+HitboxExpand
+Hits with a Breach mace and swaps back (kuro port)
+Hold Attack
+Hold altitude when looking level
+Hold the position: on the server (hold packets) or locally (kuro port)
+Holds sprint whenever you are allowed to (kuro port)
+Holds the break key and tunnels forward in the direction you faced
+Holds the forward key for you
+Hole fill color
+Hole outline color
+Home Number
+Hood scale
+Hood shape
+Hop-glide-hop along the ground with a spear jab (kuro port)
+Horizontal padding around the name
+Horizontal rotating rings around targets
+Horizontal scan radius (chunks)
+Horizontal search radius in blocks
+Horses
+Hostile Color
+Hotbar Refill
+Hotbar Slot
+Hotbar slot used by refill
+Hotbar slotlarni avtomatik qayta to'ldiradi (kuro port)
+Hover qilingan totemni offhandga ko'chiradi (kuro port)
+HoverTotem
+How close a player must get
+How detailed the model is
+How far a spawner may be mined
+How far above and below you to search
+How far above the head the tag floats
+How far the halo spreads
+How far you may move before auxiliary search recentres
+How geodes are detected
+How high the next layer sits
+How long the last hit target stays marked (ms)
+How long the tap holds (ms)
+How many macro slots
+How many relics orbit you
+How many tags may draw at once
+How many targets are drawn
+How much of the world stays visible
+How other players are shown
+How sneaking is applied
+How softly the zoom settles
+How targets are drawn
+How the periodic drop is applied
+How the target is selected
+HudTheme
+Hue cycling speed
+Humanize
+Humanize Delays
+If Unguarded
+Ignore Face Jitter
+Ignore Terrain
+Ignore armour-damage rules for low targets
+Ignore blast resistance
+Ignore players sharing your nametag colour
+Ignore players sleeping in a bed
+Ignore the weapon filter
+In Flight
+In Liquids
+In Water
+Include Dimension
+Include Uppercase Characters
+Include absorption hearts
+Include entity hitboxes in the collision check (pearls can land on players/mobs).
+Include invisible players
+Include sleeping players
+Include your own pops
+Inlay Color
+Inlay colour
+Instant double anchor burst — pops two totems by timing a second anchor to the enemy's i-frame drop.
+Instant swap or paced swap
+Instantly sneak at edge, place block, and immediately stand up (video speedbridge)
+Intensity
+Inv Sorter
+Inventory swap or hotbar swap
+Iron Ore
+Item ESP
+Item tint
+Jitter the loop delay ±1-2 ticks each cycle so the timing looks less automated.
+Jump Bubbles
+Jump If
+Jump into a glide from the ground
+Jump style
+Jumps automatically every time you land while moving (kuro port)
+Jumps the moment you are hit to cut knockback (kuro port)
+Ka Time
+Keep For (min)
+Keep In Rain
+Keep Instant Delay
+Keep Value
+Keep Walking
+Keep active this long after an attack (ms)
+Keep instant-mineable blocks vanilla-fast
+Keep showing the last reach after 5s
+Keep targeting invisible players
+Keep the arc while the shot flies
+Keep the body walking
+Keep the night tint even at noon
+Keep the tint while raining
+Keep tracking after enemy leaves range (ms)
+Keep you in the middle of the bridge while you walk (only when the module is not driving the keys)
+Keeps you from walking off edges that would hurt (kuro port)
+Key
+Keys Move Body
+Kill Aura
+Kristalga qo'shimcha urushlar — double tap (kuro port)
+Kuro Freecam
+KuroAttackPackets
+Label each cell with its region id
+Label range in blocks
+Label scale
+Label used for other players
+Landing
+Landing Delay
+Landing Info
+Landing colour
+Lapis Ore
+Launch, obsidian, two crystals, both popped at once (kuro port)
+Lava Dip Fall Height
+Lava Dip If Resistant
+Lava Dip On Fall
+Lava Dip On Sneak
+Lava Fog
+Lava Mode
+Lava surface mode
+Layer Height
+Left
+Left Max CPS
+Left Min CPS
+Left button mode
+Lifetime
+Limit
+Line Color
+Line from crosshair to each base
+Line from crosshair to the base
+Lines from the crosshair to every loaded player
+Lines to nearest sections
+Link Hands
+LiquidBounce-style FakeLag (holds outgoing movement packets)
+List text colour
+List vanished players on screen
+Load Key
+Lock Yaw
+Locked pitch
+Log newly found portal coordinates in chat
+Logout Spots
+Longer block/entity interaction range (kuro port)
+Look
+Look speed towards the spawner
+Look the name up on Mojang
+Look-at raycast range
+Low Distance
+Low Hop height
+Lower Sensitivity
+Lowest Y scanned
+LungeSwapper
+Mace smash assist — arms the mace when you dive, strikes the player below at maximum fall damage.
+Mace smash, shield break va rocket dive (kuro port)
+MaceBomber
+Machine color
+Machine marker
+Machines
+Macro
+Macro Record
+Main Color
+Main hand X
+Main hand Y
+Main hand Z
+Main hand pitch
+Main hand roll
+Main hand scale
+Main hand yaw
+Makes the CPS hud think you're legit.
+Makes your crystals disappear faster client-side so you can place crystals faster
+Map left edge (screen X) when not centered
+Map top edge (screen Y) when not centered
+Mark opacity
+Mark size
+Mark the entity under the crosshair
+Marker
+Marker Scale
+Marker fill
+Marker opacity
+Marker outline
+Marker size
+Marks chunks that look newly generated
+Marks where players were when they logged out (kuro port)
+Mask the HUD icons
+Materials
+Max Entities
+Max Explode
+Max Friend Explode
+Max Friend Place
+Max Jump
+Max Latency
+Max Padding
+Max Stair Height
+Max Tags
+Max Tunnel Height
+Max Y Offset
+Max highlighted blocks
+Max ore markers drawn at once
+Max portal frame markers drawn
+Max seconds to wait for the RTP teleport
+Maximum backtrack delay in ms
+Maximum boxes
+Maximum break distance
+Maximum crystal break range
+Maximum damage to you
+Maximum distance
+Maximum entities drawn
+Maximum explode damage
+Maximum field of view in degrees (up to 360°)
+Maximum left clicks per second
+Maximum live sparks
+Maximum placement range
+Maximum render range in blocks
+Maximum ring radius
+Maximum staircase height
+Maximum tag distance
+Maximum target range
+Maximum tracked distance
+Maximum tunnel height
+Menu style switch: the blob menu (kuro port flag)
+Menu style switch: the glass menu (kuro port flag)
+Menu style switch: the sidebar menu (kuro port flag)
+Merge neighbouring light boxes
+Metal Color
+Metal tint
+Method
+Min Cells
+Min Explode
+Min Explode Ratio
+Min Friend Ratio
+Min Hole Depth
+Min Latency
+Min Light
+Min Place Ratio
+Min Redstone
+Min Sculk Blocks
+Min Stair Height
+Min Stair Length
+Min Ticks
+Min Tunnel Height
+Min Tunnel Length
+Min Y Offset
+Minimum backtrack delay in ms
+Minimum emitted light level to draw
+Minimum explode damage
+Minimum fall distance in blocks
+Minimum gap between two lag bursts (ms)
+Minimum hole depth
+Minimum left clicks per second
+Minimum seconds between sends
+Minimum staircase height
+Minimum staircase length
+Minimum ticks between two use cycles
+Minimum time between taps (ms)
+Minimum tunnel height
+Minimum tunnel length
+Mining Progress
+Minutes before a ghost fades
+Minutes before a spot is forgotten
+Model
+Monster color
+Move the hand right (positive) or left (negative)
+Move the hand up (positive) or down (negative)
+Movement keys still drive the body
+Moves and resizes your first-person hand and held item
+Moves you through cobwebs (kuro port)
+Moving highlight
+Multiplier for the trident charge time (0 = instant)
+Music Player
+NCP Bypass
+Name Color
+Name Protect
+Name, ping, health and armour above players' heads
+NameShower
+Nausea & Portal
+Near Color
+Near-section color
+Nearest crystal in, nearest obsidian out (kuro port)
+Nether Colors
+Nether Coords
+Nether Quartz
+Never count as sneaking while flying
+Never highlight yourself
+Never pop a friend
+Never pop yourself
+Never show item tooltips
+Never smash a friend
+Never walk into unloaded chunks
+New Chunks
+Next-gen Player ESP with 3D Skeleton, Solid body, and 3D/2D boxes
+Night Sky Color
+Night tint
+Nishon hitboxlarini kengaytiradi (kuro port)
+No Break Delay
+No Slow
+No Sneak
+No Unloaded Chunks
+No Water
+No Web
+Normal or safe estimates
+North Marker
+Notification Mode
+Notify on newly found sections
+Number of cloth folds
+Number of effect streams / particles
+Obsidian Delay
+Off, Smart (wait for crits) or Only (crits required)
+Off-screen indicator line (only shown when the projectile is outside the view)
+Off: enabling performs one sell run and disables itself when done (glazed semantics). On: stay enabled and auto-start a run once enough matching stacks pile up.
+Offhand
+Offhand Offset X
+Offhand Offset Y
+Offhand Offset Z
+Offhand Scale
+Offhand X
+Offhand Y
+Offhand Z
+Offhand scale
+Offhand'da Ölmez Totemni saqlaydi (kuro port)
+Offset Z
+On Friends
+On Press
+One interpolated position packet per this many blocks
+One-shot Spear lunge macro using attribute swapping: swap to a hotbar Spear, STAB to lunge, swap back to your original slot — bypasses the Spear's attack-charge gate. Hold the trigger key to repeat.
+One-shot inventory sort
+Only Air Blocks
+Only Charge
+Only Crits
+Only Own
+Only Weapon
+Only While Held
+Only While Idle
+Only With Chest
+Only act while the attack key is held
+Only activate if the hotbar Spear actually has the Lunge enchantment (otherwise the swap is pointless).
+Only apply the boost while sprinting
+Only apply while the vehicle touches the ground
+Only arm from another melee weapon
+Only arm while holding a melee weapon
+Only assist when holding a sword, axe or mace
+Only assist while holding left click
+Only auto-log while actually taking damage (not on low-health join debuffs).
+Only auto-trigger when no screen is already open (anti-conflict).
+Only click while the button is held
+Only detonate anchors that you placed yourself.
+Only detonate when a sword/axe is available for the detonate slot.
+Only draw markers within this range
+Only fire the axe hit when the attack cooldown is charged, so it lands at full power (clean shield break).
+Only flag players this close
+Only hit while the attack key is held
+Only mark animals carrying a chest
+Only mark players
+Only mask while a capture overlay is up
+Only outline the hit face
+Only place into air/replaceable blocks, so no block is wasted
+Only run while the use key is held
+Only show the trajectory when holding an Ender Pearl.
+Only spawn on critical hits
+Only strike when the attack cooldown is fully charged (smash damage scales with it). Arming early makes this nearly always ready.
+Only swap to a mace while falling
+Only tap while on the ground
+Only target other players (skip mobs).
+Only track spawners and ender chests
+Only trigger on other players (skip mobs/animals).
+Only true air counts as passable
+Only while fighting
+Opacity of the body ring
+Opacity strength for solid body mode
+Open the gap while moving / recovering
+Orbit speed
+Origin
+Others
+Others Label
+Others' Pearls
+Others' Shots
+Out Of Water
+Outline strength
+Outline, fill or both
+Outlines dropped items through walls with names and counts
+Outlines your chosen blocks in loaded chunks
+Overworld Coords
+OverworldRay
+Own Pops
+Padding
+Paket tartibi barcha jangovar hujumlar uchun
+Palette used for the sky tint
+Panel X position
+Panel Y position
+Panel opacity
+Panel scale
+Panic: toggle this module too
+Particle type
+Particles per hit
+Passive Color
+Passive Mobs
+Passive tint
+Path
+Path Color
+Path colour
+Path line width
+Pattern Size
+Pause hiding modules on detection
+Pause while mining blocks
+Pause while target is on hurt time
+Pearl Catch
+Pearl Finder
+Persistent Cache
+Picks the best weapon in your hotbar for the target (kuro port)
+Piece
+Pigs
+Pitch Lock
+Pixels per chunk
+Place + break crystals near the target (kuro port)
+Place On Ground
+Place obsidian when needed
+Place obsidian when the crosshair is not on a base
+Place the second anchor
+Place, charge and detonate an anchor at the closest target automatically (kuro port)
+Place, charge, cover, detonate — one key (kuro port)
+Places / charges / detonates anchors near targets (kuro port)
+Places blocks where you look so you can bridge (kuro port)
+Plan diagonal corners
+Planned platform radius
+Play a note on a new flag
+Play a note when a spawner is found
+Play a sound with the notification
+Play the arrow-hit ding when a payment is faked.
+Player Indicator
+Player Info
+Player Scale
+Player Trails
+Player indicator scale
+Player keeps the body still, Camera turns both
+Player tint
+Player tracer color
+PlayerESPv2
+Plays back the macro recorded by Macro Record
+Pop Burst
+Pop Glyph
+Powder Snow
+Powder snow counts as a walkable surface
+Predict
+Predict the flight of the pearl you are holding
+Predicts and draws the flight path of an Ender Pearl before you throw it (real-time physics sim).
+Prefer
+Prefer a pickaxe that instantly breaks the block
+Prefer borderless capture
+Prefixes every chat line with the real-world time (kuro port)
+Press jump after the throw for extra height
+Press this key to enable/disable Fake Item. Click here to rebind.
+Press this key to enable/disable accurate placement. Click here to rebind.
+Press this key to enable/disable auto-log. Click here to rebind.
+Press this key to enable/disable auto-loot. Click here to rebind.
+Press this key to enable/disable auto-sell. Click here to rebind.
+Press this key to enable/disable fake pay. Click here to rebind.
+Press this key to enable/disable fake stats. Click here to rebind.
+Press this key to enable/disable name protection. Click here to rebind.
+Press this key to enable/disable skin protection. Click here to rebind.
+Press this key to start/stop the RTP base-finding macro. Click here to rebind.
+Press to lunge-swap: swap to a hotbar Spear, left-click to lunge, swap back to your original slot. Hold to repeat.
+Prevent Spawn
+Preview
+Preview bows and crossbows
+Preview ender pearls
+Preview snowballs, eggs and bottles
+Preview the held weapon
+Preview the planned layer
+Preview tridents
+Primary colour
+Primary effect color
+Primary relic colour
+Primary ring colour
+Primary skeleton / box color
+Primary spark colour
+Print a chat message
+Print the chunk centre
+Projectile Aim
+Pulse the aura
+Pulse the vignette
+Pumpkin & Powder Snow
+Push the hand away (positive) or pull it closer (negative)
+Put the chestplate back after landing
+Quantize rotations to mouse sensitivity (bypasses anticheats)
+RTP Timeout (s)
+Radar diameter
+Radar range in blocks
+Radial Menu
+Radial quick-chat menu with three slots (kuro port)
+Rainbow cycle speed
+Ramp the speed up over time
+Random delay jitter
+Random extra delay
+Random extra delay ticks
+Random extra reaction ticks
+Random extra ticks (0 = none)
+Randomise
+Randomized pacing: each phase fires at or before its configured delay — usually on time, sometimes a beat quicker, never longer than the set delay.
+Range Rings
+Range lower bound
+Range upper bound
+Rank Color
+Rank Style
+Rates loaded chunks for player bases and shows the worst ones (kuro port)
+Re-sprint right after a hit
+Reach Circle
+Reach while riding
+React to nearby spawners appearing
+Reaction
+Reaction Delay
+Read the column below the slice
+Readout colour
+Real mode hides blocks via mixin, highlights ores through walls
+Real-world time as a HUD plate
+Records keys and camera turns into a macro
+Redstone Ore
+Redstone blocks needed to flag
+Redstone marker
+Reduce walk speed on the surface
+Reduces knockback (kuro port)
+Refill below this count
+Region Alert
+Release packets immediately when taking damage
+Relic shape
+Relic size
+Reload On Enable
+Remember Position
+Remove Existing
+Remove crystals even when the held item deals no damage
+Remove trap entities already around you on enable
+Removes the 4-tick placement cooldown — places a block the instant your crosshair moves to a new block/face. Fast bridging without gaps.
+Removes the delay between breaking two blocks (kuro port)
+Removes the jump cooldown (kuro port)
+Removes the slowdown while eating, drinking or blocking (kuro port)
+Render Radius
+Render backtracked enemy hitbox
+Render backtracked position
+Render distance while reloading
+Render on own body in third person
+Render style
+Reopens the GUI at the section and module you closed it on
+Replaces the sky with a flat colour (kuro port)
+Replaces the sword in your first-person hand with a knife (kuro port)
+Replaces your own name with a fake name in all drawn text (kuro port, client-side)
+Require Air
+Require Hold
+Require LOS
+Require Lunge Enchant
+Require Pearl
+Require Weapon
+Require line-of-sight from player to enemy.
+Reset Y
+Resets sprint after each hit (kuro port)
+Resolve UUID
+Respect Cooldown
+Restore the original hotbar slot after a break completes.
+Restore your original hotbar slot after the axe hit.
+Restore your original hotbar slot after the double-pop cycle.
+Restores motion after an attack (kuro port)
+Return the mace to its original place and re-select your previous hotbar slot after the smash.
+Return to the old hotbar slot
+Return to the old slot
+Return to the previous slot
+Return to the previous slot after the hit
+Return to the previous slot after the lunge
+Right
+Right Max CPS
+Right Min CPS
+Right button mode
+Rim
+Ring colour
+Ring colour source
+Ring lifetime (seconds)
+Ring radius in blocks
+Ring style
+Riptide launch multiplier
+Roll
+Rotate with your yaw
+Rotation speed in degrees per second
+Rounded
+Rounded row corners
+Row Height
+Row or column
+RtpBaseFinder
+Safe Walk
+Safety Slot
+Save every revealed ore to disk and reload it next session, so your ore map grows across sessions. Per-server + per-dimension.
+Scale mouse sensitivity while zoomed
+Scale of the tag
+Scan Budget ms
+Scan below this Y
+Scan loaded chunks for already-revealed ores (the only approach that works without a seed). Leave ON.
+Scan radius (blocks)
+Scan time budget per tick
+Scoring method
+Scroll Speed
+Scroll wheel changes speed
+Sculk indicators to count as a city
+Second Color
+Secondary relic colour
+Secondary ring colour
+Secondary spark colour
+Secondary tint
+Seconds before reconnecting
+Seconds before rejoining
+Seconds between command hops
+Seconds the spirit lives
+See Through
+Selects the fastest tool for the block you are mining
+Self Rings
+Send the break at this progress
+Send the messages in random order
+Send the rotation without moving your camera (off = the character visibly turns)
+Sends Baritone's own #commands for you
+Separate Armor
+Sets the speed of the entity you are riding (kuro port)
+Sheen
+Sheen Color
+Shift-clicks everything out of an open chest or shulker box
+Shorter right-click repeat delay
+Show Height
+Show Here
+Show Items
+Show Landing
+Show Lava
+Show Legend
+Show Mobs
+Show Names
+Show Nametag
+Show Players
+Show Rank
+Show Region IDs
+Show Time
+Show Unbound
+Show Water
+Show a chat confirmation
+Show a health bar
+Show a hint when a hit is held back
+Show a notification when traps are removed
+Show ambient rings around own player
+Show armour durability
+Show break progress
+Show distance and eye count tag
+Show distance and flight time at the landing spot
+Show distance in meters above valuable ores
+Show distance text above container
+Show durability numbers
+Show latency
+Show lava lakes and streams
+Show ocean and water blocks (disabled by default to prevent blocking view)
+Show side health bar
+Show the changed block and re-sent chunks
+Show the finds StashFinder has logged (via chat)
+Show the frame rate
+Show the item name and amount
+Show the local time
+Show the logout time
+Show the material panel
+Show the performance readout
+Show the player name
+Show the real player model (skin, armor, items) through walls using a glow outline. Always on in 'Body Only' style
+Show the region legend
+Show the saved base on screen
+Show the staff list on screen
+Show which way you are facing (needle on your marker, N at the top)
+Show your block coordinates
+Show your body
+Show your coordinates
+Show your hands
+Show your latency
+Shows each item's DonutSMP worth in its hover tooltip (client-side).
+Shows every player's attack reach as a ground circle
+Sidebar UI
+Sideways
+Silent Aura
+Silent-aim melee aura (kuro port)
+Simple Crystal Aura
+Single or double anchor
+Sinks while on fire
+Size of one map cell
+Skeleton and box line thickness
+Skin Protect
+SkinShower
+Skip Break Delay
+Skip Shielding
+Skip blocks above build height
+Skip blocks below build height
+Skip chunks outside the view frustum
+Skip placement if the target position would land inside your own hitbox (FPS-lag double-place guard).
+Skip your own body
+Sky
+Sky palette
+Slice Y
+Slide between blocks
+Sliding speed
+Slots
+Slow Damage
+Slow Down
+Slow Place Delay
+Slow down below this damage
+Smash Assist
+Smash Mode
+Smash hostile mobs
+Smash invisible targets
+Smash passive mobs
+Smash players
+Smooth silent aim on the melee target (kuro port)
+Smoothly adjusts crosshair towards targets (supports up to 360° FOV)
+Snap key
+Sneak dips into lava
+Sneak dips into water
+Snow drifting down the screen (cosmetic)
+Snowflakes
+Soft halo around every HUD overlay
+Soft halo around the arc
+Softly pulls your aim onto the nearest target (kuro port)
+Solid Alpha
+Sound Pitch
+Sound Volume
+Sound when you hit something
+Source
+Space between rows (0 = boxes touch)
+Spark lifetime in seconds
+Spark size
+Sparks behind walking players
+Sparks per footstep
+Sparks per pop
+Sparks per trail step
+Spawner Mob
+Spawner box colour
+Spear/Trident
+SpearSwap
+Spectral Pendant
+Spectre HUD
+Spectre port: a DonutSMP region map with a directional indicator.
+Spectre port: a detached camera you can fly around with.
+Spectre port: a glowing ghost rises when a player pops a totem.
+Spectre port: a glowing outline on your hand and held item.
+Spectre port: a hooded cosmetic worn by your player.
+Spectre port: a round radar of the players around you.
+Spectre port: allows you to climb walls like a spider.
+Spectre port: allows you to escape from armor stands and chest minecarts.
+Spectre port: animated outline and fill on the block you look at.
+Spectre port: attacks nearby targets without moving your camera.
+Spectre port: auto tool that only switches hotbar slots like a player.
+Spectre port: automatically jumps.
+Spectre port: automatically sprints.
+Spectre port: automatically walks forward.
+Spectre port: boosts you when using riptide with a trident.
+Spectre port: boxes Nether chunk sections hiding ancient debris.
+Spectre port: breaks and places crystals while you hold right-click.
+Spectre port: brighten dark areas by overriding the client gamma.
+Spectre port: changes the speed of your swing animation.
+Spectre port: changes your field of view (FOV).
+Spectre port: clicks the mouse buttons at a randomised, human CPS.
+Spectre port: coloured markers for containers, machines, redstone and base clues.
+Spectre port: coloured skies, a night tint and a nether tint.
+Spectre port: control hand swing animation speed.
+Spectre port: copies the coordinates you look at or stand on with one key.
+Spectre port: detects when players are in the world.
+Spectre port: displays tracer lines to specified entities.
+Spectre port: draws a configurable crosshair in place of the vanilla one.
+Spectre port: draws a fading Spectre ring where you jump.
+Spectre port: draws a mark on your combat target.
+Spectre port: eats hotbar or offhand food once hunger or health drops too low.
+Spectre port: finds player activity in re-sent chunks.
+Spectre port: finishes breaking blocks before the full break time.
+Spectre port: flags chunks with light and redstone activity below Y 0.
+Spectre port: flags chunks with signs of underground player bases.
+Spectre port: flags players who are listed but not in the world.
+Spectre port: fly your boat through blocks and entities.
+Spectre port: freezes you in place, even mid-air.
+Spectre port: ghosts, stars and wisps drift around your player.
+Spectre port: gives you more control over your elytra.
+Spectre port: hides selected overlays, screen effects and entity renders.
+Spectre port: hides the names of you and everyone around you.
+Spectre port: hides your items on screen for screen shares.
+Spectre port: highlights chosen blocks; touching blocks merge into one shape.
+Spectre port: highlights dropped items with outlines, tracers and labels.
+Spectre port: highlights holes, tunnels and staircases.
+Spectre port: highlights light sources around you.
+Spectre port: highlights players, hostile and passive mobs with outlines and boxes.
+Spectre port: highlights storage blocks and spawners with per-type colours.
+Spectre port: hits the entity under the crosshair once the swing is charged.
+Spectre port: hold the key to zoom in.
+Spectre port: lets you control rideable entities without a saddle.
+Spectre port: lets you fly.
+Spectre port: lists online staff and flags vanish behaviour.
+Spectre port: lists the modules you have bound to a key, and their keys.
+Spectre port: makes you able to set a custom time.
+Spectre port: makes you go faster horizontally when riding entities.
+Spectre port: maps nearby chunks with underground and Y-slice views.
+Spectre port: marks suspicious chunks with signs of player activity.
+Spectre port: mines your spawners when someone gets close.
+Spectre port: modifies your movement speed when moving on the ground.
+Spectre port: module list, coordinates and status overlays.
+Spectre port: moves, rotates and resizes your first-person hands.
+Spectre port: notifies you when it starts raining.
+Spectre port: one key places, charges and detonates a respawn anchor.
+Spectre port: only ore blocks stay visible.
+Spectre port: outlines entities through walls with a glow.
+Spectre port: places and pops end crystals around your target.
+Spectre port: plans materials and previews the next layers of a build.
+Spectre port: player nametags with held items, armour, health, ping and distance.
+Spectre port: predicts where a held pearl lands and previews thrown pearls.
+Spectre port: pulses a red vignette when your health is low.
+Spectre port: re-sets a home, RTPs away, then teleports back home.
+Spectre port: recolours the enchantment glint.
+Spectre port: reconnects to the last server after an unexpected disconnect.
+Spectre port: refills a hotbar or offhand slot from the main inventory once it runs low.
+Spectre port: refills the offhand totem after a pop, through the inventory or a hotbar swap.
+Spectre port: reloads chunks when you go below a Y level.
+Spectre port: relogs once when you go down to deepslate level.
+Spectre port: removes crystals client-side as soon as your hit breaks them.
+Spectre port: removes the delay between jumps.
+Spectre port: render performance settings and a small HUD readout.
+Spectre port: renders the chunks flagged by Quantum.
+Spectre port: renders tracked block entities as ESP.
+Spectre port: scans chunks for mob spawners and highlights them.
+Spectre port: sends chat messages or commands with a key press.
+Spectre port: shows amethyst geodes hidden by anti-xray.
+Spectre port: shows each spawner's position over the block.
+Spectre port: shows where your projectiles will land.
+Spectre port: smears the view when you turn.
+Spectre port: smooth combat aim assist with FOV, range, part and weapon filters.
+Spectre port: sneaks for you.
+Spectre port: spams specified messages in chat.
+Spectre port: spawns particles where your hits land.
+Spectre port: spectral particles for totem pops, projectiles and footsteps.
+Spectre port: stops you from hitting players on your friends list.
+Spectre port: swaps a hovered inventory totem into the offhand or the selected hotbar slot.
+Spectre port: swaps between your chestplate and elytra with one key.
+Spectre port: swaps to a mace for smash hits while falling, with an optional smash assist.
+Spectre port: swaps to an axe and hits when the target is blocking with a shield.
+Spectre port: swaps to your Lunge spear, lunges and swaps back.
+Spectre port: take no fall damage by replacing your own move packets after a >3 block fall.
+Spectre port: teleports you to the block you click on.
+Spectre port: the shared head accessory layer (crown, circlet, horns).
+Spectre port: throws experience bottles every 100 ms while right click is held.
+Spectre port: timed movement taps after a successful hit.
+Spectre port: transforms your boat (or any ridden vehicle) into a plane.
+Spectre port: turns the camera and the player separately.
+Spectre port: use tridents out of water and charge them faster.
+Spectre port: uses a riptide trident while you hold right-click.
+Spectre port: vibrance, contrast, warmth and a vignette over the world.
+Spectre port: walk on liquids and powder snow like Jesus.
+Spectre port: wears a small character modelled around your player.
+Spectre port: wears another player's skin by name.
+SpectreAimAssist
+SpectreAirStuck
+SpectreAmethystBypass
+SpectreAntiTrap
+SpectreAntiVanish
+SpectreAtmosphere
+SpectreAutoClicker
+SpectreAutoEat
+SpectreAutoInvTotem
+SpectreAutoJump
+SpectreAutoReconnect
+SpectreAutoRelog
+SpectreAutoReplenish
+SpectreAutoWalk
+SpectreBlockEntityDebug
+SpectreBlockEsp
+SpectreBlockOverlay
+SpectreBoatFly
+SpectreBoatNoclip
+SpectreBuilder
+SpectreCharacter
+SpectreChatMacro
+SpectreChunkScanner
+SpectreClickTp
+SpectreColorGrading
+SpectreCoordSnapper
+SpectreCrystalAura
+SpectreCrystalMacro
+SpectreCrystalOptimizer
+SpectreCustomCrosshair
+SpectreCustomFov
+SpectreCustomGlint
+SpectreDonutNoFall
+SpectreElytraFly
+SpectreElytraSwap
+SpectreEntityControl
+SpectreEntitySpeed
+SpectreEsp
+SpectreFastXp
+SpectreFloatingRelics
+SpectreFly
+SpectreFreecam
+SpectreFreelook
+SpectreFriendGuard
+SpectreFullbright
+SpectreGlowEsp
+SpectreHandAura
+SpectreHands
+SpectreHeadCosmetic
+SpectreHitParticles
+SpectreHiveMap
+SpectreHoleEsp
+SpectreHomeMeta
+SpectreHotkeys
+SpectreHoverTotem
+SpectreHud
+SpectreItemEsp
+SpectreJesus
+SpectreJumpCircles
+SpectreKillAura
+SpectreLegitAutoTool
+SpectreLightEsp
+SpectreLowHealthWarning
+SpectreMace
+SpectreMotionBlur
+SpectreNameProtect
+SpectreNametags
+SpectreNetheriteFinder
+SpectreNoInvLeak
+SpectreNoJumpDelay
+SpectreNoRender
+SpectrePearlTrajectory
+SpectrePerformance
+SpectrePlayerBypass
+SpectrePlayerDetection
+SpectrePrimeChunkFinder
+SpectreQuantum
+SpectreRadar
+SpectreRegionMap
+SpectreRelicParticles
+SpectreRenderDistanceToggle
+SpectreRenderUtil
+SpectreRiptide
+SpectreShieldBreaker
+SpectreSingleAnchorMacro
+SpectreSkinChange
+SpectreSlowSwing
+SpectreSneak
+SpectreSpam
+SpectreSpawnerNametags
+SpectreSpawnerNotifier
+SpectreSpawnerProtect
+SpectreSpearLunge
+SpectreSpectralHood
+SpectreSpeed
+SpectreSpeedMine
+SpectreSpider
+SpectreSprint
+SpectreStaffList
+SpectreStorageEsp
+SpectreSusChunkFinder
+SpectreSwingAnimation
+SpectreTargetEsp
+SpectreTimeChanger
+SpectreTotemSpirit
+SpectreTracers
+SpectreTrajectories
+SpectreTridentBoost
+SpectreTridentUtil
+SpectreTriggerbot
+SpectreWTapRecode
+SpectreWeatherNotifier
+SpectreXray
+SpectreZoom
+Speed Inside Blocks
+Speed Limit
+Speed gained per tick
+Speed mode
+Spin
+Spiral Height
+Spiral Speed
+Spirit aura
+Spirit body
+Spirit opacity
+Split Delay
+Split Length
+Split a long message across consecutive sends
+Spoof movement packets so strict servers accept the surface walk
+Spread
+Spread Radius
+Sprint Constantly
+Sprint Mode
+Sprint While Stationary
+Sprint even with no movement input
+Stair Fill
+Stair Line
+Staircase fill color
+Staircase outline color
+Stash Finder
+Steer your view so a bow/crossbow/trident projectile lands on the target (kuro port)
+Stem
+Step Density
+Stop In Water
+Stop When Full
+Stop at Fluids
+Stop flying in water
+Stop looting once your inventory can't hold any more.
+Stop on Kill
+Stop sprinting on every attack
+Stop when you press a movement key
+Stop when your Y changes (fall/jump)
+Stopwatch
+Stopwatch or countdown on the HUD
+Strafe Speed
+Strafe hop multiplier
+Strands
+Stream Only
+Strength
+Strict follows vanilla rules, Rage never stops
+Striders
+Stroke
+Stun Delay
+Suffix length
+Sunset Color
+Sunset tint
+Sus Chunk Finder
+Suspect blocks needed to flag a chunk
+Swap Back on Landing
+Swap to a mace before a smash hit
+Swap to a mace for the smash hit
+Swap to an axe against raised shields
+Swap to the best tool before breaking (reuse AutoTool logic).
+Swap to the guard slot first
+Swaps to a spear on each attack and back again (kuro port)
+Swaps weapon right as the attack connects to apply special weapon attributes
+Sweep a highlight
+Swing speed multiplier
+Swing the hand after placing
+Switch Back Delay
+Switch back after the hit
+Switch to third person while looking around
+Symbols
+Takes over the elytra while gliding (kuro port)
+Tap style
+Target
+Target Tint
+Target body part to track
+Target gamma
+Target hurt time to pause at
+Target info scale (0.05 = tiny, 2.0 = huge)
+Target prioritization priority
+Target tint
+Target zoom factor
+Targets
+Tempo
+Text Glow
+Text Glow Color
+Text Scale
+Text Shadow
+Text halo colour
+The raycast stops on fluids
+The vehicle follows your yaw
+Theme or manual colours
+Threshold
+Through Walls
+Throwables
+Throws a pearl, then a wind charge that catches it mid-air
+Ticks before charging
+Ticks before detonating
+Ticks before placing
+Ticks before reacting to a pop
+Ticks before returning to the old slot
+Ticks before switching back
+Ticks between crystal breaks
+Ticks between crystal places
+Ticks between cycles
+Ticks between instant swaps
+Ticks between lunges
+Ticks between messages
+Ticks between obsidian placements
+Ticks between obsidian places
+Ticks between slot switches
+Ticks between splits
+Ticks between the swap and the hit
+Ticks on the ground before swapping back
+Ticks the drop lasts
+Ticks the riptide has to charge before it is released
+Ticks to wait after acquiring a target
+Ticks to wait between jumps
+Ticks to wait between placements (0 = instant)
+Time budget for chunk scanning
+Timing jitter in percent
+Tint the entity you last hit
+Tint the nether fog
+Tint while aiming at a living target
+Toggle All
+Toggle Key
+Toggle On Detect
+Toggle Perspective
+Toggle This Module
+Totem Pops
+Totem guard slot
+Totem pop threshold
+Totem poplarini sanaydi (kuro port)
+Totem slot kept safe
+TotemPops
+Trace ambient creatures
+Trace animals
+Trace every other entity
+Trace invisible entities
+Trace monsters
+Trace players
+Trace water animals
+Tracer Color
+Tracer anchor point
+Tracer colour
+Tracer line color. Click to cycle.
+Tracer line width
+Tracer range
+Tracers use their own color
+Track live projectiles
+Track other players' projectiles
+Trail Density
+Trail Tracker
+Trail behind arrows and tridents
+Trajectory line + landing box color.
+Traps the nearest player in a block cage (kuro port)
+Treat armor stands as traps
+Treat chest minecarts as traps
+Trigger Key
+Trigger Range
+Trigger health (hearts included)
+Tunnel Fill
+Tunnel Line
+Tunnel fill color
+Tunnel outline color
+Turn the module off when the connection drops
+Turn the module off when you leave the world
+Turn with the player (up = forward)
+Turns camera to face the bridge placement edge (like video)
+Turns every kuro module off, then back on
+Underground
+Unsprint In Water
+Unsprint On Hit
+Up/down speed
+Upward speed on a wall
+Use a different armour colour
+Use distinct color when obscured
+Use the tracer colour below
+Use unique color for each ore type
+Use uppercase letters in the suffix
+Use your own accent colour
+Username Hider
+Vanilla Speed
+Vanilla mode only while grounded
+Vanilla speed in blocks-per-tick
+Vanilla steers normally, Boost adds a vertical hold
+Vape v4.21 Backtrack: delays enemy movement packets
+Vape v4.21 FakeLag: simulates lag via packet delay buffers
+Variance
+Vehicle Range
+Velocity Height
+Vertical Speed Match
+Vertical bounce
+Vertical speed multiplier
+Vibrance
+ViewModel
+Vignette color
+Visible turns camera to block edge (like video), Silent turns only for packet, None leaves camera alone
+Visual animation on attack
+WHITELIST: break ancient debris.
+WHITELIST: break coal ore + deepslate coal ore.
+WHITELIST: break copper ore + deepslate copper ore.
+WHITELIST: break diamond ore + deepslate diamond ore.
+WHITELIST: break emerald ore + deepslate emerald ore.
+WHITELIST: break gold ore + deepslate + nether gold ore.
+WHITELIST: break iron ore + deepslate iron ore.
+WHITELIST: break lapis ore + deepslate lapis ore.
+WHITELIST: break nether quartz ore.
+WHITELIST: break redstone ore + deepslate redstone ore.
+Wait Charge
+Wait Full Swing
+Wait for the attack cooldown
+Wait two ticks before switching
+Walk direction
+Walk up full blocks by raising the step height (kuro port)
+Wall Color
+Walls you in with hotbar blocks (kuro port)
+Wander strength
+Warm / cool balance
+Warmth
+Warn in chat when a base is flagged
+Warn when staff drop off TAB or switch to spectator
+Water Animals
+Water Dip Fall Height
+Water Dip On Fall
+Water Dip On Sneak
+Water Mode
+Water animal color
+Water bucket clutch on long falls (kuro port)
+Water surface mode
+Wear As
+Wears the best elytra from your hotbar (kuro port)
+Webs the nearest player's feet (kuro port)
+What happens on the key
+What the slots show
+What to copy
+What to do without a totem
+What to look for
+When Sneaking
+When targeting a container (chest/shulker/etc.), hold sneak so right-click places against it instead of opening the GUI.
+When to jump
+When to land the smash
+Where the burst starts
+Where the warning shows
+Which /home slot to work with
+Which character to wear
+Which entities react
+Which hand to edit
+Which head accessory
+While Use
+Whole list scale
+Width of the colored spine (0 = off)
+Work With Triggerbot
+Worth Display
+Write the name next to player dots
+X Pos
+XRay Block Selector
+Y Level
+Y Pos
+Y level that triggers the toggle
+Y level the map is cut at
+Y that triggers the relog
+Yer ustda ham kritik urush (kuro port)
+Zero the vanilla 4-tick item-use gate each tick so placement isn't throttled.
+kuro freecam: kamera uchadi, tana muzlaydi, ko'rish erkin (kuro port)

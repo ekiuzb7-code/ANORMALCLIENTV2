@@ -1,0 +1,124 @@
+Macro Record	Запись макроса
+Main Color	Основной цвет
+Main hand X	Основная рука X
+Main hand Y	Основная рука Y
+Main hand Z	Основная рука Z
+Main hand pitch	Наклон основной руки
+Main hand roll	Крен основной руки
+Main hand scale	Масштаб основной руки
+Main hand yaw	Поворот основной руки
+Makes the CPS hud think you're legit.	HUD CPS считает вас легитным.
+Makes your crystals disappear faster client-side so you can place crystals faster	Кристаллы исчезают быстрее на клиенте, чтобы ставить их чаще
+Map left edge (screen X) when not centered	Левый край карты (экран X) без центрирования
+Map top edge (screen Y) when not centered	Верхний край карты (экран Y) без центрирования
+Mark opacity	Прозрачность метки
+Mark size	Размер метки
+Mark the entity under the crosshair	Помечает сущность под прицелом
+Marker	Маркер
+Marker Scale	Масштаб маркера
+Marker fill	Заливка маркера
+Marker opacity	Прозрачность маркера
+Marker outline	Контур маркера
+Marker size	Размер маркера
+Marks chunks that look newly generated	Помечает чанки, похожие на новые
+Marks where players were when they logged out (kuro port)	Помечает места выхода игроков (kuro port)
+Mask the HUD icons	Маскирует иконки HUD
+Materials	Материалы
+Max Entities	Макс. сущностей
+Max Explode	Макс. взрыв
+Max Friend Explode	Макс. взрыв по другу
+Max Friend Place	Макс. установка для друга
+Max Jump	Макс. прыжок
+Max Latency	Макс. задержка
+Max Padding	Макс. отступ
+Max Stair Height	Макс. высота лестницы
+Max Tags	Макс. тегов
+Max Tunnel Height	Макс. высота туннеля
+Max Y Offset	Макс. смещение Y
+Max blocks per placement step	Макс. блоков за шаг установки
+Max distance to a placeable spot	Макс. дистанция до места установки
+Max distance to the target/anchor	Макс. дистанция до цели/якоря
+Max highlighted blocks	Макс. подсвеченных блоков
+Max interaction range for blocks	Макс. дальность взаимодействия с блоками
+Max ore markers drawn at once	Макс. маркеров руды за раз
+Max portal frame markers drawn	Макс. маркеров рамок портала
+Max reach for attacking entities	Макс. дальность атаки сущностей
+Max seconds to wait for the RTP teleport	Макс. секунд ожидания RTP-телепорта
+Maximum backtrack delay in ms	Максимальная задержка backtrack (мс)
+Maximum boxes	Максимум рамок
+Maximum break distance	Максимальная дистанция ломания
+Maximum crystal break range	Макс. дальность ломания кристаллов
+Maximum damage to you	Максимальный урон вам
+Maximum distance	Максимальная дистанция
+Maximum entities drawn	Максимум отрисовываемых сущностей
+Maximum explode damage	Максимальный урон взрыва
+Maximum field of view in degrees (up to 360°)	Максимальное поле зрения (до 360°)
+Maximum left clicks per second	Максимум левых кликов в секунду
+Maximum live sparks	Максимум живых искр
+Maximum placement range	Максимальная дальность установки
+Maximum render range in blocks	Максимальная дальность отрисовки в блоках
+Maximum ring radius	Максимальный радиус кольца
+Maximum staircase height	Максимальная высота лестницы
+Maximum tag distance	Максимальная дистанция тега
+Maximum target range	Максимальная дальность цели
+Maximum time the target must stay under the crosshair	Максимальное время цели под прицелом
+Maximum tracked distance	Максимальная дистанция слежения
+Maximum tunnel height	Максимальная высота туннеля
+Melee reach for hits	Ближняя дальность ударов
+Menu style switch: the blob menu (kuro port flag)	Стиль меню: blob-меню (флаг kuro port)
+Menu style switch: the glass menu (kuro port flag)	Стиль меню: стеклянное меню (флаг kuro port)
+Menu style switch: the sidebar menu (kuro port flag)	Стиль меню: боковое меню (флаг kuro port)
+Merge neighbouring light boxes	Объединяет соседние рамки света
+Metal Color	Цвет металла
+Metal tint	Оттенок металла
+Method	Метод
+Min Cells	Мин. ячеек
+Min Explode	Мин. взрыв
+Min Explode Ratio	Мин. доля взрыва
+Min Friend Ratio	Мин. доля для друзей
+Min Hole Depth	Мин. глубина дыры
+Min Latency	Мин. задержка
+Min Light	Мин. свет
+Min Place Ratio	Мин. доля установки
+Min Redstone	Мин. редстоун
+Min Sculk Blocks	Мин. скалк-блоков
+Min Stair Height	Мин. высота лестницы
+Min Stair Length	Мин. длина лестницы
+Min Ticks	Мин. тиков
+Min Tunnel Height	Мин. высота туннеля
+Min Tunnel Length	Мин. длина туннеля
+Min Y Offset	Мин. смещение Y
+Minimum attack cooldown progress	Минимальный прогресс кулдауна атаки
+Minimum backtrack delay in ms	Минимальная задержка backtrack (мс)
+Minimum emitted light level to draw	Минимальный уровень света для отрисовки
+Minimum explode damage	Минимальный урон взрыва
+Minimum fall distance in blocks	Минимальная дистанция падения в блоках
+Minimum gap between two lag bursts (ms)	Мин. интервал между двумя лаг-всплесками (мс)
+Minimum hole depth	Минимальная глубина дыры
+Minimum left clicks per second	Минимум левых кликов в секунду
+Minimum seconds between sends	Минимум секунд между отправками
+Minimum self damage worth a safety block	Мин. урон себе для блока безопасности
+Minimum staircase height	Минимальная высота лестницы
+Minimum staircase length	Минимальная длина лестницы
+Minimum ticks between two equip actions	Мин. тиков между двумя действиями экипировки
+Minimum ticks between two managed hits	Мин. тиков между двумя управляемыми ударами
+Minimum ticks between two use cycles	Мин. тиков между двумя циклами использования
+Minimum time between taps (ms)	Минимальное время между тапами (мс)
+Minimum time the target must stay under the crosshair	Минимальное время цели под прицелом
+Minimum tunnel height	Минимальная высота туннеля
+Minimum tunnel length	Минимальная длина туннеля
+Mining Progress	Прогресс копания
+Minutes before a ghost fades	Минут до исчезновения призрака
+Minutes before a spot is forgotten	Минут до забывания места
+Model	Модель
+Monster color	Цвет монстров
+Motion multiplier after a normal hit (0.6 = vanilla)	Множитель движения после обычного удара (0.6 = ваниль)
+Motion multiplier while taking knockback	Множитель движения при отбрасывании
+Move the hand right (positive) or left (negative)	Сдвиг руки вправо (плюс) или влево (минус)
+Move the hand up (positive) or down (negative)	Сдвиг руки вверх (плюс) или вниз (минус)
+Movement keys still drive the body	Клавиши движения всё равно двигают тело
+Moves and resizes your first-person hand and held item	Двигает и масштабирует руку от первого лица и предмет
+Moves you through cobwebs (kuro port)	Протаскивает через паутину (kuro port)
+Moving highlight	Движущаяся подсветка
+Multiplier for the trident charge time (0 = instant)	Множитель зарядки трезубца (0 = мгновенно)
+Music Player	Музыкальный плеер

@@ -55,6 +55,7 @@ public class Tunnel extends Module {
     public final BooleanSetting jumpOnStairs = new BooleanSetting("Jump On Stairs", "Jump when the tunnel steps up", true);
     public final NumberSetting blocksPerTick = new NumberSetting("Blocks Per Tick", "Maximum blocks broken each tick", 2.0, 1.0, 20.0, 1.0);
     public final NumberSetting reach = new NumberSetting("Reach", "Only break blocks within this distance", 4.5, 1.0, 6.0, 0.5);
+    public final NumberSetting aimSpeed = new NumberSetting("Aim Speed", "Degrees per tick the view turns toward the block being mined", 35.0, 5.0, 180.0, 5.0);
     public final BooleanSetting swing = new BooleanSetting("Swing", "Swing your arm while mining", true);
     public final BooleanSetting autoTool = new BooleanSetting("Auto Tool", "Pick the best hotbar tool for every block (survival). Also turns the AutoTool module on", true);
 
@@ -101,6 +102,7 @@ public class Tunnel extends Module {
         addSetting(jumpOnStairs);
         addSetting(blocksPerTick);
         addSetting(reach);
+        addSetting(aimSpeed);
         addSetting(swing);
         addSetting(autoTool);
         addSetting(autoTorch);
@@ -190,6 +192,9 @@ public class Tunnel extends Module {
         if (result == SLICE_CLEAR) {
             advance();
             currentTarget = null;
+            // Recenter on the tunnel axis so Auto Walk pushes into the tunnel and not along the
+            // last block the crosshair was aimed at (that one can sit off to the side).
+            if (direction.is("Auto")) mc.player.setYaw(yawFor(dirX, dirZ));
             walkTicks = 8; // the slice ahead is clear: walk into it
         } else if (result == SLICE_OUT_OF_REACH) {
             // Nothing in this slice is close enough to hit. Re-anchor to the player instead of
@@ -206,7 +211,7 @@ public class Tunnel extends Module {
             return;
         }
 
-        if (alignView.isEnabled() && !direction.is("Auto")) {
+        if (alignView.isEnabled() && !direction.is("Auto") && currentTarget == null) {
             mc.player.setYaw(yawFor(dirX, dirZ));
         }
 
@@ -252,8 +257,18 @@ public class Tunnel extends Module {
             default -> {
                 float yaw = MathHelper.wrapDegrees(mc.player.getYaw());
                 Direction facing = Direction.fromHorizontalDegrees(yaw);
-                dirX = facing.getOffsetX();
-                dirZ = facing.getOffsetZ();
+                int nx = facing.getOffsetX();
+                int nz = facing.getOffsetZ();
+                // Aiming at a block of a wide slice turns the view a few dozen degrees sideways.
+                // Without this hysteresis that aim turn would be read as "the player turned" and
+                // the tunnel would re-anchor every time a side block is mined.
+                float off = MathHelper.wrapDegrees(yaw - yawFor(dirX, dirZ));
+                if (Math.abs(off) < 55.0f) {
+                    nx = dirX;
+                    nz = dirZ;
+                }
+                dirX = nx;
+                dirZ = nz;
             }
         }
 
@@ -398,6 +413,15 @@ public class Tunnel extends Module {
     private boolean mine(BlockPos pos) {
         try {
             BlockState state = mc.world.getBlockState(pos);
+            if (state.isAir()) return true;
+
+            // The crosshair has to sit on the block before the break packet goes out. Sending the
+            // packet while the view still points somewhere else is what made the module chew
+            // through the rest of a 2x2 slice "blind": survival servers drop those packets and
+            // anticheats treat them as invalid rotations.
+            boolean aimed = lookAt(pos);
+            if (!aimed && !mc.player.isCreative()) return true; // still turning: mine on a later tick
+
             if (autoTool.isEnabled()) selectTool(state);
 
             Vec3d d = mc.player.getEyePos().subtract(Vec3d.ofCenter(pos));
@@ -409,6 +433,38 @@ public class Tunnel extends Module {
         } catch (Throwable t) {
             return false;
         }
+    }
+
+    /**
+     * Turns the view toward the block that is about to be mined.
+     *
+     * @return {@code true} once the crosshair is on the block (within a couple of degrees)
+     */
+    private boolean lookAt(BlockPos pos) {
+        Vec3d eye = mc.player.getEyePos();
+        Vec3d center = Vec3d.ofCenter(pos);
+        double dx = center.x - eye.x;
+        double dy = center.y - eye.y;
+        double dz = center.z - eye.z;
+        double flat = Math.sqrt(dx * dx + dz * dz);
+        float wantedYaw = (float) Math.toDegrees(Math.atan2(-dx, dz));
+        float wantedPitch = (float) Math.toDegrees(-Math.atan2(dy, flat));
+
+        float speed = aimSpeed.getValue().floatValue();
+        float yaw = turn(mc.player.getYaw(), wantedYaw, speed);
+        float pitch = turn(mc.player.getPitch(), wantedPitch, speed);
+        mc.player.setYaw(yaw);
+        mc.player.setPitch(pitch);
+
+        return Math.abs(MathHelper.wrapDegrees(wantedYaw - yaw)) < 2.5f
+                && Math.abs(wantedPitch - pitch) < 2.5f;
+    }
+
+    /** Moves {@code current} toward {@code wanted} by at most {@code maxStep} degrees. */
+    private static float turn(float current, float wanted, float maxStep) {
+        float delta = MathHelper.wrapDegrees(wanted - current);
+        if (Math.abs(delta) <= maxStep) return wanted;
+        return current + (float) Math.copySign(maxStep, delta);
     }
 
     private void selectTool(BlockState state) {

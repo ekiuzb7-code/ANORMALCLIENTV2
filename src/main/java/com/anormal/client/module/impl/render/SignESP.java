@@ -8,23 +8,26 @@ import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.util.BlockScanner;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.ProjectionUtil;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Marks signs with text preview.
+ * Marks signs with their text.
  *
- * <p>Migrated to budgeted {@link BlockScanner}: no full-sphere freeze,
- * persistent cache with re-validation (no blink/ghosts), 3-axis recentre
- * and independent vertical range for deep coverage.</p>
+ * <p>Uses the budgeted {@link BlockScanner}. Two fixes on top of the migration: the sign text is
+ * read once when the sign is found (it used to be fetched from the block entity on every frame,
+ * which is the expensive part), and labels are chips without legacy {@code §} colour codes, which
+ * the width maths treated as visible characters.</p>
  */
 public class SignESP extends Module {
     public final ModeSetting textFilter = new ModeSetting("Text Filter", "Sign type filter", "All",
@@ -87,7 +90,7 @@ public class SignESP extends Module {
                 } catch (Throwable ignored) {
                 }
                 try {
-                    String t = sign.getText(true).getMessage(0, false).getString();
+                    String t = sign.getBackText().getMessage(0, false).getString();
                     if (t != null && !t.trim().isEmpty()) return t.trim();
                 } catch (Throwable ignored) {
                 }
@@ -133,7 +136,9 @@ public class SignESP extends Module {
                     state -> !state.isAir() && isWantedSign(state),
                     (pos, state) -> {
                         if (cache.size() < maxShown.getValue().intValue()) {
-                            cache.put(pos.toImmutable(), "");
+                            BlockPos fixed = pos.toImmutable();
+                            // Read the text once, here, instead of every frame while drawing.
+                            cache.put(fixed, signText(fixed));
                         }
                     });
         } catch (Throwable ignored) {
@@ -151,10 +156,12 @@ public class SignESP extends Module {
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        if (mc.player == null || cache.isEmpty()) return;
+        if (mc.player == null || cache.isEmpty() || mc.textRenderer == null) return;
 
-        int col = color.getValue();
-        int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
+        int base = color.getValue();
+        int centreX = RenderUtils.screenWidth() / 2;
+        int centreY = RenderUtils.screenHeight() / 2;
+        double max = range.getValue();
         int limit = maxShown.getValue().intValue();
         int drawn = 0;
         long deadline = System.nanoTime() + RENDER_BUDGET_NS;
@@ -164,45 +171,39 @@ public class SignESP extends Module {
             if ((drawn & 7) == 0 && System.nanoTime() > deadline) break;
 
             BlockPos p = e.getKey();
-            int[] sc = com.anormal.client.util.ProjectionUtil.project(
+            int[] sc = ProjectionUtil.project(
                     new Vec3d(p.getX() + 0.5, p.getY() + 0.8, p.getZ() + 0.5), tickDelta);
             if (sc == null) continue;
             drawn++;
 
-            if (box.isEnabled()) {
-                context.fill(sc[0] - 3, sc[1] - 3, sc[0] + 3, sc[1] + 3, (col & 0x00FFFFFF) | 0x55000000);
-                if (outline.isEnabled()) {
-                    context.fill(sc[0] - 3, sc[1] - 3, sc[0] + 3, sc[1] - 2, col);
-                    context.fill(sc[0] - 3, sc[1] + 2, sc[0] + 3, sc[1] + 3, col);
-                }
-            } else {
-                context.fill(sc[0] - 2, sc[1] - 2, sc[0] + 2, sc[1] + 2, col);
-            }
+            double dx = p.getX() - mc.player.getX();
+            double dy = p.getY() - mc.player.getY();
+            double dz = p.getZ() - mc.player.getZ();
+            double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+            int col = RenderUtils.fadeByDistance(base, dist, max);
+
             if (tracer.isEnabled()) {
-                int steps = Math.min(200, Math.max(Math.abs(sc[0] - w / 2), Math.abs(sc[1] - h / 2)));
-                for (int i = 0; i <= steps; i++) {
-                    int x = w / 2 + (sc[0] - w / 2) * i / Math.max(1, steps);
-                    int y = h / 2 + (sc[1] - h / 2) * i / Math.max(1, steps);
-                    context.fill(x, y, x + 1, y + 1, col);
+                RenderUtils.drawLine(context, centreX, centreY, sc[0], sc[1], col, 1.0f);
+            }
+
+            if (box.isEnabled()) {
+                RenderUtils.drawBox3D(context, new Box(p), col, (col & 0x00FFFFFF) | 0x26000000);
+            } else {
+                RenderUtils.fill(context, sc[0] - 2, sc[1] - 2, sc[0] + 2, sc[1] + 2, col);
+            }
+
+            StringBuilder label = new StringBuilder();
+            if (showText.isEnabled()) {
+                String t = e.getValue();
+                if (t != null && !t.isEmpty()) {
+                    if (t.length() > 20) t = t.substring(0, 20) + "\u2026";
+                    label.append('"').append(t).append("\"  ");
                 }
             }
-            if (mc.textRenderer != null) {
-                StringBuilder label = new StringBuilder();
-                if (showText.isEnabled()) {
-                    String t = signText(p);
-                    if (!t.isEmpty()) {
-                        if (t.length() > 20) t = t.substring(0, 20) + "…";
-                        label.append("§e\"").append(t).append("\" ");
-                    }
-                }
-                if (showDistance.isEnabled()) {
-                    double dx = p.getX() - mc.player.getX(), dy = p.getY() - mc.player.getY(), dz = p.getZ() - mc.player.getZ();
-                    label.append("§7").append((int) Math.sqrt(dx * dx + dy * dy + dz * dz)).append("m");
-                }
-                if (label.length() > 0) {
-                    String text = label.toString();
-                    RenderUtils.drawText(context, mc.textRenderer, text, sc[0] + 5, sc[1] - 4, 0xFFFFFFFF, true);
-                }
+            if (showDistance.isEnabled()) label.append((int) dist).append('m');
+            if (label.length() > 0) {
+                RenderUtils.drawChip(context, mc.textRenderer, label.toString().trim(),
+                        sc[0], sc[1] - 16, col);
             }
         }
     }

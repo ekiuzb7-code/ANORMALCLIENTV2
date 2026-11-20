@@ -2,6 +2,7 @@ package com.anormal.client.module.impl.inventory;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
+import com.anormal.client.util.InventoryClicks;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
@@ -71,8 +72,9 @@ public class Throwpot extends Module {
                 mc.options.useKey.setPressed(false);
                 eating = false;
                 if (throwBowls.isEnabled() && held.equals("bowl")) {
-                    mc.interactionManager.clickSlot(mc.player.playerScreenHandler.syncId,
-                            36 + mc.player.getInventory().getSelectedSlot(), 1, SlotActionType.THROW, mc.player);
+                    InventoryClicks.playerClick(
+                            InventoryClicks.screenSlot(mc.player.getInventory().getSelectedSlot()),
+                            1, SlotActionType.THROW);
                 }
                 quota--;
                 cooldown = delay.getValue().intValue();
@@ -97,11 +99,18 @@ public class Throwpot extends Module {
                 scrollTicks--;
                 return;
             }
-            mc.player.getInventory().setSelectedSlot(cur + Integer.compare(slot, cur));
+            // Step one slot along the shortest way, wrapping around the hotbar (7 -> 0).
+            int forward = Math.floorMod(slot - cur, 9);
+            mc.player.getInventory().setSelectedSlot(Math.floorMod(cur + (forward <= 4 ? 1 : -1), 9));
             scrollTicks = scrollDelay.getValue().intValue();
             return;
         }
-        if (cur != slot) mc.player.getInventory().setSelectedSlot(slot);
+        if (cur != slot) {
+            // One tick for the update-selected-slot packet to reach the server: using the item in
+            // the same tick splashes whatever the old slot held (or nothing at all).
+            mc.player.getInventory().setSelectedSlot(slot);
+            return;
+        }
         String held = Registries.ITEM.getId(mc.player.getMainHandStack().getItem()).getPath();
         if (held.equals("mushroom_stew")) {
             mc.options.useKey.setPressed(true);
@@ -109,6 +118,9 @@ public class Throwpot extends Module {
             eatTicks = 0;
             return;
         }
+        // Never right-click on a guess: pearls, blocks and swords are all "held" items too.
+        if (!held.equals("splash_potion") && !held.equals("lingering_potion")) return;
+        if (!isHealing(mc.player.getMainHandStack())) return;
         mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
         quota--;
         cooldown = delay.getValue().intValue();

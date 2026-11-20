@@ -155,6 +155,8 @@ public class HudEditorScreen extends Screen {
                     }
                     return new int[]{(int) (268 * scale), (int) (92 * scale)};
                 }
+                case "Staff Detector":
+                    return new int[]{textRenderer.getWidth("Staff Detector | Observed presence") + 20, 56};
                 case "FPS": {
                     int fps = 60;
                     try {
@@ -318,15 +320,6 @@ public class HudEditorScreen extends Screen {
                     } catch (Throwable ignored) {}
                     return new int[]{132, 36};
                 }
-                case "PerformanceOverlay": {
-                    int fps = 60;
-                    try {
-                        fps = mc.getCurrentFps();
-                    } catch (Throwable ignored) {}
-                    String l1 = "FPS: " + fps + " 1% low: " + fps;
-                    String l2 = "Mem: 512 MB";
-                    return new int[]{Math.max(textRenderer.getWidth(l1), textRenderer.getWidth(l2)) + 8, 52};
-                }
                 default:
                     return null;
             }
@@ -366,7 +359,6 @@ public class HudEditorScreen extends Screen {
             case "Scoreboard" -> new int[]{130, 100};
             case "Watermark" -> new int[]{132, 36};
             case "Waypoints" -> new int[]{150, 40};
-            case "PerformanceOverlay" -> new int[]{150, 64};
             case "TextGUI" -> new int[]{130, 150};
             case "ToolDurability" -> new int[]{100, 16};
             case "ArmorDurability" -> new int[]{140, 16};
@@ -391,13 +383,23 @@ public class HudEditorScreen extends Screen {
     protected void init() {
         elements.clear();
         // Auto-discover EVERY movable overlay in every section (not just Legit):
-        // any module with posX/posY (TextGUI, Waypoints, PerformanceOverlay included)
+        // any module with posX/posY (TextGUI, Waypoints included)
         for (Module m : ModuleManager.getModules()) {
             NumberSetting[] pos = findPosSettings(m);
             if (pos == null) continue;
             int[] size = measureElement(m);
             if (size == null) size = defaultSize(m);
             HudElement element = new HudElement(m.getName(), m, pos[0], pos[1], size[0], size[1]);
+
+            // TextGUI anchors Pos X to its RIGHT edge, so the left-edge clamp below used to pull it
+            // towards the middle as soon as the editor opened - and because the clamp writes the
+            // setting back, the overlay stayed shifted even after the editor was closed. Clamp Y only.
+            if (m instanceof com.anormal.client.module.impl.client.TextGUI) {
+                int cy = Math.max(0, Math.min(Math.max(0, height - size[1]), element.getY()));
+                if (cy != element.getY()) element.setPos(element.getX(), cy);
+                elements.add(element);
+                continue;
+            }
 
             // A saved position can be outside the window (different GUI scale, resized window,
             // or a bad drag). Pull it back so the overlay is actually reachable.
@@ -439,11 +441,17 @@ public class HudEditorScreen extends Screen {
             boolean wasEnabled = el.module.isEnabled();
             RenderUtils.beginMeasure();
             try {
+                // Previewing must be side-effect free: with the real setEnabled this flopped the
+                // module on and off every frame, which queued an Enabled/Disabled notification for
+                // every overlay (and MusicPlayer's disable hook kept stopping playback).
+                com.anormal.client.module.Module.setSilentToggle(true);
                 el.module.setEnabled(true);
                 el.module.onRender2D(context, delta);
             } catch (Throwable ignored) {
             } finally {
-                if (!wasEnabled) el.module.setEnabled(false);
+                // Restore while still silent, then re-enable notifications for real user actions.
+                el.module.setEnabled(wasEnabled);
+                com.anormal.client.module.Module.setSilentToggle(false);
             }
             int[] m = RenderUtils.endMeasure();
             if (m != null && m[2] > 0 && m[3] > 0) {

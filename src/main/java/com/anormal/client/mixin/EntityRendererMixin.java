@@ -33,6 +33,19 @@ public class EntityRendererMixin {
                 cir.setReturnValue(false);
                 return;
             }
+            // Farm FPS: dropped items, xp orbs, primed TNT and falling blocks are the bulk of a
+            // farm's entity count, so they are rejected before entering the render queue.
+            if ((entity instanceof net.minecraft.entity.ItemEntity
+                    && com.anormal.client.module.impl.client.FarmFpsOptimizer.shouldCancelItemRender())
+                    || (entity instanceof net.minecraft.entity.ExperienceOrbEntity
+                    && com.anormal.client.module.impl.client.FarmFpsOptimizer.shouldCancelXpRender())
+                    || (entity instanceof net.minecraft.entity.TntEntity
+                    && com.anormal.client.module.impl.client.FarmFpsOptimizer.shouldCancelTntRender())
+                    || (entity instanceof net.minecraft.entity.FallingBlockEntity
+                    && com.anormal.client.module.impl.client.FarmFpsOptimizer.shouldCancelFallingRender())) {
+                cir.setReturnValue(false);
+                return;
+            }
             if (FogCull.shouldCull(entity)
                     || SmartCulling.shouldCull(entity)
                     || EntityLodOptimizer.shouldHide(entity)) {

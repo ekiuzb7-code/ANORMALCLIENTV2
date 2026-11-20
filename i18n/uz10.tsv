@@ -1,0 +1,302 @@
+Speed Inside Blocks	Bloklar ichidagi tezlik
+Speed Limit	Tezlik chegarasi
+Speed gained per tick	Har tikda olingan tezlik
+Speed mode	Tezlik rejimi
+Spin	Aylanish
+Spiral Height	Spiral balandligi
+Spiral Speed	Spiral tezligi
+Spirit aura	Ruh aurasi
+Spirit body	Ruh tanasi
+Spirit opacity	Ruh shaffofligi
+Split Delay	Bo'lish kechikishi
+Split Length	Bo'lish uzunligi
+Split a long message across consecutive sends	Uzun xabarni ketma-ket yuborishlarga bo'ladi
+Spoof movement packets so strict servers accept the surface walk	Qattiq serverlar yer usti yurishini qabul qilishi uchun harakat paketlarini soxtalashtiradi
+Spread	Tarqalish
+Spread Radius	Tarqalish radiusi
+Sprint Constantly	Doim yugurish
+Sprint Mode	Yugurish rejimi
+Sprint While Stationary	Joyida turganda yugurish
+Sprint even with no movement input	Harakat kiritilmasa ham yuguradi
+Stair Fill	Zinapoya to'ldirish
+Stair Line	Zinapoya chizig'i
+Staircase fill color	Zinapoya to'ldirish rangi
+Staircase outline color	Zinapoya kontur rangi
+Steer your view so a bow/crossbow/trident projectile lands on the target (kuro port)	Kamondan/arbaletdan/tridentdan otilgan snaryad nishonga tushishi uchun ko'rinishni yo'naltiradi (kuro port)
+Stem	Poya
+Step Density	Qadam zichligi
+Step height in blocks	Qadam balandligi (blok)
+Stop In Water	Suvda to'xtash
+Stop When Full	To'lganda to'xtash
+Stop at Fluids	Suyuqlikda to'xtash
+Stop flying in water	Suvda uchishni to'xtatadi
+Stop looting once your inventory can't hold any more.	Inventarda joy qolmasa, talon-tarojni to'xtatadi.
+Stop on Kill	O'ldirganda to'xtash
+Stop sprinting on every attack	Har hujumda yugurishni to'xtatadi
+Stop when you press a movement key	Harakat tugmasini bossangiz to'xtaydi
+Stop when your Y changes (fall/jump)	Y o'zgarsa (yiqilish/sakrash) to'xtaydi
+Stopwatch or countdown on the HUD	HUD'da sekundomer yoki teskari sanoq
+Strafe Speed	Yon yurish tezligi
+Strafe hop multiplier	Yon sakrash ko'paytiruvchisi
+Strands	Iplar
+Stream Only	Faqat stream uchun
+Strength	Kuch
+Strict follows vanilla rules, Rage never stops	Strict vanilla qoidalariga bo'ysunadi, Rage hech qachon to'xtamaydi
+Striders	Striders
+Stroke	Chiziq
+Stun Delay	Stun kechikishi
+Suffix length	Qo'shimcha uzunligi
+Sunset Color	Quyosh botishi rangi
+Sunset tint	Quyosh botishi tuski
+Suspect blocks needed to flag a chunk	Chunkni belgilash uchun kerakli shubhali bloklar
+Swap Back on Landing	Qo'nganda qaytarish
+Swap as soon as a target is picked	Nishon tanlanishi bilan almashtirish
+Swap right at the attack moment instead	Buning o'rniga aynan zarba paytida almashtirish
+Swap to a mace before a smash hit	Smash zarbasidan oldin mace'ga almashtirish
+Swap to a mace for the smash hit	Smash zarbasi uchun mace'ga almashtirish
+Swap to an axe against raised shields	Ko'tarilgan qalqonlarga qarshi boltaga almashtirish
+Swap to the best tool before breaking (reuse AutoTool logic).	Sindirishdan oldin eng yaxshi asbobga almashtiradi (AutoTool mantiqini qayta ishlatadi).
+Swap to the crystal slot for the place	Qo'yish uchun kristall slotiga almashtirish
+Swap to the guard slot first	Avval guard slotiga almashtirish
+Swaps to a spear on each attack and back again (kuro port)	Har hujumda spear'ga almashtiradi va qaytaradi (kuro port)
+Swaps weapon right as the attack connects to apply special weapon attributes	Maxsus qurol xossalarini qo'llash uchun zarba tekkanda qurolni almashtiradi
+Sweep a highlight	Ajratishni supurib o'tish
+Swing at the blocker automatically	Bloklovchiga avtomatik uradi
+Swing speed multiplier	Urish tezligi ko'paytiruvchisi
+Swing the hand after placing	Qo'ygandan keyin qo'lni silkitadi
+Switch Back Delay	Qaytarish kechikishi
+Switch back after the hit	Zarbadan keyin qaytarish
+Switch hotbar slots by itself	Hotbar slotlarini o'zi almashtiradi
+Switch to a mace when you can smash	Smash qila olsangiz mace'ga almashtiradi
+Switch to an axe when the target would block the hit	Nishon zarbani bloklasa boltaga almashtiradi
+Switch to third person while looking around	Atrofga qaraganda uchinchi shaxsga o'tish
+Symbols	Belgilar
+Takes over the elytra while gliding (kuro port)	Planer qilganda elytra'ni boshqaradi (kuro port)
+Tap style	Bosish uslubi
+Target	Nishon
+Target Tint	Nishon tuski
+Target body part to track	Kuzatiladigan tana qismi
+Target box colour	Nishon ramkasi rangi
+Target gamma	Maqsad gamma
+Target hurt time to pause at	To'xtash uchun nishon hurt vaqti
+Target info scale (0.05 = tiny, 2.0 = huge)	Nishon ma'lumoti o'lchami (0.05 = juda kichik, 2.0 = juda katta)
+Target non-player living entities	O'yinchi bo'lmagan tirik entitylarni nishonlaydi
+Target prioritization priority	Nishonni tanlash ustuvorligi
+Target search radius (blocks)	Nishon qidirish radiusi (blok)
+Target tint	Nishon tuski
+Target zoom factor	Maqsad yaqinlashtirish koeffitsienti
+Targets	Nishonlar
+Targets closer than this get an S-tap	Bundan yaqinroq nishonlarga S-tap qo'llaniladi
+Tempo	Tempo
+Text Glow	Matn porlashi
+Text Glow Color	Matn porlashi rangi
+Text Scale	Matn o'lchami
+Text Shadow	Matn soyasi
+Text halo colour	Matn halo rangi
+The raycast stops on fluids	Raycast suyuqliklarda to'xtaydi
+The spot must hurt the target at least this much	Joy nishonga kamida shu qadar zarar yetkazishi kerak
+The spot must hurt them at least this much	Joy ularga kamida shu qadar zarar yetkazishi kerak
+The vehicle follows your yaw	Transport yaw'ingizga ergashadi
+Theme or manual colours	Mavzu yoki qo'lda ranglar
+Theme removed in this port	Bu portda mavzu olib tashlangan
+Threshold	Chegara
+Through Walls	Devor orqasidan
+Throwables	Tashlanadigan buyumlar
+Throws a pearl, then a wind charge that catches it mid-air	Pearl tashlaydi, keyin uni havoda ushlab qoladigan wind charge
+Ticks after the click ends before restoring	Klik tugagach tiklashdan oldingi tiklar
+Ticks before charging	Quvvatlashdan oldingi tiklar
+Ticks before closing a sign editor	Ishora muharririni yopishdan oldingi tiklar
+Ticks before detonating	Portlatishdan oldingi tiklar
+Ticks before placing	Qo'yishdan oldingi tiklar
+Ticks before reacting to a pop	Popga reaksiyadan oldingi tiklar
+Ticks before restoring the old slot	Eski slotni tiklashdan oldingi tiklar
+Ticks before returning to the old slot	Eski slotga qaytishdan oldingi tiklar
+Ticks before switching back	Qaytarishdan oldingi tiklar
+Ticks before touchdown the jab goes out	Qo'nishdan oldin jab chiqishi uchun tiklar
+Ticks before your original slot comes back	Asl slotingiz qaytishi uchun tiklar
+Ticks between blocks (used when Finish time is 0)	Bloklar orasidagi tiklar (Finish time 0 bo'lganda ishlatiladi)
+Ticks between crystal breaks	Kristall sindirishlar orasidagi tiklar
+Ticks between crystal places	Kristall qo'yishlar orasidagi tiklar
+Ticks between cycles	Sikllar orasidagi tiklar
+Ticks between instant swaps	Tezkor almashtirishlar orasidagi tiklar
+Ticks between lunges	Lunge'lar orasidagi tiklar
+Ticks between messages	Xabarlar orasidagi tiklar
+Ticks between obsidian placements	Obsidian qo'yishlar orasidagi tiklar
+Ticks between obsidian places	Obsidian qo'yishlar orasidagi tiklar
+Ticks between slot switches	Slot almashtirishlar orasidagi tiklar
+Ticks between splits	Bo'lishlar orasidagi tiklar
+Ticks between steals	O'g'irlashlar orasidagi tiklar
+Ticks between swaps	Almashtirishlar orasidagi tiklar
+Ticks between the exit / re-enter taps	Chiqish / qayta kirish bosishlari orasidagi tiklar
+Ticks between the pearl and the charge	Pearl va quvvat orasidagi tiklar
+Ticks between the swap and the hit	Almashtirish va zarba orasidagi tiklar
+Ticks between webs (used when Finish time is 0)	To'rlar orasidagi tiklar (Finish time 0 bo'lganda ishlatiladi)
+Ticks of the eased look	Yumshatilgan qarashning tiklar
+Ticks on the ground before swapping back	Qaytarishdan oldin yerdagi tiklar
+Ticks the drop lasts	Tushish davom etadigan tiklar
+Ticks the riptide has to charge before it is released	Riptide qo'yib yuborilishidan oldin quvvatlash tiklar
+Ticks to wait after acquiring a target	Nishon olgandan keyin kutish tiklar
+Ticks to wait between jumps	Sakrashlar orasida kutish tiklar
+Ticks to wait between placements (0 = instant)	Qo'yishlar orasida kutish tiklar (0 = bir zumda)
+Ticks without a target before restoring your slot	Slotingizni tiklashdan oldin nishonsiz tiklar
+Time budget for chunk scanning	Chunk skanerlash uchun vaqt byudjeti
+Timing jitter in percent	Vaqt tebranishi (foiz)
+Tint the entity you last hit	Oxirgi urgan entityingizni tuslantiradi
+Tint the nether fog	Nether tumanini tuslantiradi
+Tint while aiming at a living target	Tirik nishonga mo'ljallaganda tuslantiradi
+Toggle All	Hammasini almashtirish
+Toggle Key	Almashtirish tugmasi
+Toggle On Detect	Aniqlanganda yoqish
+Toggle Perspective	Ko'rinishni almashtirish
+Toggle This Module	Bu modulni yoqish/o'chirish
+Totem Pops	Totem poplari
+Totem guard slot	Totem guard sloti
+Totem pop threshold	Totem pop chegarasi
+Totem slot kept safe	Totem sloti himoyalangan
+Trace ambient creatures	Atrofdagi jonivorlarni kuzatish
+Trace animals	Hayvonlarni kuzatish
+Trace every other entity	Boshqa har bir entityni kuzatish
+Trace invisible entities	Ko'rinmas entitylarni kuzatish
+Trace monsters	Monstrlarni kuzatish
+Trace players	O'yinchilarni kuzatish
+Trace water animals	Suv hayvonlarini kuzatish
+Tracer Color	Tracer rangi
+Tracer anchor point	Tracer bog'lanish nuqtasi
+Tracer colour	Tracer rangi
+Tracer line color. Click to cycle.	Tracer chizig'i rangi. Almashtirish uchun bosing.
+Tracer line width	Tracer chizig'i qalinligi
+Tracer range	Tracer masofasi
+Tracers drawn at once	Bir vaqtda chiziladigan tracerlar
+Tracers use their own color	Tracerlar o'z rangini ishlatadi
+Track live projectiles	Tirik snaryadlarni kuzatish
+Track other players' projectiles	Boshqa o'yinchilarning snaryadlarini kuzatish
+Trail Density	Iz zichligi
+Trail behind arrows and tridents	O'q va tridentlar ortida iz
+Trail length cut-off	Iz uzunligi chegarasi
+Trajectory line + landing box color.	Trayektoriya chizig'i + qo'nish ramkasi rangi.
+Traps the nearest player in a block cage (kuro port)	Eng yaqin o'yinchini blokli qafasga qamab qo'yadi (kuro port)
+Treat armor stands as traps	Armor stand'larni trap deb hisoblash
+Treat chest minecarts as traps	Chest minecart'larni trap deb hisoblash
+Trigger Key	Ishga tushirish tugmasi
+Trigger Range	Ishga tushirish masofasi
+Trigger health (hearts included)	Ishga tushirish joni (yuraklar bilan)
+Tunnel Fill	Tunnel to'ldirish
+Tunnel Line	Tunnel chizig'i
+Tunnel fill color	Tunnel to'ldirish rangi
+Tunnel outline color	Tunnel kontur rangi
+Turn off once you walk out of the wall	Devordan chiqqaningizda o'chadi
+Turn the module off when the connection drops	Ulanish uzilganda modulni o'chiradi
+Turn the module off when you leave the world	Dunyodan chiqqanda modulni o'chiradi
+Turn with the player (up = forward)	O'yinchi bilan burilish (tepa = oldinga)
+Turns camera to face the bridge placement edge (like video)	Kamerani ko'prik qo'yish chetiga qaratadi (videodagidek)
+Turns every kuro module off, then back on	Barcha kuro modullarini o'chirib, keyin qayta yoqadi
+Underground	Yer ostida
+Unsprint In Water	Suvda yugurishni to'xtatish
+Unsprint On Hit	Urganda yugurishni to'xtatish
+Up / down speed	Yuqori / pastga tezlik
+Up/down speed	Yuqori/pastga tezlik
+Upward speed on a wall	Devorda yuqoriga tezlik
+Upward speed while holding jump	Sakrash tugmasini ushlab turganda yuqoriga tezlik
+Use a different armour colour	Boshqa zirh rangini ishlatish
+Use distinct color when obscured	To'silganda boshqa rang ishlatish
+Use the Friends colour for friends	Do'stlar uchun Friends rangini ishlatish
+Use the tracer colour below	Quyidagi tracer rangini ishlatish
+Use unique color for each ore type	Har bir ruda turi uchun alohida rang
+Use uppercase letters in the suffix	Qo'shimchada katta harflar ishlatish
+Use your own accent colour	O'z accent rangingizdan foydalanish
+Vanilla Speed	Vanilla tezlik
+Vanilla mode only while grounded	Vanilla rejimi faqat yerda
+Vanilla speed in blocks-per-tick	Vanilla tezlik (blok/tik)
+Vanilla steers normally, Boost adds a vertical hold	Vanilla odatdagidek boshqaradi, Boost vertikal ushlashni qo'shadi
+Vape v4.21 Backtrack: delays enemy movement packets	Vape v4.21 Backtrack: dushman harakat paketlarini kechiktiradi
+Vape v4.21 FakeLag: simulates lag via packet delay buffers	Vape v4.21 FakeLag: paket kechikish buferi orqali lag imitatsiya qiladi
+Variance	Farq
+Vehicle Range	Transport masofasi
+Velocity Height	Tepki balandligi
+Vertical Speed Match	Vertikal tezlik mosligi
+Vertical bounce	Vertikal sakrash
+Vertical speed multiplier	Vertikal tezlik ko'paytiruvchisi
+Vibrance	Jonlilik
+ViewModel	ViewModel
+Vignette color	Vignette rangi
+Visible turns camera to block edge (like video), Silent turns only for packet, None leaves camera alone	Visible kamerani blok chetiga buradi (videodagidek), Silent faqat paket uchun buradi, None kamerani tegmaydi
+Visual animation on attack	Hujumda vizual animatsiya
+WHITELIST: break ancient debris.	WHITELIST: ancient debris sindiriladi.
+WHITELIST: break coal ore + deepslate coal ore.	WHITELIST: ko'mir rudasi + deepslate ko'mir rudasi sindiriladi.
+WHITELIST: break copper ore + deepslate copper ore.	WHITELIST: mis rudasi + deepslate mis rudasi sindiriladi.
+WHITELIST: break diamond ore + deepslate diamond ore.	WHITELIST: olmos rudasi + deepslate olmos rudasi sindiriladi.
+WHITELIST: break emerald ore + deepslate emerald ore.	WHITELIST: zumrad rudasi + deepslate zumrad rudasi sindiriladi.
+WHITELIST: break gold ore + deepslate + nether gold ore.	WHITELIST: oltin rudasi + deepslate + Nether oltin rudasi sindiriladi.
+WHITELIST: break iron ore + deepslate iron ore.	WHITELIST: temir rudasi + deepslate temir rudasi sindiriladi.
+WHITELIST: break lapis ore + deepslate lapis ore.	WHITELIST: lapis rudasi + deepslate lapis rudasi sindiriladi.
+WHITELIST: break nether quartz ore.	WHITELIST: Nether kvarts rudasi sindiriladi.
+WHITELIST: break redstone ore + deepslate redstone ore.	WHITELIST: redstone rudasi + deepslate redstone rudasi sindiriladi.
+Wait Charge	Quvvat kutish
+Wait Full Swing	To'liq urishni kutish
+Wait after full charge before attacking	To'liq quvvatdan keyin hujumdan oldin kutish
+Wait before clicking	Kliklashdan oldin kutish
+Wait before re-casting	Qayta tashlashdan oldin kutish
+Wait before reeling after a bite	Tishlagandan keyin tortishdan oldin kutish
+Wait for the attack cooldown	Hujum cooldown'ini kutish
+Wait for the weapon to recharge	Qurol qayta quvvatlanishini kutish
+Wait two ticks before switching	Almashtirishdan oldin ikki tik kutish
+Wait until the local client registers the target as hurt	Lokal klient nishonni hurt deb qayd etguncha kutish
+Walk direction	Yurish yo'nalishi
+Walk up full blocks by raising the step height (kuro port)	Qadam balandligini oshirib, to'liq bloklarga chiqadi (kuro port)
+Wall Color	Devor rangi
+Walls you in with hotbar blocks (kuro port)	Hotbar bloklari bilan sizni o'rab oladi (kuro port)
+Wander strength	Daydish kuchi
+Warm / cool balance	Issiq / sovuq balansi
+Warmth	Issiqlik
+Warn in chat when a base is flagged	Baza belgilanganda chatda ogohlantiradi
+Warn when staff drop off TAB or switch to spectator	Staff TAB'dan tushsa yoki spectator'ga o'tsa ogohlantiradi
+Water Animals	Suv hayvonlari
+Water Dip Fall Height	Suvga tushish balandligi
+Water Dip On Fall	Yiqilishda suvga tushish
+Water Dip On Sneak	Sneak'da suvga tushish
+Water Mode	Suv rejimi
+Water animal color	Suv hayvonlari rangi
+Water bucket clutch on long falls (kuro port)	Uzoq yiqilishlarda suv chelak bilan clutch (kuro port)
+Water surface mode	Suv yuzasi rejimi
+Wear As	Qanday kiyish
+Wears the best elytra from your hotbar (kuro port)	Hotbaringizdagi eng yaxshi elytra'ni kiyadi (kuro port)
+Webs the nearest player's feet (kuro port)	Eng yaqin o'yinchining oyoqlarini to'r bilan qoplaydi (kuro port)
+What happens on the key	Tugmada nima bo'ladi
+What the slots show	Slotlar nimani ko'rsatadi
+What the timer counts	Taymer nimani sanaydi
+What to copy	Nimani nusxalash
+What to do without a totem	Totem bo'lmasa nima qilish
+What to look for	Nimani qidirish
+When Sneaking	Sneak qilganda
+When targeting a container (chest/shulker/etc.), hold sneak so right-click places against it instead of opening the GUI.	Konteynerni (sandiq/shulker va h.k.) nishonga olganda sneak qiling, shunda o'ng klik GUI ochmaydi, balki unga qarshi blok qo'yadi.
+When to jump	Qachon sakrash
+When to land the smash	Smash qachon tushirish
+Where the burst starts	Portlash qayerdan boshlanadi
+Where the warning shows	Ogohlantirish qayerda ko'rinadi
+Which /home slot to work with	Qaysi /home sloti bilan ishlash
+Which character to wear	Qaysi personajni kiyish
+Which entities react	Qaysi entitylar reaksiya qiladi
+Which hand to edit	Qaysi qo'lni tahrirlash
+Which head accessory	Qaysi bosh aksessuari
+While Use	Ishlatish paytida
+Whole list scale	Butun ro'yxat o'lchami
+Wide faint band around the ring	Halqa atrofida keng xira tasma
+Width of the colored spine (0 = off)	Rangli o'zak qalinligi (0 = o'chirilgan)
+Work With Triggerbot	Triggerbot bilan ishlash
+Write the name next to player dots	Ismni o'yinchi nuqtalari yoniga yozish
+X Pos	X pozitsiya
+XRay Block Selector	XRay blok tanlagichi
+Y Level	Y darajasi
+Y Pos	Y pozitsiya
+Y level that triggers the toggle	Almashtirishni ishga tushiruvchi Y darajasi
+Y level the map is cut at	Xarita kesiladigan Y darajasi
+Y that triggers the relog	Relogni ishga tushiruvchi Y
+Y when not following	Kuzatmasa Y
+Yaw step share of remaining distance (0..1)	Yaw qadamining qolgan masofadagi ulushi (0..1)
+Your own damage cap (when Limit self damage is on)	O'z zararingiz chegarasi (Limit self damage yoniq bo'lganda)
+Zero the vanilla 4-tick item-use gate each tick so placement isn't throttled.	Har tikda vanilla 4 tiklik buyum ishlatish chegarasini nolga tushiradi, shunda qo'yish sekinlashmaydi.
+dirt / cobble, 0 = none	yer / tosh, 0 = yo'q
+how far it stays from you	sizdan qanchalik uzoq turishi
+if your hits launch it	zarbalaringiz uni uchirsa
+respawn instead of turning off	o'chirish o'rniga respawn
+speed of strafe/follow	yon yurish/kuzatish tezligi

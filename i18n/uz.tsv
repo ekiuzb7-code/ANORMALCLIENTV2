@@ -1,0 +1,136 @@
+-1 = none, 0..399 keyboard, 1000+ mouse button +1000	-1 = yo'q, 0..399 klaviatura, 1000+ sichqoncha tugmasi +1000
+0 = Click, 1 = Hold	0 = Bosish, 1 = Ushlab turish
+0 = default (sword → axe → mace), 1 = knockback, 2 = damage, 3 = speed	0 = standart (qilich → bolta → mace), 1 = tepki, 2 = zarar, 3 = tezlik
+0 = forever	0 = abadiy
+0 = melee hit, 1 = wind charge, 2 = none	0 = yaqin zarba, 1 = shamol zaryadi, 2 = yo'q
+0 = only when empty	0 = faqat bo'sh bo'lganda
+0 = silent (F5 shows it), 1 = camera turns your view	0 = silent (F5 ko'rsatadi), 1 = kamera ko'rinishni buradi
+0 = snap instantly, 100 = slowest human-like movement (30 is a good combat value)	0 = darhol, 100 = eng sekin odamsimon harakat (jang uchun 30 yaxshi)
+0 = snap instantly, 100 = slowest human-like movement (35 is a good combat value)	0 = darhol, 100 = eng sekin odamsimon harakat (jang uchun 35 yaxshi)
+1 fast .. 4 slow	1 tez .. 4 sekin
+1 silent smooth, 2 snap, 3 HvH, 4 camera	1 silent silliq, 2 darhol, 3 HvH, 4 kamera
+1 steady, 2 smooth, 3 Baritone default	1 barqaror, 2 silliq, 3 Baritone standart
+1x1 Fill	1x1 to'ldirish
+1x1 Line	1x1 chiziq
+3D Outlines	3D konturlar
+3x1 Fill	3x1 to'ldirish
+3x1 Line	3x1 chiziq
+3x1 hole fill color	3x1 teshik to'ldirish rangi
+3x1 hole outline color	3x1 teshik kontur rangi
+A crystal still present after this long gets hit again	Kristall shu vaqtdan keyin ham turgan bo'lsa yana uriladi
+AC Profile	AC profili
+Abilities uses the vanilla fly flag, Velocity drives the motion	Abilities vanilla fly bayrog'ini ishlatadi, Velocity harakatni boshqaradi
+Acceleration	Tezlanish
+Acceleration Step	Tezlanish qadami
+Accent + meter color	Urg'u + o'lchagich rangi
+Accent colour	Urg'u rangi
+Accessory size	Aksessuar o'lchami
+AccuratePlacement	AccuratePlacement
+Action Bar	Amal paneli
+Action Wheel Editor	Amal g'ildiragi muharriri
+Add a moving glint	Harakatlanuvchi yaltirash qo'shadi
+Add the pendant	Pendant qo'shadi
+Advanced Debug	Kengaytirilgan debug
+After the axe breaks the shield, swap to a mace and perform a falling smash on the same target (requires a mace in the hotbar).	Bolta qalqonni sindirgach, mace'ga o'tib o'sha nishonga tushib smash qiladi (hotbarda mace kerak).
+Aim 1.5 ticks ahead of their motion	Harakatidan 1.5 tik oldinga nishonlaydi
+Aim Part	Nishon qismi
+Aim Point	Nishon nuqtasi
+Aim Preview	Nishon ko'rinishi
+Aim at friends too	Do'stlarga ham nishonlaydi
+Aim at nothing while using/eating	Ishlatish/ovqatlanish paytida hech narsaga nishonlamaydi
+Aim at targets behind blocks	Bloklar orqasidagi nishonlarga ham nishonlaydi
+Aim at the anchor for you	Siz uchun anchorga nishonlaydi
+Aim only while you are pulling the bow	Faqat kamon tortilayotganda nishonlaydi
+Aim server-side only	Faqat server tomonda nishonlaydi
+Aim smoothing curve	Nishon silliqlash egri chizig'i
+Aim with look packets, camera stays put	Look paketlari bilan nishonlaydi, kamera joyida qoladi
+Allow axes	Boltalarga ruxsat
+Allow maces	Mace'larga ruxsat
+Allow riptide dashes on dry land	Quruqlikda riptide dash'ga ruxsat
+Allow swords	Qilichlarga ruxsat
+Allow tridents out of water	Suvdan tashqarida tridentga ruxsat
+Alpha of the fill (0 = fill off)	To'ldirish shaffofligi (0 = to'ldirish o'chiq)
+Also apply in water	Suvda ham qo'llanadi
+Also attack players without armor	Zirhsiz o'yinchilarga ham hujum qiladi
+Also change the offhand swing	Ikkinchi qo'l silkitishini ham o'zgartiradi
+Also converge the pitch	Pitch'ni ham yaqinlashtiradi
+Also draw rings for other players	Boshqa o'yinchilar uchun ham halqa chizadi
+Also fill the block under you	Ostingizdagi blokni ham to'ldiradi
+Also hood friends	Do'stlarga ham qalpoq kiygizadi
+Also list modules without a key	Klavishasiz modullarni ham ro'yxatlaydi
+Also mask empty slots	Bo'sh joylarni ham yashiradi
+Also move a hovered totem into a hotbar slot	Ustiga kelingan totemni hotbarga ham ko'chiradi
+Also move the pitch	Pitch'ni ham harakatlantiradi
+Also outline the chunks Quantum read from	Quantum o'qigan chunk'larni ham konturlaydi
+Also refill the chosen hotbar slot	Tanlangan hotbar joyini ham to'ldiradi
+Also refill the offhand slot	Ikkinchi qo'l joyini ham to'ldiradi
+Also ring your block at head height	Blokingizni bosh balandligida ham aylantiradi
+Also show the bolt for loaded crossbows	Zaryadlangan arbaletlar uchun o'qni ham ko'rsatadi
+Also show the nether conversion	Nether konversiyasini ham ko'rsatadi
+Also show the payment message above the hotbar.	To'lov xabarini hotbar ustida ham ko'rsatadi.
+Also show your own pops	O'zingizning poplaringizni ham ko'rsatadi
+Also sprint while strafing or walking backwards	Yonma-yon yoki orqaga yurganda ham yuguradi
+Also swap when clicking empty air (needed for the dash)	Bo'sh havoga bosganda ham almashtiradi (dash uchun kerak)
+Also target living mobs (zombies etc.) instead of players only — lets you test the dive in a singleplayer world.	Faqat o'yinchilar emas, tirik moblarni (zombi va h.k.) ham nishonga oladi — dive'ni singleplayer'da sinash mumkin.
+Also track pearls thrown by other players	Boshqa o'yinchilar otgan pearllarni ham kuzatadi
+Also trigger when Triggerbot attacks a blocking enemy, even without left-click held. Requires Triggerbot enabled.	Triggerbot qalqon tutgan dushmanga urganda ham ishga tushadi, chap klik shart emas. Triggerbot yoqilgan bo'lishi kerak.
+Also trigger while eating / holding up a shield.	Ovqatlanayotganda / qalqon ko'targanda ham ishga tushadi.
+Also uses axes for normal hits	Oddiy zarbalarda boltani ham ishlatadi
+Also uses maces for normal hits	Oddiy zarbalarda mace'ni ham ishlatadi
+Also uses swords for normal hits	Oddiy zarbalarda qilichni ham ishlatadi
+Also wear for friends	Do'stlarga ham kiygizadi
+Also wear it for friends	Do'stlarga ham kiygizadi
+Also web the block above their feet	Oyoqlari ustidagi blokni ham to'rlaydi
+Always Night Sky	Doim tungi osmon
+Always draw on top	Doim ustida chizadi
+Always sprint while gliding	Uchayotganda doim yuguradi
+Ambient	Atrof
+Anchor Aura	Anchor aura
+Anchor Bomb	Anchor bomba
+Anchor Macro	Anchor makro
+Anchors the spot closest to the nearest enemy	Eng yaqin dushmanga eng yaqin joyni anchorlaydi
+Animal tracer color	Hayvon kuzatuv chizig'i rangi
+Animate the arc	Yoyni animatsiyalaydi
+Animate the gradient	Gradientni animatsiyalaydi
+Anormal Client GUI	Anormal Client GUI
+Anti Friend Pop	Do'st pop'iga qarshi
+Anti Kick Delay	Kick'ga qarshi kechikish
+Anti Kick Mode	Kick'ga qarshi rejim
+Anti Kick Off Time	Kick'ga qarshi o'chish vaqti
+Anti Self Pop	O'z pop'iga qarshi
+Anti-cheat timing profile	Anticheat vaqt profili
+Anticheat pacing	Anticheat tezligi
+Any Item	Har qanday buyum
+Any Weapon	Har qanday qurol
+Append a random suffix to bypass chat filters	Chat filtrlarini chetlab o'tish uchun tasodifiy qo'shimcha qo'shadi
+Append the dimension name	O'lcham nomini qo'shadi
+Append the distance to each name	Har bir nomga masofani qo'shadi
+Append the spawner Y level	Spawner Y darajasini qo'shadi
+Apply inside chat messages	Chat xabarlari ichida qo'llanadi
+Apply while in water/lava	Suv/lava ichida qo'llanadi
+Apply while sneaking	Egliganda qo'llanadi
+Arc colour	Yoy rangi
+Arc style	Yoy uslubi
+Arc thickness	Yoy qalinligi
+Arm / dot / circle length	Qo'l / nuqta / aylana uzunligi
+Arm thickness	Qo'l qalinligi
+Armor Color	Zirh rangi
+Armor HUD	Zirh HUD
+Armor Layout	Zirh joylashuvi
+Armor Stands	Zirh stendlari
+Arrow Color	Strelka rangi
+Arrow Size	Strelka o'lchami
+Arrow distance from screen centre	Strelkaning ekran markazidan masofasi
+Arrow keys rotate the view	Strelka tugmalari ko'rinishni buradi
+Arrow ring distance	Strelka halqasi masofasi
+Arrow size	Strelka o'lchami
+Arrows Control Opposite	Strelkalar teskari boshqaradi
+Arrows around the crosshair point to every player	Nishon atrofidagi strelkalar har bir o'yinchiga ishora qiladi
+Artificial blocks needed to flag	Belgilash uchun kerakli sun'iy bloklar
+Ascent	Ko'tarilish
+Assist jumps while riding	Minnish paytida sakrashga yordam beradi
+Assist while holding a mace	Mace ushlaganda yordam beradi
+Assist while holding a spear or trident	Nayza yoki trident ushlaganda yordam beradi
+Assist while holding a sword	Qilich ushlaganda yordam beradi
+Assist while holding an axe	Bolta ushlaganda yordam beradi
+Assist with any item	Har qanday buyum bilan yordam beradi

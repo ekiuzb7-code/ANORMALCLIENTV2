@@ -1,0 +1,302 @@
+Speed Inside Blocks	Скорость внутри блоков
+Speed Limit	Предел скорости
+Speed gained per tick	Прирост скорости за тик
+Speed mode	Режим скорости
+Spin	Вращение
+Spiral Height	Высота спирали
+Spiral Speed	Скорость спирали
+Spirit aura	Аура духа
+Spirit body	Тело духа
+Spirit opacity	Прозрачность духа
+Split Delay	Задержка разбиения
+Split Length	Длина разбиения
+Split a long message across consecutive sends	Разбивает длинное сообщение на несколько отправок подряд
+Spoof movement packets so strict servers accept the surface walk	Подменяет пакеты движения, чтобы строгие серверы принимали ходьбу по поверхности
+Spread	Разброс
+Spread Radius	Радиус разброса
+Sprint Constantly	Постоянный спринт
+Sprint Mode	Режим спринта
+Sprint While Stationary	Спринт на месте
+Sprint even with no movement input	Спринтит даже без ввода движения
+Stair Fill	Заливка лестницы
+Stair Line	Линия лестницы
+Staircase fill color	Цвет заливки лестницы
+Staircase outline color	Цвет контура лестницы
+Steer your view so a bow/crossbow/trident projectile lands on the target (kuro port)	Поворачивает взгляд так, чтобы снаряд лука/арбалета/трезубца попал в цель (kuro port)
+Stem	Стебель
+Step Density	Плотность шагов
+Step height in blocks	Высота шага в блоках
+Stop In Water	Остановка в воде
+Stop When Full	Остановка при заполнении
+Stop at Fluids	Остановка на жидкостях
+Stop flying in water	Прекращает полёт в воде
+Stop looting once your inventory can't hold any more.	Прекращает сбор, когда инвентарь больше не вмещает.
+Stop on Kill	Остановка при убийстве
+Stop sprinting on every attack	Прекращать спринт при каждой атаке
+Stop when you press a movement key	Останавливается при нажатии клавиши движения
+Stop when your Y changes (fall/jump)	Останавливается при изменении Y (падение/прыжок)
+Stopwatch or countdown on the HUD	Секундомер или обратный отсчёт на HUD
+Strafe Speed	Скорость стрейфа
+Strafe hop multiplier	Множитель стрейф-прыжка
+Strands	Нити
+Stream Only	Только для стрима
+Strength	Сила
+Strict follows vanilla rules, Rage never stops	Strict следует ванильным правилам, Rage не останавливается никогда
+Striders	Страйдеры
+Stroke	Штрих
+Stun Delay	Задержка стана
+Suffix length	Длина суффикса
+Sunset Color	Цвет заката
+Sunset tint	Оттенок заката
+Suspect blocks needed to flag a chunk	Подозрительных блоков для метки чанка
+Swap Back on Landing	Возврат при приземлении
+Swap as soon as a target is picked	Смена сразу при выборе цели
+Swap right at the attack moment instead	Вместо этого смена в момент удара
+Swap to a mace before a smash hit	Смена на булаву перед смашем
+Swap to a mace for the smash hit	Смена на булаву для смаша
+Swap to an axe against raised shields	Смена на топор против поднятых щитов
+Swap to the best tool before breaking (reuse AutoTool logic).	Перед ломанием меняет на лучший инструмент (логика AutoTool).
+Swap to the crystal slot for the place	Смена на слот с кристаллом для установки
+Swap to the guard slot first	Сначала смена на слот защиты
+Swaps to a spear on each attack and back again (kuro port)	Меняет на копьё при каждой атаке и обратно (kuro port)
+Swaps weapon right as the attack connects to apply special weapon attributes	Меняет оружие в момент удара, чтобы применить особые свойства
+Sweep a highlight	Протяжка подсветки
+Swing at the blocker automatically	Автоматически бьёт блокирующего
+Swing speed multiplier	Множитель скорости взмаха
+Swing the hand after placing	Взмахивает рукой после установки
+Switch Back Delay	Задержка возврата
+Switch back after the hit	Возврат после удара
+Switch hotbar slots by itself	Сам переключает слоты хотбара
+Switch to a mace when you can smash	Меняет на булаву, когда можно смашить
+Switch to an axe when the target would block the hit	Меняет на топор, когда цель заблокирует удар
+Switch to third person while looking around	Переход в третье лицо при осмотре
+Symbols	Символы
+Takes over the elytra while gliding (kuro port)	Берёт управление элитрами в планировании (kuro port)
+Tap style	Стиль тапов
+Target	Цель
+Target Tint	Оттенок цели
+Target body part to track	Часть тела для отслеживания
+Target box colour	Цвет рамки цели
+Target gamma	Целевая гамма
+Target hurt time to pause at	Hurt-время цели для паузы
+Target info scale (0.05 = tiny, 2.0 = huge)	Масштаб информации о цели (0.05 = крошечный, 2.0 = огромный)
+Target non-player living entities	Целиться в живых сущностей, кроме игроков
+Target prioritization priority	Приоритет выбора цели
+Target search radius (blocks)	Радиус поиска цели (блоки)
+Target tint	Оттенок цели
+Target zoom factor	Коэффициент приближения к цели
+Targets	Цели
+Targets closer than this get an S-tap	Цели ближе этого получают S-тап
+Tempo	Темп
+Text Glow	Свечение текста
+Text Glow Color	Цвет свечения текста
+Text Scale	Масштаб текста
+Text Shadow	Тень текста
+Text halo colour	Цвет свечения вокруг текста
+The raycast stops on fluids	Рейкаст останавливается на жидкостях
+The spot must hurt the target at least this much	Место должно наносить цели хотя бы столько урона
+The spot must hurt them at least this much	Место должно наносить им хотя бы столько урона
+The vehicle follows your yaw	Транспорт следует за вашим yaw
+Theme or manual colours	Тема или ручные цвета
+Theme removed in this port	Тема удалена в этом порту
+Threshold	Порог
+Through Walls	Через стены
+Throwables	Метательные предметы
+Throws a pearl, then a wind charge that catches it mid-air	Бросает жемчуг, затем wind charge, который ловит его в воздухе
+Ticks after the click ends before restoring	Тиков после окончания клика до возврата
+Ticks before charging	Тиков перед зарядкой
+Ticks before closing a sign editor	Тиков перед закрытием редактора таблички
+Ticks before detonating	Тиков перед подрывом
+Ticks before placing	Тиков перед установкой
+Ticks before reacting to a pop	Тиков перед реакцией на поп
+Ticks before restoring the old slot	Тиков перед возвратом старого слота
+Ticks before returning to the old slot	Тиков перед возвратом в старый слот
+Ticks before switching back	Тиков перед возвратом назад
+Ticks before touchdown the jab goes out	Тиков до приземления, после которых идёт джеб
+Ticks before your original slot comes back	Тиков до возврата исходного слота
+Ticks between blocks (used when Finish time is 0)	Тиков между блоками (если Finish time = 0)
+Ticks between crystal breaks	Тиков между ломанием кристаллов
+Ticks between crystal places	Тиков между установкой кристаллов
+Ticks between cycles	Тиков между циклами
+Ticks between instant swaps	Тиков между мгновенными сменами
+Ticks between lunges	Тиков между рывками
+Ticks between messages	Тиков между сообщениями
+Ticks between obsidian placements	Тиков между установкой обсидиана
+Ticks between obsidian places	Тиков между установкой обсидиана
+Ticks between slot switches	Тиков между сменами слота
+Ticks between splits	Тиков между разбиениями
+Ticks between steals	Тиков между кражами
+Ticks between swaps	Тиков между сменами
+Ticks between the exit / re-enter taps	Тиков между тапами выхода / повторного входа
+Ticks between the pearl and the charge	Тиков между жемчугом и зарядом
+Ticks between the swap and the hit	Тиков между сменой и ударом
+Ticks between webs (used when Finish time is 0)	Тиков между паутинами (если Finish time = 0)
+Ticks of the eased look	Тиков сглаженного взгляда
+Ticks on the ground before swapping back	Тиков на земле перед возвратом
+Ticks the drop lasts	Тиков, сколько длится сброс
+Ticks the riptide has to charge before it is released	Тиков зарядки riptide перед выбросом
+Ticks to wait after acquiring a target	Тиков ожидания после получения цели
+Ticks to wait between jumps	Тиков ожидания между прыжками
+Ticks to wait between placements (0 = instant)	Тиков ожидания между установками (0 = мгновенно)
+Ticks without a target before restoring your slot	Тиков без цели до возврата слота
+Time budget for chunk scanning	Бюджет времени на сканирование чанков
+Timing jitter in percent	Дрожание тайминга в процентах
+Tint the entity you last hit	Подкрашивает последнюю поражённую сущность
+Tint the nether fog	Подкрашивает туман Нижнего мира
+Tint while aiming at a living target	Подкрашивает при наведении на живую цель
+Toggle All	Переключить всё
+Toggle Key	Клавиша переключения
+Toggle On Detect	Включать при обнаружении
+Toggle Perspective	Переключить вид
+Toggle This Module	Переключить этот модуль
+Totem Pops	Попы тотема
+Totem guard slot	Слот защиты тотема
+Totem pop threshold	Порог пота тотема
+Totem slot kept safe	Слот тотема защищён
+Trace ambient creatures	Отслеживать окружающих существ
+Trace animals	Отслеживать животных
+Trace every other entity	Отслеживать все прочие сущности
+Trace invisible entities	Отслеживать невидимых сущностей
+Trace monsters	Отслеживать монстров
+Trace players	Отслеживать игроков
+Trace water animals	Отслеживать водных животных
+Tracer Color	Цвет трейсера
+Tracer anchor point	Точка привязки трейсера
+Tracer colour	Цвет трейсера
+Tracer line color. Click to cycle.	Цвет линии трейсера. Нажмите для смены.
+Tracer line width	Толщина линии трейсера
+Tracer range	Дальность трейсера
+Tracers drawn at once	Трейсеров одновременно
+Tracers use their own color	Трейсеры используют свой цвет
+Track live projectiles	Отслеживать летящие снаряды
+Track other players' projectiles	Отслеживать снаряды других игроков
+Trail Density	Плотность следа
+Trail behind arrows and tridents	След за стрелами и трезубцами
+Trail length cut-off	Ограничение длины следа
+Trajectory line + landing box color.	Цвет линии траектории + рамки приземления.
+Traps the nearest player in a block cage (kuro port)	Запирает ближайшего игрока в клетке из блоков (kuro port)
+Treat armor stands as traps	Считать стойки для брони ловушками
+Treat chest minecarts as traps	Считать вагонетки с сундуком ловушками
+Trigger Key	Клавиша срабатывания
+Trigger Range	Дальность срабатывания
+Trigger health (hearts included)	Здоровье срабатывания (с сердцами)
+Tunnel Fill	Заливка туннеля
+Tunnel Line	Линия туннеля
+Tunnel fill color	Цвет заливки туннеля
+Tunnel outline color	Цвет контура туннеля
+Turn off once you walk out of the wall	Отключается, когда вы выходите из стены
+Turn the module off when the connection drops	Выключает модуль при потере соединения
+Turn the module off when you leave the world	Выключает модуль при выходе из мира
+Turn with the player (up = forward)	Поворот вместе с игроком (вверх = вперёд)
+Turns camera to face the bridge placement edge (like video)	Поворачивает камеру к краю установки моста (как в видео)
+Turns every kuro module off, then back on	Выключает все kuro-модули, затем включает обратно
+Underground	Под землёй
+Unsprint In Water	Сброс спринта в воде
+Unsprint On Hit	Сброс спринта при ударе
+Up / down speed	Скорость вверх / вниз
+Up/down speed	Скорость вверх/вниз
+Upward speed on a wall	Скорость вверх по стене
+Upward speed while holding jump	Скорость вверх при удержании прыжка
+Use a different armour colour	Использовать другой цвет брони
+Use distinct color when obscured	Использовать другой цвет при перекрытии
+Use the Friends colour for friends	Использовать цвет Friends для друзей
+Use the tracer colour below	Использовать цвет трейсера ниже
+Use unique color for each ore type	Отдельный цвет для каждого типа руды
+Use uppercase letters in the suffix	Заглавные буквы в суффиксе
+Use your own accent colour	Использовать свой акцентный цвет
+Vanilla Speed	Ванильная скорость
+Vanilla mode only while grounded	Ванильный режим только на земле
+Vanilla speed in blocks-per-tick	Ванильная скорость в блоках за тик
+Vanilla steers normally, Boost adds a vertical hold	Ваниль управляет как обычно, Boost добавляет вертикальное удержание
+Vape v4.21 Backtrack: delays enemy movement packets	Vape v4.21 Backtrack: задерживает пакеты движения врага
+Vape v4.21 FakeLag: simulates lag via packet delay buffers	Vape v4.21 FakeLag: имитирует лаг буфером задержки пакетов
+Variance	Разброс
+Vehicle Range	Дальность транспорта
+Velocity Height	Высота отбрасывания
+Vertical Speed Match	Совпадение вертикальной скорости
+Vertical bounce	Вертикальный отскок
+Vertical speed multiplier	Множитель вертикальной скорости
+Vibrance	Насыщенность
+ViewModel	ViewModel
+Vignette color	Цвет виньетки
+Visible turns camera to block edge (like video), Silent turns only for packet, None leaves camera alone	Visible поворачивает камеру к краю блока (как в видео), Silent поворачивает только пакет, None не трогает камеру
+Visual animation on attack	Визуальная анимация при атаке
+WHITELIST: break ancient debris.	WHITELIST: ломать древние обломки.
+WHITELIST: break coal ore + deepslate coal ore.	WHITELIST: ломать угольную руду + глубинносланцевую угольную руду.
+WHITELIST: break copper ore + deepslate copper ore.	WHITELIST: ломать медную руду + глубинносланцевую медную руду.
+WHITELIST: break diamond ore + deepslate diamond ore.	WHITELIST: ломать алмазную руду + глубинносланцевую алмазную руду.
+WHITELIST: break emerald ore + deepslate emerald ore.	WHITELIST: ломать изумрудную руду + глубинносланцевую изумрудную руду.
+WHITELIST: break gold ore + deepslate + nether gold ore.	WHITELIST: ломать золотую руду + глубинносланцевую + золотую руду Нижнего мира.
+WHITELIST: break iron ore + deepslate iron ore.	WHITELIST: ломать железную руду + глубинносланцевую железную руду.
+WHITELIST: break lapis ore + deepslate lapis ore.	WHITELIST: ломать лазуритовую руду + глубинносланцевую лазуритовую руду.
+WHITELIST: break nether quartz ore.	WHITELIST: ломать кварцевую руду Нижнего мира.
+WHITELIST: break redstone ore + deepslate redstone ore.	WHITELIST: ломать редстоуновую руду + глубинносланцевую редстоуновую руду.
+Wait Charge	Ждать заряд
+Wait Full Swing	Ждать полный взмах
+Wait after full charge before attacking	Ждать после полной зарядки перед атакой
+Wait before clicking	Ждать перед кликом
+Wait before re-casting	Ждать перед повторным забросом
+Wait before reeling after a bite	Ждать перед подсечкой после поклёвки
+Wait for the attack cooldown	Ждать кулдаун атаки
+Wait for the weapon to recharge	Ждать перезарядки оружия
+Wait two ticks before switching	Ждать два тика перед сменой
+Wait until the local client registers the target as hurt	Ждать, пока клиент зарегистрирует цель как получившую урон
+Walk direction	Направление ходьбы
+Walk up full blocks by raising the step height (kuro port)	Поднимается на полные блоки, увеличивая высоту шага (kuro port)
+Wall Color	Цвет стены
+Walls you in with hotbar blocks (kuro port)	Обкладывает вас блоками из хотбара (kuro port)
+Wander strength	Сила блуждания
+Warm / cool balance	Баланс тепло / холод
+Warmth	Тепло
+Warn in chat when a base is flagged	Предупреждает в чате, когда база помечена
+Warn when staff drop off TAB or switch to spectator	Предупреждает, если стафф пропадает из TAB или уходит в spectator
+Water Animals	Водные животные
+Water Dip Fall Height	Высота падения в воду
+Water Dip On Fall	Погружение в воду при падении
+Water Dip On Sneak	Погружение в воду при приседании
+Water Mode	Режим воды
+Water animal color	Цвет водных животных
+Water bucket clutch on long falls (kuro port)	Клатч ведром воды при долгом падении (kuro port)
+Water surface mode	Режим поверхности воды
+Wear As	Как носить
+Wears the best elytra from your hotbar (kuro port)	Надевает лучшие элитры из хотбара (kuro port)
+Webs the nearest player's feet (kuro port)	Опутывает ноги ближайшего игрока паутиной (kuro port)
+What happens on the key	Что происходит по клавише
+What the slots show	Что показывают слоты
+What the timer counts	Что считает таймер
+What to copy	Что копировать
+What to do without a totem	Что делать без тотема
+What to look for	Что искать
+When Sneaking	При приседании
+When targeting a container (chest/shulker/etc.), hold sneak so right-click places against it instead of opening the GUI.	При наведении на контейнер (сундук/шалкер и т. п.) держите присед, чтобы ПКМ ставил блок, а не открывал интерфейс.
+When to jump	Когда прыгать
+When to land the smash	Когда наносить смаш
+Where the burst starts	Где начинается взрыв
+Where the warning shows	Где показывать предупреждение
+Which /home slot to work with	С каким слотом /home работать
+Which character to wear	Какого персонажа носить
+Which entities react	Какие сущности реагируют
+Which hand to edit	Какую руку настраивать
+Which head accessory	Какой головной аксессуар
+While Use	Во время использования
+Whole list scale	Масштаб всего списка
+Wide faint band around the ring	Широкая бледная полоса вокруг кольца
+Width of the colored spine (0 = off)	Ширина цветного стержня (0 = выкл.)
+Work With Triggerbot	Работать с Triggerbot
+Write the name next to player dots	Писать имя рядом с точками игроков
+X Pos	Позиция X
+XRay Block Selector	Выбор блоков XRay
+Y Level	Уровень Y
+Y Pos	Позиция Y
+Y level that triggers the toggle	Уровень Y, включающий переключение
+Y level the map is cut at	Уровень Y, по которому режется карта
+Y that triggers the relog	Y, запускающий релог
+Y when not following	Y, когда не следит
+Yaw step share of remaining distance (0..1)	Доля шага yaw в оставшейся дистанции (0..1)
+Your own damage cap (when Limit self damage is on)	Ваш предел урона (при включённом Limit self damage)
+Zero the vanilla 4-tick item-use gate each tick so placement isn't throttled.	Обнуляет ванильный 4-тиковый гейт использования предмета каждый тик, чтобы установка не тормозилась.
+dirt / cobble, 0 = none	земля / булыжник, 0 = нет
+how far it stays from you	как далеко он держится от вас
+if your hits launch it	если ваши удары его отбрасывают
+respawn instead of turning off	респавн вместо выключения
+speed of strafe/follow	скорость стрейфа/следования

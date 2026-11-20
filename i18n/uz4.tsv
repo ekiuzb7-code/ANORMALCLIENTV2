@@ -1,0 +1,249 @@
+Explode Delay	Portlash kechikishi
+Explode ratio	Portlash nisbati
+Exposed Scan	Ochiq skan
+Exposed-scan overworld-ore tracker with a persistent cross-session cache. Finds revealed ores (diamond, emerald, gold, ...) without a seed — works on servers where seedcracking is blocked.	Ochiq skan: doimiy sessiyalararo kesh bilan Overworld ruda kuzatuvchisi. Seed'siz topilgan rudalarni (olmos, zumrad, oltin, ...) topadi — seedcrack bloklangan serverlarda ishlaydi.
+Extra aim-detection distance	Qo'shimcha nishon aniqlash masofasi
+Extra chunks around you	Atrofingizda qo'shimcha chunklar
+Extra delay for Repel/Dynamic	Repel/Dynamic uchun qo'shimcha kechikish
+Extra ticks between steps	Qadamlar orasida qo'shimcha tiklar
+Extra ticks between the steps	Qadamlar orasida qo'shimcha tiklar
+Eye Color	Ko'z rangi
+Eye Glow	Ko'z yorqinligi
+Eye glow colour	Ko'z yorqinligi rangi
+Eyes-to-floor distance at which the water goes down (bucket reach is ~4.5)	Ko'zdan polgacha suv tushadigan masofa (chelak masofasi ~4.5)
+Face Only	Faqat yuz
+Face Place	Yuzga qo'yish
+Fade Trail	So'nuvchi iz
+Fade the line towards the impact point so the near part stays readable	Chiziqni zarba nuqtasi tomon so'ndiradi, yaqin qismi o'qilishi uchun
+Faint missing blocks	Xira yetishmayotgan bloklar
+Fake Item	Soxta buyum
+Fake Pay	Soxta to'lov
+Fake Player	Soxta o'yinchi
+Fake Stats	Soxta statistika
+FakeLag execution mode	FakeLag bajarish rejimi
+Fakes /pay on DonutSMP instead of sending it — cancel the command and echo a local "You paid" line, ding and all.	DonutSMP'da /pay ni yubormaydi — buyruqni bekor qilib, lokal "You paid" qatorini chiqaradi.
+Fakes Money, Shards, Playtime, and Rank in the DonutSMP scoreboard sidebar. Client-side only.	DonutSMP yon panelida pul, shard, o'yin vaqti va darajani soxtalashtiradi. Faqat klient tomonda.
+Fall Speed	Tushish tezligi
+Fall distance that arms the module	Modulni faollashtiradigan tushish masofasi
+Fall distance that still counts as safe	Hali xavfsiz hisoblanadigan tushish masofasi
+Fall height that dips	Cho'miladigan tushish balandligi
+Fallback to a mace without Density/Breach	Density/Breach'siz mace'ga o'tish
+Falling from height dips in	Balandlikdan tushganda cho'miladi
+Far Color	Uzoq rang
+Far-section color	Uzoq bo'lim rangi
+Fast Sneak-Tap	Tez sneak-tap
+Fast crystal placement and instant breaking (kuro port)	Tez kristal qo'yish va darhol sindirish (kuro port)
+FastCrystal	FastCrystal
+Field of view cone that targets must be inside	Nishonlar ichida bo'lishi kerak bo'lgan ko'rish konusi
+Field of view in degrees	Ko'rish maydoni (gradus)
+Fill Boxes Only	Faqat ramkalarni to'ldirish
+Fill Empty Slots	Bo'sh joylarni to'ldirish
+Fill flat boxes instead of screen quads	Ekran to'rtburchaklari o'rniga tekis ramkalarni to'ldiradi
+Fill strength	To'ldirish kuchi
+Fill strength (%)	To'ldirish kuchi (%)
+Finds ancient cities and sculk catalysts at Y = -51	Qadimiy shaharlar va sculk katalizatorlarini Y = -51 da topadi
+Finds ancient debris in loaded chunks and marks it through walls	Yuklangan chunklarda qadimiy qoldiqlarni topib, devor orqasidan belgilaydi
+Finds and outlines mined-out (old) amethyst geodes	Qazib olingan (eski) ametist geodalarni topadi va konturlaydi
+Finds clusters of storage blocks in loaded chunks	Yuklangan chunklarda ombor bloklari to'plamlarini topadi
+Finds end portal frames and strongholds through walls	End portal ramkalari va qal'alarni devor orqasidan topadi
+Flagged chunk colour	Belgilangan chunk rangi
+Flash bright red when player takes damage	O'yinchi zarar olganda yorqin qizil miltillaydi
+Flash colour on hit	Urilganda miltillash rangi
+Flash on hit	Urilganda miltillash
+Flies the boat you are riding (kuro port)	Minnayotgan qayig'ingizni uchdiradi (kuro port)
+Flight Time	Uchish vaqti
+Flight speed in blocks per tick	Uchish tezligi (blok/tik)
+Flow	Oqim
+Fly speed	Uchish tezligi
+Follows trails of fresh chunks with an arrow to the trail head	Yangi chunklar izini strelka bilan iz boshi tomon kuzatadi
+Food level to eat at (20 = full)	Ovqatlanish darajasi (20 = to'liq)
+Footsteps	Qadam tovushlari
+Force Pop	Majburiy pop
+Force the slowest, softest zoom	Eng sekin va yumshoq zoom'ni majburlaydi
+Forge World Items	Dunyo buyumlarini soxtalashtirish
+Format	Format
+Found List	Topilganlar ro'yxati
+Frame colour	Ramka rangi
+Frame thickness in pixels	Ramka qalinligi (piksel)
+Free flight with the movement keys (kuro port)	Harakat tugmalari bilan erkin uchish (kuro port)
+Freeze	Muzlatish
+Friend Color	Do'st rangi
+Friend damage cap	Do'stga zarar chegarasi
+Friend explode cap	Do'stga portlash chegarasi
+Friend ratio	Do'st nisbati
+Friend tint	Do'st tuslanishi
+Friend tracer color	Do'st kuzatuv rangi
+Friends never trigger the module	Do'stlar modulni hech qachon ishga tushirmaydi
+From Weapons Only	Faqat qurollardan
+Frustum Culling	Frustum culling
+Full-draw preview while a bow is merely held	Kamon shunchaki ushlanganda to'liq tortilgan ko'rinish
+Fully grown clusters required	Faqat to'liq o'sgan to'plamlar
+Gap between cells	Katakchalar orasidagi bo'shliq
+Gauge, percent or both	O'lchagich, foiz yoki ikkalasi
+Gem Color	Qimmatbaho tosh rangi
+Gem tint	Tosh tuslanishi
+Geode ESP	Geoda ESP
+Geodes drawn at once	Bir vaqtda chiziladigan geodalar
+Ghost Arc	Arvoh yoyi
+Ghost Box	Arvoh ramkasi
+Ghost hitbox = keep the crosshair box Delay ms in the past. Delay packets = hold the server's position updates.	Arvoh hitbox = nishon ramkasini Delay ms orqada ushlaydi. Paketlarni kechiktirish = server pozitsiya yangilanishlarini ushlab turadi.
+Give up waiting for the safety block	Xavfsizlik blokini kutishdan voz kechadi
+Glass UI	Shisha UI
+Glass or wireframe spirit	Shisha yoki karkas ruh
+Glide	Suzish
+Glide speed in blocks per tick	Suzish tezligi (blok/tik)
+Glide speed multiplier	Suzish tezligi ko'paytiruvchisi
+Glint	Yaltirash
+Glint brightness	Yaltirash yorqinligi
+Glint on armour	Zirhda yaltirash
+Glint on items	Buyumlarda yaltirash
+Glint scroll speed	Yaltirash siljish tezligi
+Glint stripe size	Yaltirash chizig'i o'lchami
+Global frame outline, glow and text glow for HUD overlays	HUD qatlamlari uchun umumiy ramka, yorug'lik va matn yorug'ligi
+Glow Color	Yorug'lik rangi
+Glow Strength	Yorug'lik kuchi
+Glow breathes slowly	Yorug'lik sekin nafas oladi
+Glow cells needed before a chunk is flagged	Chunk belgilanishidan oldin kerakli glow katakchalari
+Glow the eyes	Ko'zlarni yorqin qiladi
+Glow the gem	Toshni yorqin qiladi
+Glowing rings spread on the ground where players jump (kuro port)	O'yinchilar sakraganda yerda yorqin halqalar tarqaladi (kuro port)
+Gold Ore	Oltin rudasi
+Gradient	Gradient
+Gradient Sky	Gradient osmon
+Gradient partner	Gradient jufti
+Gradient, solid or rainbow	Gradient, bir rangli yoki kamalak
+Grid Size	To'r o'lchami
+Ground Seal	Yer muhr
+Group size cut-off	Guruh o'lchami chegarasi
+Group size to report	Xabar beriladigan guruh o'lchami
+Grouping radius (blocks)	Guruhlash radiusi (blok)
+Grow the outer box	Tashqi ramkani kattalashtiradi
+Guard Slot	Himoya joyi
+HUD	HUD
+HUD Editor	HUD tahrirlagich
+HUD position	HUD joylashuvi
+HUD scale (0.05 = tiny, 2.0 = huge)	HUD o'lchami (0.05 = juda kichik, 2.0 = juda katta)
+HUD text colour	HUD matn rangi
+Half your own hitbox is added	O'z hitbox'ingizning yarmi qo'shiladi
+Halo	Halo
+Halo behind HUD text (costs extra draws)	HUD matni ortida halo (qo'shimcha chizish)
+Halo colour	Halo rangi
+Hand size (0.05 = barely visible, 2.0 = huge)	Qo'l o'lchami (0.05 = deyarli ko'rinmas, 2.0 = juda katta)
+Hands	Qo'llar
+Height Offset	Balandlik siljishi
+Height of one module row	Bir modul qatori balandligi
+Height the effect rises in blocks	Effekt ko'tariladigan balandlik (blok)
+Hide Item Name	Buyum nomini yashirish
+Hide Selected Slot	Tanlangan joyni yashirish
+Hide Tooltips	Tooltip'larni yashirish
+Hide blindness and darkness	Ko'rlik va qorong'ulikni yashiradi
+Hide falling blocks	Tushayotgan bloklarni yashiradi
+Hide nausea and portal distortion	Ko'ngil aynishi va portal buzilishini yashiradi
+Hide non-selected blocks via mixin	Tanlanmagan bloklarni mixin orqali yashiradi
+Hide ores that are fully buried	To'liq ko'milgan rudalarni yashiradi
+Hide pumpkin and powder-snow overlays	Qovoq va powder-snow qatlamlarini yashiradi
+Hide rain and snow	Yomg'ir va qorni yashiradi
+Hide the burning overlay	Yonish qatlamini yashiradi
+Hide the fire on entities	Entitylardagi olovni yashiradi
+Hide the held item name	Qo'ldagi buyum nomini yashiradi
+Hide the lava fog	Lava tumanini yashiradi
+Hide the selected slot frame	Tanlangan joy ramkasini yashiradi
+Hide the spinning mob inside spawners	Spawner ichidagi aylanuvchi mobni yashiradi
+Hide the totem pop overlay	Totem pop qatlamini yashiradi
+Hides your real skin with a preset (Steve/Alex) client-side only.	Haqiqiy skiningizni preset (Steve/Alex) bilan yashiradi, faqat klient tomonda.
+Hides your username in the DonutSMP scoreboard sidebar with a preset name. Client-side only.	DonutSMP yon panelidagi ismingizni preset nom bilan yashiradi. Faqat klient tomonda.
+Highlight Friends	Do'stlarni ajratish
+Highlight Source Chunks	Manba chunklarni ajratish
+Highlight colour	Ajratish rangi
+Highlight end crystals	End kristallarini ajratish
+Highlight hostile mobs	Dushman moblarni ajratish
+Highlight passive mobs	Passiv moblarni ajratish
+Highlight players	O'yinchilarni ajratish
+Highlight revealed Coal Ore (very abundant).	Topilgan ko'mir rudasini ajratadi (juda ko'p).
+Highlight revealed Copper Ore (abundant).	Topilgan mis rudasini ajratadi (ko'p).
+Highlight revealed Diamond Ore.	Topilgan olmos rudasini ajratadi.
+Highlight revealed Emerald Ore.	Topilgan zumrad rudasini ajratadi.
+Highlight revealed Gold Ore.	Topilgan oltin rudasini ajratadi.
+Highlight revealed Iron Ore (abundant).	Topilgan temir rudasini ajratadi (ko'p).
+Highlight revealed Lapis Lazuli Ore.	Topilgan lapis rudasini ajratadi.
+Highlight revealed Redstone Ore.	Topilgan redstone rudasini ajratadi.
+Highlight selected blocks through walls	Tanlangan bloklarni devor orqasidan ajratadi
+Highlight the upcoming blocks	Keyingi bloklarni ajratadi
+Highlights ender pearls other players threw	Boshqa o'yinchilar otgan ender pearllarni ajratadi
+Highlights your username in chat and pings you (kuro port)	Chatda ismingizni ajratadi va sizni ping qiladi (kuro port)
+Hit Delay	Zarba kechikishi
+Hit Effect	Zarba effekti
+Hit Entities	Entitylarga urish
+Hit Flash	Zarba miltillashi
+Hit Life (ms)	Zarba umri (ms)
+Hit Size	Zarba o'lchami
+Hit Sound	Zarba ovozi
+Hit Sounds	Zarba ovozlari
+Hit crystals the moment they appear	Kristallar paydo bo'lishi bilan uriladi
+Hit sound frequency pitch	Zarba ovozi ohangi
+Hit sound volume percentage	Zarba ovozi hajmi (%)
+Hitbox	Hitbox
+HitboxExpand	HitboxExpand
+Hits with a Breach mace and swaps back (kuro port)	Breach mace bilan uradi va qaytadi (kuro port)
+Hold Attack	Hujumni ushlab turish
+Hold W to accelerate along your view	Ko'rinishingiz bo'ylab tezlashish uchun W ni ushlab turing
+Hold altitude when looking level	Tekis qaraganda balandlikni saqlaydi
+Hold the position: on the server (hold packets) or locally (kuro port)	Pozitsiyani ushlab turadi: serverda (paketlarni ushlash) yoki lokal (kuro port)
+Holds sprint whenever you are allowed to (kuro port)	Mumkin bo'lganda sprintni ushlab turadi (kuro port)
+Holds the break key and tunnels forward in the direction you faced	Sindirish tugmasini ushlab, qaragan tomonga tunnel qaziydi
+Holds the forward key for you	Oldinga tugmasini siz uchun ushlab turadi
+Hole fill color	Teshik to'ldirish rangi
+Hole outline color	Teshik kontur rangi
+Home Number	Uy raqami
+Hood scale	Qalpoq o'lchami
+Hood shape	Qalpoq shakli
+Hop-glide-hop along the ground with a spear jab (kuro port)	Nayza zarbasi bilan yer bo'ylab sakrab-suzib boradi (kuro port)
+Horizontal air speed while hopping (0 = vanilla)	Sakraganda gorizontal havo tezligi (0 = vanilla)
+Horizontal padding around the name	Nom atrofida gorizontal bo'shliq
+Horizontal pull speed	Gorizontal tortish tezligi
+Horizontal rotating rings around targets	Nishonlar atrofida gorizontal aylanuvchi halqalar
+Horizontal scan radius (chunks)	Gorizontal skan radiusi (chunk)
+Horizontal search radius in blocks	Gorizontal qidiruv radiusi (blok)
+Horses	Otlar
+Hostile Color	Dushman rangi
+Hotbar Refill	Hotbar to'ldirish
+Hotbar Slot	Hotbar joyi
+Hotbar slot to hold while exploding (1-9)	Portlatishda ushlanadigan hotbar joyi (1-9)
+Hotbar slot used by refill	To'ldirish uchun hotbar joyi
+HoverTotem	HoverTotem
+How close a player must get	O'yinchi qanchalik yaqin kelishi kerak
+How close an enemy must be	Dushman qanchalik yaqin bo'lishi kerak
+How detailed the model is	Model qanchalik batafsil
+How far a spawner may be mined	Spawner qanchalik uzoqdan qazilishi mumkin
+How far above and below you to search	Tepada va pastda qanchalik qidirish
+How far above the head the tag floats	Teg boshdan qanchalik tepada suzadi
+How far along the flight time the target is extrapolated	Nishon uchish vaqti bo'ylab qanchalik ekstrapolyatsiya qilinadi
+How far back the players you aim at lag	Nishonlangan o'yinchilar qanchalik orqada qoladi
+How far beside/above to check	Yon/tepadan qanchalik tekshirish
+How far the enemy may be	Dushman qanchalik uzoqda bo'lishi mumkin
+How far the halo spreads	Halo qanchalik tarqaladi
+How far you may move before auxiliary search recentres	Yordamchi qidiruv qayta markazlashishidan oldin qanchalik harakat
+How fast the aim converges	Nishon qanchalik tez yaqinlashadi
+How geodes are detected	Geodalar qanday aniqlanadi
+How high the next layer sits	Keyingi qatlam qanchalik baland
+How line-like	Chizig'ga qanchalik o'xshash
+How long the last hit target stays marked (ms)	Oxirgi nishon qancha vaqt belgilangan qoladi (ms)
+How long the tap holds (ms)	Tap qancha ushlab turadi (ms)
+How long to keep sneaking after the edge	Chekkadan keyin qancha sneak qilish
+How loud	Qanchalik baland
+How many blocks of tunnel to check	Necha blok tunnel tekshiriladi
+How many crystals to place (1-2)	Necha kristal qo'yiladi (1-2)
+How many drawn	Nechtasi chiziladi
+How many macro slots	Necha makro joyi
+How many relics orbit you	Necha relik atrofingizda aylanadi
+How many tags may draw at once	Bir vaqtda nechta teg chiziladi
+How many targets are drawn	Nechta nishon chiziladi
+How much of the horizontal knockback to keep	Gorizontal tepkining qanchasi saqlanadi
+How much of the vertical knockback to keep	Vertikal tepkining qanchasi saqlanadi
+How much of the world stays visible	Dunyoning qanchasi ko'rinadi
+How other players are shown	Boshqa o'yinchilar qanday ko'rsatiladi
+How sneaking is applied	Sneak qanday qo'llanadi
+How softly the zoom settles	Zoom qanchalik yumshoq joylashadi
+How solid ghost blocks look	Arvoh bloklar qanchalik qattiq ko'rinadi
+How targets are drawn	Nishonlar qanday chiziladi
+How the dummy moves	Dummy qanday harakatlanadi

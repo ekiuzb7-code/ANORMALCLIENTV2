@@ -1,0 +1,3 @@
+Kristalga qo'shimcha urushlar — double tap (kuro port)
+Mace smash assist — arms the mace when you dive, strikes the player below at maximum fall damage.
+Offhand'da Ölmez Totemni saqlaydi (kuro port)

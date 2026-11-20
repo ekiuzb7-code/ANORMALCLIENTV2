@@ -151,6 +151,9 @@ public final class BlockScanner {
                 if (x * x + z * z <= rr) list.add(new int[]{x, z});
             }
         }
+        // Nearest-first columns: with a per-tick budget the blocks around the player are found
+        // before the sweep reaches the rim, so markers appear close-to-far instead of randomly.
+        list.sort(Comparator.comparingInt(a -> a[0] * a[0] + a[1] * a[1]));
         cylX = new int[list.size()];
         cylZ = new int[list.size()];
         for (int i = 0; i < list.size(); i++) {

@@ -3160,7 +3160,6 @@ final class Uz {
                 {"DirectionHUD", "Yo'nalish HUD"},
                 {"DonkeyFinder", "Eshak topuvchi"},
                 {"DuelInfo", "Duel ma'lumoti"},
-                {"DynamicRenderDistance", "Dinamik ko'rish masofasi"},
                 {"ESP", "ESP"},
                 {"ESPv2", "ESP v2"},
                 {"ElytraFly", "Elytra uchish"},
@@ -3168,7 +3167,6 @@ final class Uz {
                 {"EndPortalFinder", "End portal topuvchi"},
                 {"EnemyArmor", "Dushman zirhi"},
                 {"EnemyInventory", "Dushman inventari"},
-                {"EntityCulling", "Entity culling"},
                 {"Explosions", "Portlashlar"},
                 {"FPS", "FPS"},
                 {"FakeLag", "FakeLag"},
@@ -3224,11 +3222,9 @@ final class Uz {
                 {"PaintingESP", "Rasm ESP"},
                 {"Panic", "Panic"},
                 {"Parkour", "Parkour"},
-                {"ParticleOptimizer", "Zarracha optimizatori"},
                 {"PartyOverlay", "Guruh qoplamasi"},
                 {"PearlCatch", "Pearl tutish"},
                 {"PearlTrajectory", "Pearl traektoriyasi"},
-                {"PerformanceOverlay", "Unumdorlik qoplamasi"},
                 {"PlayerESP", "O'yinchi ESP"},
                 {"PlayerLogger", "O'yinchi jurnali"},
                 {"PortalFinder", "Portal topuvchi"},
@@ -3968,8 +3964,39 @@ final class Uz {
             d6(),
             d7(),
             d8(),
-            d9()
+            d9(),
+            d10()
     };
+
+    // BannerESP + MusicPlayer additions
+    private static String[][] d10() {
+        return new String[][] {
+                {"Use Banner Color", "Bayroq rangidan foydalanish"},
+                {"Tint each marker with the banner's own dye", "Har bir belgini bayroqning o'z bo'yoq rangiga bo'yaydi"},
+                {"Translucent fill inside the marker", "Belgi ichida shaffof to'ldirish"},
+                {"Outline thickness in pixels", "Kontur qalinligi (pikselda)"},
+                {"MusicPlayer", "Musiqa pleyeri"},
+                {"Plays local audio files with a now-playing card on the HUD", "Lokal audio fayllarni HUD'dagi karta bilan ijro etadi"},
+                {"Card X position", "Karta X pozitsiyasi"},
+                {"Card Y position", "Karta Y pozitsiyasi"},
+                {"Card scale", "Karta o'lchami"},
+                {"Playback volume", "Ijro ovozi"},
+                {"Show Album Art", "Muqova rasmini ko'rsatish"},
+                {"Draw the cover image", "Muqova rasmini chizadi"},
+                {"Show Times", "Vaqtlarni ko'rsatish"},
+                {"Draw the seek bar", "Qayta o'tish chizig'ini chizadi"},
+                {"Show Volume", "Ovozni ko'rsatish"},
+                {"Draw the volume slider", "Ovoz slayderini chizadi"},
+                {"Dark rounded card", "To'q yumaloq karta"},
+                {"Glass Style", "Shisha uslub"},
+                {"Frosted glass panel with a glowing border (matches the Glassmorphism theme)", "Yorqin konturli muzlatilgan shisha panel (Glassmorphism mavzusiga mos)"},
+                {"Accent", "Asosiy rang"},
+                {"Progress and button colour", "Progress va tugma rangi"},
+                {"now playing", "hozir ijroda"},
+                {"No tracks", "Treklar yo'q"},
+                {"Right-click the module to add songs", "Qo'shiq qo'shish: modulga o'ng klik"},
+        };
+    }
 
 
     // kuro-setting additions
@@ -4594,5 +4621,6 @@ final class Uz {
         for (String[][] chunk : CHUNKS) {
             for (String[] e : chunk) m.put(e[0], e[1]);
         }
+        ExtraUz.load(m);
     }
 }

@@ -1,0 +1,198 @@
+NCP Bypass	Обход NCP
+Name Color	Цвет имени
+Name Protect	Защита имени
+Name, ping, health and armour above players' heads	Имя, пинг, здоровье и броня над головами игроков
+NameShower	NameShower
+Nausea & Portal	Тошнота и портал
+Near Color	Ближний цвет
+Near-section color	Цвет ближней секции
+Nearest crystal in, nearest obsidian out (kuro port)	Ближайший кристалл внутрь, ближайший обсидиан наружу (kuro port)
+Nether Colors	Цвета Нижнего мира
+Nether Coords	Координаты Нижнего мира
+Nether Quartz	Кварц Нижнего мира
+Never count as sneaking while flying	Никогда не считаться присевшим в полёте
+Never highlight yourself	Никогда не подсвечивать себя
+Never place on bedrock	Никогда не ставить на бедрок
+Never pop a friend	Никогда не лопать друга
+Never pop yourself	Никогда не лопать себя
+Never show item tooltips	Никогда не показывать подсказки предметов
+Never smash a friend	Никогда не бить смашем друга
+Never take more than this yourself	Вы не получаете больше этого
+Never walk into unloaded chunks	Никогда не входить в незагруженные чанки
+New Chunks	Новые чанки
+Next-gen Player ESP with 3D Skeleton, Solid body, and 3D/2D boxes	Новое поколение Player ESP: 3D скелет, плотное тело и 3D/2D рамки
+Night Sky Color	Цвет ночного неба
+Night tint	Ночной оттенок
+No Break Delay	Без задержки ломания
+No Slow	Без замедления
+No Sneak	Без приседа
+No Unloaded Chunks	Без незагруженных чанков
+No Water	Без воды
+No Web	Без паутины
+No delay between right-clicks while holding a crystal	Без задержки между ПКМ с кристаллом
+Normal or safe estimates	Обычные или безопасные оценки
+North Marker	Метка севера
+Notification Mode	Режим уведомлений
+Notify on newly found sections	Уведомлять о новых секциях
+Number of cloth folds	Число складок ткани
+Number of effect streams / particles	Число потоков эффекта / частиц
+Obsidian Delay	Задержка обсидиана
+Occasional larger flakes	Иногда крупные хлопья
+Off = only from a sword	Выкл = только от меча
+Off, Smart (wait for crits) or Only (crits required)	Выкл, Smart (ждать криты) или Only (нужны криты)
+Off-screen indicator line (only shown when the projectile is outside the view)	Линия-индикатор за экраном (только когда снаряд вне обзора)
+Off: enabling performs one sell run and disables itself when done (glazed semantics). On: stay enabled and auto-start a run once enough matching stacks pile up.	Выкл: при включении продаёт один раз и выключается. Вкл: остаётся включённым и стартует при накоплении стаков.
+Offhand	Вторая рука
+Offhand Offset X	Смещение второй руки X
+Offhand Offset Y	Смещение второй руки Y
+Offhand Offset Z	Смещение второй руки Z
+Offhand Scale	Масштаб второй руки
+Offhand X	Вторая рука X
+Offhand Y	Вторая рука Y
+Offhand Z	Вторая рука Z
+Offhand scale	Масштаб второй руки
+Offset Z	Смещение Z
+On Friends	На друзьях
+On Press	При нажатии
+One interpolated position packet per this many blocks	Один пакет интерполяции на столько блоков
+One-shot Spear lunge macro using attribute swapping: swap to a hotbar Spear, STAB to lunge, swap back to your original slot — bypasses the Spear's attack-charge gate. Hold the trigger key to repeat.	Одноразовый макрос рывка копьём через своп атрибутов: свап на копьё, STAB для рывка, возврат в слот — обходит заряд атаки копья. Удерживайте клавишу для повтора.
+One-shot inventory sort	Одноразовая сортировка инвентаря
+Only Air Blocks	Только воздух
+Only Charge	Только зарядка
+Only Crits	Только криты
+Only Own	Только свои
+Only Weapon	Только оружие
+Only While Held	Только при удержании
+Only While Idle	Только в покое
+Only With Chest	Только с сундуком
+Only act while the attack key is held	Работает только при зажатой клавише атаки
+Only activate if the hotbar Spear actually has the Lunge enchantment (otherwise the swap is pointless).	Активируется, только если у копья в хотбаре есть Lunge (иначе свап бессмысленен).
+Only aim while the attack button is held	Целится только при зажатой клавише атаки
+Only apply the boost while sprinting	Ускорение только при спринте
+Only apply while the vehicle touches the ground	Только когда транспорт на земле
+Only arm a tap while on the ground	Тап только на земле
+Only arm from another melee weapon	Только от другого ближнего оружия
+Only arm while holding a melee weapon	Только с ближним оружием в руке
+Only assist when holding a sword, axe or mace	Помогает только с мечом, топором или булавой
+Only assist while holding left click	Помогает только при зажатой ЛКМ
+Only attack while the left mouse button is held	Атакует только при зажатой ЛКМ
+Only auto-log while actually taking damage (not on low-health join debuffs).	Авто-выход только при реальном уроне (не при дебаффах входа).
+Only auto-trigger when no screen is already open (anti-conflict).	Авто-срабатывание только при отсутствии открытых экранов (анти-конфликт).
+Only blocks a real click could place from where you stand	Только блоки, которые реальный клик мог бы поставить с вашего места
+Only break crystals under the crosshair	Ломает только кристаллы под прицелом
+Only click while the button is held	Кликает только при зажатой кнопке
+Only detonate anchors that you placed yourself.	Взрывает только поставленные вами якоря.
+Only detonate when a sword/axe is available for the detonate slot.	Взрывает только когда для слота есть меч/топор.
+Only draw markers within this range	Рисует маркеры только в этом радиусе
+Only fill this close	Заливает только так близко
+Only fire the axe hit when the attack cooldown is charged, so it lands at full power (clean shield break).	Бьёт топором только при заряженном кулдауне, чтобы удар был полным (чистый слом щита).
+Only flag players this close	Помечает только игроков так близко
+Only hit while the attack key is held	Бьёт только при зажатой клавише атаки
+Only manage the slot while already holding a weapon (or managing it)	Управляет слотом только с оружием в руке
+Only mark animals carrying a chest	Помечает только животных с сундуком
+Only mark players	Помечает только игроков
+Only mask while a capture overlay is up	Маскирует только при оверлее захвата
+Only outline the hit face	Обводит только грань удара
+Only place into air/replaceable blocks, so no block is wasted	Ставит только в воздух/заменяемые блоки, чтобы не тратить блоки
+Only placements a real click could also do	Только установки, доступные реальному клику
+Only run while the use key is held	Работает только при зажатой клавише использования
+Only show ghosts near you	Показывает призраков только рядом
+Only show the trajectory when holding an Ender Pearl.	Показывает траекторию только с жемчугом Энда.
+Only spawn on critical hits	Появляется только при критах
+Only strike when the attack cooldown is fully charged (smash damage scales with it). Arming early makes this nearly always ready.	Бьёт только при полном кулдауне (урон смаша зависит от него). Ранняя зарядка делает его почти всегда готовым.
+Only swap to a mace while falling	Свап на булаву только при падении
+Only swap to a mace with the Breach enchantment (off = any mace)	Свап только на булаву с Breach (выкл = любая булава)
+Only tap while on the ground	Тап только на земле
+Only target other players (skip mobs).	Целится только в других игроков (мобы пропускаются).
+Only track spawners and ender chests	Отслеживает только спавнеры и эндер-сундуки
+Only trigger on other players (skip mobs/animals).	Срабатывает только на других игроках (мобы/животные пропускаются).
+Only trigger while holding a sword	Срабатывает только с мечом
+Only true air counts as passable	Проходимым считается только настоящий воздух
+Only use obsidian - any other hotbar block is ignored	Использует только обсидиан — другие блоки игнорируются
+Only while fighting	Только в бою
+Only while holding a sword, axe, mace or trident	Только с мечом, топором, булавой или трезубцем
+Opacity of the body ring	Прозрачность кольца тела
+Opacity strength for solid body mode	Сила прозрачности в режиме плотного тела
+Open the gap while moving / recovering	Открывает разрыв при движении / восстановлении
+Orbit speed	Скорость орбиты
+Orbit speed in blatant mode	Скорость орбиты в blatant-режиме
+Origin	Источник
+Others	Другие
+Others Label	Подпись других
+Others' Pearls	Жемчуг других
+Others' Shots	Выстрелы других
+Out Of Water	Вне воды
+Outline strength	Сила контура
+Outline the spots still to fill	Обводит места, которые ещё нужно заполнить
+Outline, fill or both	Контур, заливка или оба
+Outlines dropped items through walls with names and counts	Обводит выброшенные предметы через стены с именами и количеством
+Outlines your chosen blocks in loaded chunks	Обводит выбранные блоки в загруженных чанках
+Overhead cone limit (kept for setting parity)	Лимит верхнего конуса (для совместимости настроек)
+Overworld Coords	Координаты Верхнего мира
+OverworldRay	OverworldRay
+Own Pops	Свои попы
+Packet cap: too many packets gets you kicked or ignored	Лимит пакетов: слишком много — кик или игнор
+Padding	Отступ
+Palette used for the sky tint	Палитра оттенка неба
+Panel X position	Позиция панели по X
+Panel Y position	Позиция панели по Y
+Panel opacity	Прозрачность панели
+Panel scale	Масштаб панели
+Panic: toggle this module too	Паника: переключать и этот модуль
+Particle type	Тип частиц
+Particles per hit	Частиц за удар
+Passive Color	Цвет мирных
+Passive Mobs	Мирные мобы
+Passive tint	Оттенок мирных
+Path	Путь
+Path Color	Цвет пути
+Path colour	Цвет пути
+Path line colour	Цвет линии пути
+Path line width	Толщина линии пути
+Pattern Size	Размер узора
+Pause hiding modules on detection	Пауза скрытия модулей при обнаружении
+Pause while mining blocks	Пауза при копании блоков
+Pause while target is on hurt time	Пауза, пока цель в hurt time
+Pearl Catch	Ловля жемчуга
+Pearl Finder	Поиск жемчуга
+Pearl box color	Цвет рамки жемчуга
+Persistent Cache	Постоянный кэш
+Picks the best weapon in your hotbar for the target (kuro port)	Выбирает лучшее оружие в хотбаре под цель (kuro port)
+Piece	Часть
+Pigs	Свиньи
+Pitch Lock	Блокировка наклона
+Pitch step share of remaining distance (0..1)	Доля наклона от остатка (0..1)
+Pitch used for the jab (the lunge goes where you look)	Наклон для джеба (рывок идёт по взгляду)
+Pixels per chunk	Пикселей на чанк
+Place + break crystals near the target (kuro port)	Ставит и ломает кристаллы у цели (kuro port)
+Place On Ground	Ставить на землю
+Place obsidian when needed	Ставит обсидиан при необходимости
+Place obsidian when the crosshair is not on a base	Ставит обсидиан, когда прицел не на базе
+Place only within Enemy range of a player	Ставит только в радиусе Enemy игрока
+Place the second anchor	Ставит второй якорь
+Place, charge and detonate an anchor at the closest target automatically (kuro port)	Автоматически ставит, заряжает и взрывает якорь у ближайшей цели (kuro port)
+Place, charge, cover, detonate — one key (kuro port)	Поставить, зарядить, накрыть, взорвать — одна клавиша (kuro port)
+Places / charges / detonates anchors near targets (kuro port)	Ставит / заряжает / взрывает якоря у целей (kuro port)
+Places blocks where you look so you can bridge (kuro port)	Ставит блоки туда, куда смотрите, для мостов (kuro port)
+Plan diagonal corners	Планирует диагональные углы
+Planned platform radius	Радиус планируемой платформы
+Play a note on a new flag	Играет ноту при новом флаге
+Play a note when a spawner is found	Играет ноту при находке спавнера
+Play a sound with the notification	Играет звук с уведомлением
+Play only after damage is accepted	Играет только после принятия урона
+Play the arrow-hit ding when a payment is faked.	Играет динь попадания стрелы при подделке оплаты.
+Player Indicator	Индикатор игрока
+Player Info	Информация об игроке
+Player Scale	Масштаб игрока
+Player Trails	Следы игроков
+Player indicator scale	Масштаб индикатора игрока
+Player keeps the body still, Camera turns both	Игрок не двигает тело, камера вращает оба
+Player tint	Оттенок игрока
+Player tracer color	Цвет трейсера игроков
+PlayerESPv2	PlayerESPv2
+Plays back the macro recorded by Macro Record	Воспроизводит макрос, записанный Macro Record
+Pop Burst	Вспышка попа
+Pop Glyph	Символ попа
+Powder Snow	Рыхлый снег
+Powder snow counts as a walkable surface	Рыхлый снег считается проходимой поверхностью
+Pumpkin & Powder Snow	Тыква и рыхлый снег

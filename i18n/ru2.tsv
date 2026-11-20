@@ -1,0 +1,195 @@
+Attack Aura	Аура атаки
+Attack charge to wait before clicking (0 = off)	Заряд для ожидания перед кликом (0 = выкл)
+Attack cooldown between axe swings	Кулдаун между ударами топором
+Attack mobs	Атаковать мобов
+Attack other living entities	Атаковать других живых
+Attack other mobs	Атаковать других мобов
+Attack while falling with a mace	Атакует булавой при падении
+Attack while you hold the left button and the crosshair is on a target	Атакует при зажатой ЛКМ и прицеле на цели
+Attacks the entity under your crosshair (kuro port)	Атакует сущность под прицелом (kuro port)
+Attacks the nearest valid target (kuro port)	Атакует ближайшую подходящую цель (kuro port)
+Audio cue when hitting an enemy	Звук при попадании по врагу
+Aura	Аура
+Aura Color	Цвет ауры
+Aura Reach	Дальность ауры
+Aura colour	Цвет ауры
+Aura halo size	Размер ореола ауры
+Aura size	Размер ауры
+Aura strength	Сила ауры
+Aurora Color	Цвет авроры
+Auto Anchor	Авто якорь
+Auto Build	Авто стройка
+Auto Clicker	Автокликер
+Auto Disconnect	Авто-отключение
+Auto Eat	Авто еда
+Auto Fish	Авто рыбалка
+Auto Hover	Авто ховер
+Auto Miner	Авто майнер
+Auto Obsidian	Авто обсидиан
+Auto Split Messages	Авто разделение сообщений
+Auto Swap	Авто свап
+Auto Take Off	Авто взлёт
+Auto Trigger	Авто триггер
+Auto Tunnel	Авто туннель
+Auto-Sneak On Containers	Авто-присед в контейнерах
+Auto-fire when a valid target + placement is found. Off = wait for manual trigger().	Авто-огонь при найденной цели и точке. Выкл = ждать ручной trigger().
+Auto-swaps to an axe to break a blocking enemy's shield, then swaps back. Optional mace stun-slam.	Переключается на топор, чтобы сломать щит, затем обратно. Опционально булава со стан-слэмом.
+AutoBox	AutoBox
+AutoCobweb	AutoCobweb
+AutoDtap	AutoDtap
+AutoLog	AutoLog
+AutoLoot	AutoLoot
+AutoMLG	AutoMLG
+AutoMine	AutoMine
+AutoReplenish	AutoReplenish
+AutoSell	AutoSell
+AutoShieldBreak	AutoShieldBreak
+AutoWeapon	AutoWeapon
+Automatically blows up respawn anchors for you	Автоматически взрывает якоря возрождения за вас
+Automatically breaks blocks (crosshair / tunnel / whitelist modes). No left-click needed.	Автоматически ломает блоки (crosshair / tunnel / whitelist). ЛКМ не нужна.
+Automatically disconnects from the server when your health drops below a set threshold.	Автоматически отключается от сервера при падении здоровья ниже порога.
+Automatically moves all items from an opened storage block into your inventory.	Переносит все предметы из открытого хранилища в инвентарь.
+Automatically sells whitelisted items through the DonutSMP /sell GUI — deposits, clicks the confirm button and answers the server dialog.	Продаёт предметы из вайтлиста через DonutSMP /sell — вставляет, подтверждает и отвечает на диалог сервера.
+Axe-blocks a shielding player to disable the shield (kuro port)	Бьёт топором игрока со щитом, отключая щит (kuro port)
+BFS gap	Зазор BFS
+BG Opacity	Прозрачность фона
+Back Delay	Задержка назад
+Background Alpha	Альфа фона
+Backtrack (kuro)	Backtrack (kuro)
+Backtracked position color	Цвет отстающей позиции
+Bar + % on the HUD	Полоса + % на HUD
+Baritone	Baritone
+Base dot radius in pixels	Радиус базовой точки в пикселях
+Behind Wall Color	Цвет за стеной
+Bhop	Bhop
+Blend from Colour to End Colour along the path	Переход от цвета к конечному цвету по пути
+Blend towards the horizon colour	Смешивание к цвету горизонта
+Blindness & Darkness	Слепота и тьма
+Blob UI	Blob UI
+Block Bounce	Отскок от блоков
+Block ESP	ESP блоков
+Blocks Per Packet	Блоков на пакет
+Blocks checked per tick (auxiliary)	Блоков за тик (вспомогательно)
+Blocks from the centre to the edge	Блоков от центра до края
+Blocks in range to trigger	Блоков в радиусе срабатывания
+Blocks per second	Блоков в секунду
+Blocks per second in open air	Блоков в секунду в воздухе
+Blocks per second while inside geometry	Блоков в секунду внутри геометрии
+Blocks placed in one step (used when Finish time is 0)	Блоков за шаг (когда Finish time = 0)
+Blocks the spirit rises	Блоков подъёма духа
+Blur strength	Сила размытия
+Boat Fly	Полёт в лодке
+Boat speed while a movement key is held	Скорость лодки при зажатой клавише
+Body Glow	Свечение тела
+Body Ring Alpha	Альфа кольца тела
+Body Ring Radius	Радиус кольца тела
+Body Rings	Кольца тела
+Body part aimed at	Часть тела для прицела
+Body rendering style	Стиль отрисовки тела
+Bold Rank	Жирный ранг
+Boost speed while moving/strafing	Ускорение при движении/стрейфе
+Borderless Fullscreen	Полноэкранный без рамки
+Bounce	Отскок
+Bounce off solid blocks	Отскок от твёрдых блоков
+BowAim	BowAim
+Bows & Crossbows	Луки и арбалеты
+Box Color	Цвет рамки
+Box color	Цвет рамки
+Box colour	Цвет рамки
+Box end crystals	Рамка для энд-кристаллов
+Box other living entities	Рамка для других живых
+Box other players	Рамка для других игроков
+Box the entity the path hits	Рамка для сущности на пути
+Box the landing spot	Рамка для места посадки
+Boxes drawn at once	Рамок за раз
+Boxes/labels drawn at once	Рамок/подписей за раз
+BreachSwap	BreachSwap
+Break At	Точка ломания
+Breathe	Дыхание
+Breathing opacity	Прозрачность дыхания
+Builds a schematic with Baritone and restocks from a refill chest	Строит схему через Baritone и пополняется из сундука
+Builds a small fixed structure where you look	Строит небольшую конструкцию туда, куда смотрите
+Burst on totem pops	Вспышка при попе тотема
+Burst spark shape	Форма искры вспышки
+Burst spread	Разброс вспышки
+Bypass	Обход
+Cage them in from above too	Заковывает в клетку и сверху
+Camels	Верблюды
+Camera Sensitivity	Чувствительность камеры
+Camera mode mouse scale	Масштаб мыши в режиме камеры
+Camera pitch angle when aiming at the edge	Угол наклона камеры при прицеле на край
+Camera rotation speed	Скорость вращения камеры
+Cancel On Self Hit	Отмена при попадании по себе
+Cancels fall damage (kuro port)	Отменяет урон от падения (kuro port)
+Cap on interpolated position packets per teleport	Лимит пакетов интерполяции на телепорт
+Cap the strafe speed (anti-anticheat burst)	Ограничивает скорость стрейфа (против античита)
+Casts, waits for the bite and reels in for you	Забрасывает, ждёт поклёвки и подматывает
+Cell Gap	Зазор ячеек
+Cell Size	Размер ячейки
+Cells per side (3 = 3x3, 5 = 5x5)	Ячеек в стороне (3 = 3x3, 5 = 5x5)
+Center the map on screen (otherwise X/Y Pos is used)	Центрирует карту на экране (иначе используется X/Y Pos)
+Chance the longer entity reach applies per tick	Шанс применения увеличенной дальности за тик
+Chance to attack before the weapon is fully charged	Шанс атаковать до полной зарядки оружия
+Chance to jump on being hit	Шанс прыгнуть при попадании
+Change the zoom with the mouse wheel	Изменять зум колесом мыши
+Character	Персонаж
+Character scale	Масштаб персонажа
+Characters per split	Символов в части
+Charge Scale	Масштаб заряда
+Charge Ticks	Тики заряда
+Charge anchors but never detonate them.	Заряжает якоря, но никогда не взрывает.
+Charges and detonates the anchor you place (kuro port)	Заряжает и взрывает поставленный вами якорь (kuro port)
+Chat	Чат
+Chat Confirmation	Подтверждение в чате
+Chat Mentions	Упоминания в чате
+Chat Timestamps	Метки времени в чате
+Chat message when a staff member joins or leaves	Сообщение при входе/выходе стаффа
+Chat message when it triggers	Сообщение при срабатывании
+Chest Stealer	Кража из сундуков
+Chunk Color	Цвет чанка
+Chunk Tracers	Трейсеры чанков
+Chunk marker	Маркер чанка
+Chunk radius	Радиус чанков
+Chunk radius kept loaded	Радиус загруженных чанков
+Chunk radius to scan	Радиус сканирования чанков
+Chunks	Чанки
+Chunks scanned around the player	Сканируемые чанки вокруг игрока
+Chunks scanned per tick	Чанков за тик
+Chunks/Tick	Чанков/тик
+Cinematic Camera	Кинематографичная камера
+Circular minimap showing nearby players and mobs	Круглая мини-карта с игроками и мобами
+Clamp the pitch while gliding	Ограничивает наклон при полёте
+Clear On Toggle	Очистка при переключении
+Clear the markers when the module is toggled	Очищает маркеры при переключении модуля
+Click Simulation	Симуляция клика
+Click other living entities	Клик по другим живым
+ClickGUI layout: Anormal classic frame or Vape frames	Макет ClickGUI: Anormal classic или Vape
+Clicks per second	Кликов в секунду
+Client HUD: title, keybinds, armor, target and module list	HUD клиента: заголовок, клавиши, броня, цель и список модулей
+Client learns the shield dropped a ping late; assume it earlier	Клиент считает щит снятым на пинг раньше
+Client-side dummy player to test combat modules	Клиентский dummy-игрок для тестов боя
+Client-side night vision so caves stay bright	Клиентское ночное зрение, чтобы пещеры были светлыми
+Client-side time of day	Клиентское время суток
+Cloth Color	Цвет ткани
+Cloth Detail	Детализация ткани
+Cloth colour	Цвет ткани
+Coal Ore	Угольная руда
+Color for coal-ore positions. Click to cycle.	Цвет позиций угольной руды. Клик для смены.
+Color for copper-ore positions. Click to cycle.	Цвет позиций медной руды. Клик для смены.
+Color for diamond-ore positions. Click to cycle.	Цвет позиций алмазной руды. Клик для смены.
+Color for emerald-ore positions. Click to cycle.	Цвет позиций изумрудной руды. Клик для смены.
+Color for gold-ore positions. Click to cycle.	Цвет позиций золотой руды. Клик для смены.
+Color for iron-ore positions. Click to cycle.	Цвет позиций железной руды. Клик для смены.
+Color for lapis-ore positions. Click to cycle.	Цвет позиций лазурита. Клик для смены.
+Color for redstone-ore positions. Click to cycle.	Цвет позиций редстоуна. Клик для смены.
+Color when player is behind blocks	Цвет, когда игрок за блоками
+Color while on target	Цвет при наведении на цель
+Colored Markers	Цветные маркеры
+Colour at the end of the path	Цвет в конце пути
+Colour for friends	Цвет для друзей
+Colour for hostile mobs	Цвет враждебных мобов
+Colour for passive mobs	Цвет мирных мобов
+Colour for players	Цвет игроков
+Colour of the cobweb spot	Цвет места паутины
+Colour of the impact part + marker	Цвет части удара + маркера
+Colour of the opening spot	Цвет места пролома

@@ -71,10 +71,12 @@ public class Scaffold extends Module {
 
     // ---------------- Shared ----------------
     public final BooleanSetting showBlockCount = new BooleanSetting("Block Count", "Displays blocks left in the hotbar", true);
-    public final NumberSetting pitchCheck = new NumberSetting("Pitch Check", "Only when aiming below this pitch", 50.0, 0.0, 90.0, 1.0);
+    public final NumberSetting pitchCheck = new NumberSetting("Pitch Check", "Only when aiming below this pitch", 0.0, 0.0, 90.0, 1.0);
+    public final BooleanSetting ledgeSneak = new BooleanSetting("Ledge Sneak", "Sneak while the block ahead is still missing", true);
 
     private int cooldown = 0;
     private boolean sneakedByModule = false;
+    private int restoreSlot = -1;
     private double lastPlaceX = 0, lastPlaceZ = 0;
 
     public Scaffold() {
@@ -117,6 +119,7 @@ public class Scaffold extends Module {
 
         addSetting(showBlockCount);
         addSetting(pitchCheck);
+        addSetting(ledgeSneak);
 
         v1FastTower.visibleIf(() -> version.is("V1"));
         v1TowerSpeed.visibleIf(() -> version.is("V1") && v1FastTower.isEnabled());
@@ -159,23 +162,37 @@ public class Scaffold extends Module {
         cooldown = 0;
         lastPlaceX = 0;
         lastPlaceZ = 0;
+        restoreSlot = -1;
     }
 
     @Override
     public void onDisable() {
-        if (mc.options != null && sneakedByModule) {
-            mc.options.sneakKey.setPressed(false);
-        }
+        releaseSneak();
+        if (sneakedByModule && mc.options != null) mc.options.sneakKey.setPressed(false);
         sneakedByModule = false;
+        if (restoreSlot >= 0 && mc.player != null && restoreSlot < 9) {
+            try {
+                mc.player.getInventory().setSelectedSlot(restoreSlot);
+            } catch (Throwable ignored) {}
+        }
+        restoreSlot = -1;
     }
 
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
 
-        // Shared pitch gate (V4 has its own dedicated one).
-        if (!version.is("V4") && mc.player.getPitch() < pitchCheck.getValue()) return;
-        if (version.is("V4") && v4PitchCheck.isEnabled() && mc.player.getPitch() < v4Pitch.getValue() - 15.0) return;
+        // Shared pitch gate: only bridge while looking down. The default (0) lets the straight
+        // ahead view through, so the module is not dead until the camera is pointed at the floor.
+        if (!version.is("V4") && mc.player.getPitch() < pitchCheck.getValue()) {
+            releaseSneak();
+            return;
+        }
+
+        // Hold sneak while the next block is still missing, otherwise the player walks off the
+        // edge before the placement packet lands. Updated even during the cooldown so the player
+        // is not left crouching after a block has been placed.
+        updateLedgeSneak();
 
         if (cooldown > 0) {
             cooldown--;
@@ -260,22 +277,16 @@ public class Scaffold extends Module {
             cooldown = Math.max(0, (int) Math.round(d / Math.max(0.01, v3Timer.getValue())));
         }
 
-        // Ledge: sneak when standing on the edge of the placed block.
-        if (v3Ledge.isEnabled()) {
-            boolean needSneak = false;
-            try {
-                needSneak = mc.world.isAir(mc.player.getBlockPos().down()) && mc.player.isOnGround();
-            } catch (Throwable ignored) {}
-            setSneak(needSneak);
-        }
-        // considerInv is used by the block search below.
-        if (considerInv) { /* handled in findBlockSlot */ }
+        // Ledge sneak and v3ConsiderInventory are handled by the shared helpers.
     }
 
     // =====================================================================
     //  V4 - Vape
     // =====================================================================
     private void tickV4() {
+        // The old gate compared the live pitch against v4Pitch and returned before the module had
+        // a chance to look down - so V4 could never start. Only bail out when looking up.
+        if (v4PitchCheck.isEnabled() && mc.player.getPitch() < 10.0f) return;
         try {
             mc.player.setPitch(v4Pitch.getValue().floatValue());
         } catch (Throwable ignored) {}
@@ -295,49 +306,102 @@ public class Scaffold extends Module {
                                 boolean autoSwitch, boolean blockFilter,
                                 boolean whitelistOnly, boolean airPlace) {
         try {
-            // 1) The one position that actually matters: the block you are about
-            //    to stand on (directly below, optionally pushed ahead).
-            double yawRad = Math.toRadians(mc.player.getYaw());
-            double ax = mc.player.getX() - Math.sin(yawRad) * aheadDistance;
-            double az = mc.player.getZ() + Math.cos(yawRad) * aheadDistance;
-            BlockPos primary = BlockPos.ofFloored(ax, mc.player.getY() - 1.0, az);
-
-            // Already solid? Then there is nothing to bridge - do NOT start
-            // filling the surrounding square. (The old code searched the whole
-            // radius box and placed at the first air block it found, which is
-            // why Scaffold carpeted a 9x9 slab underneath you.)
-            if (!mc.world.isAir(primary)) return false;
-
-            BlockPos target;
-            if (airPlace || hasSolidNeighbour(primary)) {
-                target = primary;
-            } else {
-                // Fallback only: nearest spot with a solid neighbour, chosen by
-                // distance so the closest usable position wins.
-                target = findNearestSupport(primary, radius, airPlace);
-            }
+            // The old version only ever looked at the block under the feet. While standing (or
+            // bridging) that block is solid, so every version returned right here and placed
+            // nothing. The target is now the next cell in the direction of travel.
+            BlockPos target = primaryTarget(aheadDistance);
             if (target == null) return false;
+            if (!mc.world.isAir(target)) return false;
+            if (!airPlace && !hasSupport(target)) {
+                // Nothing next to it to click: try the closest spot that has a neighbour.
+                target = findNearestSupport(target, radius, airPlace);
+                if (target == null) return false;
+            }
 
             // 2) Pick a block from the hotbar (V1 filter / V4 whitelist+blacklist).
             int slot = findBlockSlot(blockFilter, whitelistOnly);
             if (slot == -1) return false;
 
-            int prev = mc.player.getInventory().getSelectedSlot();
-            if (autoSwitch && prev != slot) mc.player.getInventory().setSelectedSlot(slot);
-
-            try {
-                if (!placeAt(target)) return false;
-            } finally {
-                if (autoSwitch && prev != slot) {
-                    try {
-                        mc.player.getInventory().setSelectedSlot(prev);
-                    } catch (Throwable ignored) {}
-                }
+            int selected = mc.player.getInventory().getSelectedSlot();
+            if (autoSwitch && selected != slot) {
+                // The server must see the new hotbar slot before the click: switching and placing
+                // inside one tick made the server use the OLD item, so the place was rejected.
+                if (restoreSlot < 0) restoreSlot = selected;
+                mc.player.getInventory().setSelectedSlot(slot);
+                cooldown = 1;
+                return false;
             }
-            return true;
+
+            return placeAt(target);
         } catch (Throwable ignored) {
             return false;
         }
+    }
+
+    /**
+     * The block worth placing right now: under our feet when we are already over the void (or
+     * towering), otherwise the next cell in the direction we are travelling.
+     */
+    private BlockPos primaryTarget(double aheadDistance) {
+        BlockPos below = mc.player.getBlockPos().down();
+        if (mc.world.isAir(below)) return below;      // falling / towering: fill under us
+
+        boolean moving = mc.options.forwardKey.isPressed() || mc.options.backKey.isPressed()
+                || mc.options.leftKey.isPressed() || mc.options.rightKey.isPressed();
+        Vec3d v = mc.player.getVelocity();
+        if (!moving && Math.hypot(v.x, v.z) < 0.02) return null;   // standing still on solid ground
+
+        double[] dir = travelDir();
+        double push = 0.6 + Math.max(0.0, aheadDistance);
+        BlockPos ahead = BlockPos.ofFloored(
+                mc.player.getX() + dir[0] * push, mc.player.getY(),
+                mc.player.getZ() + dir[1] * push).down();
+        return ahead.equals(below) ? null : ahead;
+    }
+
+    /** Unit horizontal direction of travel: velocity when moving, otherwise where we look. */
+    private double[] travelDir() {
+        Vec3d v = mc.player.getVelocity();
+        double len = Math.hypot(v.x, v.z);
+        if (len > 0.02) return new double[]{v.x / len, v.z / len};
+        double yaw = Math.toRadians(mc.player.getYaw());
+        return new double[]{-Math.sin(yaw), Math.cos(yaw)};
+    }
+
+    /** Sneak while the block we are about to step onto is still missing. */
+    private void updateLedgeSneak() {
+        try {
+            boolean enabled = version.is("V3") ? v3Ledge.isEnabled() : ledgeSneak.isEnabled();
+            if (!enabled || !mc.player.isOnGround() || findBlockSlot(true, false) == -1) {
+                releaseSneak();
+                return;
+            }
+            double[] dir = travelDir();
+            BlockPos nextFeet = BlockPos.ofFloored(
+                    mc.player.getX() + dir[0] * 0.45, mc.player.getY(),
+                    mc.player.getZ() + dir[1] * 0.45);
+            boolean missing = mc.world.isAir(nextFeet.down());
+            com.anormal.client.util.InputForcer.sneak = missing;
+            setSneak(missing);
+        } catch (Throwable ignored) {}
+    }
+
+    private void releaseSneak() {
+        try {
+            com.anormal.client.util.InputForcer.sneak = false;
+            setSneak(false);
+        } catch (Throwable ignored) {}
+    }
+
+    /** Turns the view onto the clicked spot (V1 "Rotate"). */
+    private void rotateTo(Vec3d hit) {
+        Vec3d eye = mc.player.getEyePos();
+        double dx = hit.x - eye.x;
+        double dy = hit.y - eye.y;
+        double dz = hit.z - eye.z;
+        double flat = Math.sqrt(dx * dx + dz * dz);
+        mc.player.setYaw((float) Math.toDegrees(Math.atan2(-dx, dz)));
+        mc.player.setPitch((float) Math.toDegrees(-Math.atan2(dy, flat)));
     }
 
     /** Nearest air block (relative to {@code primary}) that has a solid neighbour. */
@@ -354,7 +418,7 @@ public class Scaffold extends Module {
                 } catch (Throwable ignored) {
                     continue;
                 }
-                if (airPlace || hasSolidNeighbour(p)) {
+                if (airPlace || hasSupport(p)) {
                     best = p;
                     bestD = d;
                 }
@@ -363,40 +427,55 @@ public class Scaffold extends Module {
         return best;
     }
 
-    private boolean hasSolidNeighbour(BlockPos p) {
+    private boolean hasSupport(BlockPos p) {
         for (Direction d : Direction.values()) {
-            try {
-                if (!mc.world.isAir(p.offset(d))) return true;
-            } catch (Throwable ignored) {}
+            if (isSupport(p.offset(d))) return true;
         }
         return false;
+    }
+
+    /** A block that can be clicked: not air, and not a replaceable one (grass, snow, fluid). */
+    private boolean isSupport(BlockPos p) {
+        try {
+            BlockState s = mc.world.getBlockState(p);
+            return !s.isAir() && !s.isReplaceable();
+        } catch (Throwable ignored) {
+            return false;
+        }
     }
 
     /** Places a block at {@code target} by clicking a solid neighbour's face. */
     private boolean placeAt(BlockPos target) {
         try {
+            if (!mc.world.isAir(target)) return false;
             Direction[] faces = {Direction.NORTH, Direction.SOUTH, Direction.EAST,
                     Direction.WEST, Direction.DOWN, Direction.UP};
             BlockPos support = null;
             Direction face = null;
             for (Direction d : faces) {
                 BlockPos n = target.offset(d);
-                try {
-                    if (!mc.world.isAir(n)) {
-                        support = n;
-                        face = d.getOpposite();
-                        break;
-                    }
-                } catch (Throwable ignored) {}
+                if (isSupport(n)) {
+                    support = n;
+                    face = d.getOpposite();
+                    break;
+                }
             }
             if (support == null) return false;
 
-            BlockHitResult bhr = new BlockHitResult(
-                    new Vec3d(target.getX() + 0.5, target.getY() + 0.5, target.getZ() + 0.5),
-                    face, support, false);
-            mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
-            swing();
-            return true;
+            // Aim at the middle of the shared face (what a player would click), not at the middle
+            // of the support block, which sits inside geometry the server can reject.
+            Vec3d hit = Vec3d.ofCenter(support).add(Vec3d.of(face.getVector()).multiply(0.5));
+            double reach = mc.player.getBlockInteractionRange();
+            if (mc.player.getEyePos().squaredDistanceTo(hit) > reach * reach) return false;
+
+            if (version.is("V1") && v1Rotate.isEnabled()) rotateTo(hit);
+
+            BlockHitResult bhr = new BlockHitResult(hit, face, support, false);
+            // The old code returned true no matter what the server answered, so a rejected click
+            // still consumed the cooldown and the block never appeared.
+            boolean accepted = mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr).isAccepted();
+            if (accepted) swing();
+            return accepted;
         } catch (Throwable ignored) {
             return false;
         }

@@ -53,6 +53,7 @@ public class Triggerbot extends Module {
     public final BooleanSetting ignoreFriends = new BooleanSetting("Ignore Friends", "Ignore friends", true);
 
     private int cooldown = 0;
+    private boolean justEnabled;
 
     public Triggerbot() {
         super("Triggerbot", "Attacks automatically when your crosshair is on an entity", Category.COMBAT);
@@ -84,11 +85,21 @@ public class Triggerbot extends Module {
                 v2TargetMissChance, v2AirCrits, v2IgnoreActivationClick, v2LimitToItems}) {
             s.visibleIf(() -> version.is("V2"));
         }
+    }    @Override
+    public void onEnable() {
+        cooldown = 0;
+        justEnabled = true;
     }
 
     @Override
     public void onTick() {
+
         if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
+
+        if (justEnabled) {
+            justEnabled = false;
+            if (version.is("V2") && v2IgnoreActivationClick.isEnabled()) return;
+        }
 
         if (cooldown > 0) {
             cooldown--;
@@ -104,7 +115,9 @@ public class Triggerbot extends Module {
             if (v2TargetMissChance.getValue() > 0 && Math.random() * 100.0 < v2TargetMissChance.getValue()) return;
         }
 
-        Entity cross = mc.crosshairTarget != null ? mc.targetedEntity : null;
+        if (mc.currentScreen != null) return;
+        Entity cross = mc.crosshairTarget instanceof net.minecraft.util.hit.EntityHitResult anormal$ehr
+                ? anormal$ehr.getEntity() : null;
         if (!(cross instanceof LivingEntity living)) return;
         if (living == mc.player || !living.isAlive()) return;
         if (!passesFilter(living)) return;
@@ -113,27 +126,26 @@ public class Triggerbot extends Module {
         if (version.is("V2") && v2EarlyHitChance.getValue() > 0) {
             range += 0.5 * (v2EarlyHitChance.getValue() / 100.0);
         }
-        if (mc.player.distanceTo(living) > range) return;
+        // Melee-style reach: eye position vs. the target's bounding box expanded by range.
+        if (!living.getBoundingBox().expand(range).contains(mc.player.getEyePos())) return;
 
-        if (version.is("V2") && v2ShieldCheck.isEnabled() && living.isBlocking()) return;
-
-        attack();
+        if (version.is("V2") && v2ShieldCheck.isEnabled() && living.isBlocking()) return;        attack(living);
     }
 
-    private void attack() {
+    private void attack(LivingEntity target) {
         try {
+
             // Record the swing so other combat modules (ShieldBreakerV2) can chain off it.
             lastAttackMs = System.currentTimeMillis();
-            lastAttacked = mc.crosshairTarget instanceof net.minecraft.util.hit.EntityHitResult anormal$hit
-                    ? anormal$hit.getEntity() : null;
+            lastAttacked = target;
 
             if (version.is("V1") && v1SimulateMouseClick.isEnabled()) {
+
                 // Press and release the attack key, exactly like a real click.
                 mc.options.attackKey.setPressed(true);
                 mc.options.attackKey.setPressed(false);
             } else {
-                mc.interactionManager.attackEntity(mc.player, mc.crosshairTarget instanceof
-                        net.minecraft.util.hit.EntityHitResult ehr ? ehr.getEntity() : null);
+                mc.interactionManager.attackEntity(mc.player, target);
             }
 
             if (version.is("V1")) {

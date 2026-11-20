@@ -2,12 +2,12 @@ package com.anormal.client.module.impl.inventory;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
+import com.anormal.client.util.InventoryClicks;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.SlotActionType;
 
 /**
  * Automatically equips the best armour from your inventory.
@@ -45,6 +45,8 @@ public class AutoArmor extends Module {
     public final BooleanSetting v3SilentSwap = new BooleanSetting("V3 Silent Swap", "Swap without opening the inventory", true);
 
     private int cooldown = 0;
+    /** Cursor swap spread over ticks, so a survival server accepts it. */
+    private final InventoryClicks.SlotMover mover = new InventoryClicks.SlotMover();
 
     public AutoArmor() {
         super("AutoArmor", "Automatically equips the best armour", Category.INVENTORY);
@@ -82,8 +84,23 @@ public class AutoArmor extends Module {
     }
 
     @Override
+    public void onDisable() {
+        mover.cancel();
+    }
+
+    @Override
     public void onTick() {
         if (mc.player == null || mc.interactionManager == null) return;
+
+        // Finish an in-flight swap before deciding on a new one.
+        if (mover.isActive()) {
+            if (!mover.tick()) return;
+            cooldown = Math.max(1, swapDelay());
+            return;
+        }
+
+        // Clicking the player handler while a chest is open is an invalid packet - wait it out.
+        if (!InventoryClicks.playerHandlerOpen()) return;
 
         if (cooldown > 0) {
             cooldown--;
@@ -97,10 +114,11 @@ public class AutoArmor extends Module {
         }
 
         try {
+            // Short-circuit: one swap in flight at a time, otherwise the last slot silently won.
             if (equipBest(EquipmentSlot.HEAD, 5)
-                    | equipBest(EquipmentSlot.CHEST, 6)
-                    | equipBest(EquipmentSlot.LEGS, 7)
-                    | equipBest(EquipmentSlot.FEET, 8)) {
+                    || equipBest(EquipmentSlot.CHEST, 6)
+                    || equipBest(EquipmentSlot.LEGS, 7)
+                    || equipBest(EquipmentSlot.FEET, 8)) {
                 cooldown = Math.max(1, swapDelay());
             }
         } catch (Throwable ignored) {
@@ -143,13 +161,10 @@ public class AutoArmor extends Module {
 
         if (bestSlot == -1) return false;
 
-        try {
-            mc.interactionManager.clickSlot(mc.player.playerScreenHandler.syncId, bestSlot, 0,
-                    SlotActionType.QUICK_MOVE, mc.player);
-            return true;
-        } catch (Throwable ignored) {
-            return false;
-        }
+        // Shift-click only equips into an EMPTY armour slot; vanilla then just shuffles the item
+        // around inside the inventory. A cursor swap replaces worn armour as well.
+        mover.begin(bestSlot, armorSlot);
+        return true;
     }
 
     private boolean isArmorFor(ItemStack stack, EquipmentSlot slot) {

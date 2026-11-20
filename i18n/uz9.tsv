@@ -1,0 +1,212 @@
+Show distance and eye count tag	Masofa va ko'zlar soni yorlig'ini ko'rsatadi
+Show distance and flight time at the landing spot	Qo'nish joyida masofa va uchish vaqtini ko'rsatadi
+Show distance in meters above valuable ores	Qimmatbaho rudalar ustida masofani metrda ko'rsatadi
+Show distance text above container	Konteyner ustida masofa matnini ko'rsatadi
+Show durability numbers	Chidamlilik raqamlarini ko'rsatadi
+Show latency	Kechikishni ko'rsatadi
+Show lava lakes and streams	Lava ko'llari va oqimlarini ko'rsatadi
+Show ocean and water blocks (disabled by default to prevent blocking view)	Okean va suv bloklarini ko'rsatadi (ko'rinishni to'smasligi uchun standart holatda o'chirilgan)
+Show side health bar	Yon tomonda jon panelini ko'rsatadi
+Show silent angles on the player model (F5)	O'yinchi modelida silent burchaklarni ko'rsatadi (F5)
+Show the changed block and re-sent chunks	O'zgargan blok va qayta yuborilgan chunklarni ko'rsatadi
+Show the finds StashFinder has logged (via chat)	StashFinder topgan joylarni chatda ko'rsatadi
+Show the frame rate	FPS ni ko'rsatadi
+Show the item name and amount	Buyum nomi va miqdorini ko'rsatadi
+Show the local time	Mahalliy vaqtni ko'rsatadi
+Show the logout time	Chiqish vaqtini ko'rsatadi
+Show the material panel	Materiallar panelini ko'rsatadi
+Show the performance readout	Ishlash ko'rsatkichlarini ko'rsatadi
+Show the player name	O'yinchi nomini ko'rsatadi
+Show the real player model (skin, armor, items) through walls using a glow outline. Always on in 'Body Only' style	Haqiqiy o'yinchi modelini (skin, zirh, buyumlar) devor orqasidan glow kontur bilan ko'rsatadi. 'Body Only' uslubida doim yoniq
+Show the region legend	Mintaqa legendasini ko'rsatadi
+Show the saved base on screen	Saqlangan bazani ekranda ko'rsatadi
+Show the staff list on screen	Staff ro'yxatini ekranda ko'rsatadi
+Show which way you are facing (needle on your marker, N at the top)	Qayerga qaraganingizni ko'rsatadi (markeringizda strelka, tepada N)
+Show your block coordinates	Blok koordinatalaringizni ko'rsatadi
+Show your body	Tanangizni ko'rsatadi
+Show your coordinates	Koordinatalaringizni ko'rsatadi
+Show your hands	Qo'llaringizni ko'rsatadi
+Show your latency	Kechikishingizni ko'rsatadi
+Shows each item's DonutSMP worth in its hover tooltip (client-side).	Har bir buyumning DonutSMP qiymatini hover tooltip'da ko'rsatadi (klient tomonda).
+Shows every player's attack reach as a ground circle	Har bir o'yinchining urish masofasini yerdagi doira sifatida ko'rsatadi
+Sidebar UI	Yon panel UI
+Sideways	Yon tomonga
+Silent aim turn speed (deg/tick)	Silent nishon burilish tezligi (gradus/tik)
+Silent-aim melee aura (kuro port)	Silent nishonli yaqin jang aurasi (kuro port)
+Simulation length	Simulyatsiya davomiyligi
+Single or double anchor	Bitta yoki ikkita anchor
+Sinks while on fire	Yonayotganda cho'kadi
+Size of one map cell	Bitta xarita katakchasining o'lchami
+Skeleton and box line thickness	Skelet va ramka chizig'i qalinligi
+Skip Break Delay	Sindirish kechikishini o'tkazib yuborish
+Skip Shielding	Qalqonni o'tkazib yuborish
+Skip blocks above build height	Qurish balandligidan yuqori bloklarni o'tkazib yuboradi
+Skip blocks below build height	Qurish balandligidan past bloklarni o'tkazib yuboradi
+Skip chunks outside the view frustum	Ko'rish sohasidan tashqaridagi chunklarni o'tkazib yuboradi
+Skip entities flagged by the AntiBot module	AntiBot moduli belgilagan entitylarni o'tkazib yuboradi
+Skip placement if the target position would land inside your own hitbox (FPS-lag double-place guard).	Joylashtirish nuqtasi o'z hitbox'ingiz ichiga tushsa, qo'yishni o'tkazib yuboradi (FPS-lag sababli ikki marta qo'yishdan himoya).
+Skip players that are actively blocking	Faol bloklayotgan o'yinchilarni o'tkazib yuboradi
+Skip spots that would hurt you too much	Sizga juda ko'p zarar yetkazadigan joylarni o'tkazib yuboradi
+Skip the jab below this hunger when the spear has Lunge	Spear'da Lunge bo'lsa, bu ochlikdan pastda jab'ni o'tkazib yuboradi
+Skip your own body	O'z tanangizni o'tkazib yuborish
+Sky	Osmon
+Sky palette	Osmon palitrasi
+Slice Y	Kesim Y
+Slide between blocks	Bloklar orasida siljish
+Slide boxes between tick positions	Ramkalarni tik pozitsiyalari orasida siljitadi
+Sliding speed	Siljish tezligi
+Slight random pitch per hit	Har zarbada biroz tasodifiy pitch
+Slot (1–6)	Slot (1–6)
+Slots	Slotlar
+Slow Damage	Sekin zarar
+Slow Down	Sekinlashtirish
+Slow Place Delay	Sekin qo'yish kechikishi
+Slow down below this damage	Bu zarardan pastda sekinlashtiradi
+Slow, smooth, calm	Sekin, silliq, xotirjam
+Smash Mode	Smash rejimi
+Smash hostile mobs	Dushman moblarni smash qiladi
+Smash invisible targets	Ko'rinmas nishonlarni smash qiladi
+Smash passive mobs	Passiv moblarni smash qiladi
+Smash players	O'yinchilarni smash qiladi
+Smooth silent aim on the melee target (kuro port)	Yaqin jang nishoniga silliq silent nishon (kuro port)
+Smoothly adjusts crosshair towards targets (supports up to 360° FOV)	Crosshair'ni nishonga qarab silliq sozlaydi (360° gacha FOV)
+Snap key	Snap tugmasi
+Snap straight onto the target + orbit	Nishonga to'g'ridan-to'g'ri qotish + orbita
+Sneak dips into lava	Sneak bilan lavaga tushish
+Sneak dips into water	Sneak bilan suvga tushish
+Sneak while there is no block below you	Ostingizda blok bo'lmasa sneak qiladi
+Snow drifting down the screen (cosmetic)	Ekranga qor yog'ishi (kosmetik)
+Snowflakes	Qor parchalari
+Snowflakes on screen	Ekranda qor parchalari
+Soft halo around every HUD overlay	Har bir HUD overlay atrofida yumshoq halo
+Soft halo around the arc	Yoy atrofida yumshoq halo
+Softly pulls your aim onto the nearest target (kuro port)	Nishoningizni eng yaqin nishonga yumshoq tortadi (kuro port)
+Solid Alpha	To'liq alfa
+Sound Pitch	Ovoz balandligi (pitch)
+Sound Volume	Ovoz hajmi
+Sound when you hit something	Biror narsaga urganda chiqadigan ovoz
+Source	Manba
+Space between rows (0 = boxes touch)	Qatorlar orasidagi masofa (0 = ramkalar tegib turadi)
+Spark lifetime in seconds	Uchqun umri (sekund)
+Spark size	Uchqun o'lchami
+Sparks behind walking players	Yurayotgan o'yinchilar ortida uchqunlar
+Sparks per footstep	Har qadamda uchqunlar
+Sparks per pop	Har popda uchqunlar
+Sparks per trail step	Har iz qadamida uchqunlar
+Spawner Mob	Spawner mobi
+Spawner box colour	Spawner ramkasi rangi
+Spear/Trident	Spear/Trident
+Spectre port: a DonutSMP region map with a directional indicator.	Spectre port: yo'nalish ko'rsatkichi bilan DonutSMP mintaqa xaritasi.
+Spectre port: a detached camera you can fly around with.	Spectre port: atrofida ucha oladigan ajratilgan kamera.
+Spectre port: a glowing ghost rises when a player pops a totem.	Spectre port: o'yinchi totem popsa, porlab turgan ruh ko'tariladi.
+Spectre port: a glowing outline on your hand and held item.	Spectre port: qo'lingiz va ushlab turgan buyumingizda porlovchi kontur.
+Spectre port: a hooded cosmetic worn by your player.	Spectre port: o'yinchingiz kiyadigan qalpoqli kosmetik buyum.
+Spectre port: a round radar of the players around you.	Spectre port: atrofingizdagi o'yinchilarning dumaloq radari.
+Spectre port: allows you to climb walls like a spider.	Spectre port: o'rgimchakdek devorga chiqishga imkon beradi.
+Spectre port: allows you to escape from armor stands and chest minecarts.	Spectre port: armor stand va chest minecart'lardan qochishga imkon beradi.
+Spectre port: animated outline and fill on the block you look at.	Spectre port: qarayotgan blokingizda animatsiyali kontur va to'ldirish.
+Spectre port: attacks nearby targets without moving your camera.	Spectre port: kamerani buramasdan yaqin nishonlarga hujum qiladi.
+Spectre port: auto tool that only switches hotbar slots like a player.	Spectre port: faqat o'yinchidek hotbar slotlarini almashtiradigan avto asbob.
+Spectre port: automatically jumps.	Spectre port: avtomatik sakraydi.
+Spectre port: automatically sprints.	Spectre port: avtomatik yuguradi.
+Spectre port: automatically walks forward.	Spectre port: avtomatik oldinga yuradi.
+Spectre port: boosts you when using riptide with a trident.	Spectre port: trident bilan riptide ishlatganda sizni tezlashtiradi.
+Spectre port: boxes Nether chunk sections hiding ancient debris.	Spectre port: ancient debris yashiradigan Nether chunk bo'limlarini ramkalaydi.
+Spectre port: breaks and places crystals while you hold right-click.	Spectre port: o'ng tugmani ushlab turganda kristallarni sindiradi va qo'yadi.
+Spectre port: brighten dark areas by overriding the client gamma.	Spectre port: klient gamma'sini almashtirib qorong'i joylarni yoritadi.
+Spectre port: changes the speed of your swing animation.	Spectre port: urish animatsiyasi tezligini o'zgartiradi.
+Spectre port: changes your field of view (FOV).	Spectre port: ko'rish maydoningizni (FOV) o'zgartiradi.
+Spectre port: clicks the mouse buttons at a randomised, human CPS.	Spectre port: sichqoncha tugmalarini tasodifiy, insoniy CPS bilan bosadi.
+Spectre port: coloured markers for containers, machines, redstone and base clues.	Spectre port: konteyner, mashina, redstone va baza belgilari uchun rangli markerlar.
+Spectre port: coloured skies, a night tint and a nether tint.	Spectre port: rangli osmon, tungi tus va Nether tuski.
+Spectre port: control hand swing animation speed.	Spectre port: qo'l urish animatsiyasi tezligini boshqaradi.
+Spectre port: copies the coordinates you look at or stand on with one key.	Spectre port: bir tugma bilan qarayotgan yoki turgan koordinatalaringizni nusxalaydi.
+Spectre port: detects when players are in the world.	Spectre port: o'yinchilar dunyoda bo'lganini aniqlaydi.
+Spectre port: displays tracer lines to specified entities.	Spectre port: belgilangan entitylarga tracer chiziqlarini chizadi.
+Spectre port: draws a configurable crosshair in place of the vanilla one.	Spectre port: vanilla crosshair o'rniga sozlanadigan crosshair chizadi.
+Spectre port: draws a fading Spectre ring where you jump.	Spectre port: sakragan joyingizda so'nib boruvchi Spectre halqasini chizadi.
+Spectre port: draws a mark on your combat target.	Spectre port: jang nishoningizda belgi chizadi.
+Spectre port: eats hotbar or offhand food once hunger or health drops too low.	Spectre port: ochlik yoki jon juda pasaysa, hotbar yoki offhand ovqatini yeydi.
+Spectre port: finds player activity in re-sent chunks.	Spectre port: qayta yuborilgan chunklarda o'yinchi faolligini topadi.
+Spectre port: finishes breaking blocks before the full break time.	Spectre port: bloklarni to'liq sindirish vaqtidan oldin tugatadi.
+Spectre port: flags chunks with light and redstone activity below Y 0.	Spectre port: Y 0 dan pastda yorug'lik va redstone faolligi bor chunklarni belgilaydi.
+Spectre port: flags chunks with signs of underground player bases.	Spectre port: yer osti o'yinchi bazalari belgilari bor chunklarni belgilaydi.
+Spectre port: flags players who are listed but not in the world.	Spectre port: ro'yxatda bor, lekin dunyoda yo'q o'yinchilarni belgilaydi.
+Spectre port: fly your boat through blocks and entities.	Spectre port: qayig'ingizni blok va entitylar orqali uchirib o'tkazadi.
+Spectre port: freezes you in place, even mid-air.	Spectre port: sizni joyingizda qotirib qo'yadi, hatto havoda ham.
+Spectre port: ghosts, stars and wisps drift around your player.	Spectre port: o'yinchingiz atrofida arvohlar, yulduzlar va wisp'lar aylanadi.
+Spectre port: gives you more control over your elytra.	Spectre port: elytra'ngiz ustidan ko'proq nazorat beradi.
+Spectre port: hides selected overlays, screen effects and entity renders.	Spectre port: tanlangan overlay, ekran effektlari va entity renderlarini yashiradi.
+Spectre port: hides the names of you and everyone around you.	Spectre port: o'zingiz va atrofdagilarning ismlarini yashiradi.
+Spectre port: hides your items on screen for screen shares.	Spectre port: screen share uchun buyumlaringizni ekranda yashiradi.
+Spectre port: highlights chosen blocks; touching blocks merge into one shape.	Spectre port: tanlangan bloklarni ajratadi; tegib turgan bloklar bitta shaklga qo'shiladi.
+Spectre port: highlights dropped items with outlines, tracers and labels.	Spectre port: tushib yotgan buyumlarni kontur, tracer va yorliqlar bilan ajratadi.
+Spectre port: highlights holes, tunnels and staircases.	Spectre port: teshik, tunnel va zinapoyalarni ajratadi.
+Spectre port: highlights light sources around you.	Spectre port: atrofingizdagi yorug'lik manbalarini ajratadi.
+Spectre port: highlights players, hostile and passive mobs with outlines and boxes.	Spectre port: o'yinchilar, dushman va passiv moblarni kontur va ramkalar bilan ajratadi.
+Spectre port: highlights storage blocks and spawners with per-type colours.	Spectre port: saqlash bloklari va spawnerlarni turi bo'yicha ranglar bilan ajratadi.
+Spectre port: hits the entity under the crosshair once the swing is charged.	Spectre port: urish quvvatlangach crosshair ostidagi entityga uradi.
+Spectre port: hold the key to zoom in.	Spectre port: yaqinlashtirish uchun tugmani ushlab turing.
+Spectre port: lets you control rideable entities without a saddle.	Spectre port: egar bo'lmasa ham miniladigan entitylarni boshqarishga imkon beradi.
+Spectre port: lets you fly.	Spectre port: uchrashga imkon beradi.
+Spectre port: lists online staff and flags vanish behaviour.	Spectre port: onlayn staff ro'yxatini ko'rsatadi va vanish harakatini belgilaydi.
+Spectre port: lists the modules you have bound to a key, and their keys.	Spectre port: tugmaga bog'langan modullar va ularning tugmalarini ro'yxatlaydi.
+Spectre port: makes you able to set a custom time.	Spectre port: maxsus vaqt o'rnatishga imkon beradi.
+Spectre port: makes you go faster horizontally when riding entities.	Spectre port: entity minib yurganda gorizontal tezlikni oshiradi.
+Spectre port: maps nearby chunks with underground and Y-slice views.	Spectre port: yaqin chunklarni yer osti va Y-kesim ko'rinishida xaritalaydi.
+Spectre port: marks suspicious chunks with signs of player activity.	Spectre port: o'yinchi faolligi belgilari bor chunklarni shubhali deb belgilaydi.
+Spectre port: mines your spawners when someone gets close.	Spectre port: kimdir yaqinlashsa spawnerlaringizni qaziydi.
+Spectre port: modifies your movement speed when moving on the ground.	Spectre port: yerda yurganda harakat tezligini o'zgartiradi.
+Spectre port: module list, coordinates and status overlays.	Spectre port: modul ro'yxati, koordinatalar va holat overlaylari.
+Spectre port: moves, rotates and resizes your first-person hands.	Spectre port: birinchi shaxs qo'llaringizni siljitadi, buradi va o'lchamini o'zgartiradi.
+Spectre port: notifies you when it starts raining.	Spectre port: yomg'ir boshlanganda xabar beradi.
+Spectre port: one key places, charges and detonates a respawn anchor.	Spectre port: bir tugma respawn anchor'ni qo'yadi, quvvatlaydi va portlatadi.
+Spectre port: only ore blocks stay visible.	Spectre port: faqat ruda bloklari ko'rinadi.
+Spectre port: outlines entities through walls with a glow.	Spectre port: entitylarni devor orqasidan glow bilan konturlaydi.
+Spectre port: places and pops end crystals around your target.	Spectre port: nishoningiz atrofida end kristallarni qo'yadi va pop qiladi.
+Spectre port: plans materials and previews the next layers of a build.	Spectre port: materiallarni rejalashtiradi va qurilishning keyingi qatlamlarini ko'rsatadi.
+Spectre port: player nametags with held items, armour, health, ping and distance.	Spectre port: ushlab turgan buyum, zirh, jon, ping va masofa bilan o'yinchi nametag'lari.
+Spectre port: predicts where a held pearl lands and previews thrown pearls.	Spectre port: ushlab turgan pearl qayerga tushishini oldindan aytadi va tashlangan pearlarni ko'rsatadi.
+Spectre port: pulses a red vignette when your health is low.	Spectre port: joningiz kam bo'lganda qizil vignette pulsatsiya qiladi.
+Spectre port: re-sets a home, RTPs away, then teleports back home.	Spectre port: home'ni qayta o'rnatadi, RTP qiladi, keyin home'ga qaytadi.
+Spectre port: recolours the enchantment glint.	Spectre port: sehr porlashi (glint) rangini o'zgartiradi.
+Spectre port: reconnects to the last server after an unexpected disconnect.	Spectre port: kutilmagan uzilishdan keyin oxirgi serverga qayta ulanadi.
+Spectre port: refills a hotbar or offhand slot from the main inventory once it runs low.	Spectre port: hotbar yoki offhand slotini asosiy inventardan to'ldiradi.
+Spectre port: refills the offhand totem after a pop, through the inventory or a hotbar swap.	Spectre port: popdan keyin offhand totemni inventar yoki hotbar almashtirish orqali to'ldiradi.
+Spectre port: reloads chunks when you go below a Y level.	Spectre port: Y darajasidan pastga tushganda chunklarni qayta yuklaydi.
+Spectre port: relogs once when you go down to deepslate level.	Spectre port: deepslate darajasiga tushganda bir marta relog qiladi.
+Spectre port: removes crystals client-side as soon as your hit breaks them.	Spectre port: zarbangiz ularni sindirishi bilan kristallarni klient tomonda olib tashlaydi.
+Spectre port: removes the delay between jumps.	Spectre port: sakrashlar orasidagi kechikishni olib tashlaydi.
+Spectre port: render performance settings and a small HUD readout.	Spectre port: render ishlash sozlamalari va kichik HUD ko'rsatkichi.
+Spectre port: renders the chunks flagged by Quantum.	Spectre port: Quantum belgilagan chunklarni chizadi.
+Spectre port: renders tracked block entities as ESP.	Spectre port: kuzatiladigan blok entitylarni ESP sifatida chizadi.
+Spectre port: scans chunks for mob spawners and highlights them.	Spectre port: chunklarni mob spawnerlar uchun skanerlaydi va ularni ajratadi.
+Spectre port: sends chat messages or commands with a key press.	Spectre port: tugma bosilganda chat xabarlari yoki buyruqlar yuboradi.
+Spectre port: shows amethyst geodes hidden by anti-xray.	Spectre port: anti-xray yashirgan ametist geodalarni ko'rsatadi.
+Spectre port: shows each spawner's position over the block.	Spectre port: har bir spawnerning joyini blok ustida ko'rsatadi.
+Spectre port: shows where your projectiles will land.	Spectre port: snaryadlaringiz qayerga tushishini ko'rsatadi.
+Spectre port: smears the view when you turn.	Spectre port: burilganda ko'rinishni xiralashtiradi.
+Spectre port: smooth combat aim assist with FOV, range, part and weapon filters.	Spectre port: FOV, masofa, tana qismi va qurol filtrlari bilan silliq jang nishon yordamchisi.
+Spectre port: sneaks for you.	Spectre port: siz uchun sneak qiladi.
+Spectre port: spams specified messages in chat.	Spectre port: chatda belgilangan xabarlarni ko'p marta yuboradi.
+Spectre port: spawns particles where your hits land.	Spectre port: zarbalaringiz tushgan joyda zarrachalar hosil qiladi.
+Spectre port: spectral particles for totem pops, projectiles and footsteps.	Spectre port: totem poplari, snaryadlar va qadamlar uchun spektral zarrachalar.
+Spectre port: stops you from hitting players on your friends list.	Spectre port: do'stlar ro'yxatidagi o'yinchilarga urishdan to'xtatadi.
+Spectre port: swaps a hovered inventory totem into the offhand or the selected hotbar slot.	Spectre port: hover qilingan inventar totemini offhand yoki tanlangan hotbar slotiga almashtiradi.
+Spectre port: swaps between your chestplate and elytra with one key.	Spectre port: bir tugma bilan chestplate va elytra o'rtasida almashadi.
+Spectre port: swaps to a mace for smash hits while falling, with an optional smash assist.	Spectre port: yiqilish paytida smash uchun mace'ga almashtiradi, ixtiyoriy smash assist bilan.
+Spectre port: swaps to an axe and hits when the target is blocking with a shield.	Spectre port: nishon qalqon bilan bloklayotganda boltaga almashtirib uradi.
+Spectre port: swaps to your Lunge spear, lunges and swaps back.	Spectre port: Lunge spear'ingizga almashtiradi, lunge qiladi va qaytaradi.
+Spectre port: take no fall damage by replacing your own move packets after a >3 block fall.	Spectre port: 3 blokdan balandroq yiqilishdan keyin o'z move paketlaringizni almashtirib, yiqilish zararini yo'q qiladi.
+Spectre port: teleports you to the block you click on.	Spectre port: bosgan blokingizga teleport qiladi.
+Spectre port: the shared head accessory layer (crown, circlet, horns).	Spectre port: umumiy bosh aksessuar qatlami (toj, diadem, shoxlar).
+Spectre port: throws experience bottles every 100 ms while right click is held.	Spectre port: o'ng tugma ushlab turilganda har 100 ms da tajriba shishalarini tashlaydi.
+Spectre port: timed movement taps after a successful hit.	Spectre port: muvaffaqiyatli zarbadan keyin vaqtlangan harakat bosishlari.
+Spectre port: transforms your boat (or any ridden vehicle) into a plane.	Spectre port: qayig'ingizni (yoki minilgan transportni) samolyotga aylantiradi.
+Spectre port: turns the camera and the player separately.	Spectre port: kamerani va o'yinchini alohida buradi.
+Spectre port: use tridents out of water and charge them faster.	Spectre port: suvdan tashqarida trident ishlatish va ularni tezroq quvvatlash.
+Spectre port: uses a riptide trident while you hold right-click.	Spectre port: o'ng tugmani ushlab turganda riptide trident ishlatadi.
+Spectre port: vibrance, contrast, warmth and a vignette over the world.	Spectre port: dunyo ustida jonlilik, kontrast, issiqlik va vignette.
+Spectre port: walk on liquids and powder snow like Jesus.	Spectre port: suyuqlik va powder snow ustida Isodek yurish.
+Spectre port: wears a small character modelled around your player.	Spectre port: o'yinchingiz atrofida modellashtirilgan kichik personaj kiyadi.
+Spectre port: wears another player's skin by name.	Spectre port: boshqa o'yinchining skinini nomi bilan kiyadi.

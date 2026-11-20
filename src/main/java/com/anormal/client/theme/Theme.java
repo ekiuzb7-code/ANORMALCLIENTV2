@@ -2,8 +2,10 @@ package com.anormal.client.theme;
 
 public enum Theme {
     VAPE_V4("Anormal", "Dark sleek charcoal theme with vibrant orange/neon accents"),
-    GLASSMORPHISM("Glassmorphism", "Modern frosted glass with glowing linear borders and blur effect"),
-    BRUTALISM("Brutalism", "Neo-brutalist high contrast with bold borders, hard shadows and chunky buttons");
+    VAPE("Vape", "Vape V4 inspired: near-black rounded panels with the teal accent"),
+    FROZEN("Frozen", "Icy arctic glass: pale blue frost, crystalline borders, drifting snow and icy chimes"),
+    GLASSMORPHISM("Glassmorphism", "Modern frosted glass: a moving light rim and a cursor glow"),
+    BRUTALISM("Brutalism", "Neo-brutalist high contrast: hard accent shadows, hazard tape, blinking corner blocks and stepped motion");
 
     private final String displayName;
     private final String description;

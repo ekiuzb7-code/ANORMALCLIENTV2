@@ -27,16 +27,18 @@ public class BlockIn extends Module {
     public final BooleanSetting returnToLastSlot = new BooleanSetting("Return to Last Slot", "Restore hotbar slot after building", true);
     public final BooleanSetting useBlacklist = new BooleanSetting("Use Blacklist", "Skip utility blocks while building", true);
     private final List<BlockPos> queue = new ArrayList<>();
-    private int delay = 0, originalSlot = -1;
+    private int delay = 0, originalSlot = -1, retries = 0;
+
     public BlockIn() {
         super("BlockIn", "Builds protective walls around you on demand", Category.WORLD);
         addSetting(aimSpeed); addSetting(placeDelay); addSetting(silentAim);
         addSetting(sneak); addSetting(keepSneak); addSetting(bedFinder);
         addSetting(blockPriority); addSetting(returnToLastSlot); addSetting(useBlacklist);
     }
+
     @Override
     public void onEnable() {
-        queue.clear(); delay = 0; originalSlot = -1;
+        queue.clear(); delay = 0; originalSlot = -1; retries = 0;
         if (mc.player == null || mc.world == null) return;
         originalSlot = mc.player.getInventory().getSelectedSlot();
         BlockPos base = mc.player.getBlockPos();
@@ -50,6 +52,7 @@ public class BlockIn extends Module {
         }
         if (queue.isEmpty()) setEnabled(false);
     }
+
     @Override
     public void onDisable() {
         if (sneak.isEnabled() && !keepSneak.isEnabled() && mc.options != null) mc.options.sneakKey.setPressed(false);
@@ -60,7 +63,9 @@ public class BlockIn extends Module {
         }
         queue.clear();
         delay = 0;
+        retries = 0;
     }
+
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null || mc.interactionManager == null) {
@@ -73,6 +78,22 @@ public class BlockIn extends Module {
         BlockPos target = queue.get(0);
         if (!mc.world.isAir(target)) {
             queue.remove(0);
+            retries = 0;
+            return;
+        }
+        // Pick a solid neighbour to build the new block against - plants, snow layers and fluids make the server reject the click.
+        BlockPos anchor = null;
+        Direction side = null;
+        for (Direction d : Direction.values()) {
+            BlockPos n = target.offset(d);
+            if (!isAnchor(n)) continue;
+            anchor = n;
+            side = d.getOpposite();
+            break;
+        }
+        if (anchor == null) {
+            // Nothing to build against yet (the block below is still queued): wait, and give up on this one eventually.
+            if (++retries > 40) { queue.remove(0); retries = 0; }
             return;
         }
         int slot = findBlockSlot();
@@ -80,19 +101,42 @@ public class BlockIn extends Module {
             setEnabled(false);
             return;
         }
-        mc.player.getInventory().setSelectedSlot(slot);
-        for (Direction d : Direction.values()) {
-            BlockPos n = target.offset(d);
-            if (mc.world.isAir(n)) continue;
-            if (!silentAim.isEnabled()) aimAt(n.getX() + 0.5, n.getY() + 0.5, n.getZ() + 0.5, aimSpeed.getValue());
-            BlockHitResult bhr = new BlockHitResult(new Vec3d(n.getX() + 0.5, n.getY() + 0.5, n.getZ() + 0.5), d.getOpposite(), n, false);
-            mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr);
-            mc.player.swingHand(Hand.MAIN_HAND);
-            queue.remove(0);
-            delay = Math.max(0, placeDelay.getValue().intValue());
+        if (mc.player.getInventory().getSelectedSlot() != slot) {
+            // The server only accepts a placement once it has seen the new hotbar slot, so place on the next tick.
+            mc.player.getInventory().setSelectedSlot(slot);
+            delay = 1;
             return;
         }
-        queue.remove(0);
+        Vec3d hit = new Vec3d(anchor.getX() + 0.5, anchor.getY() + 0.5, anchor.getZ() + 0.5);
+        if (!silentAim.isEnabled()) aimAt(hit, aimSpeed.getValue());
+        boolean placed;
+        try {
+            BlockHitResult bhr = new BlockHitResult(hit, side, anchor, false);
+            placed = mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, bhr).isAccepted();
+        } catch (Throwable ignored) {
+            placed = false;
+        }
+        if (placed) {
+            mc.player.swingHand(Hand.MAIN_HAND);
+            queue.remove(0);
+            retries = 0;
+            delay = Math.max(0, placeDelay.getValue().intValue());
+        } else {
+            // Retry a few times instead of silently skipping the hole.
+            if (++retries > 20) { queue.remove(0); retries = 0; }
+            delay = 1;
+        }
+    }
+
+    /** A block face that can actually be clicked: not air, not replaceable, and solid enough to place against. */
+    private boolean isAnchor(BlockPos p) {
+        try {
+            var state = mc.world.getBlockState(p);
+            if (state.isAir() || state.isReplaceable()) return false;
+            return state.isSolidBlock(mc.world, p);
+        } catch (Throwable ignored) {
+            return false;
+        }
     }
 
     private Direction findBedSide(BlockPos base) {
@@ -110,13 +154,24 @@ public class BlockIn extends Module {
         return null;
     }
 
-    private void aimAt(double x, double y, double z, double speed) {
+    /** Turns the view toward the block being built against, on both axes, at the configured speed. */
+    private void aimAt(Vec3d target, double speed) {
         Vec3d eye = mc.player.getEyePos();
-        float ty = (float) Math.toDegrees(Math.atan2(-(x - eye.x), z - eye.z));
-        float cur = mc.player.getYaw(), d = ty - cur;
-        while (d > 180.0f) d -= 360.0f;
-        while (d < -180.0f) d += 360.0f;
-        mc.player.setYaw(cur + (float) Math.max(-speed, Math.min(speed, d)));
+        double dx = target.x - eye.x;
+        double dy = target.y - eye.y;
+        double dz = target.z - eye.z;
+        double flat = Math.sqrt(dx * dx + dz * dz);
+        float yaw = (float) Math.toDegrees(Math.atan2(-dx, dz));
+        float pitch = (float) Math.toDegrees(-Math.atan2(dy, flat));
+        mc.player.setYaw(approach(mc.player.getYaw(), yaw, speed));
+        mc.player.setPitch(approach(mc.player.getPitch(), pitch, speed));
+    }
+
+    private static float approach(float current, float wanted, double speed) {
+        float delta = wanted - current;
+        while (delta > 180.0f) delta -= 360.0f;
+        while (delta < -180.0f) delta += 360.0f;
+        return current + (float) Math.max(-speed, Math.min(speed, delta));
     }
 
     private int findBlockSlot() {

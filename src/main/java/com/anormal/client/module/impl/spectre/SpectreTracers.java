@@ -57,9 +57,18 @@ public final class SpectreTracers extends Module {
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
         if (!isEnabled() || mc.world == null || mc.player == null) return;
-        Vec3d eye = ProjectionUtil.eye(tickDelta);
+        // Refresh the shared camera cache for this frame; a stale cache is one of the reasons
+        // the lines could disappear entirely.
+        ProjectionUtil.beginFrame(tickDelta);
+
+        int sw = RenderUtils.screenWidth();
+        int sh = RenderUtils.screenHeight();
+        int cx = sw / 2;
+        int cy = sh / 2;
 
         if (style.is("Lines")) {
+            // The line starts at the crosshair. Projecting the camera position itself always
+            // returned null (its depth is 0), so the projection failed and nothing was drawn.
             for (Entity entity : targets()) {
                 int color = colorOf(entity);
                 Vec3d feet = ProjectionUtil.lerpPos(entity, tickDelta);
@@ -70,34 +79,43 @@ public final class SpectreTracers extends Module {
                     case "Body" -> height / 2.0;
                     default -> 0.0;
                 };
-                drawLineDot(context, tickDelta, eye, feet.add(0.0, up, 0.0), color);
-                if (stem.isEnabled()) {
-                    drawLineDot(context, tickDelta, eye, feet, color);
+                int[] to = ProjectionUtil.project(feet.add(0.0, up, 0.0), tickDelta);
+                if (to == null) continue; // behind the camera
+
+                RenderUtils.drawLine(context, cx, cy, to[0], to[1], color, 1);
+                if (stem.isEnabled() && up > 0.01) {
+                    int[] base = ProjectionUtil.project(feet, tickDelta);
+                    if (base != null) {
+                        RenderUtils.drawLine(context, to[0], to[1], base[0], base[1], color, 1);
+                    }
                 }
             }
-        } else {
-            // Offscreen: screen-edge arrows for entities outside the view
-            int sw = RenderUtils.screenWidth();
-            int sh = RenderUtils.screenHeight();
-            float reach = (float) distanceOffscreen.getAsDouble();
-            for (Entity entity : targets()) {
-                int color = colorOf(entity);
-                Vec3d feet = ProjectionUtil.lerpPos(entity, tickDelta);
-                double[] cs = ProjectionUtil.cameraSpace(feet.add(0, entity.getBoundingBox().getLengthY() / 2, 0), tickDelta);
-                if (cs == null) continue;
-                if (cs[0] == 0 && cs[1] == 0) continue;
-                double angle;
-                if (cs[0] != 0 || cs[1] != 0) {
-                    angle = Math.atan2(cs[1], cs[0]);
-                } else {
-                    continue;
-                }
-                // Behind the camera flips the arrow to the mirrored side
-                if (cs[2] > 0) {
-                    angle += Math.PI;
-                }
-                arrow(context, sw / 2.0 + reach * Math.cos(angle) - 5, sh / 2.0 + reach * Math.sin(angle) - 5, angle, color);
+            return;
+        }
+
+        // Offscreen: arrows around the crosshair pointing at entities that are outside the view.
+        double reach = distanceOffscreen.getAsDouble();
+        for (Entity entity : targets()) {
+            int color = colorOf(entity);
+            Vec3d pos = ProjectionUtil.lerpPos(entity, tickDelta)
+                    .add(0.0, entity.getBoundingBox().getLengthY() / 2.0, 0.0);
+
+            int[] onScreen = ProjectionUtil.project(pos, tickDelta);
+            if (onScreen != null && onScreen[0] >= 0 && onScreen[0] <= sw
+                    && onScreen[1] >= 0 && onScreen[1] <= sh) {
+                continue; // already visible - the arrows are for offscreen targets only
             }
+
+            double[] cs = ProjectionUtil.cameraSpace(pos, tickDelta);
+            if (cs == null) continue;
+            if (Math.abs(cs[0]) < 1.0E-4 && Math.abs(cs[1]) < 1.0E-4) continue;
+
+            // Camera space (Y up) -> screen space (Y down).
+            double angle = Math.atan2(-cs[1], cs[0]);
+            if (cs[2] < 0) angle += Math.PI; // behind the camera: mirror to the opposite side
+            double ax = cx + Math.cos(angle) * reach;
+            double ay = cy + Math.sin(angle) * reach;
+            arrow(context, ax, ay, angle, color);
         }
     }
 
@@ -153,23 +171,17 @@ public final class SpectreTracers extends Module {
         return miscColor.getValue();
     }
 
-    private static void drawLineDot(DrawContext context, float tickDelta, Vec3d eye, Vec3d target, int color) {
-        int[] from = ProjectionUtil.project(eye, tickDelta);
-        int[] to = ProjectionUtil.project(target, tickDelta);
-        if (from == null || to == null) return;
-        RenderUtils.drawLine(context, from[0], from[1], to[0], to[1], color, 1);
-    }
-
+    /** Small arrow whose tip points along {@code angle} (screen-space radians, Y down). */
     private void arrow(DrawContext context, double cx, double cy, double angle, int color) {
-        // small screen-space arrow rotated toward the entity
-        double s = 10;
-        double tipX = cx + (s * 1.4) * Math.cos(angle);
-        double tipY = cy + (s * 1.4) * Math.sin(angle);
-        double a1 = angle + Math.PI - 0.4, a2 = angle + Math.PI + 0.4;
-        int p1x = (int) (cx + s * Math.cos(a1) + 5), p1y = (int) (cy + s * Math.sin(a1) + 5);
-        int p2x = (int) (cx + s * Math.cos(a2) + 5), p2y = (int) (cy + s * Math.sin(a2) + 5);
-        RenderUtils.drawLine(context, p1x, p1y, (int) tipX, (int) tipY, color, 1);
-        RenderUtils.drawLine(context, p2x, p2y, (int) tipX, (int) tipY, color, 1);
-        RenderUtils.drawLine(context, p1x, p1y, p2x, p2y, color, 1);
+        double s = 7.0;
+        int tx = (int) Math.round(cx + Math.cos(angle) * s * 1.7);
+        int ty = (int) Math.round(cy + Math.sin(angle) * s * 1.7);
+        int x1 = (int) Math.round(cx + Math.cos(angle + 2.5) * s);
+        int y1 = (int) Math.round(cy + Math.sin(angle + 2.5) * s);
+        int x2 = (int) Math.round(cx + Math.cos(angle - 2.5) * s);
+        int y2 = (int) Math.round(cy + Math.sin(angle - 2.5) * s);
+        RenderUtils.drawLine(context, x1, y1, tx, ty, color, 2);
+        RenderUtils.drawLine(context, x2, y2, tx, ty, color, 2);
+        RenderUtils.drawLine(context, x1, y1, x2, y2, color, 2);
     }
 }

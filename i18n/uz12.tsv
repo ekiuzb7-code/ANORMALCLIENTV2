@@ -1,0 +1,424 @@
+# Yangi modullar va sozlamalar uchun qo'shimcha o'zbekcha tarjimalar (kuro/Spectre portlarisiz).
+# Format: English key <TAB> translation
+TNT Timer	TNT taymeri
+AuctionSniper	AuctionSniper
+KitLoadout	Kit to'plami
+SpawnProofOverlay	Spawn himoyasi
+CommandCooldowns	Buyruq cooldownlari
+ChinaHat	Xitoy shlyapasi
+Staff Detector	Staff detektori
+Sound Detector	Ovoz detektori
+Counts down primed TNT with a blast ring, damage estimate and a warning	Tayyorlangan TNTni portlash halqasi, zarar taxmini va ogohlantirish bilan sanaydi
+Finds and optionally buys underpriced auction listings by reading the auction GUI	Auktsion GUI'sini o'qib, arzon lotlarni topadi va ixtiyoriy ravishda sotib oladi
+Mace smash assist — arms the mace when you dive, strikes the player below at maximum fall damage.	Mace smash yordamchisi — dive paytida mace'ni tayyorlaydi va pastdagi o'yinchiga maksimal yiqilish zarari bilan uradi.
+Marks blocks where hostile mobs can spawn so you can light them up	Dushman moblar paydo bo'lishi mumkin bo'lgan bloklarni belgilaydi — yoritib chiqishingiz mumkin
+Observe known staff and possible hidden presence	Ma'lum staff a'zolarini va ehtimoliy yashirin mavjudlikni kuzatadi
+Saves up to four hotbar kits and switches to the right slot with one key	To'rtagacha hotbar to'plamini saqlaydi va bir tugma bilan kerakli slotga o'tadi
+Tracks /home, /rtp, /kit and other command cooldowns from chat and shows them on the HUD	Chatdan /home, /rtp, /kit va boshqa buyruq cooldownlarini kuzatib, HUD'da ko'rsatadi
+Warn about nearby interactions, players and machinery	Yaqin atrofdagi o'zaro ta'sirlar, o'yinchilar va mexanizmlar haqida ogohlantiradi
+Wear a conical China hat with colour, rainbow, scale and more	Rang, kamalak, o'lcham va boshqa sozlamalar bilan konussimon Xitoy shlyapasini kiyadi
+/msg completion alerts	/msg to'ldirish ogohlantirishlari
+Active Loadout	Faol to'plam
+Alert cooldown	Ogohlantirish cooldowni
+Allow username-only matches	Faqat foydalanuvchi nomi bo'yicha moslikka ruxsat
+Ambient score	Atrof ovozi bahosi
+Arm Radius	Qo'l radiusi
+Auto Buy	Avtomatik sotib olish
+Auto Buy Max	Avto sotib olish maks.
+Auto Scan	Avtomatik skan
+Auto-detect staff	Staffni avtomatik aniqlash
+Bids Fallback	Taklif zaxirasi
+Black List	Qora ro'yxat
+Cache Alpha	Kesh shaffofligi
+Card duration	Karta davomiyligi
+Chat Feedback	Chat javobi
+Chat Scan	Chatni skanlash
+Chat notices	Chat xabarlari
+Check /msg completions	/msg to'ldirishlarini tekshirish
+Chunks Per Tick	Tickdagi chunklar
+Clear History Key	Tarixni tozalash tugmasi
+Close After Buy	Sotib olgandan keyin yopish
+Color 2	Rang 2
+Combat score	Jang bahosi
+Compact mode	Ixcham rejim
+Compact notifications	Ixcham ogohlantirishlar
+Cone Height	Konus balandligi
+Confirm Clicks	Tasdiqlash kliklari
+Container score	Konteyner bahosi
+Cooldown Threshold	Cooldown chegarasi
+Critical Score	Kritik baho
+Critical chime	Kritik chime
+Critical threshold	Kritik chegara
+Cycle Key	Almashish tugmasi
+Damage Estimate	Zarar taxmini
+Deal Threshold %	Kelishuv chegarasi %
+Debug Prices	Narxlarni debug qilish
+Debug logging	Debug jurnali
+Debug mode	Debug rejimi
+Debug unknown only	Faqat noma'lumlarni debug qilish
+Deduplicate alerts	Takroriy ogohlantirishlarni olib tashlash
+Detection Preset	Aniqlash preseti
+Disabled events	O'chirilgan hodisalar
+Duplicate suppression	Dublikatlarni bostirish
+Duplicate window	Dublikat oynasi
+Evidence history	Dalillar tarixi
+Explode Chance	Portlash ehtimoli
+Explosion score	Portlash bahosi
+Extra Words	Qo'shimcha so'zlar
+Farming	Dehqonchilik
+Filter own actions	O'z amallarini filtrlash
+First Person	Birinchi shaxs
+Footstep fade	Qadam izining so'nishi
+Footstep lines	Qadam chiziqlari
+Glowstone Chance	Glowstone ehtimoli
+Glowstone Delay	Glowstone kechikishi
+Group window	Guruh oynasi
+Grouping	Guruhlash
+Hide Finished	Tugaganlarni yashirish
+History	Tarix
+History category	Tarix kategoriyasi
+History filter	Tarix filtri
+History size	Tarix hajmi
+I-Frame Wait	I-frame kutish
+Interaction score	O'zaro ta'sir bahosi
+Invisible nearby alerts	Yaqin ko'rinmaslar ogohlantirishi
+Ledge Sneak	Chetda sneak
+Light Threshold	Yorug'lik chegarasi
+Loadout 1 Data	To'plam 1 ma'lumoti
+Loadout 2 Data	To'plam 2 ma'lumoti
+Loadout 3 Data	To'plam 3 ma'lumoti
+Loadout 4 Data	To'plam 4 ma'lumoti
+Local notification sound	Lokal bildirishnoma ovozi
+Local warning chime	Lokal ogohlantirish chime'i
+Loop Delay	Takror kechikishi
+Loot Delay	Loot kechikishi
+Marker style	Belgi uslubi
+Match by UUID	UUID bo'yicha moslash
+Match by exact username	Aniq foydalanuvchi nomi bo'yicha moslash
+Max Markers	Maks. belgilar
+Max Price	Maksimal narx
+Max Rows	Maksimal qatorlar
+Maximum history	Maksimal tarix
+Maximum warnings per second	Sekundiga maksimal ogohlantirish
+Min Price	Minimal narx
+Min Storage	Min. ombor
+Minimum confidence	Minimal ishonch
+Money	Pul
+Music	Musiqa
+Natural	Tabiiy
+Nearby range	Yaqin atrof masofasi
+Nickname	Taxallus
+Only Watched	Faqat kuzatilganlar
+Other Players	Boshqa o'yinchilar
+Page Delay	Sahifa kechikishi
+Pages	Sahifalar
+Pause history	Tarixni to'xtatish
+Persist evidence	Dalillarni saqlash
+Place Chance	Qo'yish ehtimoli
+Player score	O'yinchi bahosi
+Players Only	Faqat o'yinchilar
+Playtime	O'yin vaqti
+RTP Interval	RTP intervali
+RTP Region	RTP hududi
+Rank	Rank
+Received-event range	Qabul qilingan hodisa masofasi
+Refresh (s)	Yangilash (s)
+Repeat alert on state change	Holat o'zgarganda ogohlantirishni takrorlash
+Require Sky Access	Osmon ko'rinishini talab qilish
+Require identified player	Aniqlangan o'yinchini talab qilish
+Respect F1 HUD toggle	F1 HUD holatini hisobga olish
+Rim Band	Halqa tasmasi
+Rim Radius	Halqa radiusi
+Ring Color	Halqa rangi
+Save Key	Saqlash tugmasi
+Scan Budget	Skan byudjeti
+Scan Command	Skan buyrug'i
+Scan On Enable	Yoqilganda skan
+Scan Radius	Skan radiusi
+Score window	Baho oynasi
+Sculk	Sculk
+Segments	Segmentlar
+Shade	Soya
+Shards	Fragmentlar
+Show Missing	Yetishmayotganlarni ko'rsatish
+Show Panel	Panelni ko'rsatish
+Show Radius	Radiusni ko'rsatish
+Show Timer	Taymerni ko'rsatish
+Show Total	Jami ko'rsatish
+Show category	Kategoriyani ko'rsatish
+Show confidence	Ishonchni ko'rsatish
+Show event name	Hodisa nomini ko'rsatish
+Show evidence source	Dalil manbasini ko'rsatish
+Show history	Tarixni ko'rsatish
+Show score	Bahoni ko'rsatish
+Show source	Manbani ko'rsatish
+Show timestamp	Vaqtni ko'rsatish
+Show unconfirmed evidence	Tasdiqlanmagan dalillarni ko'rsatish
+Show unknown invisible entities	Noma'lum ko'rinmas entitylarni ko'rsatish
+Show unknown-source events	Manbasi noma'lum hodisalarni ko'rsatish
+Show while in menus	Menularda ham ko'rsatish
+Skin	Skin
+Slam Delay	Slam kechikishi
+Source cooldown	Manba cooldowni
+Spectator alerts	Spectator ogohlantirishlari
+Speed Multiplier	Tezlik ko'paytiruvchisi
+Spin Speed	Aylanish tezligi
+Staff alerts	Staff ogohlantirishlari
+Staff list / evidence	Staff ro'yxati / dalillar
+Strict Slots	Qat'iy slotlar
+Swap Back	Qaytarib almashtirish
+Switch Chance	Almashtirish ehtimoli
+Tracked Commands	Kuzatiladigan buyruqlar
+Transport	Transport
+Trigger Stacks	Trigger to'plamlari
+Tunnel Width	Tunnel kengligi
+Url	Havola
+Use server-specific staff lists	Serverga xos staff ro'yxatlaridan foydalanish
+Visible cards	Ko'rinadigan kartalar
+Visible rows	Ko'rinadigan qatorlar
+Warn Seconds	Ogohlantirish sekundlari
+Warn Ticks	Ogohlantirish ticklari
+Warning cards	Ogohlantirish kartalari
+Warning threshold	Ogohlantirish chegarasi
+Watch List	Kuzatuv ro'yxati
+World markers	Dunyo belgilari
+Y Max	Y maks.
+Y Min	Y min.
+Y Offset	Y siljishi
+Y Range	Y diapazoni
+Keybinds	Klavishalar
+No keybinds set	Klavisha belgilanmagan
+Nothing matches the search	Qidiruvga hech narsa mos kelmadi
+Select ▼	Tanlash ▼
+Unbind All	Hammasini uzish
+Add usernames or UUIDs for the current server	Joriy server uchun foydalanuvchi nomlari yoki UUID qo'shing
+Alert when a staff-list account is observed	Staff ro'yxatidagi akkaunt kuzatilganda ogohlantiradi
+Alert when a staff-list account is reliably observed in spectator mode	Staff ro'yxatidagi akkaunt spectator rejimida ishonchli kuzatilganda ogohlantiradi
+Alert when an invisible player entity is present nearby	Yaqin atrofda ko'rinmas o'yinchi entitysi bo'lsa ogohlantiradi
+Allow a new alert when the evidence changes (for example joins spectator mode)	Dalillar o'zgarganda yangi ogohlantirishga ruxsat (masalan spectator rejimiga o'tdi)
+Also parse chat listings (servers without a GUI auction)	Chatdagi lotlarni ham tahlil qiladi (GUI auktsioni yo'q serverlar)
+Also require the spot to see the sky (so torch-lit caves are ignored)	Joy osmonni ko'rishini ham talab qiladi (mash'ala bilan yoritilgan g'orlar hisobga olinmaydi)
+Append the confidence level to a row	Qatorga ishonch darajasini qo'shadi
+Append the measured distance to a row	Qatorga o'lchangan masofani qo'shadi
+Append the observation time to a row	Qatorga kuzatuv vaqtini qo'shadi
+Applies the active loadout	Faol to'plamni qo'llaydi
+AutoMine mode.	AutoMine rejimi.
+Background opacity	Fon shaffofligi
+Base score from which an event is critical (explosions default)	Hodisa kritik hisoblanishi uchun boshlang'ich baho (standart: portlashlar)
+Beep this many seconds before a command is ready (0 = off)	Buyruq tayyor bo'lishidan shuncha sekund oldin signal beradi (0 = o'chiq)
+Blast radius color	Portlash radiusi rangi
+Block checks per tick (higher = faster but heavier)	Tickdagi blok tekshiruvlari (yuqori = tezroq, lekin og'irroq)
+Break-speed multiplier (1.0 = legit, higher = faster). Anti-cheat flag risk above ~2.0.	Buzish tezligi ko'paytiruvchisi (1.0 = legit, yuqori = tezroq). ~2.0 dan yuqorida anti-cheat flag xavfi.
+Chance that a hotbar swap actually happens.	Hotbar almashtirish haqiqatda sodir bo'lish ehtimoli.
+Chance that the charge/detonate sequence starts at all (randomization).	Zaryadlash/portlatish ketma-ketligi umuman boshlanish ehtimoli (randomizatsiya).
+Chance that the detonate click happens (randomization).	Portlatish kliki sodir bo'lish ehtimoli (randomizatsiya).
+Chance that the glowstone click happens (randomization).	Glowstone kliki sodir bo'lish ehtimoli (randomizatsiya).
+Chime volume in percent	Chime ovozi foizda
+Chunk radius to scan around the player.	O'yinchi atrofida skanlanadigan chunk radiusi.
+Clears the history	Tarixni tozalaydi
+Click on a deal	Kelishuvga klik qiladi
+Click when a command becomes ready	Buyruq tayyor bo'lganda klik qiladi
+Click when the nearest fuse passes the warning	Eng yaqin fitil ogohlantirishdan o'tganda klik qiladi
+Close the GUI once the buy clicks are done	Sotib olish kliklari tugagach GUI'ni yopadi
+Comma separated extra command words to recognise (e.g. mine, fish, daily)	Vergul bilan ajratilgan qo'shimcha buyruq so'zlari (masalan mine, fish, daily)
+Comma separated keywords (empty = everything)	Vergul bilan ajratilgan kalit so'zlar (bo'sh = hammasi)
+Comma separated keywords to never report or buy	Hech qachon xabar qilinmaydigan yoki sotib olinmaydigan kalit so'zlar (vergul bilan)
+Comma separated sound ids to ignore (e.g. minecraft:block.note_block.harp)	E'tiborsiz qoldiriladigan ovoz id'lari (masalan minecraft:block.note_block.harp)
+Command used to open page {page} of the auction house	Auktsion uyining {page}-sahifasini ochish buyrug'i
+Command/format preset; Custom uses your own command below	Buyruq/format preseti; Custom pastdagi o'z buyrug'ingizni ishlatadi
+Cone smoothness (higher = rounder)	Konus silliqligi (yuqori = yumaloqroq)
+Container interactions and unrecognised sounds	Konteyner o'zaro ta'sirlari va tanilmagan ovozlar
+Crops, composters, beehives	Ekinlar, komposterlar, asalari uyalari
+Custom X position	Maxsus X o'rni
+Custom Y position	Maxsus Y o'rni
+Darker band around the rim	Halqa atrofidagi quyuqroq tasma
+Degrees per tick the view turns toward the block being mined	Ko'rinish qazilayotgan blokka burilish burchagi (gradus/tick)
+Detect staff from tab-list ranks, spectator mode and invisible players without a list	Staffni tab ro'yxati ranklari, spectator rejimi va ko'rinmas o'yinchilar orqali ro'yxatsiz aniqlaydi
+Disconnect when your health drops to or below this many hearts (1.0 = 1 heart).	Sog'lig'ingiz shuncha yurakka tushganda yoki past bo'lganda uziladi (1.0 = 1 yurak).
+Distance (blocks) at which a falling dive ARMS — swaps to the mace early so the swing recharges mid-fall. Should be well above Range.	Yiqilishdagi dive qaysi masofada (blok) tayyorlanadi — mace'ga erta o'tadi, shunda zarba yiqilish o'rtasida quvvatlanadi. Range'dan ancha yuqori bo'lishi kerak.
+Draw a marker where a warning came from	Ogohlantirish kelgan joyga belgi chizadi
+Draw the bar against the original cooldown length	Chiziqni asl cooldown uzunligiga nisbatan chizadi
+Draw the blast radius ring around each TNT	Har bir TNT atrofida portlash radiusi halqasini chizadi
+Draw the countdown above each TNT	Har bir TNT ustiga sanoqni chizadi
+Draw the countdown card	Sanoq kartasini chizadi
+Draw the evidence source line under the rows	Qatorlar ostiga dalil manbasi chizig'ini chizadi
+Draw the hat through blocks	Shlyapani bloklar orqasidan chizadi
+Draw the history panel	Tarix panelini chizadi
+Draw the loadout card	To'plam kartasini chizadi
+Draw the observed-presence panel	Kuzatilgan mavjudlik panelini chizadi
+Draw the scanner card	Skaner kartasini chizadi
+Draw warning cards on the HUD	HUD'da ogohlantirish kartalarini chizadi
+Drop events whose source player cannot be identified	Manba o'yinchisi aniqlanmaydigan hodisalarni tashlab yuboradi
+Enemy search radius (blocks). Anchors are placed at vanilla reach; this only widens the target scan.	Dushman qidirish radiusi (blok). Anchorlar vanilla masofada qo'yiladi; bu faqat nishon skanini kengaytiradi.
+Extra clicks for servers with a confirm screen	Tasdiqlash oynasi bor serverlar uchun qo'shimcha kliklar
+Fake Money number shown in the sidebar. Only the digits — the original '$' icon + its colour come from the real sidebar line, so do NOT enter the icon here.	Yon panelda ko'rsatiladigan fake Pul raqami. Faqat raqamlar — '$' ikonkasi va rangi haqiqiy yon panel qatoridan olinadi, shuning uchun ikonkani bu yerga yozmang.
+Fake Playtime shown in the sidebar. Only the value — the original '⌚' icon + its colour come from the real sidebar line.	Yon panelda ko'rsatiladigan fake o'yin vaqti. Faqat qiymat — '⌚' ikonkasi va rangi haqiqiy qatordan olinadi.
+Fake Rank text shown in the sidebar (e.g. Donut+++).	Yon panelda ko'rsatiladigan fake Rank matni (masalan Donut+++).
+Fake Shards number shown in the sidebar. Only the digits — the original '★' icon + its colour come from the real sidebar line.	Yon panelda ko'rsatiladigan fake fragment soni. Faqat raqamlar — '★' ikonkasi va rangi haqiqiy qatordan olinadi.
+Fall back to an exact username comparison	Aniq foydalanuvchi nomi taqqoslashiga qaytadi
+Fall distance (blocks) required before the dive can arm — the mace smash bonus scales with fall distance.	Dive tayyorlanishi uchun kerakli yiqilish balandligi (blok) — mace smash bonusi yiqilish masofasiga bog'liq.
+Fill alpha (0-255)	To'ldirish shaffofligi (0-255)
+Filled marker	To'ldirilgan belgi
+Footsteps, splashes, swimming	Qadamlar, chayqalishlar, suzish
+Gradient end colour	Gradient oxirgi rangi
+Group same-category events into one card with a counter	Bir kategoriyadagi hodisalarni hisoblagich bilan bitta kartaga jamlaydi
+HUD X position, also used by the HUD editor	HUD X o'rni, HUD muharriri ham ishlatadi
+HUD Y position, also used by the HUD editor	HUD Y o'rni, HUD muharriri ham ishlatadi
+HUD anchor	HUD langari
+Hard lower Y clamp for the exposed scan.	Ochiq skan uchun qat'iy pastki Y chegarasi.
+Hard upper Y clamp for the exposed scan.	Ochiq skan uchun qat'iy yuqori Y chegarasi.
+Hat colour (gradient start)	Shlyapa rangi (gradient boshlanishi)
+Hat height in blocks	Shlyapa balandligi (blok)
+Hat opacity	Shlyapa shaffofligi
+Hat width in blocks	Shlyapa kengligi (blok)
+Hide a timer a few seconds after it reached zero	Taymer nolga yetgandan bir necha sekund keyin yashiradi
+Hide the detector while the vanilla HUD is hidden	Vanilla HUD yashiringanda detektorni ham yashiradi
+Hits, hurt, death, shields, projectiles	Zarbalar, zarar, o'lim, qalqonlar, snaryadlar
+Hotbar slot (1-9) to hold while detonating.	Portlatish paytida ushlab turiladigan hotbar sloti (1-9).
+How many blocks up and down from your feet are scanned	Oyog'ingizdan yuqori va pastga necha blok skanlanadi
+How many cards are shown	Nechta karta ko'rsatiladi
+How many chunks the rotating scanner re-verifies each tick. Higher = faster refresh, more per-tick cost.	Aylanuvchi skaner har tickda nechta chunkni qayta tekshiradi. Yuqori = tezroq yangilanish, ko'proq yuk.
+How many events are kept	Nechta hodisa saqlanadi
+How many pages a scan cycle covers	Bir skan sikli nechta sahifani qamraydi
+How many running timers are listed	Nechta faol taymer ro'yxatga olinadi
+Hue cycles per second	Sekundiga hue aylanishi
+Ignore TNT further than this	Bundan uzoqroqdagi TNT e'tiborsiz qoldiriladi
+Ignore listings above this price	Bu narxdan qimmat lotlar e'tiborsiz qoldiriladi
+Ignore listings below this price	Bu narxdan arzon lotlar e'tiborsiz qoldiriladi
+Ignore your own footsteps and ambience; combat on you is still reported	O'z qadamlaringiz va atrof ovozini e'tiborsiz qoldiradi; sizga qaratilgan jang baribir xabar qilinadi
+Include low-confidence and unmatched observations	Past ishonchli va mos kelmagan kuzatuvlarni ham qo'shadi
+Inspect /msg tab-completion suggestions you request yourself (never sends requests)	O'zingiz so'ragan /msg tab-to'ldirish takliflarini tekshiradi (so'rov yubormaydi)
+Keep coordinates in the history view	Tarix ko'rinishida koordinatalarni saqlaydi
+Keep drawing the HUD with a screen open	Ekran ochiq bo'lganda ham HUD'ni chizishda davom etadi
+Light level at or below this is treated as spawnable (vanilla is 0)	Shu yoki undan past yorug'lik darajasi spawn bo'lishi mumkin deb hisoblanadi (vanillada 0)
+Lowest confidence that may reach the HUD	HUD'ga chiqishi mumkin bo'lgan eng past ishonch
+Mark saved items that are no longer in the hotbar	Hotbarda qolmagan saqlangan narsalarni belgilaydi
+Marker cube size in blocks	Belgi kubining o'lchami (blok)
+Marker fill color	Belgi to'ldirish rangi
+Marker outline color	Belgi kontur rangi
+Match observed accounts by UUID when the server exposes it	Server bergan bo'lsa, kuzatilgan akkauntlarni UUID bo'yicha moslaydi
+Matching stacks that must be in the inventory before an Auto Trigger run fires.	Auto Trigger ishga tushishidan oldin inventarda bo'lishi kerak bo'lgan mos to'plamlar.
+Max acceptable self-damage (HP) per detonation. Conservative (pre-armor).	Har portlatishda ruxsat etilgan maksimal o'z zarari (HP). Ehtiyotkor (zirhsiz).
+Max scan / break distance (blocks).	Maksimal skan / buzish masofasi (blok).
+Max simulated ticks (200 = ~10s of flight). Higher = longer paths traced.	Maksimal simulyatsiya ticklari (200 = ~10s uchish). Yuqori = uzoqroq trayektoriya.
+Maximum stored evidence records	Saqlanadigan maksimal dalil yozuvlari
+Merge the same sound at the same block position inside the window	Oyna ichida bir xil blok pozitsiyasidagi bir xil ovozni birlashtiradi
+Milliseconds for duplicate suppression	Dublikatlarni bostirish uchun millisekundlar
+Milliseconds in which same-category events are grouped	Bir kategoriyadagi hodisalar guruhlanadigan millisekundlar
+Minecarts and boats	Aravachalar va qayiqlar
+Minimum attack-cooldown progress before the axe hit. 1.0 = full charge.	Bolta zarbasidan oldin minimal hujum-cooldown progressi. 1.0 = to'liq quvvat.
+Minimum discount against the seen average to count as a deal	Kelishuv hisoblanishi uchun ko'rilgan o'rtachaga nisbatan minimal chegirma
+Minimum number of storage containers within Scan Radius to count as a base.	Baza hisoblanishi uchun Skan Radiusidagi minimal ombor konteynerlari soni.
+Minimum score before a warning card is shown	Ogohlantirish kartasi ko'rsatilishidan oldingi minimal baho
+Mob movement, idle, hurt and death sounds; off hides mobs completely	Mob harakati, kutish, zarar va o'lim ovozlari; o'chiq bo'lsa moblar butunlay yashiriladi
+Move the hat up or down	Shlyapani yuqoriga yoki pastga suradi
+Music, jukebox and note block sounds	Musiqa, jukebox va note block ovozlari
+Never pay more than this automatically	Avtomatik ravishda bundan ko'p to'lamaydi
+One alert per player and detection type	Har o'yinchi va aniqlash turi uchun bitta ogohlantirish
+One-line cards instead of full cards	To'liq kartalar o'rniga bir qatorli kartalar
+Only apply entries labelled with the current server (global entries always apply)	Faqat joriy server belgisi bilan yozuvlarni qo'llaydi (global yozuvlar doim qo'llanadi)
+Only events the client received inside this radius are processed	Faqat shu radiusda klient qabul qilgan hodisalar qayta ishlanadi
+Only print sounds the classifier does not know	Faqat klassifikator tanimagan ovozlarni chop etadi
+Only report items that match the watch list	Faqat kuzatuv ro'yxatiga mos narsalarni xabar qiladi
+Only show history entries containing this text	Faqat shu matnni o'z ichiga olgan tarix yozuvlarini ko'rsatadi
+Only show history entries of this category	Faqat shu kategoriyadagi tarix yozuvlarini ko'rsatadi
+Only use the saved hotbar slot; never search other slots for the item	Faqat saqlangan hotbar slotidan foydalanadi; boshqa slotlardan narsani qidirmaydi
+Opacity (0-255) for cached (prior-session) ore boxes. Lower = dimmer.	Keshlangan (oldingi sessiya) ruda ramkalari shaffofligi (0-255). Past = xiraroq.
+Open the auction house when the module turns on	Modul yoqilganda auktsion uyini ochadi
+Outgoing packets that flush the queue	Navbatni bo'shatadigan chiquvchi paketlar
+Outlined marker	Konturli belgi
+Overall hat size	Umumiy shlyapa o'lchami
+Packet hold delay range in ms	Paketni ushlab turish kechikishi diapazoni (ms)
+Per-sound cooldown in milliseconds	Har ovoz uchun cooldown (millisekund)
+Play a short client-side chime	Qisqa klient chime'i chaladi
+Play a short local chime for staff matches	Staff mosliklari uchun qisqa lokal chime chaladi
+Print a local chat line for every warning	Har ogohlantirish uchun lokal chatga qator yozadi
+Print a local chat line when a command becomes ready	Buyruq tayyor bo'lganda lokal chatga qator yozadi
+Print a local chat warning	Lokal chatga ogohlantirish yozadi
+Print every parsed listing price to local chat (calibration on a new server)	Har tahlil qilingan lot narxini lokal chatga yozadi (yangi serverda kalibrlash)
+Print every received sound with its raw id	Har qabul qilingan ovozni xom id bilan chop etadi
+Print observations and rejection reasons to chat	Kuzatuvlar va rad etish sabablarini chatga yozadi
+Print what was saved / applied in local chat	Nima saqlangani / qo'llangani lokal chatga yoziladi
+Proximity radius in blocks for positional alerts	Pozitsion ogohlantirishlar uchun yaqinlik radiusi (blok)
+Quick-move the best deal out of the GUI	Eng yaxshi kelishuvni GUI'dan tez ko'chiradi
+Read a bid price when a listing has no buy-now price	Lotda "buy now" narxi bo'lmasa, taklif narxini o'qiydi
+Record detected events	Aniqlangan hodisalarni yozib boradi
+Record observations in the history view	Kuzatuvlarni tarix ko'rinishida yozib boradi
+Render distance for other players	Boshqa o'yinchilar uchun chizish masofasi
+Report an invisible entity whose identity the client does not know	Klient tanimaydigan ko'rinmas entity haqida xabar beradi
+Rotation of the hat (visible on gradient / rainbow)	Shlyapa burilishi (gradient / kamalakda ko'rinadi)
+Rows shown before the '+N more' summary	"+N yana" xulosasidan oldin ko'rsatiladigan qatorlar
+Save the staff list and evidence to disk	Staff ro'yxati va dalillarni diskka saqlaydi
+Saved automatically by Save Key; format id|id|...|id#slot	Saqlash tugmasi bilan avtomatik saqlanadi; format id|id|...|id#slot
+Saves the current hotbar into the active loadout	Joriy hotbarni faol to'plamga saqlaydi
+Score an event needs to be styled as critical	Hodisa kritik ko'rinishga ega bo'lishi uchun kerakli baho
+Score for ambient events	Atrof hodisalari bahosi
+Score for combat events	Jang hodisalari bahosi
+Score for container events	Konteyner hodisalari bahosi
+Score for explosions	Portlashlar bahosi
+Score for interactions	O'zaro ta'sirlar bahosi
+Score for player-specific events	O'yinchiga xos hodisalar bahosi
+Sculk sensors, shriekers and spread	Sculk sensorlari, shriekerlar va tarqalish
+Seconds a card stays	Karta necha sekund turadi
+Seconds a footstep line takes to fade away	Qadam chizig'i so'nish vaqti (sekund)
+Seconds before the same player can alert again	Bir o'yinchi yana ogohlantirishi uchun sekundlar
+Seconds before the same source can warn again	Bir manba yana ogohlantirishi uchun sekundlar
+Seconds between full rescans	To'liq qayta skanlar orasidagi sekundlar
+Seconds the running score accumulates before it decays	Joriy baho so'nishidan oldin to'planadigan sekundlar
+Send the scan command by itself	Skan buyrug'ini alohida yuboradi
+Shade the cone so it reads as 3D instead of flat colour	Konusni tekis rang o'rniga 3D ko'rinishida soyalaydi
+Show a live crosshair preview window in the ClickGUI	ClickGUI'da jonli crosshair preview oynasini ko'rsatadi
+Show events where the client has no entity source	Klientda entity manbasi bo'lmagan hodisalarni ko'rsatadi
+Show name matches even when the UUID is not verified	UUID tasdiqlanmagan bo'lsa ham nom mosliklarini ko'rsatadi
+Show suggestions that match a staff-list account	Staff ro'yxatidagi akkauntga mos takliflarni ko'rsatadi
+Show the block position on a card	Kartada blok pozitsiyasini ko'rsatadi
+Show the category on a card	Kartada kategoriyani ko'rsatadi
+Show the damage this TNT would deal where you stand	Bu TNT turgan joyingizda qancha zarar berishini ko'rsatadi
+Show the detector HUD	Detektor HUD'ini ko'rsatadi
+Show the distance, direction and height line on a card	Kartada masofa, yo'nalish va balandlik qatorini ko'rsatadi
+Show the event name	Hodisa nomini ko'rsatadi
+Show the event score on a card	Kartada hodisa bahosini ko'rsatadi
+Show the hat on other players too	Shlyapanni boshqa o'yinchilarda ham ko'rsatadi
+Show the source entity or player	Manba entity yoki o'yinchini ko'rsatadi
+Show your own hat while in first person view	Birinchi shaxs ko'rinishida o'z shlyapangizni ko'rsatadi
+Shows the spot count card	Joylar soni kartasini ko'rsatadi
+Smaller rows with no separator styling	Ajratgichsiz kichikroq qatorlar
+Sneak while the block ahead is still missing	Oldindagi blok hali yo'q bo'lganda sneak qiladi
+Solid colour, two-colour gradient or rainbow	Bir rang, ikki rangli gradient yoki kamalak
+Stop recording without clearing	Tozalashsiz yozishni to'xtatadi
+Strike reach — the smash fires the moment the target's hitbox is this close. Keep near vanilla melee reach for anti-cheat safety.	Zarba masofasi — nishon hitboxi shu yaqinlikda bo'lganda smash ishga tushadi. Anti-cheat uchun vanilla yaqin masofada saqlang.
+Switches to the next loadout (and applies it)	Keyingi to'plamga o'tadi (va uni qo'llaydi)
+TNT, creepers, firework blasts	TNT, creeperlar, firework portlashlari
+TUNNEL mode profile width.	TUNNEL rejimi profil kengligi.
+Ticks between buy and confirm clicks	Sotib olish va tasdiqlash kliklari orasidagi ticklar
+Ticks between each phase (swap → hit → slam/switchback). 1 = fastest (50ms). 2+ is safer vs anti-cheat.	Har faza orasidagi ticklar (almashtirish → zarba → slam/qaytish). 1 = eng tez (50ms). 2+ anti-cheatga nisbatan xavfsizroq.
+Ticks between each phase. 1 = fastest (50ms). 2+ is safer vs anti-cheat.	Har faza orasidagi ticklar. 1 = eng tez (50ms). 2+ anti-cheatga nisbatan xavfsizroq.
+Ticks between page commands	Sahifa buyruqlari orasidagi ticklar
+Ticks between swapping to glowstone and clicking the anchor.	Glowstone'ga o'tish va anchor'ga klik orasidagi ticklar.
+Ticks between swapping to the explode slot and detonating.	Portlatish slotiga o'tish va portlatish orasidagi ticklar.
+Ticks between the axe hit and the mace smash.	Bolta zarbasi va mace smash orasidagi ticklar.
+Ticks to hold the non-spear item between lunges. Lets the server-side attack-charge clock climb so the next STAB passes the MINIMUM_ATTACK_CHARGE gate. 5+ is safe; too low and lunges get dropped.	Lungelar orasida nayza bo'lmagan narsani ushlab turish ticklari. Server tomondagi hujum-quvvat soati ko'tariladi, shunda keyingi STAB MINIMUM_ATTACK_CHARGE chegarasidan o'tadi. 5+ xavfsiz; juda past bo'lsa lungelar tushib qoladi.
+Ticks to wait after a cycle before auto-retriggering on a still-blocking enemy.	Sikl tugagach hali bloklayotgan dushmanga avto-qayta urinishdan oldin kutish ticklari.
+Ticks to wait after a full cycle before re-targeting.	To'liq sikldan keyin qayta nishonlashdan oldin kutish ticklari.
+Ticks to wait after a smash before re-arming.	Smashdan keyin qayta tayyorlanishdan oldin kutish ticklari.
+Ticks to wait after detonate 1 before placing anchor 2 (waits out the enemy's 10-tick i-frames).	1-portlatishdan keyin 2-anchorni qo'yishdan oldin kutish ticklari (dushmanning 10-tick i-frame'ini kutadi).
+Ticks to wait after detonate 2 before switching back.	2-portlatishdan keyin qaytishdan oldin kutish ticklari.
+Ticks to wait after the final hit before switching back. Lets the hit register while the axe/mace is still held.	Yakuniy zarbadan keyin qaytishdan oldin kutish ticklari. Zarba bolta/mace qo'lda bo'lganda ro'yxatga olinadi.
+Ticks to wait before swapping the hotbar slot.	Hotbar slotini almashtirishdan oldin kutish ticklari.
+Ticks to wait between actions (deposits and re-opens) so the server's slot-sync keeps up.	Amallar (deposit va qayta ochish) orasidagi kutish ticklari — server slot-sinxronizatsiyasi ulgurishi uchun.
+Ticks to wait between shift-clicks (keep the server's slot-sync happy).	Shift-kliklar orasidagi kutish ticklari (server slot-sinxronizatsiyasi uchun).
+Upper limit of drawn blocks	Chiziladigan bloklarning yuqori chegarasi
+Upper limit of new warning cards per second	Sekundiga yangi ogohlantirish kartalarining yuqori chegarasi
+Use a distinct chime for critical events	Kritik hodisalar uchun alohida chime ishlatadi
+Wait time before next backtrack in ms	Keyingi backtrackdan oldin kutish vaqti (ms)
+Warn when the nearest fuse is this many ticks away (0 = off)	Eng yaqin fitil shuncha tick qolganda ogohlantiradi (0 = o'chiq)
+Water, lava, weather, ambience	Suv, lava, ob-havo, atrof ovozi
+Where a player walks, draw a line on the ground that fades out instead of a cube	O'yinchi yurgan joyda kub o'rniga so'nib boruvchi yer chizig'ini chizadi
+Where deals are reported	Kelishuvlar qayerga xabar qilinadi
+Whether the Items list is a whitelist (sell only these) or a blacklist (sell everything else).	Narsalar ro'yxati oq ro'yxat (faqat shularni sotish) yoki qora ro'yxat (qolganini sotish)mi.
+Which commands are recognised in cooldown messages	Cooldown xabarlarida qaysi buyruqlar tan olinadi
+Which event families are watched; Custom keeps your own category toggles	Qaysi hodisa guruhlari kuzatiladi; Custom o'z kategoriya tugmalaringizni saqlaydi
+Which loadout Save Key writes to and Load Key applies	Saqlash tugmasi qaysi to'plamga yozadi va Yuklash tugmasi qaysinisini qo'llaydi
+Which preset name to show in the scoreboard sidebar instead of your username.	Skorbord yon panelida foydalanuvchi nomingiz o'rniga qaysi preset nom ko'rsatiladi.
+Which preset skin to use when protection is active.	Himoya faol bo'lganda qaysi preset skin ishlatiladi.
+World marker shape: the small cube from the reference, a block outline, or both	Dunyo belgisi shakli: kichik kub, blok konturi yoki ikkalasi

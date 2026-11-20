@@ -2,6 +2,7 @@ package com.anormal.client.module.impl.inventory;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
+import com.anormal.client.util.InventoryClicks;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
@@ -34,7 +35,7 @@ public class InvCleaner extends Module {
 
     private static final Set<String> JUNK = Set.of("stick", "string", "flint", "compass", "feather",
             "glass_bottle", "enchanting_table", "chest", "trapped_chest", "anvil", "chipped_anvil",
-            "damaged_anvil", "arrow", "rotten_flesh", "spider_eye", "bone", "snowball", "egg");
+            "damaged_anvil", "rotten_flesh", "spider_eye", "bone", "snowball", "egg");
 
     private int cooldown = 0;
     private int burst = 0;
@@ -63,6 +64,8 @@ public class InvCleaner extends Module {
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
+        // Never click the player handler while a chest is open: the sync id would not match.
+        if (!InventoryClicks.playerHandlerOpen()) return;
         if (activation.is("On Key")) {
             if (burst <= 0) return;
             burst--;
@@ -74,7 +77,7 @@ public class InvCleaner extends Module {
         }
         int slot = findJunkSlot();
         if (slot == -1) return;
-        mc.interactionManager.clickSlot(mc.player.playerScreenHandler.syncId, slot, 1, SlotActionType.THROW, mc.player);
+        InventoryClicks.playerClick(slot, 1, SlotActionType.THROW);
         cooldown = delay.getValue().intValue();
     }
 

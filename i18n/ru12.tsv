@@ -1,0 +1,424 @@
+# Дополнительные русские переводы новых модулей и настроек (без портов kuro/Spectre).
+# Формат: English key <TAB> перевод
+TNT Timer	Таймер ТНТ
+AuctionSniper	AuctionSniper
+KitLoadout	Набор хотбара
+SpawnProofOverlay	Защита от спавна
+CommandCooldowns	Кулдауны команд
+ChinaHat	Китайская шляпа
+Staff Detector	Детектор стаффа
+Sound Detector	Детектор звуков
+Counts down primed TNT with a blast ring, damage estimate and a warning	Отсчитывает активированный ТНТ с кольцом взрыва, оценкой урона и предупреждением
+Finds and optionally buys underpriced auction listings by reading the auction GUI	Находит и при желании скупает дешёвые лоты, читая интерфейс аукциона
+Mace smash assist — arms the mace when you dive, strikes the player below at maximum fall damage.	Помощь с ударом булавы — готовит булаву при пикировании и бьёт игрока ниже с максимальным уроном от падения.
+Marks blocks where hostile mobs can spawn so you can light them up	Отмечает блоки, где могут спавниться враждебные мобы, чтобы вы их осветили
+Observe known staff and possible hidden presence	Наблюдает за известным стаффом и возможным скрытым присутствием
+Saves up to four hotbar kits and switches to the right slot with one key	Сохраняет до четырёх наборов хотбара и переключается на нужный слот одной клавишей
+Tracks /home, /rtp, /kit and other command cooldowns from chat and shows them on the HUD	Отслеживает кулдауны /home, /rtp, /kit и других команд из чата и показывает их на HUD
+Warn about nearby interactions, players and machinery	Предупреждает о взаимодействиях, игроках и механизмах рядом
+Wear a conical China hat with colour, rainbow, scale and more	Надевает коническую китайскую шляпу с цветом, радугой, масштабом и другими настройками
+/msg completion alerts	Оповещения автодополнения /msg
+Active Loadout	Активный набор
+Alert cooldown	Кулдаун оповещения
+Allow username-only matches	Разрешить совпадения только по нику
+Ambient score	Вес окружения
+Arm Radius	Радиус руки
+Auto Buy	Автопокупка
+Auto Buy Max	Макс. автопокупки
+Auto Scan	Автосканирование
+Auto-detect staff	Автоопределение стаффа
+Bids Fallback	Запасной вариант ставки
+Black List	Чёрный список
+Cache Alpha	Прозрачность кэша
+Card duration	Длительность карточки
+Chat Feedback	Отклик в чате
+Chat Scan	Сканирование чата
+Chat notices	Уведомления в чате
+Check /msg completions	Проверять автодополнение /msg
+Chunks Per Tick	Чанков за тик
+Clear History Key	Клавиша очистки истории
+Close After Buy	Закрыть после покупки
+Color 2	Цвет 2
+Combat score	Вес боя
+Compact mode	Компактный режим
+Compact notifications	Компактные уведомления
+Cone Height	Высота конуса
+Confirm Clicks	Клики подтверждения
+Container score	Вес контейнеров
+Cooldown Threshold	Порог кулдауна
+Critical Score	Критический вес
+Critical chime	Критический звук
+Critical threshold	Критический порог
+Cycle Key	Клавиша переключения
+Damage Estimate	Оценка урона
+Deal Threshold %	Порог выгодности %
+Debug Prices	Отладка цен
+Debug logging	Отладочный журнал
+Debug mode	Режим отладки
+Debug unknown only	Отладка только неизвестных
+Deduplicate alerts	Убирать дубли оповещений
+Detection Preset	Пресет обнаружения
+Disabled events	Отключённые события
+Duplicate suppression	Подавление дублей
+Duplicate window	Окно дублей
+Evidence history	История доказательств
+Explode Chance	Шанс взрыва
+Explosion score	Вес взрывов
+Extra Words	Дополнительные слова
+Farming	Фермерство
+Filter own actions	Фильтровать свои действия
+First Person	От первого лица
+Footstep fade	Затухание следов
+Footstep lines	Линии следов
+Glowstone Chance	Шанс светокамня
+Glowstone Delay	Задержка светокамня
+Group window	Окно группировки
+Grouping	Группировка
+Hide Finished	Скрыть завершённые
+History	История
+History category	Категория истории
+History filter	Фильтр истории
+History size	Размер истории
+I-Frame Wait	Ожидание i-frame
+Interaction score	Вес взаимодействий
+Invisible nearby alerts	Оповещения о невидимых рядом
+Ledge Sneak	Присед у края
+Light Threshold	Порог света
+Loadout 1 Data	Данные набора 1
+Loadout 2 Data	Данные набора 2
+Loadout 3 Data	Данные набора 3
+Loadout 4 Data	Данные набора 4
+Local notification sound	Локальный звук уведомления
+Local warning chime	Локальный звук предупреждения
+Loop Delay	Задержка цикла
+Loot Delay	Задержка лута
+Marker style	Стиль маркера
+Match by UUID	Совпадение по UUID
+Match by exact username	Совпадение по точному нику
+Max Markers	Макс. маркеров
+Max Price	Макс. цена
+Max Rows	Макс. строк
+Maximum history	Макс. история
+Maximum warnings per second	Макс. предупреждений в секунду
+Min Price	Мин. цена
+Min Storage	Мин. хранилищ
+Minimum confidence	Минимальная уверенность
+Money	Деньги
+Music	Музыка
+Natural	Естественный
+Nearby range	Радиус рядом
+Nickname	Никнейм
+Only Watched	Только из списка
+Other Players	Другие игроки
+Page Delay	Задержка страницы
+Pages	Страницы
+Pause history	Пауза истории
+Persist evidence	Сохранять доказательства
+Place Chance	Шанс установки
+Player score	Вес игрока
+Players Only	Только игроки
+Playtime	Время игры
+RTP Interval	Интервал RTP
+RTP Region	Регион RTP
+Rank	Ранг
+Received-event range	Радиус полученных событий
+Refresh (s)	Обновление (с)
+Repeat alert on state change	Повторять оповещение при смене состояния
+Require Sky Access	Требовать доступ к небу
+Require identified player	Требовать известного игрока
+Respect F1 HUD toggle	Учитывать переключение HUD по F1
+Rim Band	Ободок
+Rim Radius	Радиус ободка
+Ring Color	Цвет кольца
+Save Key	Клавиша сохранения
+Scan Budget	Бюджет сканирования
+Scan Command	Команда сканирования
+Scan On Enable	Сканировать при включении
+Scan Radius	Радиус сканирования
+Score window	Окно веса
+Sculk	Скалк
+Segments	Сегменты
+Shade	Затенение
+Shards	Осколки
+Show Missing	Показать недостающие
+Show Panel	Показать панель
+Show Radius	Показать радиус
+Show Timer	Показать таймер
+Show Total	Показать итог
+Show category	Показать категорию
+Show confidence	Показать уверенность
+Show event name	Показать имя события
+Show evidence source	Показать источник доказательства
+Show history	Показать историю
+Show score	Показать вес
+Show source	Показать источник
+Show timestamp	Показать время
+Show unconfirmed evidence	Показать неподтверждённые доказательства
+Show unknown invisible entities	Показать неизвестные невидимые сущности
+Show unknown-source events	Показать события с неизвестным источником
+Show while in menus	Показывать в меню
+Skin	Скин
+Slam Delay	Задержка удара
+Source cooldown	Кулдаун источника
+Spectator alerts	Оповещения о наблюдателях
+Speed Multiplier	Множитель скорости
+Spin Speed	Скорость вращения
+Staff alerts	Оповещения о стаффе
+Staff list / evidence	Список стаффа / доказательства
+Strict Slots	Строгие слоты
+Swap Back	Вернуть обратно
+Switch Chance	Шанс переключения
+Tracked Commands	Отслеживаемые команды
+Transport	Транспорт
+Trigger Stacks	Стеки для триггера
+Tunnel Width	Ширина туннеля
+Url	Ссылка
+Use server-specific staff lists	Использовать списки стаффа сервера
+Visible cards	Видимые карточки
+Visible rows	Видимые строки
+Warn Seconds	Секунды предупреждения
+Warn Ticks	Тики предупреждения
+Warning cards	Карточки предупреждений
+Warning threshold	Порог предупреждения
+Watch List	Список наблюдения
+World markers	Маркеры мира
+Y Max	Y макс.
+Y Min	Y мин.
+Y Offset	Смещение Y
+Y Range	Диапазон Y
+Keybinds	Клавиши
+No keybinds set	Клавиши не назначены
+Nothing matches the search	Ничего не найдено
+Select ▼	Выбрать ▼
+Unbind All	Снять все
+Add usernames or UUIDs for the current server	Добавьте ники или UUID для текущего сервера
+Alert when a staff-list account is observed	Оповещать, когда замечен аккаунт из списка стаффа
+Alert when a staff-list account is reliably observed in spectator mode	Оповещать, когда аккаунт из списка стаффа надёжно замечен в режиме наблюдателя
+Alert when an invisible player entity is present nearby	Оповещать, когда рядом есть невидимая сущность игрока
+Allow a new alert when the evidence changes (for example joins spectator mode)	Разрешать новое оповещение при изменении доказательств (например, вход в режим наблюдателя)
+Also parse chat listings (servers without a GUI auction)	Также разбирать лоты из чата (серверы без GUI-аукциона)
+Also require the spot to see the sky (so torch-lit caves are ignored)	Также требовать видимость неба (пещеры с факелами игнорируются)
+Append the confidence level to a row	Добавлять уровень уверенности в строку
+Append the measured distance to a row	Добавлять измеренную дистанцию в строку
+Append the observation time to a row	Добавлять время наблюдения в строку
+Applies the active loadout	Применяет активный набор
+AutoMine mode.	Режим AutoMine.
+Background opacity	Прозрачность фона
+Base score from which an event is critical (explosions default)	Базовый вес, с которого событие считается критическим (по умолчанию взрывы)
+Beep this many seconds before a command is ready (0 = off)	Сигнал за столько секунд до готовности команды (0 = выкл.)
+Blast radius color	Цвет радиуса взрыва
+Block checks per tick (higher = faster but heavier)	Проверок блоков за тик (больше = быстрее, но тяжелее)
+Break-speed multiplier (1.0 = legit, higher = faster). Anti-cheat flag risk above ~2.0.	Множитель скорости копания (1.0 = легитно, больше = быстрее). Выше ~2.0 риск флага анти-чита.
+Chance that a hotbar swap actually happens.	Шанс, что смена слота хотбара действительно произойдёт.
+Chance that the charge/detonate sequence starts at all (randomization).	Шанс, что последовательность зарядки/подрыва вообще начнётся (рандомизация).
+Chance that the detonate click happens (randomization).	Шанс клика подрыва (рандомизация).
+Chance that the glowstone click happens (randomization).	Шанс клика по светокамню (рандомизация).
+Chime volume in percent	Громкость звука в процентах
+Chunk radius to scan around the player.	Радиус чанков для сканирования вокруг игрока.
+Clears the history	Очищает историю
+Click on a deal	Клик по выгодному лоту
+Click when a command becomes ready	Клик, когда команда готова
+Click when the nearest fuse passes the warning	Клик, когда ближайший фитиль проходит порог предупреждения
+Close the GUI once the buy clicks are done	Закрыть интерфейс после кликов покупки
+Comma separated extra command words to recognise (e.g. mine, fish, daily)	Дополнительные слова команд через запятую (например mine, fish, daily)
+Comma separated keywords (empty = everything)	Ключевые слова через запятую (пусто = всё)
+Comma separated keywords to never report or buy	Ключевые слова через запятую, которые никогда не сообщать и не покупать
+Comma separated sound ids to ignore (e.g. minecraft:block.note_block.harp)	ID звуков через запятую для игнорирования (например minecraft:block.note_block.harp)
+Command used to open page {page} of the auction house	Команда для открытия страницы {page} аукциона
+Command/format preset; Custom uses your own command below	Пресет команды/формата; Custom использует вашу команду ниже
+Cone smoothness (higher = rounder)	Плавность конуса (больше = ровнее)
+Container interactions and unrecognised sounds	Взаимодействия с контейнерами и нераспознанные звуки
+Crops, composters, beehives	Урожай, компостеры, ульи
+Custom X position	Своя позиция X
+Custom Y position	Своя позиция Y
+Darker band around the rim	Более тёмная полоса по ободку
+Degrees per tick the view turns toward the block being mined	Градусов за тик при повороте взгляда к добываемому блоку
+Detect staff from tab-list ranks, spectator mode and invisible players without a list	Определяет стафф по рангам таб-листа, режиму наблюдателя и невидимым игрокам без списка
+Disconnect when your health drops to or below this many hearts (1.0 = 1 heart).	Отключение, когда здоровье падает до этого числа сердец или ниже (1.0 = 1 сердце).
+Distance (blocks) at which a falling dive ARMS — swaps to the mace early so the swing recharges mid-fall. Should be well above Range.	Дистанция (блоки), на которой пикирование ГОТОВИТСЯ — заранее берёт булаву, чтобы замах восстановился в падении. Должна быть заметно больше Range.
+Draw a marker where a warning came from	Рисовать маркер там, откуда пришло предупреждение
+Draw the bar against the original cooldown length	Рисовать полосу относительно исходной длины кулдауна
+Draw the blast radius ring around each TNT	Рисовать кольцо радиуса взрыва вокруг каждого ТНТ
+Draw the countdown above each TNT	Рисовать отсчёт над каждым ТНТ
+Draw the countdown card	Рисовать карточку отсчёта
+Draw the evidence source line under the rows	Рисовать строку источника доказательств под строками
+Draw the hat through blocks	Рисовать шляпу через блоки
+Draw the history panel	Рисовать панель истории
+Draw the loadout card	Рисовать карточку набора
+Draw the observed-presence panel	Рисовать панель наблюдаемого присутствия
+Draw the scanner card	Рисовать карточку сканера
+Draw warning cards on the HUD	Рисовать карточки предупреждений на HUD
+Drop events whose source player cannot be identified	Отбрасывать события, чей игрок-источник не определён
+Enemy search radius (blocks). Anchors are placed at vanilla reach; this only widens the target scan.	Радиус поиска врагов (блоки). Якоря ставятся в ванильном радиусе; это лишь расширяет поиск цели.
+Extra clicks for servers with a confirm screen	Дополнительные клики для серверов с окном подтверждения
+Fake Money number shown in the sidebar. Only the digits — the original '$' icon + its colour come from the real sidebar line, so do NOT enter the icon here.	Фейковое число денег в сайдбаре. Только цифры — иконка '$' и её цвет берутся из настоящей строки сайдбара, поэтому иконку сюда не вписывайте.
+Fake Playtime shown in the sidebar. Only the value — the original '⌚' icon + its colour come from the real sidebar line.	Фейковое время игры в сайдбаре. Только значение — иконка '⌚' и её цвет берутся из настоящей строки.
+Fake Rank text shown in the sidebar (e.g. Donut+++).	Фейковый текст ранга в сайдбаре (например Donut+++).
+Fake Shards number shown in the sidebar. Only the digits — the original '★' icon + its colour come from the real sidebar line.	Фейковое число осколков в сайдбаре. Только цифры — иконка '★' и её цвет берутся из настоящей строки.
+Fall back to an exact username comparison	Откатываться к сравнению по точному нику
+Fall distance (blocks) required before the dive can arm — the mace smash bonus scales with fall distance.	Нужная высота падения (блоки) до готовности пикирования — бонус удара булавы зависит от высоты падения.
+Fill alpha (0-255)	Прозрачность заливки (0-255)
+Filled marker	Залитый маркер
+Footsteps, splashes, swimming	Шаги, всплески, плавание
+Gradient end colour	Конечный цвет градиента
+Group same-category events into one card with a counter	Объединять события одной категории в одну карточку со счётчиком
+HUD X position, also used by the HUD editor	Позиция HUD по X, используется и редактором HUD
+HUD Y position, also used by the HUD editor	Позиция HUD по Y, используется и редактором HUD
+HUD anchor	Привязка HUD
+Hard lower Y clamp for the exposed scan.	Жёсткий нижний предел Y для открытого сканирования.
+Hard upper Y clamp for the exposed scan.	Жёсткий верхний предел Y для открытого сканирования.
+Hat colour (gradient start)	Цвет шляпы (начало градиента)
+Hat height in blocks	Высота шляпы в блоках
+Hat opacity	Прозрачность шляпы
+Hat width in blocks	Ширина шляпы в блоках
+Hide a timer a few seconds after it reached zero	Скрывать таймер через несколько секунд после нуля
+Hide the detector while the vanilla HUD is hidden	Скрывать детектор, когда скрыт ванильный HUD
+Hits, hurt, death, shields, projectiles	Удары, урон, смерть, щиты, снаряды
+Hotbar slot (1-9) to hold while detonating.	Слот хотбара (1-9), который держать при подрыве.
+How many blocks up and down from your feet are scanned	Сколько блоков вверх и вниз от ног сканируется
+How many cards are shown	Сколько карточек показывается
+How many chunks the rotating scanner re-verifies each tick. Higher = faster refresh, more per-tick cost.	Сколько чанков вращающийся сканер перепроверяет за тик. Больше = быстрее обновление, выше нагрузка.
+How many events are kept	Сколько событий хранится
+How many pages a scan cycle covers	Сколько страниц охватывает один цикл сканирования
+How many running timers are listed	Сколько активных таймеров в списке
+Hue cycles per second	Циклов оттенка в секунду
+Ignore TNT further than this	Игнорировать ТНТ дальше этого
+Ignore listings above this price	Игнорировать лоты дороже этой цены
+Ignore listings below this price	Игнорировать лоты дешевле этой цены
+Ignore your own footsteps and ambience; combat on you is still reported	Игнорировать свои шаги и окружение; бой против вас всё равно сообщается
+Include low-confidence and unmatched observations	Включать наблюдения с низкой уверенностью и без совпадений
+Inspect /msg tab-completion suggestions you request yourself (never sends requests)	Проверять запрошенные вами подсказки автодополнения /msg (запросы не отправляет)
+Keep coordinates in the history view	Хранить координаты в истории
+Keep drawing the HUD with a screen open	Продолжать рисовать HUD при открытом экране
+Light level at or below this is treated as spawnable (vanilla is 0)	Уровень света на этом значении или ниже считается спавноопасным (в ваниле 0)
+Lowest confidence that may reach the HUD	Минимальная уверенность для вывода на HUD
+Mark saved items that are no longer in the hotbar	Отмечать сохранённые предметы, которых больше нет в хотбаре
+Marker cube size in blocks	Размер куба-маркера в блоках
+Marker fill color	Цвет заливки маркера
+Marker outline color	Цвет контура маркера
+Match observed accounts by UUID when the server exposes it	Сопоставлять замеченные аккаунты по UUID, если сервер его отдаёт
+Matching stacks that must be in the inventory before an Auto Trigger run fires.	Нужные стеки в инвентаре до срабатывания Auto Trigger.
+Max acceptable self-damage (HP) per detonation. Conservative (pre-armor).	Макс. допустимый урон себе (HP) за подрыв. Осторожно (до брони).
+Max scan / break distance (blocks).	Макс. дистанция сканирования / копания (блоки).
+Max simulated ticks (200 = ~10s of flight). Higher = longer paths traced.	Макс. тиков симуляции (200 = ~10 с полёта). Больше = длиннее траектория.
+Maximum stored evidence records	Максимум сохранённых записей доказательств
+Merge the same sound at the same block position inside the window	Объединять одинаковый звук в одной позиции внутри окна
+Milliseconds for duplicate suppression	Миллисекунды подавления дублей
+Milliseconds in which same-category events are grouped	Миллисекунды группировки событий одной категории
+Minecarts and boats	Вагонетки и лодки
+Minimum attack-cooldown progress before the axe hit. 1.0 = full charge.	Минимальный прогресс кулдауна атаки перед ударом топором. 1.0 = полный заряд.
+Minimum discount against the seen average to count as a deal	Минимальная скидка от замеченного среднего для выгодного лота
+Minimum number of storage containers within Scan Radius to count as a base.	Минимум контейнеров в радиусе сканирования, чтобы считать это базой.
+Minimum score before a warning card is shown	Минимальный вес для показа карточки предупреждения
+Mob movement, idle, hurt and death sounds; off hides mobs completely	Звуки движения, бездействия, урона и смерти мобов; выкл. полностью скрывает мобов
+Move the hat up or down	Сдвинуть шляпу вверх или вниз
+Music, jukebox and note block sounds	Музыка, музыкальные блоки и блоки-ноты
+Never pay more than this automatically	Никогда не платить автоматически больше этого
+One alert per player and detection type	Одно оповещение на игрока и тип обнаружения
+One-line cards instead of full cards	Однострочные карточки вместо полных
+Only apply entries labelled with the current server (global entries always apply)	Применять только записи с меткой текущего сервера (глобальные применяются всегда)
+Only events the client received inside this radius are processed	Обрабатываются только события, полученные клиентом в этом радиусе
+Only print sounds the classifier does not know	Печатать только звуки, неизвестные классификатору
+Only report items that match the watch list	Сообщать только предметы из списка наблюдения
+Only show history entries containing this text	Показывать только записи истории с этим текстом
+Only show history entries of this category	Показывать только записи этой категории
+Only use the saved hotbar slot; never search other slots for the item	Использовать только сохранённый слот; не искать предмет в других слотах
+Opacity (0-255) for cached (prior-session) ore boxes. Lower = dimmer.	Прозрачность (0-255) кэшированных (прошлая сессия) рамок руды. Меньше = тусклее.
+Open the auction house when the module turns on	Открывать аукцион при включении модуля
+Outgoing packets that flush the queue	Исходящие пакеты, сбрасывающие очередь
+Outlined marker	Контурный маркер
+Overall hat size	Общий размер шляпы
+Packet hold delay range in ms	Диапазон задержки удержания пакетов, мс
+Per-sound cooldown in milliseconds	Кулдаун на звук в миллисекундах
+Play a short client-side chime	Проигрывать короткий клиентский звук
+Play a short local chime for staff matches	Проигрывать короткий локальный звук при совпадении стаффа
+Print a local chat line for every warning	Писать в локальный чат строку для каждого предупреждения
+Print a local chat line when a command becomes ready	Писать в локальный чат, когда команда готова
+Print a local chat warning	Писать предупреждение в локальный чат
+Print every parsed listing price to local chat (calibration on a new server)	Писать каждую распознанную цену лота в локальный чат (калибровка на новом сервере)
+Print every received sound with its raw id	Печатать каждый полученный звук с его raw-id
+Print observations and rejection reasons to chat	Писать наблюдения и причины отказа в чат
+Print what was saved / applied in local chat	Писать в локальный чат, что сохранено / применено
+Proximity radius in blocks for positional alerts	Радиус близости в блоках для позиционных оповещений
+Quick-move the best deal out of the GUI	Быстро вынести лучший лот из интерфейса
+Read a bid price when a listing has no buy-now price	Читать цену ставки, если у лота нет цены «купить сейчас»
+Record detected events	Записывать обнаруженные события
+Record observations in the history view	Записывать наблюдения в историю
+Render distance for other players	Дальность отрисовки других игроков
+Report an invisible entity whose identity the client does not know	Сообщать о невидимой сущности, чью личность клиент не знает
+Rotation of the hat (visible on gradient / rainbow)	Поворот шляпы (видно на градиенте / радуге)
+Rows shown before the '+N more' summary	Строк до сводки «+N ещё»
+Save the staff list and evidence to disk	Сохранять список стаффа и доказательства на диск
+Saved automatically by Save Key; format id|id|...|id#slot	Сохраняется автоматически клавишей сохранения; формат id|id|...|id#slot
+Saves the current hotbar into the active loadout	Сохраняет текущий хотбар в активный набор
+Score an event needs to be styled as critical	Вес, при котором событие оформляется как критическое
+Score for ambient events	Вес событий окружения
+Score for combat events	Вес боевых событий
+Score for container events	Вес событий контейнеров
+Score for explosions	Вес взрывов
+Score for interactions	Вес взаимодействий
+Score for player-specific events	Вес событий конкретного игрока
+Sculk sensors, shriekers and spread	Скалк-сенсоры, крикуны и распространение
+Seconds a card stays	Сколько секунд висит карточка
+Seconds a footstep line takes to fade away	Секунды затухания линии следа
+Seconds before the same player can alert again	Секунды до повторного оповещения того же игрока
+Seconds before the same source can warn again	Секунды до повторного предупреждения того же источника
+Seconds between full rescans	Секунды между полными пересканированиями
+Seconds the running score accumulates before it decays	Секунды накопления текущего веса до затухания
+Send the scan command by itself	Отправлять команду сканирования отдельно
+Shade the cone so it reads as 3D instead of flat colour	Затенять конус, чтобы он читался как 3D, а не плоский цвет
+Show a live crosshair preview window in the ClickGUI	Показывать живое окно предпросмотра прицела в ClickGUI
+Show events where the client has no entity source	Показывать события, у которых нет сущности-источника
+Show name matches even when the UUID is not verified	Показывать совпадения по нику, даже если UUID не подтверждён
+Show suggestions that match a staff-list account	Показывать подсказки, совпадающие с аккаунтом из списка стаффа
+Show the block position on a card	Показывать позицию блока на карточке
+Show the category on a card	Показывать категорию на карточке
+Show the damage this TNT would deal where you stand	Показывать урон этого ТНТ в вашей точке
+Show the detector HUD	Показывать HUD детектора
+Show the distance, direction and height line on a card	Показывать строку дистанции, направления и высоты на карточке
+Show the event name	Показывать имя события
+Show the event score on a card	Показывать вес события на карточке
+Show the hat on other players too	Показывать шляпу и на других игроках
+Show the source entity or player	Показывать сущность или игрока-источник
+Show your own hat while in first person view	Показывать свою шляпу от первого лица
+Shows the spot count card	Показывает карточку количества мест
+Smaller rows with no separator styling	Меньшие строки без разделителей
+Sneak while the block ahead is still missing	Приседать, пока блока впереди ещё нет
+Solid colour, two-colour gradient or rainbow	Один цвет, двухцветный градиент или радуга
+Stop recording without clearing	Остановить запись без очистки
+Strike reach — the smash fires the moment the target's hitbox is this close. Keep near vanilla melee reach for anti-cheat safety.	Дистанция удара — удар срабатывает, когда хитбокс цели так близко. Держите около ванильной ближней дистанции ради анти-чита.
+Switches to the next loadout (and applies it)	Переключается на следующий набор (и применяет его)
+TNT, creepers, firework blasts	ТНТ, криперы, взрывы фейерверков
+TUNNEL mode profile width.	Ширина профиля режима TUNNEL.
+Ticks between buy and confirm clicks	Тики между кликами покупки и подтверждения
+Ticks between each phase (swap → hit → slam/switchback). 1 = fastest (50ms). 2+ is safer vs anti-cheat.	Тики между фазами (смена → удар → слэм/возврат). 1 = самый быстрый (50 мс). 2+ безопаснее против анти-чита.
+Ticks between each phase. 1 = fastest (50ms). 2+ is safer vs anti-cheat.	Тики между фазами. 1 = самый быстрый (50 мс). 2+ безопаснее против анти-чита.
+Ticks between page commands	Тики между командами страниц
+Ticks between swapping to glowstone and clicking the anchor.	Тики между сменой на светокамень и кликом по якорю.
+Ticks between swapping to the explode slot and detonating.	Тики между сменой на слот подрыва и подрывом.
+Ticks between the axe hit and the mace smash.	Тики между ударом топором и ударом булавы.
+Ticks to hold the non-spear item between lunges. Lets the server-side attack-charge clock climb so the next STAB passes the MINIMUM_ATTACK_CHARGE gate. 5+ is safe; too low and lunges get dropped.	Тики удержания не-копья между выпадами. Серверный таймер заряда атаки растёт, и следующий STAB проходит порог MINIMUM_ATTACK_CHARGE. 5+ безопасно; слишком мало — выпады теряются.
+Ticks to wait after a cycle before auto-retriggering on a still-blocking enemy.	Тики ожидания после цикла до автоповтора по всё ещё блокирующему врагу.
+Ticks to wait after a full cycle before re-targeting.	Тики ожидания после полного цикла до нового выбора цели.
+Ticks to wait after a smash before re-arming.	Тики ожидания после удара до повторной подготовки.
+Ticks to wait after detonate 1 before placing anchor 2 (waits out the enemy's 10-tick i-frames).	Тики ожидания после 1-го подрыва до установки 2-го якоря (пережидает 10-тиковый i-frame врага).
+Ticks to wait after detonate 2 before switching back.	Тики ожидания после 2-го подрыва до возврата.
+Ticks to wait after the final hit before switching back. Lets the hit register while the axe/mace is still held.	Тики ожидания после финального удара до возврата. Удар регистрируется, пока топор/булава ещё в руке.
+Ticks to wait before swapping the hotbar slot.	Тики ожидания перед сменой слота хотбара.
+Ticks to wait between actions (deposits and re-opens) so the server's slot-sync keeps up.	Тики ожидания между действиями (депозит и повторное открытие), чтобы синхронизация слотов успевала.
+Ticks to wait between shift-clicks (keep the server's slot-sync happy).	Тики ожидания между shift-кликами (для синхронизации слотов сервера).
+Upper limit of drawn blocks	Верхний предел отрисовываемых блоков
+Upper limit of new warning cards per second	Верхний предел новых карточек предупреждений в секунду
+Use a distinct chime for critical events	Отдельный звук для критических событий
+Wait time before next backtrack in ms	Время ожидания до следующего бэктрека, мс
+Warn when the nearest fuse is this many ticks away (0 = off)	Предупреждать, когда до ближайшего фитиля столько тиков (0 = выкл.)
+Water, lava, weather, ambience	Вода, лава, погода, окружение
+Where a player walks, draw a line on the ground that fades out instead of a cube	Там, где идёт игрок, рисовать затухающую линию на земле вместо куба
+Where deals are reported	Куда сообщать о выгодных лотах
+Whether the Items list is a whitelist (sell only these) or a blacklist (sell everything else).	Список предметов — белый (продавать только их) или чёрный (продавать всё остальное).
+Which commands are recognised in cooldown messages	Какие команды распознаются в сообщениях о кулдауне
+Which event families are watched; Custom keeps your own category toggles	Какие семейства событий отслеживаются; Custom сохраняет ваши переключатели категорий
+Which loadout Save Key writes to and Load Key applies	В какой набор пишет клавиша сохранения и какой применяет клавиша загрузки
+Which preset name to show in the scoreboard sidebar instead of your username.	Какой пресет-ник показывать в сайдбаре скорборда вместо вашего ника.
+Which preset skin to use when protection is active.	Какой пресет-скин использовать при активной защите.
+World marker shape: the small cube from the reference, a block outline, or both	Форма маркера мира: маленький куб, контур блока или оба

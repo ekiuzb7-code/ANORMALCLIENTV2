@@ -59,7 +59,13 @@ public abstract class CameraMixin {
                 float yaw = freeLook.getLookYaw();
                 float pitch = freeLook.getLookPitch();
 
-                Vec3d eye = focusedEntity != null ? focusedEntity.getEyePos() : mc.player.getEyePos();
+                // Interpolated eye position. getEyePos() is the tick-quantised position, so the
+                // camera jumped 20 times per second while the body and the world were drawn with
+                // per-frame interpolation - that mismatch is the trailing "ghost" seen while
+                // moving. Rendering interpolation is exactly what the vanilla camera uses too.
+                Entity focused = focusedEntity != null ? focusedEntity : mc.player;
+                Vec3d base = focused.getLerpedPos(tickProgress);
+                Vec3d eye = base.add(0.0, focused.getStandingEyeHeight(), 0.0);
 
                 // Standard Minecraft look vector for (yaw, pitch).
                 double yawRad = Math.toRadians(yaw);
@@ -70,8 +76,26 @@ public abstract class CameraMixin {
                 double lz = Math.cos(yawRad) * cosP;
 
                 // Behind the player for back view, in front for the inverted view.
-                double dist = inverseView ? 4.0 : -4.0;
-                Vec3d camPos = eye.add(lx * dist, ly * dist, lz * dist);
+                double dir = inverseView ? 1.0 : -1.0;
+                double want = 4.0;
+                Vec3d camPos = eye.add(lx * want * dir, ly * want * dir, lz * want * dir);
+
+                // Same wall clipping vanilla applies to its own third-person camera. Without it
+                // the camera slipped inside terrain while walking next to a wall, which is what
+                // made the view smear and flicker.
+                try {
+                    World world = mc.world;
+                    if (world != null) {
+                        net.minecraft.util.hit.HitResult hit = world.raycast(
+                                new net.minecraft.world.RaycastContext(eye, camPos,
+                                        net.minecraft.world.RaycastContext.ShapeType.COLLIDER,
+                                        net.minecraft.world.RaycastContext.FluidHandling.NONE, focused));
+                        if (hit != null && hit.getType() != net.minecraft.util.hit.HitResult.Type.MISS) {
+                            camPos = hit.getPos().add(-lx * dir * 0.25, -ly * dir * 0.25, -lz * dir * 0.25);
+                        }
+                    }
+                } catch (Throwable ignored) {
+                }
 
                 setPos(camPos.x, camPos.y, camPos.z);
                 setRotation(yaw, pitch);

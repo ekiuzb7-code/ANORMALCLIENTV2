@@ -20,6 +20,9 @@ import net.minecraft.client.gui.DrawContext;
  */
 public class CustomCrosshair extends Module {
 
+    // ---- ClickGUI preview ----
+    public final BooleanSetting preview = new BooleanSetting("Preview", "Show a live crosshair preview window in the ClickGUI", false);
+
     // ---- Shape ----
     public final ModeSetting shape = new ModeSetting("Shape", "Crosshair shape", "Cross",
             "Cross", "X", "Dot", "Circle", "Square", "Diamond", "Triangle", "Arrow", "Cross + Dot", "T-Shape");
@@ -65,6 +68,7 @@ public class CustomCrosshair extends Module {
 
     public CustomCrosshair() {
         super("CustomCrosshair", "Replaces the vanilla crosshair with a fully customisable one", Category.RENDER);
+        addSetting(preview);
         addSetting(shape);
         addSetting(size);
         addSetting(thickness);
@@ -131,9 +135,25 @@ public class CustomCrosshair extends Module {
         int cx = (int) (sw / 2.0 + offsetX.getValue());
         int cy = (int) (sh / 2.0 + offsetY.getValue());
 
-        int base = currentColor();
-        int out = outlineColor.getValue();
+        drawShape(context, cx, cy, sc, currentColor(), outlineColor.getValue());
+    }
 
+    /**
+     * Draws the crosshair at an arbitrary point with the current settings.
+     *
+     * <p>Used by the ClickGUI preview window, so the shape can be judged while the game is paused
+     * behind the GUI instead of leaving the client to look at the real crosshair.</p>
+     */
+    public void renderPreview(DrawContext context, int cx, int cy) {
+        if (context == null) return;
+        int base = rainbow.isEnabled()
+                ? ColorUtils.rainbow((int) (System.currentTimeMillis() / (long) (110 - rainbowSpeed.getValue() * 10)), 0.8f, 1.0f)
+                : color.getValue();
+        base = (base & 0x00FFFFFF) | ((opacity.getValue().intValue() & 0xFF) << 24);
+        drawShape(context, cx, cy, scale.getValue(), base, outlineColor.getValue());
+    }
+
+    private void drawShape(DrawContext context, int cx, int cy, double sc, int base, int out) {
         String mode = shape.getValue();
 
         if (mode.equals("Dot")) {

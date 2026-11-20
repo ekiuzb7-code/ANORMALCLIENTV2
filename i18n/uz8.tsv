@@ -1,0 +1,108 @@
+Quantize rotations to mouse sensitivity (bypasses anticheats)	Rotatsiyalarni sichqoncha sezgirligiga moslashtiradi (anticheat'ni chetlab o'tadi)
+RTP Timeout (s)	RTP kutish vaqti (s)
+Radar diameter	Radar diametri
+Radar range in blocks	Radar masofasi (blok)
+Radial Menu	Radial menyu
+Radial quick-chat menu with three slots (kuro port)	Uch joyli radial tez-chat menyu (kuro port)
+Rainbow cycle speed	Kamalak aylanish tezligi
+Rainbow cycling speed	Kamalak aylanish tezligi
+Ramp the speed up over time	Tezlikni vaqt bo'yicha oshiradi
+Random delay jitter	Tasodifiy kechikish tebranishi
+Random extra delay	Tasodifiy qo'shimcha kechikish
+Random extra delay ticks	Tasodifiy qo'shimcha kechikish tiklar
+Random extra reaction ticks	Tasodifiy qo'shimcha reaksiya tiklar
+Random extra ticks (0 = none)	Tasodifiy qo'shimcha tiklar (0 = yo'q)
+Randomise	Tasodifiy qilish
+Randomized pacing: each phase fires at or before its configured delay — usually on time, sometimes a beat quicker, never longer than the set delay.	Tasodifiy temp: har bosqich belgilangan kechikishda yoki undan oldin ishlaydi — odatda o'z vaqtida, ba'zan bir oz tezroq, hech qachon kechikishdan uzoq emas.
+Range Rings	Masofa halqalari
+Range lower bound	Masofa pastki chegarasi
+Range upper bound	Masofa yuqori chegarasi
+Rank Color	Daraja rangi
+Rank Style	Daraja uslubi
+Rates loaded chunks for player bases and shows the worst ones (kuro port)	Yuklangan chunklarni o'yinchi bazalari uchun baholaydi va eng yomonlarini ko'rsatadi (kuro port)
+Re-cast if nothing bites for this long	Shuncha vaqt tishlamasa qayta tashlaydi
+Re-sprint right after a hit	Zarbadan keyin darhol qayta yuguradi
+Reach Circle	Masofa doirasi
+Reach while riding	Minnish paytida masofa
+React to nearby spawners appearing	Yaqin atrofda spawner paydo bo'lishiga reaksiya qiladi
+Reaction	Reaksiya
+Reaction Delay	Reaksiya kechikishi
+Read the column below the slice	Kesim ostidagi ustunni o'qiydi
+Readout colour	Ko'rsatkich rangi
+Real mode hides blocks via mixin, highlights ores through walls	Real rejimi bloklarni mixin bilan yashiradi, rudalarni devor orqasidan ajratadi
+Real-world time as a HUD plate	Real vaqtni HUD taxtasi sifatida
+Records keys and camera turns into a macro	Klavishalar va kamera burilishlarini makroga yozadi
+Redstone Ore	Redstone rudasi
+Redstone blocks needed to flag	Belgilash uchun kerakli redstone bloklari
+Redstone marker	Redstone belgisi
+Reduce walk speed on the surface	Yer usti yurish tezligini kamaytiradi
+Reduces knockback (kuro port)	Tepki kuchini kamaytiradi (kuro port)
+Refill below this count	Shu sondan pastda to'ldiradi
+Region Alert	Mintaqa signali
+Release packets immediately when taking damage	Zarar olganda paketlarni darhol qo'yib yuboradi
+Relic shape	Relik shakli
+Relic size	Relik o'lchami
+Reload On Enable	Yoqilganda qayta yuklash
+Remember Position	Pozitsiyani eslab qolish
+Remove Existing	Mavjudlarini olib tashlash
+Remove crystals even when the held item deals no damage	Qo'ldagi buyum zarar yetkazmasa ham kristallarni olib tashlaydi
+Remove trap entities already around you on enable	Yoqilganda atrofingizdagi trap entitylarni olib tashlaydi
+Removes the 4-tick placement cooldown — places a block the instant your crosshair moves to a new block/face. Fast bridging without gaps.	4 tiklik qo'yish cooldown'ini olib tashlaydi — nishon yangi blok/yuzga o'tishi bilan blok qo'yiladi. Bo'shliqsiz tez ko'prik.
+Removes the delay between breaking two blocks (kuro port)	Ikki blok sindirish orasidagi kechikishni olib tashlaydi (kuro port)
+Removes the jump cooldown (kuro port)	Sakrash cooldown'ini olib tashlaydi (kuro port)
+Removes the slowdown while eating, drinking or blocking (kuro port)	Ovqatlanish, ichish yoki bloklash paytidagi sekinlashuvni olib tashlaydi (kuro port)
+Render Radius	Chizish radiusi
+Render backtracked enemy hitbox	Kechiktirilgan dushman hitbox'ini chizadi
+Render backtracked position	Kechiktirilgan pozitsiyani chizadi
+Render distance while reloading	Qayta yuklashda chizish masofasi
+Render on own body in third person	Uchinchi shaxsda o'z tanasida chizadi
+Render style	Chizish uslubi
+Reopens the GUI at the section and module you closed it on	GUI'ni yopgan bo'lim va modulda qayta ochadi
+Replaces the sky with a flat colour (kuro port)	Osmonni tekis rang bilan almashtiradi (kuro port)
+Replaces the sword in your first-person hand with a knife (kuro port)	Birinchi shaxs qo'lingizdagi qilichni pichoqqa almashtiradi (kuro port)
+Replaces your own name with a fake name in all drawn text (kuro port, client-side)	Barcha chizilgan matnda ismingizni soxta nom bilan almashtiradi (kuro port, klient tomonda)
+Require Air	Havo talab qilish
+Require Hold	Ushlash talab qilish
+Require LOS	Ko'rish chizig'i talab
+Require Lunge Enchant	Lunge sehri talab
+Require Pearl	Pearl talab
+Require Weapon	Qurol talab
+Require line-of-sight from player to enemy.	O'yinchidan dushmanga ko'rish chizig'i bo'lishini talab qiladi.
+Reset Y	Y ni tiklash
+Resets sprint after each hit (kuro port)	Har zarbadan keyin sprintni qayta tiklaydi (kuro port)
+Resolve UUID	UUID aniqlash
+Respect Cooldown	Cooldown'ga rioya
+Restore the original hotbar slot after a break completes.	Sindirish tugagach asl hotbar joyini tiklaydi.
+Restore the previous slot when the target stops blocking	Nishon bloklashni to'xtatganda oldingi joyni tiklaydi
+Restore your original hotbar slot after the axe hit.	Bolta zarbasidan keyin asl hotbar joyingizni tiklaydi.
+Restore your original hotbar slot after the double-pop cycle.	Ikki marta pop siklidan keyin asl hotbar joyingizni tiklaydi.
+Restores motion after an attack (kuro port)	Zarbadan keyin harakatni tiklaydi (kuro port)
+Return the mace to its original place and re-select your previous hotbar slot after the smash.	Smashdan keyin mace'ni asl joyiga qaytaradi va oldingi hotbar joyini tanlaydi.
+Return to the old hotbar slot	Eski hotbar joyiga qaytish
+Return to the old slot	Eski joyga qaytish
+Return to the previous slot	Oldingi joyga qaytish
+Return to the previous slot after the hit	Zarbadan keyin oldingi joyga qaytish
+Return to the previous slot after the lunge	Lunge'dan keyin oldingi joyga qaytish
+Ride speed in blocks per tick	Minnish tezligi (blok/tik)
+Right	O'ng
+Right Max CPS	O'ng maks. CPS
+Right Min CPS	O'ng min. CPS
+Right button mode	O'ng tugma rejimi
+Right-click cooldown while holding a crystal (vanilla is 4)	Kristal ushlaganda o'ng klik cooldown'i (vanilla 4)
+Rim	Chekka
+Ring colour	Halqa rangi
+Ring colour source	Halqa rangi manbasi
+Ring lifetime (seconds)	Halqa umri (sekund)
+Ring radius in blocks	Halqa radiusi (blok)
+Ring style	Halqa uslubi
+Riptide launch multiplier	Riptide uchirish ko'paytiruvchisi
+Roll	Roll
+Rotate with your yaw	Yaw'ingiz bilan buradi
+Rotation speed in degrees per second	Burilish tezligi (gradus/sekund)
+Rough box XZ size	Taxminiy ramka XZ o'lchami
+Rough box Y size	Taxminiy ramka Y o'lchami
+Rounded	Yumaloq
+Rounded row corners	Qator burchaklari yumaloq
+Row Height	Qator balandligi
+Row or column	Qator yoki ustun
+RtpBaseFinder	RtpBaseFinder

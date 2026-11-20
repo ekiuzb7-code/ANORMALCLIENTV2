@@ -4,6 +4,7 @@ import com.anormal.client.module.impl.legit.MusicPlayer;
 import com.anormal.client.music.MusicEngine;
 import com.anormal.client.music.MusicLibrary;
 import com.anormal.client.music.MusicTrack;
+import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -59,6 +60,10 @@ public class MusicPlayerScreen extends Screen {
     private int volX, volY, volW, volH;
     private int listX, listY, listW, listH;
     private int closeX, closeY, closeW;
+    private int progX, progY, progW, progH;
+
+    /** True while the cursor is held on a slider - the drag handler keeps updating it. */
+    private boolean draggingScale, draggingVol;
 
     public MusicPlayerScreen(MusicPlayer module) {
         super(Text.literal("Music Player"));
@@ -116,6 +121,12 @@ public class MusicPlayerScreen extends Screen {
         closeX = px + PANEL_W - 16 - closeW;
         closeY = py + PANEL_H - 30;
 
+        // Seek bar under the now-playing line.
+        progX = px + 16;
+        progY = py + 41;
+        progW = PANEL_W - 32;
+        progH = 4;
+
         pathField = new TextField(lastPath, "paste a file or folder path, then Enter", 512);
         // Without focus the field never receives key events, which is why typing into it did
         // nothing at all.
@@ -140,13 +151,34 @@ public class MusicPlayerScreen extends Screen {
             if (alpha <= 0) break;
             ctx.fill(px + 1, py + 1 + i, px + PANEL_W - 1, py + 2 + i, (alpha << 24) | 0xFFFFFF);
         }
+        // Header: accent glyph, title and an accent hairline under it.
+        ctx.drawText(textRenderer, "\u266a", px + 16, py + 7, ACCENT, false);
+        ctx.drawText(textRenderer, "Music Player", px + 26, py + 7, ACCENT, false);
         ctx.fill(px + 1, py + 22, px + PANEL_W - 1, py + 23, 0x40FFFFFF);
-        ctx.drawText(textRenderer, "Music Player", px + 16, py + 7, ACCENT, false);
-        ctx.fill(px + 1, py + 22, px + PANEL_W - 1, py + 23, 0x40FFFFFF);
+        ctx.fill(px + 16, py + 22, px + 28 + textRenderer.getWidth("Music Player"), py + 23, ACCENT);
 
         MusicTrack current = lib.current();
         String now = current == null ? "Nothing playing" : current.title() + "  -  " + current.artist();
-        ctx.drawText(textRenderer, trim(now, PANEL_W - 32), px + 16, py + 29, TEXT, false);
+        ctx.drawText(textRenderer, trim(now, PANEL_W - 132), px + 16, py + 29, TEXT, false);
+
+        // Seek bar: rounded track, accent fill with a knob, times on the right.
+        long durMs = MusicEngine.get().durationMs();
+        long posMs = MusicEngine.get().positionMs();
+        float progRatio = durMs > 0 ? Math.min(1f, posMs / (float) durMs) : 0f;
+        RenderUtils.fillRounded(ctx, progX, progY, progW, progH, 2, 0xFF23232B);
+        int progFill = (int) (progW * progRatio);
+        if (progFill > 0) {
+            RenderUtils.fillRounded(ctx, progX, progY, Math.max(2, progFill), progH,
+                    Math.min(2, progFill / 2), ACCENT);
+            ctx.fill(progX, progY + progH, progX + progFill, progY + progH + 2, 0x335AA9FF);
+        }
+        int progKnob = progX + progFill;
+        ctx.fill(progKnob - 1, progY - 2, progKnob + 1, progY + progH + 2, ACCENT);
+        if (durMs > 0) {
+            String times = fmt(posMs) + " / " + fmt(durMs);
+            ctx.drawText(textRenderer, times,
+                    px + PANEL_W - 16 - textRenderer.getWidth(times), py + 29, TEXT_DIM, false);
+        }
 
         drawButton(ctx, filesX, filesY, filesW, addH, "Add Files", false,
                 inRect(mouseX, mouseY, filesX, filesY, filesW, addH));
@@ -173,13 +205,10 @@ public class MusicPlayerScreen extends Screen {
 
         // Scale row, on its own line so the label never collides with the buttons.
         float cardScale = module.scale.getValue().floatValue();
-        ctx.drawText(textRenderer, "SCALE", px + 16, scaleY - 2, TEXT_DIM, false);
-        ctx.fill(scaleX, scaleY, scaleX + scaleW, scaleY + scaleH, 0xFF2A2A32);
         double ratio = (cardScale - module.scale.getMin()) / (module.scale.getMax() - module.scale.getMin());
-        ctx.fill(scaleX, scaleY, scaleX + (int) (scaleW * ratio), scaleY + scaleH, ACCENT);
-        int knob = scaleX + (int) (scaleW * ratio);
-        ctx.fill(knob - 1, scaleY - 2, knob + 1, scaleY + scaleH + 2, 0xFFFFFFFF);
+        drawSlider(ctx, scaleX, scaleY, scaleW, scaleH, ratio);
         String scaleText = String.format(Locale.ROOT, "%.2f", cardScale);
+        ctx.drawText(textRenderer, "SCALE", px + 16, scaleY - 2, TEXT_DIM, false);
         ctx.drawText(textRenderer, scaleText, px + PANEL_W - 16 - textRenderer.getWidth(scaleText),
                 scaleY - 2, TEXT_DIM, false);
 
@@ -200,15 +229,32 @@ public class MusicPlayerScreen extends Screen {
             boolean playing = index == lib.index();
 
             if (playing) {
-                ctx.fill(listX, rowY, listX + listW, rowY + rowH, 0x335AA9FF);
+                RenderUtils.fillRounded(ctx, listX, rowY, listW, rowH - 1, 3, 0x335AA9FF);
+                ctx.fill(listX + 1, rowY + 2, listX + 3, rowY + rowH - 3, ACCENT);
             } else if (hovered) {
-                ctx.fill(listX, rowY, listX + listW, rowY + rowH, 0x18FFFFFF);
+                RenderUtils.fillRounded(ctx, listX, rowY, listW, rowH - 1, 3, 0x22FFFFFF);
+            } else if (i % 2 == 0) {
+                ctx.fill(listX, rowY, listX + listW, rowY + rowH - 1, 0x0CFFFFFF);
             }
 
             MusicTrack track = tracks.get(index);
-            String label = (index + 1) + ". " + track.title() + "  -  " + track.artist();
-            ctx.drawText(textRenderer, trim(label, listW - 12), listX + 4, rowY + 4,
+            String num = (index + 1) + ".";
+            ctx.drawText(textRenderer, num, listX + 6, rowY + 4, TEXT_DIM, false);
+            int labelX = listX + 8 + textRenderer.getWidth(num);
+            String label = track.title() + "  -  " + track.artist();
+            ctx.drawText(textRenderer, trim(label, listX + listW - 30 - labelX), labelX, rowY + 4,
                     playing ? ACCENT : TEXT, false);
+
+            // Animated equalizer on the row that is playing right now.
+            if (playing) {
+                long t = System.currentTimeMillis();
+                for (int b = 0; b < 3; b++) {
+                    double h = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t / 150.0 + b * 1.9));
+                    int bh = Math.max(1, (int) Math.round(8 * h));
+                    int bx = listX + listW - 16 + b * 4;
+                    ctx.fill(bx, rowY + 12 - bh, bx + 2, rowY + 12, ACCENT);
+                }
+            }
         }
 
         if (tracks.isEmpty()) {
@@ -231,8 +277,7 @@ public class MusicPlayerScreen extends Screen {
 
         // Volume.
         float v = module.volume.getValue().floatValue();
-        ctx.fill(volX, volY, volX + volW, volY + volH, 0xFF2A2A32);
-        ctx.fill(volX, volY, volX + (int) (volW * v), volY + volH, ACCENT);
+        drawSlider(ctx, volX, volY, volW, volH, v);
         ctx.drawText(textRenderer, "Vol " + (int) (v * 100) + "%", volX, volY - 10, TEXT_DIM, false);
 
         if (!status.isEmpty()) {
@@ -249,11 +294,35 @@ public class MusicPlayerScreen extends Screen {
 
     private void drawButton(DrawContext ctx, int x, int y, int w, int h, String label,
                             boolean active, boolean hovered) {
-        ctx.fill(x, y, x + w, y + h, active ? ACCENT : (hovered ? BUTTON_HOVER : BUTTON));
-        ctx.fill(x, y, x + w, y + 1, BORDER);
-        ctx.fill(x, y + h - 1, x + w, y + h, BORDER);
+        int bg = active ? ACCENT : (hovered ? BUTTON_HOVER : BUTTON);
+        RenderUtils.fillRounded(ctx, x, y, w, h, 4, bg);
+        if (active) {
+            ctx.fill(x + 4, y + 1, x + w - 4, y + 2, 0x66FFFFFF);
+        } else {
+            ctx.fill(x + 4, y, x + w - 4, y + 1, hovered ? 0x3AFFFFFF : BORDER);
+            ctx.fill(x + 4, y + h - 1, x + w - 4, y + h, 0xFF1A1A20);
+        }
         ctx.drawText(textRenderer, label, x + (w - textRenderer.getWidth(label)) / 2,
-                y + (h - 8) / 2, active ? 0xFF0E0E12 : TEXT, false);
+                y + (h - 8) / 2, active ? 0xFF0E0E12 : (hovered ? 0xFFFFFFFF : TEXT), false);
+    }
+
+    /** Rounded slider with an accent fill, a glow and a knob; {@code ratio} is 0..1. */
+    private void drawSlider(DrawContext ctx, int x, int y, int w, int h, double ratio) {
+        ratio = Math.max(0, Math.min(1, ratio));
+        RenderUtils.fillRounded(ctx, x, y, w, h, Math.min(3, h / 2), 0xFF23232B);
+        int fill = (int) (w * ratio);
+        if (fill > 0) {
+            RenderUtils.fillRounded(ctx, x, y, Math.max(2, fill), h, Math.min(3, h / 2), ACCENT);
+            ctx.fill(x, y + h, x + fill, y + h + 2, 0x335AA9FF);
+        }
+        int knob = x + fill;
+        ctx.fill(knob - 1, y - 2, knob + 1, y + h + 2, ACCENT);
+        ctx.fill(knob, y - 1, knob + 1, y + h + 1, 0xFFFFFFFF);
+    }
+
+    private static String fmt(long ms) {
+        long total = Math.max(0, ms) / 1000;
+        return String.format(Locale.ROOT, "%d:%02d", total / 60, total % 60);
     }
 
     private static boolean inRect(int mx, int my, int x, int y, int w, int h) {
@@ -281,6 +350,60 @@ public class MusicPlayerScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         return handleClick(mouseX, mouseY, button,
                 new Click(mouseX, mouseY, new MouseInput(button, 0)));
+    }
+
+    // ------------------------------------------------------------------
+    //  Slider dragging
+    // ------------------------------------------------------------------
+
+    /**
+     * Dragging used to be handled only on press, so the sliders jumped once and then stopped
+     * following the cursor. Both signatures are implemented because the client dispatches the
+     * event-based one while some input paths still call the legacy one.
+     */
+    public boolean mouseDragged(Click click, double offsetX, double offsetY) {
+        return handleDrag(click.x(), click.y());
+    }
+
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        return handleDrag(mouseX, mouseY);
+    }
+
+    private boolean handleDrag(double rawX, double rawY) {
+        double mouseX = rawX > width ? rawX / client.getWindow().getScaleFactor() : rawX;
+        if (draggingScale) {
+            applyScale(mouseX);
+            return true;
+        }
+        if (draggingVol) {
+            applyVolume(mouseX);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean mouseReleased(Click click) {
+        draggingScale = false;
+        draggingVol = false;
+        return false;
+    }
+
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        draggingScale = false;
+        draggingVol = false;
+        return false;
+    }
+
+    private void applyScale(double mouseX) {
+        double r = Math.max(0, Math.min(1, (mouseX - scaleX) / (double) scaleW));
+        module.scale.setValue(module.scale.getMin()
+                + r * (module.scale.getMax() - module.scale.getMin()));
+    }
+
+    private void applyVolume(double mouseX) {
+        double ratio = Math.max(0, Math.min(1, (mouseX - volX) / (double) volW));
+        module.volume.setValue(ratio);
+        MusicEngine.get().setVolume((float) ratio);
     }
 
     private boolean handleClick(double rawX, double rawY, int button, Click click) {
@@ -320,10 +443,17 @@ public class MusicPlayerScreen extends Screen {
             lib.next(true);
             return true;
         }
+        if (inRect(mx, my, progX, progY - 4, progW, progH + 8)) {
+            long dur = MusicEngine.get().durationMs();
+            if (dur > 0) {
+                double r = Math.max(0, Math.min(1, (mouseX - progX) / (double) progW));
+                MusicEngine.get().seek((long) (dur * r));
+            }
+            return true;
+        }
         if (inRect(mx, my, scaleX, scaleY - 6, scaleW, scaleH + 12)) {
-            double r = Math.max(0, Math.min(1, (mouseX - scaleX) / (double) scaleW));
-            module.scale.setValue(module.scale.getMin()
-                    + r * (module.scale.getMax() - module.scale.getMin()));
+            draggingScale = true;
+            applyScale(mouseX);
             return true;
         }
         if (inRect(mx, my, shuffleX, py + PANEL_H - 32, shuffleW, 16)) {
@@ -335,9 +465,8 @@ public class MusicPlayerScreen extends Screen {
             return true;
         }
         if (inRect(mx, my, volX, volY - 6, volW, volH + 12)) {
-            double ratio = Math.max(0, Math.min(1, (mouseX - volX) / (double) volW));
-            module.volume.setValue(ratio);
-            MusicEngine.get().setVolume((float) ratio);
+            draggingVol = true;
+            applyVolume(mouseX);
             return true;
         }
         if (inRect(mx, my, closeX, closeY, closeW, 18)) {

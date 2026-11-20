@@ -1,5 +1,6 @@
 package com.anormal.client.module.impl.legit;
 
+import com.anormal.client.i18n.I18n;
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
 import com.anormal.client.music.AlbumArt;
@@ -10,6 +11,7 @@ import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.text.Text;
@@ -18,9 +20,13 @@ import net.minecraft.util.Identifier;
 /**
  * A now-playing card on the HUD, with working transport controls.
  *
- * <p>The whole card is drawn inside one matrix push scaled by the {@code Scale} setting, so every
- * offset can stay in a fixed base coordinate system - hit testing converts the mouse back into that
- * space instead of duplicating the layout maths.</p>
+ * <p>The card is laid out in a fixed base coordinate system and every position goes through
+ * {@link #sx(int)} / {@link #sy(int)} / {@link #sw(int)}, so the {@code Scale} setting scales
+ * everything together and hit testing can convert the cursor back into base units.</p>
+ *
+ * <p>Rows are strictly stacked - header, title, artist, seek bar, time row, transport row and
+ * volume row all own their own vertical band, which is what keeps the transport buttons from
+ * crossing the volume slider and its label.</p>
  *
  * <p>Clicks are intercepted in the mouse mixin and cancelled, otherwise pressing play would also
  * swing at the block behind the card.</p>
@@ -43,10 +49,27 @@ public class MusicPlayer extends Module {
     public final ColorSetting accent = new ColorSetting("Accent", "Progress and button colour",
             ColorUtils.rgba(90, 169, 255, 255));
 
+    // ---- Layout (base units) --------------------------------------------------
     private static final int BASE_W = 268;
-    private static final int BASE_H = 92;
+    private static final int BASE_H = 116;
     private static final int ART = 64;
     private static final int CONTENT_X = 80;
+    private static final int CONTENT_R = BASE_W - 10;
+
+    // Row baselines. Every control owns one band; nothing is allowed to overlap.
+    private static final int HEADER_Y = 9;
+    private static final int TITLE_Y = 21;
+    private static final int ARTIST_Y = 33;
+    private static final int SEEK_Y = 46;
+    private static final int TIME_Y = 52;
+    private static final int TRANSPORT_Y = 68;
+    private static final int VOLUME_Y = 102;
+
+    private static final int BTN_SIZE = 20;
+    private static final int BTN_GAP = 6;
+
+    private static final int ART_X = 7;
+    private static final int ART_Y = (BASE_H - ART) / 2;
 
     private static MusicPlayer instance;
 
@@ -54,7 +77,7 @@ public class MusicPlayer extends Module {
     private int prevX, playX, nextX, btnY, btnSize;
     private int progX, progY, progW, progH;
     private int volX, volY, volW, volH;
-    private int shuffleX, shuffleY, loopX, loopY;
+    private int shuffleX, shuffleY, shuffleW, loopX, loopY, loopW;
 
     public MusicPlayer() {
         super("MusicPlayer", "Plays local audio files with a now-playing card on the HUD", Category.LEGIT);
@@ -110,140 +133,205 @@ public class MusicPlayer extends Module {
         gs = scale.getValue().floatValue();
 
         int accentColor = accent.getColor();
+        long now = System.currentTimeMillis();
+        boolean playing = MusicEngine.get().isPlaying();
+        int accentSoft = (accentColor & 0x00FFFFFF) | 0x66000000;
 
-        // Layout stays in base units; sx/sy/sw turn them into screen pixels. Drawing through a
-        // matrix was the reason the HUD editor measured the card at (0,0): fill() records the
-        // coordinates it is given, which are pre-transform, so the frame never followed posX/posY
-        // and dragging only ever moved it downwards.
-        btnSize = 14;
-        btnY = 68;
-        int center = CONTENT_X + (BASE_W - 10 - CONTENT_X) / 2;
-        prevX = center - 30;
-        playX = center - btnSize / 2;
-        nextX = center + 16;
+        // ---- Hit boxes / layout, in base units -------------------------------
+        btnSize = BTN_SIZE;
+        btnY = TRANSPORT_Y;
+        int mid = CONTENT_X + (CONTENT_R - CONTENT_X) / 2;
+        playX = mid - btnSize / 2;
+        prevX = playX - btnSize - BTN_GAP;
+        nextX = playX + btnSize + BTN_GAP;
 
         progX = CONTENT_X;
-        progY = 58;
-        progW = BASE_W - 10 - CONTENT_X;
-        progH = 3;
+        progY = SEEK_Y;
+        progW = CONTENT_R - CONTENT_X;
+        progH = 4;
 
-        volX = CONTENT_X;
-        volY = 84;
-        volW = 64;
-        volH = 3;
+        volX = CONTENT_X + 14;
+        volY = VOLUME_Y;
+        volW = CONTENT_R - volX - 24; // leave room for the percentage on the right
+        volH = 4;
 
-        shuffleX = BASE_W - 74;
-        shuffleY = 10;
-        loopX = BASE_W - 40;
-        loopY = 10;
-
-        if (background.isEnabled()) {
-            if (glassStyle.isEnabled()) {
-                // Frosted panel. The colours are fixed here instead of taken from ThemeManager:
-                // the default VAPE_V4 theme uses a 96%-opaque background and a black border, so
-                // the "glass" panel rendered as a plain dark card with no see-through at all.
-                int glassBg = 0x8C10141C;
-                int glassBorder = 0x3CFFFFFF;
-                int glassGlow = (accentColor & 0xFFFFFF) | 0x2E000000;
-                com.anormal.client.util.RenderUtils.drawGlassPanel(ctx,
-                        sx(0), sy(0), sx(BASE_W), sy(BASE_H), glassBg, glassBorder, glassGlow);
-
-                // Top sheen: stacked translucent strips fake the light falloff of glass.
-                for (int i = 0; i < 16; i++) {
-                    int alpha = 22 - i;
-                    if (alpha <= 0) break;
-                    ctx.fill(sx(1), sy(1 + i), sx(BASE_W - 1), sy(2 + i), (alpha << 24) | 0xFFFFFF);
-                }
-                // Bottom vignette for depth.
-                for (int i = 0; i < 10; i++) {
-                    int alpha = 12 - i;
-                    if (alpha <= 0) break;
-                    ctx.fill(sx(1), sy(BASE_H - 2 - i), sx(BASE_W - 1), sy(BASE_H - 1 - i), alpha << 24);
-                }
-            } else {
-                ctx.fill(sx(0), sy(0), sx(BASE_W), sy(BASE_H), 0xD0141418);
-                ctx.fill(sx(0), sy(0), sx(BASE_W), sy(1), 0xFF3A3A42);
-                ctx.fill(sx(0), sy(BASE_H - 1), sx(BASE_W), sy(BASE_H), 0xFF3A3A42);
-                ctx.fill(sx(0), sy(0), sx(1), sy(BASE_H), 0xFF3A3A42);
-                ctx.fill(sx(BASE_W - 1), sy(0), sx(BASE_W), sy(BASE_H), 0xFF3A3A42);
-            }
-        }
-
-        if (track == null) {
-            textS(ctx, Text.literal("No tracks"), CONTENT_X, 22, 0xFFFFFFFF, true);
-            textS(ctx, Text.literal("Right-click the module to add songs"), CONTENT_X, 36, 0xFF8A8A96, false);
-            return;
-        }
-
-        // Album art.
-        if (showArt.isEnabled()) {
-            Identifier art = AlbumArt.get(track);
-            if (art != null) {
-                ctx.drawTexture(RenderPipelines.GUI_TEXTURED, art,
-                        sx(8), sy(8), 0f, 0f, sw(ART), sw(ART), ART, ART);
-            } else {
-                ctx.fill(sx(8), sy(8), sx(8 + ART), sy(8 + ART), 0xFF1F1F25);
-                textS(ctx, Text.literal("\u266a"), 8 + ART / 2 - 3, 8 + ART / 2 - 4, accentColor, false);
-            }
-            ctx.fill(sx(8), sy(8), sx(8 + ART), sy(9), 0x40FFFFFF);
-        }
-
-        textS(ctx, Text.literal("now playing"), CONTENT_X, 10, 0xFF8A8A96, false);
-
-        // Title scrolls when it does not fit: a long name used to run straight out of the card.
-        int textArea = BASE_W - 10 - CONTENT_X;
-        marquee(ctx, Text.literal(track.title()).styled(st -> st.withBold(true)),
-                CONTENT_X, 22, textArea, 0xFFFFFFFF);
-
-        // Artist is clipped, not scrolled - two moving lines would be unreadable.
-        ctx.enableScissor(sx(CONTENT_X), sy(34), sx(CONTENT_X + textArea), sy(46));
-        textS(ctx, Text.literal(track.artist()), CONTENT_X, 36, 0xFFB0B0BA, false);
-        ctx.disableScissor();
-
-        // Shuffle / loop indicators (clickable).
         boolean shuf = lib.shuffle();
-        textS(ctx, Text.literal("SHUF"), shuffleX, shuffleY, shuf ? accentColor : 0xFF5A5A66, false);
         String loopLabel = switch (lib.loop()) {
             case OFF -> "LOOP";
             case ALL -> "ALL";
             case ONE -> "1";
         };
-        textS(ctx, Text.literal(loopLabel), loopX, loopY,
-                lib.loop() == MusicLibrary.Loop.OFF ? 0xFF5A5A66 : accentColor, false);
+        loopW = mc.textRenderer.getWidth(loopLabel);
+        loopX = CONTENT_R - loopW;
+        loopY = HEADER_Y;
+        shuffleW = mc.textRenderer.getWidth("SHUF");
+        shuffleX = loopX - shuffleW - 14;
+        shuffleY = HEADER_Y;
+
+        if (background.isEnabled()) {
+            int r = sw(7);
+            // Breathing accent glow behind the card: the card visibly "breathes" while music plays.
+            int pulse = playing ? 0x16 + (int) (0x1A * (0.5 + 0.5 * Math.sin(now / 280.0))) : 0x10;
+            RenderUtils.fillRoundedRaw(ctx, sx(-2), sy(-2), sw(BASE_W + 4), sw(BASE_H + 4),
+                    r + sw(2), (accentColor & 0x00FFFFFF) | (pulse << 24));
+
+            if (glassStyle.isEnabled()) {
+                // Rounded frosted glass: dark frame, see-through body, accent hairline on top.
+                RenderUtils.fillRounded(ctx, sx(0), sy(0), sw(BASE_W), sw(BASE_H), r, 0xFF2E3442);
+                RenderUtils.fillRounded(ctx, sx(1), sy(1), sw(BASE_W - 2), sw(BASE_H - 2),
+                        Math.max(0, r - sw(1)), 0xE010141C);
+
+                // Top sheen and bottom vignette fake the light falloff of glass.
+                for (int i = 0; i < 12; i++) {
+                    int alpha = 16 - i;
+                    if (alpha <= 0) break;
+                    ctx.fill(sx(3), sy(2 + i), sx(BASE_W - 3), sy(3 + i), (alpha << 24) | 0xFFFFFF);
+                }
+                for (int i = 0; i < 8; i++) {
+                    int alpha = 10 - i;
+                    if (alpha <= 0) break;
+                    ctx.fill(sx(3), sy(BASE_H - 2 - i), sx(BASE_W - 3), sy(BASE_H - 1 - i), alpha << 24);
+                }
+                ctx.fill(sx(r), sy(1), sx(BASE_W - r), sy(2), accentSoft);
+            } else {
+                RenderUtils.fillRounded(ctx, sx(0), sy(0), sw(BASE_W), sw(BASE_H), r, 0xFF3A3A42);
+                RenderUtils.fillRounded(ctx, sx(1), sy(1), sw(BASE_W - 2), sw(BASE_H - 2),
+                        Math.max(0, r - sw(1)), 0xD0141418);
+                ctx.fill(sx(r), sy(1), sx(BASE_W - r), sy(2), 0xFF5A5A66);
+            }
+        }
+
+        if (track == null) {
+            textS(ctx, Text.literal(I18n.tr("No tracks")), CONTENT_X, 26, 0xFFFFFFFF, true);
+            textS(ctx, Text.literal(I18n.tr("Right-click the module to add songs")), CONTENT_X, 42, 0xFF8A8A96, false);
+            return;
+        }
+
+        // ---- Album art (vertically centred against the control stack) --------
+        if (showArt.isEnabled()) {
+            RenderUtils.fillRounded(ctx, sx(ART_X - 1), sy(ART_Y - 1), sw(ART + 2), sw(ART + 2), sw(6), 0xFF05070B);
+            Identifier art = AlbumArt.get(track);
+            int ax = sx(ART_X), ay = sy(ART_Y), as = sw(ART);
+            if (art != null) {
+                ctx.drawTexture(RenderPipelines.GUI_TEXTURED, art, ax, ay, 0f, 0f, as, as, ART, ART);
+            } else {
+                ctx.fill(ax, ay, ax + as, ay + as, 0xFF1F1F25);
+                textS(ctx, Text.literal("\u266a"), ART_X + ART / 2 - 3, ART_Y + ART / 2 - 4, accentColor, false);
+            }
+            if (playing) {
+                ctx.fill(sx(ART_X), sy(ART_Y), sx(ART_X + ART), sy(ART_Y + 1), accentSoft);
+                ctx.fill(sx(ART_X), sy(ART_Y + ART - 1), sx(ART_X + ART), sy(ART_Y + ART), accentSoft);
+                ctx.fill(sx(ART_X), sy(ART_Y), sx(ART_X + 1), sy(ART_Y + ART), accentSoft);
+                ctx.fill(sx(ART_X + ART - 1), sy(ART_Y), sx(ART_X + ART), sy(ART_Y + ART), accentSoft);
+
+                // Equalizer bars along the bottom of the cover.
+                ctx.fill(ax, ay + as - sw(12), ax + as, ay + as, 0x99000000);
+                int bars = 5;
+                int bw = Math.max(1, sw(2));
+                for (int i = 0; i < bars; i++) {
+                    double h = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(now / 150.0 + i * 1.7));
+                    int bh = Math.max(1, (int) Math.round(sw(10) * h));
+                    int bx = ax + sw(4) + (int) (i * (as - sw(8)) / (double) bars);
+                    ctx.fill(bx, ay + as - sw(3) - bh, bx + bw, ay + as - sw(3), accentColor);
+                }
+            } else {
+                ctx.fill(ax, ay, ax + as, ay + 1, 0x40FFFFFF);
+            }
+        }
+
+        // ---- Header row: state, shuffle, loop --------------------------------
+        if (playing) {
+            int dotA = 0xAA + (int) (0x55 * (0.5 + 0.5 * Math.sin(now / 200.0)));
+            ctx.fill(sx(CONTENT_X), sy(HEADER_Y + 1), sx(CONTENT_X + 3), sy(HEADER_Y + 4),
+                    (dotA << 24) | (accentColor & 0xFFFFFF));
+        }
+        textS(ctx, Text.literal(I18n.tr("now playing")), CONTENT_X + (playing ? 7 : 0), HEADER_Y,
+                playing ? accentColor : 0xFF8A8A96, false);
+
+        textS(ctx, Text.literal("SHUF"), shuffleX, shuffleY, shuf ? accentColor : 0xFF5A5A66, false);
+        if (shuf) {
+            ctx.fill(sx(shuffleX), sy(shuffleY + 9), sx(shuffleX + mc.textRenderer.getWidth("SHUF")), sy(shuffleY + 10), accentSoft);
+        }
+        boolean loopOn = lib.loop() != MusicLibrary.Loop.OFF;
+        textS(ctx, Text.literal(loopLabel), loopX, loopY, loopOn ? accentColor : 0xFF5A5A66, false);
+        if (loopOn) {
+            ctx.fill(sx(loopX), sy(loopY + 9), sx(loopX + loopW), sy(loopY + 10), accentSoft);
+        }
+
+        // ---- Title / artist --------------------------------------------------
+        int textArea = CONTENT_R - CONTENT_X;
+        marquee(ctx, Text.literal(track.title()).styled(st -> st.withBold(true)),
+                CONTENT_X, TITLE_Y, textArea, 0xFFFFFFFF);
+
+        // Artist is clipped, not scrolled - two moving lines would be unreadable.
+        ctx.enableScissor(sx(CONTENT_X), sy(ARTIST_Y - 2), sx(CONTENT_R), sy(ARTIST_Y + 10));
+        textS(ctx, Text.literal(track.artist()), CONTENT_X, ARTIST_Y, 0xFFB0B0BA, false);
+        ctx.disableScissor();
 
         long dur = MusicEngine.get().durationMs();
         long pos = MusicEngine.get().positionMs();
         float progress = dur > 0 ? Math.min(1f, pos / (float) dur) : 0f;
 
+        // ---- Seek bar --------------------------------------------------------
         if (showProgress.isEnabled()) {
-            ctx.fill(sx(progX), sy(progY), sx(progX + progW), sy(progY + progH), 0xFF2A2A32);
+            RenderUtils.fillRounded(ctx, sx(progX), sy(progY), sw(progW), sw(progH), sw(2), 0xFF23232B);
             int filled = (int) (progW * progress);
-            ctx.fill(sx(progX), sy(progY), sx(progX + filled), sy(progY + progH), accentColor);
+            if (filled > 0) {
+                RenderUtils.fillRounded(ctx, sx(progX), sy(progY), sw(filled), sw(progH),
+                        Math.min(sw(2), Math.max(0, sw(filled) / 2)), accentColor);
+                // Lit top edge and a soft glow underneath.
+                ctx.fill(sx(progX + 1), sy(progY), sx(progX + filled - 1), sy(progY + 1), 0x40FFFFFF);
+                ctx.fill(sx(progX), sy(progY + progH), sx(progX + filled), sy(progY + progH + 2),
+                        (accentColor & 0x00FFFFFF) | 0x33000000);
+            }
             int knobX = progX + filled;
-            // Soft glow under the filled part so the bar reads as "lit" on glass.
-            ctx.fill(sx(progX), sy(progY + progH), sx(knobX), sy(progY + progH + 2),
-                    (accentColor & 0x00FFFFFF) | 0x40000000);
-            ctx.fill(sx(knobX - 1), sy(progY - 2), sx(knobX + 1), sy(progY + progH + 2), 0xFFFFFFFF);
+            ctx.fill(sx(knobX - 1), sy(progY - 2), sx(knobX + 1), sy(progY + progH + 2), accentColor);
+            ctx.fill(sx(knobX), sy(progY - 1), sx(knobX + 1), sy(progY + progH + 1), 0xFFFFFFFF);
         }
 
-        // Transport.
+        // ---- Time row (its own band, directly under the bar) ------------------
+        if (showTimes.isEnabled()) {
+            textS(ctx, Text.literal(fmt(pos)), CONTENT_X, TIME_Y, 0xFF9AA0AC, false);
+            String right = "-" + fmt(Math.max(0, dur - pos));
+            textS(ctx, Text.literal(right), CONTENT_R - mc.textRenderer.getWidth(right), TIME_Y, 0xFF9AA0AC, false);
+        }
+
+        // ---- Transport row ---------------------------------------------------
+        boolean active = MusicEngine.get().isPlaying() || MusicEngine.get().isPaused();
+        pill(ctx, prevX, false, accentColor);
+        pill(ctx, playX, active, accentColor);
+        pill(ctx, nextX, false, accentColor);
+        int iconColor = active ? 0xFF10141C : accentColor;
+
         drawPrev(ctx, prevX, btnY, accentColor);
-        if (MusicEngine.get().isPlaying()) drawPause(ctx, playX, btnY, accentColor);
-        else drawPlay(ctx, playX, btnY, accentColor);
+        if (playing) drawPause(ctx, playX, btnY, iconColor);
+        else drawPlay(ctx, playX, btnY, iconColor);
         drawNext(ctx, nextX, btnY, accentColor);
 
-        if (showTimes.isEnabled()) {
-            textS(ctx, Text.literal(fmt(pos)), CONTENT_X, btnY + 3, 0xFFB0B0BA, false);
-            String right = "-" + fmt(Math.max(0, dur - pos));
-            textS(ctx, Text.literal(right), BASE_W - 10 - mc.textRenderer.getWidth(right),
-                    btnY + 3, 0xFFB0B0BA, false);
-        }
-
+        // ---- Volume row ------------------------------------------------------
         if (showVolume.isEnabled()) {
+            // Hairline separator so the volume row reads as its own control group.
+            ctx.fill(sx(CONTENT_X), sy(VOLUME_Y - 9), sx(CONTENT_R), sy(VOLUME_Y - 8), 0x16FFFFFF);
+
             float v = volume.getValue().floatValue();
-            ctx.fill(sx(volX), sy(volY), sx(volX + volW), sy(volY + volH), 0xFF2A2A32);
-            ctx.fill(sx(volX), sy(volY), sx(volX + (int) (volW * v)), sy(volY + volH), 0xFF6A6A76);
-            textS(ctx, Text.literal("VOL"), volX + volW + 6, volY - 3, 0xFF6A6A76, false);
+            drawSpeaker(ctx, CONTENT_X, VOLUME_Y - 3, 10,
+                    v <= 0.001f ? 0xFF55555F : 0xFF9AA0AC);
+
+            RenderUtils.fillRounded(ctx, sx(volX), sy(volY), sw(volW), sw(volH), sw(2), 0xFF23232B);
+            int fv = (int) (volW * v);
+            if (fv > 0) {
+                RenderUtils.fillRounded(ctx, sx(volX), sy(volY), sw(fv), sw(volH),
+                        Math.min(sw(2), Math.max(0, sw(fv) / 2)), accentColor);
+                ctx.fill(sx(volX), sy(volY + volH), sx(volX + fv), sy(volY + volH + 2),
+                        (accentColor & 0x00FFFFFF) | 0x33000000);
+            }
+            int volKnob = volX + fv;
+            ctx.fill(sx(volKnob - 1), sy(volY - 2), sx(volKnob + 1), sy(volY + volH + 2), accentColor);
+            ctx.fill(sx(volKnob), sy(volY - 1), sx(volKnob + 1), sy(volY + volH + 1), 0xFFFFFFFF);
+
+            String pct = (int) (v * 100) + "%";
+            textS(ctx, Text.literal(pct), CONTENT_R - mc.textRenderer.getWidth(pct), VOLUME_Y - 4,
+                    v <= 0.001f ? 0xFF55555F : 0xFF9AA0AC, false);
         }
     }
 
@@ -305,37 +393,80 @@ public class MusicPlayer extends Module {
         m.popMatrix();
     }
 
-    private void drawPlay(DrawContext ctx, int bx, int by, int color) {
-        int h = btnSize;
-        for (int i = 0; i < h; i++) {
-            int half = (int) ((h / 2.0) * (i / (double) h));
-            ctx.fill(sx(bx + i), sy(by + h / 2 - half), sx(bx + i + 1), sy(by + h / 2 + half), color);
+    /** Round transport button; {@code lit} fills it with the accent colour. */
+    private void pill(DrawContext ctx, int bx, boolean lit, int accentColor) {
+        int bg = lit ? accentColor : 0x2AFFFFFF;
+        RenderUtils.fillRounded(ctx, sx(bx), sy(btnY), sw(btnSize), sw(btnSize), sw(btnSize / 2), bg);
+        if (!lit) {
+            // Faint top highlight so the unlit buttons still read as raised glass.
+            ctx.fill(sx(bx + 3), sy(btnY), sx(bx + btnSize - 3), sy(btnY + 1), 0x1AFFFFFF);
         }
+    }
+
+    /** Filled triangle glyph used by play / previous / next. */
+    private void glyphTriangle(DrawContext ctx, int bx, int by, int size, int color, boolean right) {
+        int inset = Math.max(2, Math.round(size / 5f));
+        int h = size - inset * 2;
+        int w = Math.max(2, Math.round(h * 0.82f));
+        int startX = bx + (size - w) / 2;
+        for (int i = 0; i < w; i++) {
+            double t = i / (double) Math.max(1, w - 1);
+            int half = (int) Math.round((h / 2.0) * t);
+            int column = right ? startX + i : startX + (w - 1 - i);
+            int top = by + inset + h / 2 - half;
+            int bottom = by + inset + h / 2 + half + 1;
+            ctx.fill(sx(column), sy(top), sx(column + 1), sy(bottom), color);
+        }
+    }
+
+    private void drawPlay(DrawContext ctx, int bx, int by, int color) {
+        glyphTriangle(ctx, bx, by, btnSize, color, true);
     }
 
     private void drawPause(DrawContext ctx, int bx, int by, int color) {
-        int h = btnSize;
-        ctx.fill(sx(bx + 2), sy(by), sx(bx + 5), sy(by + h), color);
-        ctx.fill(sx(bx + 8), sy(by), sx(bx + 11), sy(by + h), color);
+        int barW = Math.max(2, Math.round(btnSize / 6f));
+        int gap = Math.max(2, Math.round(btnSize / 6f));
+        int top = by + Math.max(3, btnSize / 5);
+        int bottom = by + btnSize - Math.max(3, btnSize / 5);
+        int left = bx + btnSize / 2 - (gap + barW) / 2;
+        ctx.fill(sx(left), sy(top), sx(left + barW), sy(bottom), color);
+        ctx.fill(sx(left + barW + gap), sy(top), sx(left + barW + gap + barW), sy(bottom), color);
     }
 
     private void drawPrev(DrawContext ctx, int bx, int by, int color) {
-        int h = btnSize;
-        ctx.fill(sx(bx + 1), sy(by), sx(bx + 3), sy(by + h), color);
-        for (int i = 0; i < h; i++) {
-            int half = (int) ((h / 2.0) * (i / (double) h));
-            ctx.fill(sx(bx + h - i), sy(by + h / 2 - half),
-                    sx(bx + h - i + 1), sy(by + h / 2 + half), color);
-        }
+        int inner = btnSize - 6;
+        int inset = (btnSize - inner) / 2 + 1;
+        glyphTriangle(ctx, bx + inset, by + 3, inner, color, false);
+        ctx.fill(sx(bx + inset - 2), sy(by + 4), sx(bx + inset), sy(by + btnSize - 4), color);
     }
 
     private void drawNext(DrawContext ctx, int bx, int by, int color) {
-        int h = btnSize;
-        for (int i = 0; i < h; i++) {
-            int half = (int) ((h / 2.0) * (i / (double) h));
-            ctx.fill(sx(bx + i), sy(by + h / 2 - half), sx(bx + i + 1), sy(by + h / 2 + half), color);
+        int inner = btnSize - 6;
+        int inset = (btnSize - inner) / 2 + 1;
+        glyphTriangle(ctx, bx + inset, by + 3, inner, color, true);
+        ctx.fill(sx(bx + btnSize - inset), sy(by + 4), sx(bx + btnSize - inset + 2), sy(by + btnSize - 4), color);
+    }
+
+    /** Small speaker glyph in front of the volume slider. */
+    private void drawSpeaker(DrawContext ctx, int bx, int by, int size, int color) {
+        int body = Math.max(2, Math.round(size * 0.28f));
+        int midY = by + size / 2;
+        ctx.fill(sx(bx), sy(midY - size / 4), sx(bx + body), sy(midY + size / 4), color);
+        int coneH = size / 2;
+        for (int i = 0; i <= coneH; i++) {
+            int top = midY - i;
+            int bottom = midY + i + 1;
+            ctx.fill(sx(bx + body + i), sy(Math.max(by, top)), sx(bx + body + i + 1),
+                    sy(Math.min(by + size, bottom)), color);
         }
-        ctx.fill(sx(bx + h - 2), sy(by), sx(bx + h), sy(by + h), color);
+        // Sound wave arc on the right, skipped when muted.
+        if (color != 0xFF55555F) {
+            int arcX = bx + body + coneH + 2;
+            ctx.fill(sx(arcX), sy(midY - 2), sx(arcX + 1), sy(midY - 1), color);
+            ctx.fill(sx(arcX), sy(midY + 1), sx(arcX + 1), sy(midY + 2), color);
+            ctx.fill(sx(arcX + 1), sy(midY - 2), sx(arcX + 2), sy(midY - 1), color);
+            ctx.fill(sx(arcX + 1), sy(midY + 1), sx(arcX + 2), sy(midY + 2), color);
+        }
     }
 
     private static String fmt(long ms) {
@@ -384,7 +515,7 @@ public class MusicPlayer extends Module {
             lib.next(true);
             return true;
         }
-        if (showProgress.isEnabled() && hit(bx, by, progX, progY - 3, progW, progH + 6)) {
+        if (showProgress.isEnabled() && hit(bx, by, progX, progY - 4, progW, progH + 8)) {
             long dur = MusicEngine.get().durationMs();
             if (dur > 0) {
                 double ratio = Math.max(0, Math.min(1, (bx - progX) / (double) progW));
@@ -392,17 +523,17 @@ public class MusicPlayer extends Module {
             }
             return true;
         }
-        if (showVolume.isEnabled() && hit(bx, by, volX, volY - 3, volW, volH + 6)) {
+        if (showVolume.isEnabled() && hit(bx, by, volX - 2, volY - 5, volW + 4, volH + 10)) {
             double ratio = Math.max(0, Math.min(1, (bx - volX) / (double) volW));
             volume.setValue(ratio);
             MusicEngine.get().setVolume((float) ratio);
             return true;
         }
-        if (hit(bx, by, shuffleX, shuffleY - 2, 30, 10)) {
+        if (hit(bx, by, shuffleX - 2, shuffleY - 2, shuffleW + 4, 11)) {
             lib.toggleShuffle();
             return true;
         }
-        if (hit(bx, by, loopX, loopY - 2, 30, 10)) {
+        if (hit(bx, by, loopX - 2, loopY - 2, loopW + 4, 11)) {
             lib.cycleLoop();
             return true;
         }

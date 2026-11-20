@@ -8,6 +8,7 @@ import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.setting.Setting;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
 /**
@@ -30,24 +31,33 @@ public class Profiles extends Module {
         addSetting(applyPreset);
     }
 
+    /** The screen we came from (ClickGUI), restored when the browser is closed. */
+    private Screen previousScreen;
+
     @Override
     public void onEnable() {
-        if (mc.currentScreen == null) {
-            mc.setScreen(new ProfilesScreen(this));
+        openScreen();
+        // Entry point only: never stay enabled (no arraylist entry, no notification spam, and the
+        // next click opens the browser again instead of merely switching the module off).
+        clearEnabledState();
+    }
+
+    @Override
+    public void toggle() {
+        if (mc.currentScreen instanceof ProfilesScreen) {
+            closeScreen();
+            return;
         }
+        openScreen();
     }
 
     @Override
     public boolean onKeyPressed() {
         if (mc.currentScreen instanceof ProfilesScreen) {
-            mc.setScreen(null);
+            closeScreen();
             return true;
         }
-        if (!isEnabled()) {
-            setEnabled(true);
-            return true;
-        }
-        mc.setScreen(new ProfilesScreen(this));
+        openScreen();
         return true;
     }
 
@@ -59,9 +69,22 @@ public class Profiles extends Module {
         }
     }
 
-    /** Opens the browser without going through the module state. */
+    /**
+     * Opens the browser without going through the module state.
+     *
+     * <p>The old version only opened it when no screen was open, which meant clicking Profiles in
+     * the ClickGUI (where the ClickGUI itself is the current screen) did nothing at all.</p>
+     */
     public void openScreen() {
-        if (mc.currentScreen == null) mc.setScreen(new ProfilesScreen(this));
+        if (mc.currentScreen instanceof ProfilesScreen) return;
+        previousScreen = mc.currentScreen;
+        mc.setScreen(new ProfilesScreen(this));
+    }
+
+    /** Closes the browser, returning to whichever screen opened it. */
+    public void closeScreen() {
+        mc.setScreen(previousScreen);
+        previousScreen = null;
     }
 
     // ------------------------------------------------------------------
@@ -110,7 +133,7 @@ public class Profiles extends Module {
         bool("AutoClicker", "Hold to Click", true);
         bool("AutoClicker", "Break Blocks", true);
         on("WTap");
-        num("WTap", "Chance", 30.0);
+        num("WTap", "V1 Reset Ticks", 1.0);
         on("JumpReset");
         num("JumpReset", "Chance", 60.0);
         on("TargetInfo");
@@ -138,7 +161,7 @@ public class Profiles extends Module {
         num("AutoClicker", "Max CPS", 13.0);
         bool("AutoClicker", "Hold to Click", true);
         on("WTap");
-        num("WTap", "Chance", 50.0);
+        num("WTap", "V1 Reset Ticks", 1.0);
         on("JumpReset");
         num("JumpReset", "Chance", 70.0);
         on("Velocity");
@@ -163,7 +186,9 @@ public class Profiles extends Module {
         num("AutoClicker", "Max CPS", 12.0);
         bool("AutoClicker", "Hold to Click", true);
         on("BackTrack");
-        num("BackTrack", "Latency", 150.0);
+        // The module exposes a delay range, not a single "Latency" value.
+        num("BackTrack", "Min Latency", 150.0);
+        num("BackTrack", "Max Latency", 150.0);
         bool("BackTrack", "Render Server Pos", true);
         on("FakeLag");
         mode("FakeLag", "Mode", "Repel");
@@ -171,7 +196,7 @@ public class Profiles extends Module {
         on("Reach");
         num("Reach", "Range", 3.5);
         on("WTap");
-        num("WTap", "Chance", 60.0);
+        num("WTap", "V1 Reset Ticks", 1.0);
         on("JumpReset");
         num("JumpReset", "Chance", 70.0);
         on("Velocity");

@@ -228,7 +228,9 @@ public class ProfilesScreen extends Screen {
         RenderUtils.fill(context, 0, 0, width, height, ColorUtils.rgba(0, 0, 0, 150));
         RenderUtils.fill(context, panelX, panelY, panelX + panelW, panelY + panelH,
                 ThemeManager.getBackgroundColor());
-        RenderUtils.drawBorder(context, panelX, panelY, panelW, panelH, 1, ThemeManager.getBorderColor());
+        // drawBorder takes (x1, y1, x2, y2): passing width/height drew a tiny box in the corner.
+        RenderUtils.drawBorder(context, panelX, panelY, panelX + panelW, panelY + panelH, 1,
+                ThemeManager.getBorderColor());
         RenderUtils.fill(context, panelX, panelY, panelX + panelW, panelY + HEADER_H, ThemeManager.getHeaderColor());
         RenderUtils.drawText(context, textRenderer, "§lPROFILES", panelX + PAD, panelY + 7,
                 ThemeManager.getTextColor(true), true);
@@ -283,7 +285,8 @@ public class ProfilesScreen extends Screen {
 
     private void drawList(DrawContext context, int mouseX, int mouseY) {
         RenderUtils.fill(context, listX, listY, listX + listW, listY + listH, ColorUtils.rgba(12, 13, 17, 220));
-        RenderUtils.drawBorder(context, listX, listY, listW, listH, 1, ColorUtils.rgba(50, 55, 70, 200));
+        RenderUtils.drawBorder(context, listX, listY, listX + listW, listY + listH, 1,
+                ColorUtils.rgba(50, 55, 70, 200));
 
         if (profiles.isEmpty()) {
             RenderUtils.drawText(context, textRenderer, "§8No profiles yet", listX + 8, listY + 8, 0xFF777777, false);
@@ -388,7 +391,9 @@ public class ProfilesScreen extends Screen {
     }
 
     private void closeScreen() {
-        if (client != null) client.setScreen(null);
+        // Goes back to the screen that opened the browser (usually the ClickGUI).
+        if (module != null) module.closeScreen();
+        else if (client != null) client.setScreen(null);
     }
 
     // ------------------------------------------------------------------
@@ -425,7 +430,7 @@ public class ProfilesScreen extends Screen {
                     ? (hovered ? brighten(ThemeManager.getAccentColor()) : ThemeManager.getAccentColor())
                     : (hovered ? ColorUtils.rgba(52, 56, 68, 255) : ColorUtils.rgba(30, 32, 40, 255));
             RenderUtils.fill(context, x, y, x + w, y + h, bg);
-            RenderUtils.drawBorder(context, x, y, w, h, 1,
+            RenderUtils.drawBorder(context, x, y, x + w, y + h, 1,
                     primary ? ThemeManager.getAccentColor() : ColorUtils.rgba(70, 76, 92, 255));
             int color = primary ? 0xFF000000 : 0xFFDDDDDD;
             RenderUtils.drawText(context, textRenderer, label,

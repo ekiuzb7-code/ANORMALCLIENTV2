@@ -19,6 +19,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
 
     steps:
       - name: Checkout repository
@@ -38,8 +39,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      # src/test yo'q, shuning uchun testlar build'ni to'xtatmaydi. Artifact remapped jar.
       - name: Build Mod JAR
         run: ./gradlew build --no-daemon --stacktrace
+
+      - name: Show built JAR
+        run: ls -l build/libs/
 
       - name: Upload Mod JAR Artifact
         uses: actions/upload-artifact@v4

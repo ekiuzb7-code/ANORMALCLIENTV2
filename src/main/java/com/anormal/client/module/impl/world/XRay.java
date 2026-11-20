@@ -43,15 +43,17 @@ public class XRay extends Module {
     public final BooleanSetting exposedOnly = new BooleanSetting("Exposed Only", "Only show blocks exposed to air (cave mode)", false);
 
     // Markers & Render
-    public final BooleanSetting markers = new BooleanSetting("Markers", "Highlight selected blocks through walls", true);
-    public final BooleanSetting outlines = new BooleanSetting("3D Outlines", "Draw 3D wireframe boxes around ores", true);
-    public final BooleanSetting coloredMarkers = new BooleanSetting("Colored Markers", "Use unique color for each ore type", true);
+    public final BooleanSetting markers = new BooleanSetting("Markers", "Highlight selected blocks through walls", false);
+    public final BooleanSetting outlines = new BooleanSetting("3D Outlines", "Draw 3D wireframe boxes around ores", false);
+    public final BooleanSetting coloredMarkers = new BooleanSetting("Colored Markers", "Use unique color for each ore type", false);
     public final BooleanSetting tracers = new BooleanSetting("Tracers", "Draw lines to valuable ores (Diamonds, Debris, Emeralds)", false);
     public final BooleanSetting showDistance = new BooleanSetting("Show Distance", "Show distance in meters above valuable ores", false);
     public final NumberSetting markerRange = new NumberSetting("Marker Range", "Marker scan radius", 48.0, 8.0, 160.0, 8.0);
     public final NumberSetting maxRendered = new NumberSetting("Max Rendered", "Max ore markers drawn at once", 400.0, 20.0, 2000.0, 20.0);
 
-    private final Set<Block> selectedBlocks = new HashSet<>();
+    // Read from the chunk-meshing worker threads while the GUI may toggle blocks, so it has to
+    // be a concurrent set: a plain HashSet could throw or serve a half-updated whitelist.
+    private final Set<Block> selectedBlocks = java.util.concurrent.ConcurrentHashMap.newKeySet();
     private final List<String> selectedBlockNames = new ArrayList<>();
 
     private final Map<BlockPos, Integer> cache = new HashMap<>();
@@ -59,6 +61,13 @@ public class XRay extends Module {
     private int centreX = Integer.MIN_VALUE, centreY, centreZ;
     private double savedGamma = 1.0;
     private boolean gammaApplied = false;
+    private boolean nightVisionGranted = false;
+    // Chunk meshes must be rebuilt when a setting that changes the rendered world changes.
+    private boolean lastHiding;
+    private boolean lastWater;
+    private boolean lastLava;
+    private boolean lastExposed;
+    private int lastOpacity = -1;
 
     public XRay() {
         super("XRay", "Real mode hides blocks via mixin, highlights ores through walls", Category.WORLD);
@@ -252,10 +261,12 @@ public class XRay extends Module {
                 StatusEffectInstance cur = mc.player == null ? null : mc.player.getStatusEffect(StatusEffects.NIGHT_VISION);
                 if (mc.player != null && (cur == null || cur.getDuration() < 200)) {
                     mc.player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 600, 0, true, false, false));
+                    nightVisionGranted = true;
                 }
             } catch (Throwable ignored) {}
         }
 
+        rememberRenderState();
         if (mc.worldRenderer != null) {
             mc.worldRenderer.reload();
         }
@@ -274,10 +285,13 @@ public class XRay extends Module {
                 gammaApplied = false;
             } catch (Throwable ignored) {}
         }
+        // Only take back the effect this module added - a night vision potion the player drank
+        // must survive X-Ray being switched off.
         try {
-            if (mc.player != null) {
+            if (nightVisionGranted && mc.player != null) {
                 mc.player.removeStatusEffect(StatusEffects.NIGHT_VISION);
             }
+            nightVisionGranted = false;
         } catch (Throwable ignored) {}
 
         if (mc.worldRenderer != null) {
@@ -285,8 +299,38 @@ public class XRay extends Module {
         }
     }
 
+    /**
+     * Toggling Real XRay, Show Water/Lava or Background Opacity changes which blocks the mesher
+     * must draw. Without this the change only appeared after a manual F3+A, which made the
+     * module look broken.
+     */
+    private void syncRenderState() {
+        boolean hiding = isRealHiding();
+        boolean water = showWater.isEnabled();
+        boolean lava = showLava.isEnabled();
+        boolean exposed = exposedOnly.isEnabled();
+        int opacity = getBackgroundOpacity();
+        if (hiding == lastHiding && water == lastWater && lava == lastLava
+                && exposed == lastExposed && opacity == lastOpacity) {
+            return;
+        }
+        rememberRenderState();
+        if (mc.worldRenderer != null) {
+            mc.worldRenderer.reload();
+        }
+    }
+
+    private void rememberRenderState() {
+        lastHiding = isRealHiding();
+        lastWater = showWater.isEnabled();
+        lastLava = showLava.isEnabled();
+        lastExposed = exposedOnly.isEnabled();
+        lastOpacity = getBackgroundOpacity();
+    }
+
     @Override
     public void onTick() {
+        syncRenderState();
         if (fullBright.isEnabled() && mc.player != null) {
             try {
                 ((GammaAccessor) (Object) mc.options.getGamma()).setRawValue(gamma.getValue());
@@ -295,6 +339,7 @@ public class XRay extends Module {
                 StatusEffectInstance cur = mc.player.getStatusEffect(StatusEffects.NIGHT_VISION);
                 if (cur == null || cur.getDuration() < 200) {
                     mc.player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 600, 0, true, false, false));
+                    nightVisionGranted = true;
                 }
             } catch (Throwable ignored) {}
         }
@@ -377,7 +422,7 @@ public class XRay extends Module {
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        if (!markersEnabled() || mc.player == null || cache.isEmpty()) return;
+        if (!markersEnabled() || mc.player == null || mc.world == null || cache.isEmpty()) return;
 
         int sw = mc.getWindow().getScaledWidth();
         int sh = mc.getWindow().getScaledHeight();
@@ -435,12 +480,9 @@ public class XRay extends Module {
                 if (isValuable(b)) {
                     int[] center = ProjectionUtil.project(new Vec3d(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5), tickDelta);
                     if (center != null) {
-                        int steps = Math.min(150, Math.max(Math.abs(center[0] - sw / 2), Math.abs(center[1] - sh / 2)));
-                        for (int i = 0; i <= steps; i++) {
-                            int lx = sw / 2 + (center[0] - sw / 2) * i / Math.max(1, steps);
-                            int ly = sh / 2 + (center[1] - sh / 2) * i / Math.max(1, steps);
-                            context.fill(lx, ly, lx + 1, ly + 1, col);
-                        }
+                        // One batched line instead of one fill per pixel: hundreds of traced ores
+                        // used to cost tens of thousands of fills per frame.
+                        RenderUtils.drawLine(context, sw / 2, sh / 2, center[0], center[1], col, 1.0f);
                     }
                 }
             }

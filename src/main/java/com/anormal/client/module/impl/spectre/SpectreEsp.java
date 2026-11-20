@@ -80,7 +80,9 @@ public final class SpectreEsp extends Module {
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        if (shape.is("Glow") || mc.world == null || mc.player == null) return;
+        // "Glow" also draws the outline box: the glow flag alone is easy to miss
+        // (team-colour dependent), so the box guarantees the ESP is always visible.
+        if (mc.world == null || mc.player == null) return;
         boolean box = !shape.is("Fill");
         boolean fill = shape.is("Fill") || shape.is("Both");
         int alpha = (int) Math.round(fillAlpha.getAsDouble() * 255.0) << 24;

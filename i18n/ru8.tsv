@@ -1,0 +1,108 @@
+Quantize rotations to mouse sensitivity (bypasses anticheats)	Квантует повороты под чувствительность мыши (обход античитов)
+RTP Timeout (s)	Таймаут RTP (с)
+Radar diameter	Диаметр радара
+Radar range in blocks	Дальность радара в блоках
+Radial Menu	Радиальное меню
+Radial quick-chat menu with three slots (kuro port)	Радиальное меню быстрого чата на три слота (kuro port)
+Rainbow cycle speed	Скорость радужного цикла
+Rainbow cycling speed	Скорость радужного цикла
+Ramp the speed up over time	Постепенно повышает скорость
+Random delay jitter	Случайное дрожание задержки
+Random extra delay	Случайная доп. задержка
+Random extra delay ticks	Случайные доп. тики задержки
+Random extra reaction ticks	Случайные доп. тики реакции
+Random extra ticks (0 = none)	Случайные доп. тики (0 = нет)
+Randomise	Рандомизация
+Randomized pacing: each phase fires at or before its configured delay — usually on time, sometimes a beat quicker, never longer than the set delay.	Случайный темп: каждая фаза срабатывает в свою задержку или раньше — обычно вовремя, иногда чуть быстрее, никогда дольше заданной.
+Range Rings	Кольца дальности
+Range lower bound	Нижняя граница дальности
+Range upper bound	Верхняя граница дальности
+Rank Color	Цвет ранга
+Rank Style	Стиль ранга
+Rates loaded chunks for player bases and shows the worst ones (kuro port)	Оценивает загруженные чанки на базы игроков и показывает худшие (kuro port)
+Re-cast if nothing bites for this long	Перезабрасывает, если столько нет поклёвки
+Re-sprint right after a hit	Снова спринт сразу после удара
+Reach Circle	Круг дальности
+Reach while riding	Дальность верхом
+React to nearby spawners appearing	Реагирует на появление спавнеров рядом
+Reaction	Реакция
+Reaction Delay	Задержка реакции
+Read the column below the slice	Читает колонку под срезом
+Readout colour	Цвет показаний
+Real mode hides blocks via mixin, highlights ores through walls	Real-режим скрывает блоки через mixin, подсвечивает руды через стены
+Real-world time as a HUD plate	Реальное время как плашка HUD
+Records keys and camera turns into a macro	Записывает клавиши и повороты камеры в макрос
+Redstone Ore	Редстоуновая руда
+Redstone blocks needed to flag	Редстоун-блоков для флага
+Redstone marker	Маркер редстоуна
+Reduce walk speed on the surface	Снижает скорость ходьбы на поверхности
+Reduces knockback (kuro port)	Снижает отбрасывание (kuro port)
+Refill below this count	Пополняет ниже этого количества
+Region Alert	Оповещение региона
+Release packets immediately when taking damage	Сразу отпускает пакеты при получении урона
+Relic shape	Форма реликвии
+Relic size	Размер реликвии
+Reload On Enable	Перезагрузка при включении
+Remember Position	Запоминать позицию
+Remove Existing	Убрать существующие
+Remove crystals even when the held item deals no damage	Убирает кристаллы, даже если предмет не наносит урон
+Remove trap entities already around you on enable	Убирает trap-сущности вокруг при включении
+Removes the 4-tick placement cooldown — places a block the instant your crosshair moves to a new block/face. Fast bridging without gaps.	Убирает 4-тиковый кулдаун установки — блок ставится сразу при переходе прицела на новый блок/грань. Быстрый мост без дыр.
+Removes the delay between breaking two blocks (kuro port)	Убирает задержку между ломанием двух блоков (kuro port)
+Removes the jump cooldown (kuro port)	Убирает кулдаун прыжка (kuro port)
+Removes the slowdown while eating, drinking or blocking (kuro port)	Убирает замедление при еде, питье или блоке (kuro port)
+Render Radius	Радиус отрисовки
+Render backtracked enemy hitbox	Рисует хитбокс отстающего врага
+Render backtracked position	Рисует отстающую позицию
+Render distance while reloading	Дистанция отрисовки при перезарядке
+Render on own body in third person	Рисует на своём теле от третьего лица
+Render style	Стиль отрисовки
+Reopens the GUI at the section and module you closed it on	Открывает GUI на том разделе и модуле, где вы закрыли
+Replaces the sky with a flat colour (kuro port)	Заменяет небо сплошным цветом (kuro port)
+Replaces the sword in your first-person hand with a knife (kuro port)	Заменяет меч в руке от первого лица на нож (kuro port)
+Replaces your own name with a fake name in all drawn text (kuro port, client-side)	Заменяет ваше имя фейковым во всём отрисовываемом тексте (kuro port, клиент)
+Require Air	Требовать воздух
+Require Hold	Требовать удержание
+Require LOS	Требовать прямую видимость
+Require Lunge Enchant	Требовать зачарование Lunge
+Require Pearl	Требовать жемчуг
+Require Weapon	Требовать оружие
+Require line-of-sight from player to enemy.	Требует прямую видимость от игрока до врага.
+Reset Y	Сброс Y
+Resets sprint after each hit (kuro port)	Сбрасывает спринт после каждого удара (kuro port)
+Resolve UUID	Определять UUID
+Respect Cooldown	Учитывать кулдаун
+Restore the original hotbar slot after a break completes.	Восстанавливает исходный слот хотбара после ломания.
+Restore the previous slot when the target stops blocking	Возвращает прошлый слот, когда цель перестаёт блокировать
+Restore your original hotbar slot after the axe hit.	Возвращает исходный слот хотбара после удара топором.
+Restore your original hotbar slot after the double-pop cycle.	Возвращает исходный слот после цикла двойного попа.
+Restores motion after an attack (kuro port)	Восстанавливает движение после атаки (kuro port)
+Return the mace to its original place and re-select your previous hotbar slot after the smash.	Возвращает булаву на место и прошлый слот после смаша.
+Return to the old hotbar slot	Вернуться в старый слот хотбара
+Return to the old slot	Вернуться в старый слот
+Return to the previous slot	Вернуться в прошлый слот
+Return to the previous slot after the hit	Вернуться в прошлый слот после удара
+Return to the previous slot after the lunge	Вернуться в прошлый слот после рывка
+Ride speed in blocks per tick	Скорость езды в блоках за тик
+Right	Правая
+Right Max CPS	Макс. CPS правой
+Right Min CPS	Мин. CPS правой
+Right button mode	Режим правой кнопки
+Right-click cooldown while holding a crystal (vanilla is 4)	Кулдаун ПКМ с кристаллом (ваниль 4)
+Rim	Обод
+Ring colour	Цвет кольца
+Ring colour source	Источник цвета кольца
+Ring lifetime (seconds)	Время жизни кольца (с)
+Ring radius in blocks	Радиус кольца в блоках
+Ring style	Стиль кольца
+Riptide launch multiplier	Множитель запуска riptide
+Roll	Крен
+Rotate with your yaw	Вращать по вашему yaw
+Rotation speed in degrees per second	Скорость поворота в градусах в секунду
+Rough box XZ size	Размер грубой рамки XZ
+Rough box Y size	Размер грубой рамки Y
+Rounded	Скруглённый
+Rounded row corners	Скруглённые углы строк
+Row Height	Высота строки
+Row or column	Строка или столбец
+RtpBaseFinder	RtpBaseFinder

@@ -23,7 +23,8 @@ public class ParticleManagerMixin {
             at = @At("HEAD"), cancellable = true, require = 0)
     private void anormal$addParticle(Particle particle, CallbackInfo ci) {
         try {
-            if (NoRender.shouldHideParticle(particle) || ParticleLimit.shouldSkip(particle)) {
+            if (NoRender.shouldHideParticle(particle) || ParticleLimit.shouldSkip(particle)
+                    || com.anormal.client.module.impl.client.FarmFpsOptimizer.shouldHideParticle(particle)) {
                 ci.cancel();
             }
         } catch (Throwable ignored) {

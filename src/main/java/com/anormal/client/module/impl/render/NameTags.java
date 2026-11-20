@@ -119,7 +119,7 @@ public class NameTags extends Module {
         if (mc.player == null || mc.world == null || mc.textRenderer == null) return;
 
         for (Entity entity : mc.world.getEntities()) {
-            if (!(entity instanceof LivingEntity living) || !living.isAlive()) continue;
+            if (!(entity instanceof PlayerEntity living) || !living.isAlive()) continue;
             if (living == mc.player && !showOwnTag.isEnabled()) continue;
             if (living.isInvisible()) continue;
 
@@ -142,64 +142,104 @@ public class NameTags extends Module {
         String line = buildText(living, dist);
         int textW = mc.textRenderer.getWidth(line);
 
-        int pad = (int) (3 * sc);
-        int h = (int) ((mc.textRenderer.fontHeight + 2) * sc);
-        int w = textW + pad * 2;
-        int x = anchor[0] - w / 2;
-        int y = anchor[1] - h;
+        // Everything below is laid out in local pixels around (0,0) = the anchor, then the whole
+        // plate (text, boxes, item icons) is scaled together by the matrix.
+        var m = context.getMatrices();
+        m.pushMatrix();
+        m.translate((float) anchor[0], (float) anchor[1]);
+        m.scale(sc, sc);
+        try {
+            int pad = 3;
+            int h = mc.textRenderer.fontHeight + 2;
+            int w = textW + pad * 2;
+            int x = -w / 2;
+            int y = -h;
 
-        int bg = useTheme.isEnabled() ? ColorUtils.rgba(15, 15, 20, 160) : backgroundColor.getValue();
-        RenderUtils.fill(context, x, y, x + w, y + h, bg);
+            int bg = useTheme.isEnabled() ? ColorUtils.rgba(15, 15, 20, 160) : backgroundColor.getValue();
+            RenderUtils.fill(context, x, y, x + w, y + h, bg);
 
-        int bw = (int) Math.ceil(borderWidth.getValue());
-        if (bw > 0 && ((borderColor.getValue() >>> 24) & 0xFF) > 0) {
-            RenderUtils.drawBorder(context, x, y, x + w, y + h, bw, borderColor.getValue());
-        }
+            int bw = (int) Math.ceil(borderWidth.getValue());
+            if (bw > 0 && ((borderColor.getValue() >>> 24) & 0xFF) > 0) {
+                RenderUtils.drawBorder(context, x, y, x + w, y + h, bw, borderColor.getValue());
+            }
 
-        RenderUtils.drawText(context, mc.textRenderer, line, x + pad, y + (int) (2 * sc), textColor.getValue(), true);
+            RenderUtils.drawText(context, mc.textRenderer, line, x + pad, y + 2, textColor.getValue(), true);
 
-        // Equipment row underneath, LiquidBounce style.
-        if (showEquipment.isEnabled()) {
-            int eqY = y + h + 2;
-            int cell = (int) (14 * sc);
-            int eqX = anchor[0] - (cell * 6) / 2;
-            eqX = renderSlot(context, living, EquipmentSlot.HEAD, slotHead.isEnabled(), eqX, eqY, cell);
-            eqX = renderSlot(context, living, EquipmentSlot.CHEST, slotChest.isEnabled(), eqX, eqY, cell);
-            eqX = renderSlot(context, living, EquipmentSlot.LEGS, slotLegs.isEnabled(), eqX, eqY, cell);
-            eqX = renderSlot(context, living, EquipmentSlot.FEET, slotFeet.isEnabled(), eqX, eqY, cell);
-            eqX = renderSlot(context, living, EquipmentSlot.MAINHAND, slotMainHand.isEnabled(), eqX, eqY, cell);
-            renderSlot(context, living, EquipmentSlot.OFFHAND, slotOffHand.isEnabled(), eqX, eqY, cell);
-        }
+            int below = y + h + 2;
+            if (showEquipment.isEnabled()) {
+                below = renderEquipment(context, living, below);
+            }
 
-        // Enchantment list, LiquidBounce style.
-        if (showEnchantments.isEnabled() && living instanceof PlayerEntity) {
-            renderEnchantments(context, living, anchor[0], y + h + (showEquipment.isEnabled() ? (int) (18 * sc) : 2));
+            if (showEnchantments.isEnabled() && living instanceof PlayerEntity) {
+                renderEnchantments(context, living, 0, below, enchantmentScale.getValue().floatValue());
+            }
+        } finally {
+            m.popMatrix();
         }
     }
 
-    private int renderSlot(DrawContext context, LivingEntity living, EquipmentSlot slot, boolean enabled,
-                           int x, int y, int cell) {
-        if (!enabled) return x;
-        ItemStack stack = living.getEquippedStack(slot);
-        if (stack.isEmpty() && skipEmptySlot.isEnabled()) return x;
+    /** Draws the equipment row (real item icons) centred under the plate; returns the next free y. */
+    private int renderEquipment(DrawContext context, LivingEntity living, int y) {
+        EquipmentSlot[] order = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET,
+                EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND};
+        boolean[] on = {slotHead.isEnabled(), slotChest.isEnabled(), slotLegs.isEnabled(), slotFeet.isEnabled(),
+                slotMainHand.isEnabled(), slotOffHand.isEnabled()};
+        int cell = 18;
 
+        int n = 0;
+        for (int i = 0; i < order.length; i++) {
+            if (!on[i]) continue;
+            if (living.getEquippedStack(order[i]).isEmpty() && skipEmptySlot.isEnabled()) continue;
+            n++;
+        }
+        if (n == 0) return y;
+
+        int x = -(n * (cell + 1) - 1) / 2;
+        for (int i = 0; i < order.length; i++) {
+            if (!on[i]) continue;
+            ItemStack stack = living.getEquippedStack(order[i]);
+            if (stack.isEmpty() && skipEmptySlot.isEnabled()) continue;
+            drawSlot(context, stack, x, y, cell);
+            x += cell + 1;
+        }
+        return y + cell + 2;
+    }
+
+    private void drawSlot(DrawContext context, ItemStack stack, int x, int y, int cell) {
         RenderUtils.fill(context, x, y, x + cell, y + cell, equipmentFill.getValue());
         if (((equipmentOutline.getValue() >>> 24) & 0xFF) > 0) {
             RenderUtils.drawBorder(context, x, y, x + cell, y + cell, 1, equipmentOutline.getValue());
         }
-        if (!stack.isEmpty() && showInfo.isEnabled()) {
-            String count = String.valueOf(stack.getCount());
-            if (stack.getCount() > 1) {
-                RenderUtils.drawText(context, mc.textRenderer, count, x + cell - mc.textRenderer.getWidth(count) - 1,
-                        y + cell - 8, 0xFFFFFFFF, true);
-            }
+        if (stack.isEmpty()) return;
+
+        // The actual item, so you can tell a block of stone from a sword.
+        context.drawItem(stack, x + 1, y + 1);
+
+        if (!showInfo.isEnabled()) return;
+
+        if (stack.isDamageable() && stack.getMaxDamage() > 0) {
+            float f = 1.0f - (float) stack.getDamage() / stack.getMaxDamage();
+            f = Math.max(0.0f, Math.min(1.0f, f));
+            int col = f > 0.6f ? 0xFF55FF55 : (f > 0.3f ? 0xFFFFFF55 : 0xFFFF5555);
+            context.fill(x + 1, y + cell - 2, x + cell - 1, y + cell - 1, 0xFF000000);
+            context.fill(x + 1, y + cell - 2, x + 1 + Math.max(1, Math.round((cell - 2) * f)), y + cell - 1, col);
         }
-        return x + cell + 1;
+        if (stack.getCount() > 1) {
+            String count = String.valueOf(stack.getCount());
+            RenderUtils.drawText(context, mc.textRenderer, count, x + cell - mc.textRenderer.getWidth(count) - 1,
+                    y + cell - 9, 0xFFFFFFFF, true);
+        }
     }
 
-    private void renderEnchantments(DrawContext context, LivingEntity living, int centerX, int y) {
+    private void renderEnchantments(DrawContext context, LivingEntity living, int centerX, int y, float es) {
         int max = maxCountPerItem.getValue().intValue();
         int row = 0;
+        var em = context.getMatrices();
+        em.pushMatrix();
+        em.translate((float) centerX, (float) y);
+        em.scale(es, es);
+        centerX = 0;
+        y = 0;
         for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.HEAD,
                 EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {
             ItemStack stack = living.getEquippedStack(slot);
@@ -217,7 +257,7 @@ public class NameTags extends Module {
                     String label = shortName(path) + " " + lvl;
                     int w = mc.textRenderer.getWidth(label);
                     int lx = centerX - w / 2;
-                    int ly = y + row * (int) (9 * enchantmentScale.getValue());
+                    int ly = y + row * 9;
                     RenderUtils.fill(context, lx - 1, ly - 1, lx + w + 1, ly + 8, ColorUtils.rgba(0, 0, 0, 140));
                     RenderUtils.drawText(context, mc.textRenderer, label, lx, ly, 0xFFAAAAAA, true);
                     row++;
@@ -226,6 +266,7 @@ public class NameTags extends Module {
             } catch (Throwable ignored) {
             }
         }
+        em.popMatrix();
     }
 
     private String shortName(String path) {

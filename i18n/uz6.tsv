@@ -1,0 +1,124 @@
+Macro Record	Makro yozish
+Main Color	Asosiy rang
+Main hand X	Asosiy qo'l X
+Main hand Y	Asosiy qo'l Y
+Main hand Z	Asosiy qo'l Z
+Main hand pitch	Asosiy qo'l pitch
+Main hand roll	Asosiy qo'l roll
+Main hand scale	Asosiy qo'l o'lchami
+Main hand yaw	Asosiy qo'l yaw
+Makes the CPS hud think you're legit.	CPS HUD sizni legit deb o'ylaydi.
+Makes your crystals disappear faster client-side so you can place crystals faster	Klient tomonda kristallaringiz tezroq yo'qoladi, tezroq kristal qo'yish uchun
+Map left edge (screen X) when not centered	Markazlanmaganda xaritaning chap chekkasi (ekran X)
+Map top edge (screen Y) when not centered	Markazlanmaganda xaritaning yuqori chekkasi (ekran Y)
+Mark opacity	Belgi shaffofligi
+Mark size	Belgi o'lchami
+Mark the entity under the crosshair	Nishon ostidagi entityni belgilaydi
+Marker	Belgi
+Marker Scale	Belgi o'lchami
+Marker fill	Belgi to'ldirish
+Marker opacity	Belgi shaffofligi
+Marker outline	Belgi konturi
+Marker size	Belgi o'lchami
+Marks chunks that look newly generated	Yangi yaratilgandek ko'rinadigan chunklarni belgilaydi
+Marks where players were when they logged out (kuro port)	O'yinchilar chiqqan joylarni belgilaydi (kuro port)
+Mask the HUD icons	HUD ikonkalarini yashiradi
+Materials	Materiallar
+Max Entities	Maks. entity
+Max Explode	Maks. portlash
+Max Friend Explode	Do'stga maks. portlash
+Max Friend Place	Do'stga maks. qo'yish
+Max Jump	Maks. sakrash
+Max Latency	Maks. kechikish
+Max Padding	Maks. bo'shliq
+Max Stair Height	Maks. zina balandligi
+Max Tags	Maks. teglar
+Max Tunnel Height	Maks. tunnel balandligi
+Max Y Offset	Maks. Y siljishi
+Max blocks per placement step	Qo'yish qadamida maks. bloklar
+Max distance to a placeable spot	Qo'yish mumkin bo'lgan joygacha maks. masofa
+Max distance to the target/anchor	Nishon/anchor maks. masofasi
+Max highlighted blocks	Maks. ajratilgan bloklar
+Max interaction range for blocks	Bloklar uchun maks. o'zaro ta'sir masofasi
+Max ore markers drawn at once	Bir vaqtda chiziladigan maks. ruda belgilari
+Max portal frame markers drawn	Chiziladigan maks. portal ramka belgilari
+Max reach for attacking entities	Entitylarga hujum uchun maks. masofa
+Max seconds to wait for the RTP teleport	RTP teleport uchun maks. kutish (sekund)
+Maximum backtrack delay in ms	Maksimal backtrack kechikishi (ms)
+Maximum boxes	Maksimal ramkalar
+Maximum break distance	Maksimal sindirish masofasi
+Maximum crystal break range	Kristal sindirish maks. masofasi
+Maximum damage to you	Sizga maksimal zarar
+Maximum distance	Maksimal masofa
+Maximum entities drawn	Chiziladigan maksimal entitylar
+Maximum explode damage	Maksimal portlash zarari
+Maximum field of view in degrees (up to 360°)	Maksimal ko'rish maydoni (360° gacha)
+Maximum left clicks per second	Maksimal chap klik/sekund
+Maximum live sparks	Maksimal tirik uchqunlar
+Maximum placement range	Maksimal qo'yish masofasi
+Maximum render range in blocks	Maksimal chizish masofasi (blok)
+Maximum ring radius	Maksimal halqa radiusi
+Maximum staircase height	Maksimal zina balandligi
+Maximum tag distance	Maksimal teg masofasi
+Maximum target range	Maksimal nishon masofasi
+Maximum time the target must stay under the crosshair	Nishon nishon ostida turishi kerak bo'lgan maksimal vaqt
+Maximum tracked distance	Maksimal kuzatish masofasi
+Maximum tunnel height	Maksimal tunnel balandligi
+Melee reach for hits	Zarbalar uchun yaqin masofa
+Menu style switch: the blob menu (kuro port flag)	Menyu uslubi: blob menyu (kuro port flag)
+Menu style switch: the glass menu (kuro port flag)	Menyu uslubi: shisha menyu (kuro port flag)
+Menu style switch: the sidebar menu (kuro port flag)	Menyu uslubi: yon panel menyusi (kuro port flag)
+Merge neighbouring light boxes	Qo'shni yorug'lik ramkalarini birlashtiradi
+Metal Color	Metall rangi
+Metal tint	Metall tuslanishi
+Method	Usul
+Min Cells	Min. katakchalar
+Min Explode	Min. portlash
+Min Explode Ratio	Min. portlash nisbati
+Min Friend Ratio	Do'st uchun min. nisbat
+Min Hole Depth	Min. teshik chuqurligi
+Min Latency	Min. kechikish
+Min Light	Min. yorug'lik
+Min Place Ratio	Min. qo'yish nisbati
+Min Redstone	Min. redstone
+Min Sculk Blocks	Min. sculk bloklari
+Min Stair Height	Min. zina balandligi
+Min Stair Length	Min. zina uzunligi
+Min Ticks	Min. tiklar
+Min Tunnel Height	Min. tunnel balandligi
+Min Tunnel Length	Min. tunnel uzunligi
+Min Y Offset	Min. Y siljishi
+Minimum attack cooldown progress	Minimal hujum cooldown progressi
+Minimum backtrack delay in ms	Minimal backtrack kechikishi (ms)
+Minimum emitted light level to draw	Chizish uchun minimal yorug'lik darajasi
+Minimum explode damage	Minimal portlash zarari
+Minimum fall distance in blocks	Minimal tushish masofasi (blok)
+Minimum gap between two lag bursts (ms)	Ikki lag portlashi orasidagi minimal oraliq (ms)
+Minimum hole depth	Minimal teshik chuqurligi
+Minimum left clicks per second	Minimal chap klik/sekund
+Minimum seconds between sends	Yuborishlar orasidagi minimal sekund
+Minimum self damage worth a safety block	Xavfsizlik bloki uchun minimal o'z zarari
+Minimum staircase height	Minimal zina balandligi
+Minimum staircase length	Minimal zina uzunligi
+Minimum ticks between two equip actions	Ikki kiyish amali orasidagi minimal tiklar
+Minimum ticks between two managed hits	Ikki boshqariladigan zarba orasidagi minimal tiklar
+Minimum ticks between two use cycles	Ikki ishlatish sikli orasidagi minimal tiklar
+Minimum time between taps (ms)	Taplar orasidagi minimal vaqt (ms)
+Minimum time the target must stay under the crosshair	Nishon nishon ostida turishi kerak bo'lgan minimal vaqt
+Minimum tunnel height	Minimal tunnel balandligi
+Minimum tunnel length	Minimal tunnel uzunligi
+Mining Progress	Qazish progressi
+Minutes before a ghost fades	Arvoh so'nishidan oldingi minutlar
+Minutes before a spot is forgotten	Joy esdan chiqishidan oldingi minutlar
+Model	Model
+Monster color	Monster rangi
+Motion multiplier after a normal hit (0.6 = vanilla)	Oddiy zarbadan keyin harakat ko'paytiruvchisi (0.6 = vanilla)
+Motion multiplier while taking knockback	Tepki olayotganda harakat ko'paytiruvchisi
+Move the hand right (positive) or left (negative)	Qo'lni o'ngga (musbat) yoki chapga (manfiy) suradi
+Move the hand up (positive) or down (negative)	Qo'lni tepaga (musbat) yoki pastga (manfiy) suradi
+Movement keys still drive the body	Harakat tugmalari baribir tanani boshqaradi
+Moves and resizes your first-person hand and held item	Birinchi shaxs qo'lingiz va qo'ldagi buyumni suradi va o'lchamini o'zgartiradi
+Moves you through cobwebs (kuro port)	To'r ichidan o'tkazadi (kuro port)
+Moving highlight	Harakatlanuvchi ajratish
+Multiplier for the trident charge time (0 = instant)	Trident zaryad vaqti ko'paytiruvchisi (0 = darhol)
+Music Player	Musiqa pleyeri

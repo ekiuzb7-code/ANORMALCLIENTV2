@@ -1,0 +1,212 @@
+Show distance and eye count tag	Показывать метку расстояния и числа глаз
+Show distance and flight time at the landing spot	Показывает расстояние и время полёта в точке приземления
+Show distance in meters above valuable ores	Показывает расстояние в метрах над ценными рудами
+Show distance text above container	Показывает текст расстояния над контейнером
+Show durability numbers	Показывать числа прочности
+Show latency	Показывать задержку
+Show lava lakes and streams	Показывать лавовые озёра и потоки
+Show ocean and water blocks (disabled by default to prevent blocking view)	Показывать океан и воду (по умолчанию выключено, чтобы не перекрывать обзор)
+Show side health bar	Показывать полосу здоровья сбоку
+Show silent angles on the player model (F5)	Показывать silent-углы на модели игрока (F5)
+Show the changed block and re-sent chunks	Показывать изменённый блок и повторно отправленные чанки
+Show the finds StashFinder has logged (via chat)	Показывает находки StashFinder (в чате)
+Show the frame rate	Показывать FPS
+Show the item name and amount	Показывать название и количество предмета
+Show the local time	Показывать местное время
+Show the logout time	Показывать время выхода
+Show the material panel	Показывать панель материалов
+Show the performance readout	Показывать показатели производительности
+Show the player name	Показывать имя игрока
+Show the real player model (skin, armor, items) through walls using a glow outline. Always on in 'Body Only' style	Показывает реальную модель игрока (скин, броня, предметы) через стены свечением-контуром. Всегда включено в стиле 'Body Only'
+Show the region legend	Показывать легенду региона
+Show the saved base on screen	Показывать сохранённую базу на экране
+Show the staff list on screen	Показывать список стаффа на экране
+Show which way you are facing (needle on your marker, N at the top)	Показывает направление взгляда (стрелка на маркере, N сверху)
+Show your block coordinates	Показывать координаты блока
+Show your body	Показывать своё тело
+Show your coordinates	Показывать свои координаты
+Show your hands	Показывать свои руки
+Show your latency	Показывать свою задержку
+Shows each item's DonutSMP worth in its hover tooltip (client-side).	Показывает стоимость предмета на DonutSMP во всплывающей подсказке (на клиенте).
+Shows every player's attack reach as a ground circle	Показывает дальность атаки каждого игрока кругом на земле
+Sidebar UI	Боковой интерфейс
+Sideways	Вбок
+Silent aim turn speed (deg/tick)	Скорость поворота silent-наведения (град/тик)
+Silent-aim melee aura (kuro port)	Ближняя аура с silent-наведением (kuro port)
+Simulation length	Длина симуляции
+Single or double anchor	Один или два якоря
+Sinks while on fire	Тонет, пока горит
+Size of one map cell	Размер одной клетки карты
+Skeleton and box line thickness	Толщина линий скелета и рамки
+Skip Break Delay	Пропускать задержку ломания
+Skip Shielding	Пропускать блок щитом
+Skip blocks above build height	Пропускать блоки выше высоты строительства
+Skip blocks below build height	Пропускать блоки ниже высоты строительства
+Skip chunks outside the view frustum	Пропускать чанки вне поля зрения
+Skip entities flagged by the AntiBot module	Пропускать сущности, отмеченные модулем AntiBot
+Skip placement if the target position would land inside your own hitbox (FPS-lag double-place guard).	Пропускает установку, если точка попадает в ваш хитбокс (защита от двойной установки при лагах).
+Skip players that are actively blocking	Пропускать игроков, которые активно блокируют
+Skip spots that would hurt you too much	Пропускать места, где вы получите слишком много урона
+Skip the jab below this hunger when the spear has Lunge	Пропускать джеб ниже этой сытости, если у копья есть Lunge
+Skip your own body	Пропускать своё тело
+Sky	Небо
+Sky palette	Палитра неба
+Slice Y	Срез Y
+Slide between blocks	Скольжение между блоками
+Slide boxes between tick positions	Плавно двигает рамки между тиками
+Sliding speed	Скорость скольжения
+Slight random pitch per hit	Небольшой случайный наклон за удар
+Slot (1–6)	Слот (1–6)
+Slots	Слоты
+Slow Damage	Медленный урон
+Slow Down	Замедление
+Slow Place Delay	Задержка медленной установки
+Slow down below this damage	Замедляется ниже этого урона
+Slow, smooth, calm	Медленно, плавно, спокойно
+Smash Mode	Режим смаша
+Smash hostile mobs	Смашить враждебных мобов
+Smash invisible targets	Смашить невидимых целей
+Smash passive mobs	Смашить мирных мобов
+Smash players	Смашить игроков
+Smooth silent aim on the melee target (kuro port)	Плавное silent-наведение на цель ближнего боя (kuro port)
+Smoothly adjusts crosshair towards targets (supports up to 360° FOV)	Плавно подводит прицел к цели (FOV до 360°)
+Snap key	Клавиша привязки
+Snap straight onto the target + orbit	Резко наводится на цель + орбита
+Sneak dips into lava	Приседание с погружением в лаву
+Sneak dips into water	Приседание с погружением в воду
+Sneak while there is no block below you	Приседает, когда под вами нет блока
+Snow drifting down the screen (cosmetic)	Снег, падающий по экрану (косметика)
+Snowflakes	Снежинки
+Snowflakes on screen	Снежинки на экране
+Soft halo around every HUD overlay	Мягкое свечение вокруг каждого оверлея HUD
+Soft halo around the arc	Мягкое свечение вокруг дуги
+Softly pulls your aim onto the nearest target (kuro port)	Мягко тянет прицел к ближайшей цели (kuro port)
+Solid Alpha	Полная альфа
+Sound Pitch	Высота звука
+Sound Volume	Громкость звука
+Sound when you hit something	Звук при попадании
+Source	Источник
+Space between rows (0 = boxes touch)	Отступ между строками (0 = рамки касаются)
+Spark lifetime in seconds	Время жизни искры (с)
+Spark size	Размер искры
+Sparks behind walking players	Искры за идущими игроками
+Sparks per footstep	Искр за шаг
+Sparks per pop	Искр за поп
+Sparks per trail step	Искр за шаг следа
+Spawner Mob	Моб спавнера
+Spawner box colour	Цвет рамки спавнера
+Spear/Trident	Копьё/Трезубец
+Spectre port: a DonutSMP region map with a directional indicator.	Spectre port: карта регионов DonutSMP с индикатором направления.
+Spectre port: a detached camera you can fly around with.	Spectre port: откреплённая камера, вокруг которой можно летать.
+Spectre port: a glowing ghost rises when a player pops a totem.	Spectre port: светящийся призрак поднимается, когда игрок лопает тотем.
+Spectre port: a glowing outline on your hand and held item.	Spectre port: светящийся контур на руке и предмете в руке.
+Spectre port: a hooded cosmetic worn by your player.	Spectre port: капюшон-косметика на вашем персонаже.
+Spectre port: a round radar of the players around you.	Spectre port: круглый радар игроков вокруг вас.
+Spectre port: allows you to climb walls like a spider.	Spectre port: позволяет лазить по стенам как паук.
+Spectre port: allows you to escape from armor stands and chest minecarts.	Spectre port: позволяет выбраться из стоек для брони и вагонеток с сундуком.
+Spectre port: animated outline and fill on the block you look at.	Spectre port: анимированный контур и заливка блока, на который вы смотрите.
+Spectre port: attacks nearby targets without moving your camera.	Spectre port: атакует ближайшие цели, не двигая камеру.
+Spectre port: auto tool that only switches hotbar slots like a player.	Spectre port: авто-инструмент, переключающий только слоты хотбара, как игрок.
+Spectre port: automatically jumps.	Spectre port: автоматически прыгает.
+Spectre port: automatically sprints.	Spectre port: автоматически спринтит.
+Spectre port: automatically walks forward.	Spectre port: автоматически идёт вперёд.
+Spectre port: boosts you when using riptide with a trident.	Spectre port: ускоряет вас при riptide с трезубцем.
+Spectre port: boxes Nether chunk sections hiding ancient debris.	Spectre port: обводит секции чанков Нижнего мира, скрывающие древние обломки.
+Spectre port: breaks and places crystals while you hold right-click.	Spectre port: ломает и ставит кристаллы при удержании ПКМ.
+Spectre port: brighten dark areas by overriding the client gamma.	Spectre port: осветляет тёмные места, переопределяя гамму клиента.
+Spectre port: changes the speed of your swing animation.	Spectre port: меняет скорость анимации удара.
+Spectre port: changes your field of view (FOV).	Spectre port: меняет угол обзора (FOV).
+Spectre port: clicks the mouse buttons at a randomised, human CPS.	Spectre port: кликает кнопками мыши со случайным «человеческим» CPS.
+Spectre port: coloured markers for containers, machines, redstone and base clues.	Spectre port: цветные маркеры контейнеров, механизмов, редстоуна и признаков баз.
+Spectre port: coloured skies, a night tint and a nether tint.	Spectre port: цветное небо, ночной оттенок и оттенок Нижнего мира.
+Spectre port: control hand swing animation speed.	Spectre port: управляет скоростью анимации взмаха руки.
+Spectre port: copies the coordinates you look at or stand on with one key.	Spectre port: одной клавишей копирует координаты, на которые вы смотрите или на которых стоите.
+Spectre port: detects when players are in the world.	Spectre port: определяет, когда игроки находятся в мире.
+Spectre port: displays tracer lines to specified entities.	Spectre port: рисует трейсеры к указанным сущностям.
+Spectre port: draws a configurable crosshair in place of the vanilla one.	Spectre port: рисует настраиваемый прицел вместо ванильного.
+Spectre port: draws a fading Spectre ring where you jump.	Spectre port: рисует затухающее кольцо Spectre в месте прыжка.
+Spectre port: draws a mark on your combat target.	Spectre port: рисует метку на боевой цели.
+Spectre port: eats hotbar or offhand food once hunger or health drops too low.	Spectre port: съедает еду из хотбара или оффхенда, когда сытость или здоровье слишком низкие.
+Spectre port: finds player activity in re-sent chunks.	Spectre port: находит активность игроков в повторно отправленных чанках.
+Spectre port: finishes breaking blocks before the full break time.	Spectre port: завершает ломание блоков раньше полного времени.
+Spectre port: flags chunks with light and redstone activity below Y 0.	Spectre port: помечает чанки со светом и редстоун-активностью ниже Y 0.
+Spectre port: flags chunks with signs of underground player bases.	Spectre port: помечает чанки с признаками подземных баз игроков.
+Spectre port: flags players who are listed but not in the world.	Spectre port: помечает игроков, которые в списке, но не в мире.
+Spectre port: fly your boat through blocks and entities.	Spectre port: летает на лодке сквозь блоки и сущности.
+Spectre port: freezes you in place, even mid-air.	Spectre port: замораживает вас на месте, даже в воздухе.
+Spectre port: ghosts, stars and wisps drift around your player.	Spectre port: вокруг персонажа кружат призраки, звёзды и огоньки.
+Spectre port: gives you more control over your elytra.	Spectre port: даёт больше контроля над элитрами.
+Spectre port: hides selected overlays, screen effects and entity renders.	Spectre port: скрывает выбранные оверлеи, эффекты экрана и отрисовку сущностей.
+Spectre port: hides the names of you and everyone around you.	Spectre port: скрывает ваше имя и имена всех вокруг.
+Spectre port: hides your items on screen for screen shares.	Spectre port: скрывает предметы на экране для стримов и скриншеров.
+Spectre port: highlights chosen blocks; touching blocks merge into one shape.	Spectre port: подсвечивает выбранные блоки; соприкасающиеся сливаются в одну форму.
+Spectre port: highlights dropped items with outlines, tracers and labels.	Spectre port: подсвечивает выпавшие предметы контурами, трейсерами и подписями.
+Spectre port: highlights holes, tunnels and staircases.	Spectre port: подсвечивает дыры, туннели и лестницы.
+Spectre port: highlights light sources around you.	Spectre port: подсвечивает источники света вокруг вас.
+Spectre port: highlights players, hostile and passive mobs with outlines and boxes.	Spectre port: подсвечивает игроков, враждебных и мирных мобов контурами и рамками.
+Spectre port: highlights storage blocks and spawners with per-type colours.	Spectre port: подсвечивает хранилища и спавнеры цветами по типу.
+Spectre port: hits the entity under the crosshair once the swing is charged.	Spectre port: бьёт сущность под прицелом, когда удар заряжен.
+Spectre port: hold the key to zoom in.	Spectre port: удерживайте клавишу для приближения.
+Spectre port: lets you control rideable entities without a saddle.	Spectre port: позволяет управлять ездовыми сущностями без седла.
+Spectre port: lets you fly.	Spectre port: позволяет летать.
+Spectre port: lists online staff and flags vanish behaviour.	Spectre port: показывает онлайн-стафф и помечает поведение vanish.
+Spectre port: lists the modules you have bound to a key, and their keys.	Spectre port: список модулей, привязанных к клавишам, и их клавиши.
+Spectre port: makes you able to set a custom time.	Spectre port: позволяет задать своё время.
+Spectre port: makes you go faster horizontally when riding entities.	Spectre port: ускоряет горизонтальное движение верхом на сущностях.
+Spectre port: maps nearby chunks with underground and Y-slice views.	Spectre port: карта ближних чанков с видом под землёй и по срезу Y.
+Spectre port: marks suspicious chunks with signs of player activity.	Spectre port: помечает подозрительные чанки с признаками активности игроков.
+Spectre port: mines your spawners when someone gets close.	Spectre port: добывает ваши спавнеры, когда кто-то приближается.
+Spectre port: modifies your movement speed when moving on the ground.	Spectre port: меняет скорость движения при ходьбе по земле.
+Spectre port: module list, coordinates and status overlays.	Spectre port: список модулей, координаты и оверлеи статуса.
+Spectre port: moves, rotates and resizes your first-person hands.	Spectre port: двигает, поворачивает и меняет размер рук от первого лица.
+Spectre port: notifies you when it starts raining.	Spectre port: сообщает, когда начинается дождь.
+Spectre port: one key places, charges and detonates a respawn anchor.	Spectre port: одной клавишей ставит, заряжает и взрывает якорь возрождения.
+Spectre port: only ore blocks stay visible.	Spectre port: остаются видимыми только руды.
+Spectre port: outlines entities through walls with a glow.	Spectre port: обводит сущности через стены свечением.
+Spectre port: places and pops end crystals around your target.	Spectre port: ставит и лопает энд-кристаллы вокруг цели.
+Spectre port: plans materials and previews the next layers of a build.	Spectre port: планирует материалы и показывает следующие слои постройки.
+Spectre port: player nametags with held items, armour, health, ping and distance.	Spectre port: неймтаги игроков с предметом в руке, бронёй, здоровьем, пингом и дистанцией.
+Spectre port: predicts where a held pearl lands and previews thrown pearls.	Spectre port: предсказывает точку падения жемчуга и показывает брошенные жемчуга.
+Spectre port: pulses a red vignette when your health is low.	Spectre port: пульсирует красной виньеткой при низком здоровье.
+Spectre port: re-sets a home, RTPs away, then teleports back home.	Spectre port: переустанавливает дом, делает RTP и телепортируется назад домой.
+Spectre port: recolours the enchantment glint.	Spectre port: меняет цвет блеска зачарования.
+Spectre port: reconnects to the last server after an unexpected disconnect.	Spectre port: переподключается к последнему серверу после неожиданного обрыва.
+Spectre port: refills a hotbar or offhand slot from the main inventory once it runs low.	Spectre port: пополняет слот хотбара или оффхенда из инвентаря, когда он заканчивается.
+Spectre port: refills the offhand totem after a pop, through the inventory or a hotbar swap.	Spectre port: пополняет тотем в оффхенде после пота через инвентарь или смену слота.
+Spectre port: reloads chunks when you go below a Y level.	Spectre port: перезагружает чанки при спуске ниже уровня Y.
+Spectre port: relogs once when you go down to deepslate level.	Spectre port: один раз перезаходит при спуске на уровень глубинносланца.
+Spectre port: removes crystals client-side as soon as your hit breaks them.	Spectre port: убирает кристаллы на клиенте, как только ваш удар их ломает.
+Spectre port: removes the delay between jumps.	Spectre port: убирает задержку между прыжками.
+Spectre port: render performance settings and a small HUD readout.	Spectre port: настройки производительности рендера и небольшой индикатор HUD.
+Spectre port: renders the chunks flagged by Quantum.	Spectre port: отрисовывает чанки, помеченные Quantum.
+Spectre port: renders tracked block entities as ESP.	Spectre port: отрисовывает отслеживаемые блочные сущности как ESP.
+Spectre port: scans chunks for mob spawners and highlights them.	Spectre port: сканирует чанки на спавнеры мобов и подсвечивает их.
+Spectre port: sends chat messages or commands with a key press.	Spectre port: отправляет сообщения или команды в чат по нажатию клавиши.
+Spectre port: shows amethyst geodes hidden by anti-xray.	Spectre port: показывает аметистовые жеоды, скрытые анти-xray.
+Spectre port: shows each spawner's position over the block.	Spectre port: показывает позицию каждого спавнера над блоком.
+Spectre port: shows where your projectiles will land.	Spectre port: показывает, куда попадут ваши снаряды.
+Spectre port: smears the view when you turn.	Spectre port: размывает картинку при повороте.
+Spectre port: smooth combat aim assist with FOV, range, part and weapon filters.	Spectre port: плавный боевой аим-ассист с фильтрами FOV, дальности, части тела и оружия.
+Spectre port: sneaks for you.	Spectre port: приседает за вас.
+Spectre port: spams specified messages in chat.	Spectre port: спамит заданными сообщениями в чат.
+Spectre port: spawns particles where your hits land.	Spectre port: создаёт частицы в месте попадания.
+Spectre port: spectral particles for totem pops, projectiles and footsteps.	Spectre port: спектральные частицы для пота тотемов, снарядов и шагов.
+Spectre port: stops you from hitting players on your friends list.	Spectre port: не даёт бить игроков из вашего списка друзей.
+Spectre port: swaps a hovered inventory totem into the offhand or the selected hotbar slot.	Spectre port: переносит тотем под курсором в оффхенд или выбранный слот хотбара.
+Spectre port: swaps between your chestplate and elytra with one key.	Spectre port: одной клавишей меняет нагрудник и элитры.
+Spectre port: swaps to a mace for smash hits while falling, with an optional smash assist.	Spectre port: меняет на булаву для смаша в падении, с опциональным смаш-ассистом.
+Spectre port: swaps to an axe and hits when the target is blocking with a shield.	Spectre port: меняет на топор и бьёт, когда цель блокирует щитом.
+Spectre port: swaps to your Lunge spear, lunges and swaps back.	Spectre port: меняет на копьё Lunge, делает рывок и возвращает обратно.
+Spectre port: take no fall damage by replacing your own move packets after a >3 block fall.	Spectre port: убирает урон от падения, подменяя ваши пакеты движения при падении более 3 блоков.
+Spectre port: teleports you to the block you click on.	Spectre port: телепортирует вас на блок, по которому вы кликнули.
+Spectre port: the shared head accessory layer (crown, circlet, horns).	Spectre port: общий слой головных аксессуаров (корона, диадема, рога).
+Spectre port: throws experience bottles every 100 ms while right click is held.	Spectre port: бросает бутылочки опыта каждые 100 мс при удержании ПКМ.
+Spectre port: timed movement taps after a successful hit.	Spectre port: тайминговые тапы движения после успешного удара.
+Spectre port: transforms your boat (or any ridden vehicle) into a plane.	Spectre port: превращает лодку (или любой транспорт) в самолёт.
+Spectre port: turns the camera and the player separately.	Spectre port: поворачивает камеру и игрока отдельно.
+Spectre port: use tridents out of water and charge them faster.	Spectre port: позволяет использовать трезубцы вне воды и заряжать их быстрее.
+Spectre port: uses a riptide trident while you hold right-click.	Spectre port: использует трезубец с riptide при удержании ПКМ.
+Spectre port: vibrance, contrast, warmth and a vignette over the world.	Spectre port: насыщенность, контраст, тепло и виньетка на мир.
+Spectre port: walk on liquids and powder snow like Jesus.	Spectre port: ходит по жидкостям и рыхлому снегу как по земле.
+Spectre port: wears a small character modelled around your player.	Spectre port: носит маленького персонажа, смоделированного по вашему игроку.
+Spectre port: wears another player's skin by name.	Spectre port: носит скин другого игрока по имени.

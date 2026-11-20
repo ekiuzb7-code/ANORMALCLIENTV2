@@ -124,6 +124,10 @@ public class Arrows extends Module {
                     int ty = ay + (int) Math.round(Math.sin(angle) * (sz + 4));
                     tx -= mc.textRenderer.getWidth(label) / 2;
                     ty -= 4;
+                    // Keep the label on screen: arrows sit on the border, so the text used to be
+                    // clipped away for players straight to the left or right.
+                    tx = Math.max(2, Math.min(w - mc.textRenderer.getWidth(label) - 2, tx));
+                    ty = Math.max(2, Math.min(h - 10, ty));
                     RenderUtils.drawText(context, mc.textRenderer, label, tx, ty, col, true);
                 }
             }

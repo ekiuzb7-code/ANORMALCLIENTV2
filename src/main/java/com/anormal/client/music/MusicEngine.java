@@ -38,6 +38,10 @@ public final class MusicEngine {
 
     private Thread worker;
     private volatile boolean stopRequested;
+    /** Incremented on every play/stop; a worker only keeps running while its generation matches. */
+    private volatile long generation;
+    /** Line of the worker that is currently playing, so stop() can unblock and close it. */
+    private volatile SourceDataLine activeLine;
     private volatile boolean paused;
     private volatile float volume = 0.8f;
     private volatile long seekTo = -1;
@@ -99,7 +103,11 @@ public final class MusicEngine {
         paused = false;
         seekTo = -1;
 
-        worker = new Thread(() -> run(track), "anormal-music");
+        // Each player thread carries its own generation. Without it, stop() resetting
+        // stopRequested for the new track also revived a worker that was still blocked inside
+        // line.write(), and two songs played over each other.
+        final long gen = ++generation;
+        worker = new Thread(() -> run(track, gen), "anormal-music");
         worker.setDaemon(true);
         worker.start();
     }
@@ -119,15 +127,30 @@ public final class MusicEngine {
 
     public void stop() {
         stopRequested = true;
+        // Invalidate the running worker: it checks this flag on every buffer, even if
+        // stopRequested is cleared again by the next play().
+        generation++;
         Thread w = worker;
         if (w != null) {
             try {
                 // Never block the caller for long: play() runs from the render thread when the
-                // user presses next, and a 400 ms join there would be a visible freeze. The old
-                // worker sees the flag and closes its own line within a frame or two.
+                // user presses next, and a long join there would be a visible freeze.
                 w.join(60);
             } catch (InterruptedException ignored) {
                 Thread.currentThread().interrupt();
+            }
+        }
+        // Still alive means it is blocked inside line.write()/drain() with a full buffer. Closing
+        // the line from here unblocks it, so the old track really goes silent before the next one
+        // starts (this is the actual "two songs at once" fix).
+        if (w != null && w.isAlive()) {
+            SourceDataLine line = activeLine;
+            if (line != null) {
+                try {
+                    line.stop();
+                    line.close();
+                } catch (Throwable ignored) {
+                }
             }
         }
         worker = null;
@@ -143,7 +166,7 @@ public final class MusicEngine {
     //  Worker
     // ------------------------------------------------------------------
 
-    private void run(MusicTrack track) {
+    private void run(MusicTrack track, long gen) {
         SourceDataLine line = null;
         PcmSource source = null;
         try {
@@ -158,6 +181,7 @@ public final class MusicEngine {
             line = (SourceDataLine) AudioSystem.getLine(info);
             line.open(format, 64 * 1024);
             line.start();
+            activeLine = line;
             applyVolume(line);
 
             if (durationMs <= 0) {
@@ -171,7 +195,7 @@ public final class MusicEngine {
             int frameSize = Math.max(1, format.getFrameSize());
             float frameRate = format.getFrameRate() > 0 ? format.getFrameRate() : 44100f;
 
-            while (!stopRequested) {
+            while (!stopRequested && gen == generation) {
                 // The slider only writes the field, so the line gain is refreshed here.
                 if (volume != appliedVolume) {
                     appliedVolume = volume;
@@ -201,7 +225,7 @@ public final class MusicEngine {
                 positionMs = (long) (written / (double) frameSize / frameRate * 1000.0);
             }
 
-            if (!stopRequested) {
+            if (!stopRequested && gen == generation) {
                 // Let the tail of the buffer finish before reporting the end.
                 line.drain();
                 positionMs = durationMs;
@@ -211,6 +235,7 @@ public final class MusicEngine {
         } catch (Throwable error) {
             LucidLog.LOGGER.error("music playback failed", error);
         } finally {
+            if (activeLine == line) activeLine = null;
             try {
                 if (line != null) {
                     line.stop();

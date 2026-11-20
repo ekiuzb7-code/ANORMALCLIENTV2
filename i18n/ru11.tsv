@@ -1,0 +1,176 @@
+Label each cell with its region id	Подписывать каждую клетку её ID региона
+Label range in blocks	Дальность подписи в блоках
+Label scale	Масштаб подписи
+Label used for other players	Подпись для других игроков
+Landing	Приземление
+Landing Delay	Задержка приземления
+Landing Info	Информация о приземлении
+Landing colour	Цвет приземления
+Lapis Ore	Лазуритовая руда
+Launch, obsidian, two crystals, both popped at once (kuro port)	Запуск, обсидиан, два кристалла — оба взрываются сразу (kuro port)
+Lava Dip Fall Height	Высота падения в лаву
+Lava Dip If Resistant	Погружение в лаву при огнестойкости
+Lava Dip On Fall	Погружение в лаву при падении
+Lava Dip On Sneak	Погружение в лаву при приседании
+Lava Fog	Лавовый туман
+Lava Mode	Режим лавы
+Lava surface mode	Режим поверхности лавы
+Layer Height	Высота слоя
+Left	Левая
+Left Max CPS	Макс. CPS левой
+Left Min CPS	Мин. CPS левой
+Left button mode	Режим левой кнопки
+Lifetime	Время жизни
+Limit	Лимит
+Line Color	Цвет линии
+Line from crosshair to each base	Линия от прицела к каждой базе
+Line from crosshair to the base	Линия от прицела к базе
+Lines from the crosshair to every loaded player	Линии от прицела к каждому загруженному игроку
+Lines to nearest sections	Линии к ближайшим секциям
+Link Hands	Связать руки
+LiquidBounce-style FakeLag (holds outgoing movement packets)	FakeLag в стиле LiquidBounce (задерживает исходящие пакеты движения)
+List text colour	Цвет текста списка
+List vanished players on screen	Показывать исчезнувших игроков на экране
+Load Key	Клавиша загрузки
+Lock Yaw	Зафиксировать yaw
+Locked pitch	Фиксированный наклон
+Log newly found portal coordinates in chat	Писать в чат координаты новых найденных порталов
+Logout Spots	Места выхода
+Longer block/entity interaction range (kuro port)	Большая дальность взаимодействия с блоками и сущностями (kuro port)
+Look	Взгляд
+Look speed towards the spawner	Скорость поворота к спавнеру
+Look the name up on Mojang	Проверяет имя на Mojang
+Look-at raycast range	Дальность рейкаста взгляда
+Low Distance	Нижняя дистанция
+Low Hop height	Низкая высота подскока
+Lower Sensitivity	Снижать чувствительность
+Lowest Y scanned	Наименьший просканированный Y
+LungeSwapper	Смена для рывка
+Mace smash, shield break va rocket dive (kuro port)	Смаш булавой, пробой щита и rocket dive (kuro port)
+MaceBomber	Бомбер булавой
+Machine color	Цвет механизма
+Machine marker	Маркер механизма
+Machines	Механизмы
+Macro	Макрос
+Nishon hitboxlarini kengaytiradi (kuro port)	Расширяет хитбоксы цели (kuro port)
+Paket tartibi barcha jangovar hujumlar uchun	Порядок пакетов для всех боевых атак
+Predict	Прогноз
+Predict the flight of the pearl you are holding	Прогнозирует полёт жемчуга в руке
+Predicts and draws the flight path of an Ender Pearl before you throw it (real-time physics sim).	Прогнозирует и рисует траекторию эндер-жемчуга до броска (физика в реальном времени).
+Prefer	Предпочтение
+Prefer a pickaxe that instantly breaks the block	Предпочитать кирку, мгновенно ломающую блок
+Prefer borderless capture	Предпочитать захват без рамки
+Prefixes every chat line with the real-world time (kuro port)	Добавляет реальное время в начало каждой строки чата (kuro port)
+Press jump after the throw for extra height	Нажмите прыжок после броска для дополнительной высоты
+Press this key to enable/disable Fake Item. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить Fake Item. Нажмите здесь, чтобы переназначить.
+Press this key to enable/disable accurate placement. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить точную установку. Нажмите здесь, чтобы переназначить.
+Press this key to enable/disable auto-log. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить авто-логин. Нажмите здесь, чтобы переназначить.
+Press this key to enable/disable auto-loot. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить авто-сбор. Нажмите здесь, чтобы переназначить.
+Press this key to enable/disable auto-sell. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить авто-продажу. Нажмите здесь, чтобы переназначить.
+Press this key to enable/disable fake pay. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить фейковую оплату. Нажмите здесь, чтобы переназначить.
+Press this key to enable/disable fake stats. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить фейковую статистику. Нажмите здесь, чтобы переназначить.
+Press this key to enable/disable name protection. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить защиту имени. Нажмите здесь, чтобы переназначить.
+Press this key to enable/disable skin protection. Click here to rebind.	Нажмите эту клавишу, чтобы включить/выключить защиту скина. Нажмите здесь, чтобы переназначить.
+Press this key to start/stop the RTP base-finding macro. Click here to rebind.	Нажмите эту клавишу, чтобы запустить/остановить макрос поиска баз RTP. Нажмите здесь, чтобы переназначить.
+Press to lunge-swap: swap to a hotbar Spear, left-click to lunge, swap back to your original slot. Hold to repeat.	Нажмите для lunge-swap: смена на копьё из хотбара, ЛКМ для рывка, возврат в исходный слот. Удерживайте для повтора.
+Prevent Spawn	Блокировать спавн
+Preview	Предпросмотр
+Preview bows and crossbows	Показывать траекторию лука и арбалета
+Preview ender pearls	Показывать эндер-жемчуг
+Preview snowballs, eggs and bottles	Показывать снежки, яйца и бутылочки
+Preview the held weapon	Показывать оружие в руке
+Preview the planned layer	Показывать запланированный слой
+Preview tridents	Показывать трезубцы
+Primary colour	Основной цвет
+Primary effect color	Основной цвет эффекта
+Primary relic colour	Основной цвет реликвии
+Primary ring colour	Основной цвет кольца
+Primary skeleton / box color	Основной цвет скелета / рамки
+Primary spark colour	Основной цвет искры
+Print a chat message	Пишет сообщение в чат
+Print the chunk centre	Пишет центр чанка
+Projectile Aim	Наведение снарядов
+Pulse the aura	Пульсация ауры
+Pulse the vignette	Пульсация виньетки
+Push the hand away (positive) or pull it closer (negative)	Отодвигает руку (положительно) или приближает (отрицательно)
+Put the chestplate back after landing	Надевает нагрудник обратно после приземления
+Safe Walk	Безопасная ходьба
+Safety Slot	Слот безопасности
+Save every revealed ore to disk and reload it next session, so your ore map grows across sessions. Per-server + per-dimension.	Сохраняет каждую раскрытую руду на диск и загружает в следующей сессии, чтобы карта руд росла. Для каждого сервера и измерения.
+Scale mouse sensitivity while zoomed	Масштабирует чувствительность мыши при приближении
+Scale of the tag	Масштаб метки
+Scan Budget ms	Бюджет сканирования (мс)
+Scan below this Y	Сканировать ниже этого Y
+Scan loaded chunks for already-revealed ores (the only approach that works without a seed). Leave ON.	Сканирует загруженные чанки на уже раскрытые руды (единственный способ без сида). Оставьте включённым.
+Scan radius (blocks)	Радиус сканирования (блоки)
+Scan time budget per tick	Бюджет времени сканирования за тик
+Scoring method	Метод оценки
+Scroll Speed	Скорость прокрутки
+Scroll wheel changes speed	Колесо мыши меняет скорость
+Sculk indicators to count as a city	Скалк-индикаторов для статуса города
+Second Color	Второй цвет
+Secondary relic colour	Вторичный цвет реликвии
+Secondary ring colour	Вторичный цвет кольца
+Secondary spark colour	Вторичный цвет искры
+Secondary tint	Вторичный оттенок
+Seconds before reconnecting	Секунд до переподключения
+Seconds before rejoining	Секунд до повторного входа
+Seconds between command hops	Секунд между переходами команд
+Seconds the spirit lives	Секунд жизни духа
+See Through	Просмотр сквозь
+Selects the fastest tool for the block you are mining	Выбирает самый быстрый инструмент для добываемого блока
+Self Rings	Свои кольца
+Send the break at this progress	Отправляет ломание на этом прогрессе
+Send the messages in random order	Отправляет сообщения в случайном порядке
+Send the rotation without moving your camera (off = the character visibly turns)	Отправляет поворот, не двигая камеру (выкл. = персонаж видимо поворачивается)
+Sends Baritone's own #commands for you	Отправляет за вас собственные #команды Baritone
+Separate Armor	Отдельная броня
+Sets the speed of the entity you are riding (kuro port)	Задаёт скорость сущности, на которой вы едете (kuro port)
+Sheen	Блеск
+Sheen Color	Цвет блеска
+Shift-clicks everything out of an open chest or shulker box	Шифт-кликом вытаскивает всё из открытого сундука или шалкера
+Shorter right-click repeat delay	Короче задержка повтора ПКМ
+Show Height	Показывать высоту
+Show Here	Показывать здесь
+Show Items	Показывать предметы
+Show Landing	Показывать приземление
+Show Lava	Показывать лаву
+Show Legend	Показывать легенду
+Show Mobs	Показывать мобов
+Show Names	Показывать имена
+Show Nametag	Показывать неймтаг
+Show Players	Показывать игроков
+Show Rank	Показывать ранг
+Show Region IDs	Показывать ID регионов
+Show Time	Показывать время
+Show Unbound	Показывать без привязки
+Show Water	Показывать воду
+Show a chat confirmation	Показывает подтверждение в чате
+Show a health bar	Показывает полосу здоровья
+Show a hint when a hit is held back	Показывает подсказку, когда удар задержан
+Show a notification when traps are removed	Показывает уведомление, когда убраны ловушки
+Show ambient rings around own player	Показывает кольца вокруг своего игрока
+Show armour durability	Показывать прочность брони
+Show break progress	Показывать прогресс ломания
+Silent Aura	Silent-аура
+Simple Crystal Aura	Простая Crystal Aura
+Skin Protect	Защита скина
+SkinShower	Показ скина
+Smash Assist	Помощник смаша
+SpearSwap	Смена копья
+Spectral Pendant	Спектральный кулон
+Spectre HUD	Spectre HUD
+Stash Finder	Поиск схронов
+Stopwatch	Секундомер
+Sus Chunk Finder	Поиск подозрительных чанков
+S-tap instead of W-tap when the target is close	S-тап вместо W-тапа, когда цель близко
+Totem poplarini sanaydi (kuro port)	Считает попы тотемов (kuro port)
+TotemPops	Попы тотема
+Trail Tracker	Трекер следа
+Username Hider	Скрытие имени
+Worth Display	Показ стоимости
+Yer ustda ham kritik urush (kuro port)	Критические удары и на поверхности (kuro port)
+kuro freecam: kamera uchadi, tana muzlaydi, ko'rish erkin (kuro port)	kuro freecam: камера летает, тело замирает, обзор свободный (kuro port)
+Fake o'yinchi nishonlarni chiqarib tashlaydi (kuro port)	Fake-игрок исключает цели (kuro port)
+Hotbar slotlarni avtomatik qayta to'ldiradi (kuro port)	Автоматически пополняет слоты хотбара (kuro port)
+Hover qilingan totemni offhandga ko'chiradi (kuro port)	Переносит тотем под курсором в оффхенд (kuro port)

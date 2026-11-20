@@ -101,10 +101,6 @@ public class ModuleManager {
         register(new StorageESP());
         register(new StashFinder());
         register(new DeathPoints());
-        register(new EntityCulling());
-        register(new ParticleOptimizer());
-        register(new DynamicRenderDistance());
-        register(new PerformanceOverlay());
         register(new Waypoints());
         register(new Trajectories());
         register(new PearlTrajectory());
@@ -112,6 +108,11 @@ public class ModuleManager {
         register(new AntiDebuff());
         register(new Arrows());
         register(new Explosions());
+        register(new com.anormal.client.module.impl.render.SpawnProofOverlay());
+        register(new com.anormal.client.module.impl.render.ExplosionTimer());
+        register(new com.anormal.client.module.impl.render.ChinaHat());
+        register(new com.anormal.client.module.impl.render.SoundDetector());
+        register(new com.anormal.client.module.impl.render.StaffDetector());
         register(new PortalFinder());
         register(new BedESP());
         register(new DonkeyFinder());
@@ -185,6 +186,7 @@ public class ModuleManager {
         register(new FakeLag());
         register(new BackTrack());
         register(new CoordinateLogger());
+        register(new ViewModel());
 
         // --- INVENTORY ---
         register(new InvCleaner());
@@ -192,6 +194,7 @@ public class ModuleManager {
         register(new AutoArmor());
         register(new AutoHotbar());
         register(new AutoTotem());
+        register(new com.anormal.client.module.impl.inventory.KitLoadout());
         register(new InventoryManager());
         register(new InventoryFill());
         register(new Refill());
@@ -215,12 +218,14 @@ public class ModuleManager {
         register(new SkyOptimizer());
         register(new EntityLodOptimizer());
         register(new AsyncChunkMeshing());
+        register(new FarmFpsOptimizer());
 
         // --- LEGIT & OVERLAYS ---
         register(new ArmorStatus());
         register(new Coords());
         register(new FPS());
         register(new Clock());
+        register(new com.anormal.client.module.impl.player.CommandCooldowns());
         register(new ReachDisplay());
         register(new PotionStatus());
         register(new DuelInfo());
@@ -260,7 +265,6 @@ public class ModuleManager {
         register(new ClientSettings());
         register(new Macros());
         register(new ActionWheel());
-        register(new FarmFpsOptimizer());
         register(new Friends());
         register(new Profiles());
         register(new AntiBot());
@@ -278,6 +282,7 @@ public class ModuleManager {
         register(new com.anormal.client.module.impl.player.AutoLog());
         register(new com.anormal.client.module.impl.player.AccuratePlacement());
         register(new com.anormal.client.module.impl.player.AutoSell());
+        register(new com.anormal.client.module.impl.player.AuctionSniper());
         register(new com.anormal.client.module.impl.player.FakePay());
         register(new com.anormal.client.module.impl.player.FakeStats());
         register(new com.anormal.client.module.impl.player.SkinProtect());
@@ -633,6 +638,65 @@ public class ModuleManager {
     /** Measured frame of each enabled overlay this frame: {x, y, w, h}. */
     public static final java.util.Map<Module, int[]> FRAMES = new java.util.IdentityHashMap<>();
 
+    /**
+     * Legit HUD overlays whose "Scale" setting is applied as a matrix transform around the panel's
+     * own anchor, so text, bars and item icons all scale together. TargetInfo is not listed: its
+     * Scale already sizes the card itself.
+     */
+    private static final java.util.Set<Class<?>> HUD_SCALED = java.util.Set.of(
+            ReachDisplay.class, EnemyArmor.class, EnemyInventory.class, ToolDurability.class,
+            ArmorDurability.class, FoodStatus.class, ItemCounter.class, BlockCounter.class,
+            EnchantHelper.class, AnvilHelper.class, MemoryHUD.class, RenderStats.class,
+            DirectionHUD.class, TravelDistance.class, CoordinateShare.class, PartyOverlay.class,
+            Radar.class, Rearview.class, Compass.class, Scoreboard.class, ArmorStatus.class,
+            Coords.class, FPS.class, Clock.class, PotionStatus.class, DuelInfo.class,
+            InventoryOverlay.class);
+
+    private static com.anormal.client.setting.NumberSetting numberSetting(Module module, String name) {
+        for (com.anormal.client.setting.Setting<?> setting : module.getSettings()) {
+            if (setting instanceof com.anormal.client.setting.NumberSetting number
+                    && name.equals(number.getName())) {
+                return number;
+            }
+        }
+        return null;
+    }
+
+    /** Pushes the module's HUD scale around its anchor; returns true when a matrix was pushed. */
+    private static boolean pushHudScale(DrawContext context, Module module) {
+        if (!HUD_SCALED.contains(module.getClass())) return false;
+        com.anormal.client.setting.NumberSetting scale = numberSetting(module, "Scale");
+        if (scale == null) return false;
+        float s = scale.getValue().floatValue();
+        if (Math.abs(s - 1.0f) < 0.001f) return false;
+        com.anormal.client.setting.NumberSetting px = numberSetting(module, "Pos X");
+        com.anormal.client.setting.NumberSetting py = numberSetting(module, "Pos Y");
+        float ax = px == null ? 0.0f : px.getValue().floatValue();
+        float ay = py == null ? 0.0f : py.getValue().floatValue();
+        var matrices = context.getMatrices();
+        matrices.pushMatrix();
+        matrices.translate(ax, ay);
+        matrices.scale(s, s);
+        matrices.translate(-ax, -ay);
+        return true;
+    }
+
+    /** Applies the same transform to the measured frame so the HUD editor's hitbox matches. */
+    private static void scaleFrame(Module module, int[] frame) {
+        com.anormal.client.setting.NumberSetting scale = numberSetting(module, "Scale");
+        if (scale == null) return;
+        float s = scale.getValue().floatValue();
+        if (Math.abs(s - 1.0f) < 0.001f) return;
+        com.anormal.client.setting.NumberSetting px = numberSetting(module, "Pos X");
+        com.anormal.client.setting.NumberSetting py = numberSetting(module, "Pos Y");
+        float ax = px == null ? 0.0f : px.getValue().floatValue();
+        float ay = py == null ? 0.0f : py.getValue().floatValue();
+        frame[0] = Math.round(ax + (frame[0] - ax) * s);
+        frame[1] = Math.round(ay + (frame[1] - ay) * s);
+        frame[2] = Math.round(frame[2] * s);
+        frame[3] = Math.round(frame[3] * s);
+    }
+
     public static void onRender2D(DrawContext context, float tickDelta) {
         // Snapshot the interpolated render camera once per frame so every
         // marker module projects against the same camera the world was drawn
@@ -650,9 +714,15 @@ public class ModuleManager {
             if (!module.isEnabled()) continue;
             try {
                 com.anormal.client.util.RenderUtils.beginMeasure();
-                module.onRender2D(context, tickDelta);
+                boolean scaled = pushHudScale(context, module);
+                try {
+                    module.onRender2D(context, tickDelta);
+                } finally {
+                    if (scaled) context.getMatrices().popMatrix();
+                }
                 int[] frame = com.anormal.client.util.RenderUtils.endMeasure();
                 if (frame != null && frame[2] > 0 && frame[3] > 0) {
+                    if (scaled) scaleFrame(module, frame);
                     FRAMES.put(module, frame);
                 }
             } catch (Exception e) {

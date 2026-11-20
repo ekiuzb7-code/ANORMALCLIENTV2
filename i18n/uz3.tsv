@@ -1,0 +1,204 @@
+Colour of the planned blocks	Rejalashtirilgan bloklar rangi
+Colour of the player dots	O'yinchi nuqtalari rangi
+Colour of your marker	Sizning belgingiz rangi
+Colour punch	Rang kuchi
+Colour used when the pearl hits an entity	Pearl entityga tekkanda ishlatiladigan rang
+Combat Only	Faqat jangda
+Combat hit visual animations (14 themes) and satisfying hit sounds	Jang zarbasi animatsiyalari (14 tema) va yoqimli zarba ovozlari
+Compact plates with name, health bar, armour and IRL time	Nom, salomatlik chizig'i, zirh va real vaqt bilan ixcham taxtalar
+Compass Arrow	Kompas strelkasi
+Compass needle colour	Kompas mili rangi
+Compass needle length	Kompas mili uzunligi
+Config	Konfiguratsiya
+Config slots: save / load / delete / list module profiles (kuro port)	Konfig uyalari: modul profillarini saqlash / yuklash / o'chirish / ro'yxatlash (kuro port)
+Container color	Konteyner rangi
+Container marker	Konteyner belgisi
+Containers	Konteynerlar
+Contrast	Kontrast
+Control boats	Qayiqlarni boshqarish
+Control camels	Tuyalarni boshqarish
+Control horses and donkeys	Ot va eshaklarni boshqarish
+Control pigs	Cho'chqalarni boshqarish
+Control striders	Striderlarni boshqarish
+Cooldown	Cooldown
+Cooldown (s)	Cooldown (s)
+Cooldown Bypass	Cooldown'ni chetlab o'tish
+Cooldown offset in ticks (negative = attack before full charge)	Cooldown siljishi (tik; manfiy = to'liq zaryaddan oldin urish)
+Coord Share	Koordinata ulashish
+Coordinate text format	Koordinata matni formati
+Copies your coordinates to the clipboard and/or posts them in chat (kuro port)	Koordinatalaringizni clipboard'ga ko'chiradi va/yoki chatga yozadi (kuro port)
+Copper Ore	Mis rudasi
+Copy your armor and held items	Zirhingiz va qo'ldagi buyumlarni nusxalaydi
+Corner frame of the build	Qurilishning burchak ramkasi
+Cosmetic client-side trails behind players	O'yinchilar orqasida kosmetik klient izlari
+Count	Soni
+Count Absorption	Yutilishni hisoblash
+Count chests, barrels and hoppers	Sandiq, bochka va hopperlarni sanaydi
+Count furnaces, dispensers and anvils	Pech, dispenser va anvillarni sanaydi
+Count redstone components	Redstone qismlarini sanaydi
+Countdown length	Hisoblash uzunligi
+Critical Spawner	Kritik spawner
+Crits	Kritlar
+Crosshair Pick	Nishon orqali tanlash
+Crosshair color	Nishon rangi
+Crystal Aura	Kristal aura
+Crystal Color	Kristal rangi
+Crystal Optimizer	Kristal optimizatori
+Crystal tint	Kristal tuslanishi
+CrystalDtap	CrystalDtap
+Custom Accent	Maxsus urg'u rangi
+Custom Tracer Color	Maxsus kuzatuv rangi
+Custom or accent colours	Maxsus yoki urg'u ranglari
+Cut the post-break delay	Sindirishdan keyingi kechikishni qisqartiradi
+Cycle color hue continuously	Rang tusini doim aylantiradi
+Cycle effect hue continuously	Effekt tusini doim aylantiradi
+Damage Flash	Zarar miltillashi
+Damage Mode	Zarar rejimi
+Damage ratio to place	Qo'yish uchun zarar nisbati
+Dark disc behind the dots	Nuqtalar ortida to'q disk
+Dark plate behind the text	Matn ortida to'q taxta
+Degrees per tick for the arrow keys	Strelka tugmalari uchun tikdagi gradus
+Delay (s)	Kechikish (s)
+Delay while slow	Sekinlashganda kechikish
+Delays or ghost-lags enemy positions (kuro port)	Dushman pozitsiyalarini kechiktiradi (kuro port)
+Denoise	Shovqinni olib tashlash
+Depth filter	Chuqurlik filtri
+Detail	Detal
+Detect Block Updates	Blok yangilanishlarini aniqlash
+Detection	Aniqlash
+Detonate after charging	Zaryadlangandan keyin portlatish
+Diagonal Walls	Diagonal devorlar
+Diameter of hit animation in blocks	Zarba animatsiyasi diametri (blok)
+Diameter of the radar	Radar diametri
+Diamond Ore	Olmos rudasi
+Different chime for a killing hit	O'ldiruvchi zarba uchun boshqa ovoz
+Digs a tunnel straight ahead in the direction you face	Qaraganingiz tomonga to'g'ri tunnel qaziydi
+Ding Dong Builder	Ding Dong quruvchi
+Dip If Burning	Yonayotganda cho'miladi
+Dip in lava while fire resistant	Olovga chidamli bo'lganda lava ichiga tushadi
+Disable On Disconnect	Uzilganda o'chirish
+Disable On Find	Topilganda o'chirish
+Disable On Input	Kiritishda o'chirish
+Disable On Leave	Chiqishda o'chirish
+Disable On Y Change	Y o'zgarganda o'chirish
+Discard new trap entities immediately	Yangi trap entitylarni darhol tashlaydi
+Disconnect when a player appears	O'yinchi paydo bo'lganda uziladi
+Display distance in blocks	Masofani bloklarda ko'rsatish
+Display player name above	Tepada o'yinchi nomini ko'rsatish
+Distance Colors	Masofa ranglari
+Distance Offscreen	Ekran tashqarisidagi masofa
+Distance for other players	Boshqa o'yinchilar uchun masofa
+Distance from the center	Markazdan masofa
+Distance from your chunk	Chunk'ingizdan masofa
+Distance where near fades to far	Yaqin masofa uzoqqa o'tadigan chegara
+Do not attack from the click that activated the module (unused without a rotation engine)	Modulni yoqqan klikdan hujum qilmaydi (rotation engine bo'lmasa ishlatilmaydi)
+Do not delay or ghost friends	Do'stlarni kechiktirmaydi
+Do not detonate when too much self damage	O'ziga zarar ko'p bo'lsa portlatmaydi
+Do not detonate without the cover block	Qopqoq blokisiz portlatmaydi
+Do not force sprint in water	Suvda yugurishni majburlamaydi
+Do not hit targets that are blocking	Qalqon tutgan nishonlarga urmaydi
+Do not re-place when the crosshair only flickers between faces of the same block	Nishon faqat bitta blok yuzlari orasida o'tsa qayta qo'ymaydi
+Do not sprint while you have Invisibility	Ko'rinmaslik effekti bo'lganda yugurmaydi
+Do not trace friends	Do'stlarga chiziq tortmaydi
+Do nothing unless you hold the forward key	Oldinga tugmasi bosilmaguncha hech narsa qilmaydi
+Do nothing while standing on the ground	Yerda turganda hech narsa qilmaydi
+Do nothing while you are airborne	Havoda bo'lganda hech narsa qilmaydi
+Doesn't anchor if a body is nearby.	Yaqin atrofda tana bo'lsa anchor qo'ymaydi.
+Double vertical speed scale	Vertikal tezlik ikki barobar
+DoubleAnchor	DoubleAnchor
+Downward drift when nothing is pressed	Hech narsa bosilmaganda pastga siljish
+Downward speed while jump is not held	Sakrash bosilmaganda pastga tezlik
+Draw 3D block outlines around portal frames	Portal ramkalari atrofida 3D kontur chizadi
+Draw 3D outline at city center	Shahar markazida 3D kontur chizadi
+Draw 3D wireframe boxes around ores	Rudalar atrofida 3D karkas ramkalar chizadi
+Draw HUD text with a shadow	HUD matnini soya bilan chizadi
+Draw Tracer Color	Kuzatuv chizig'i rangi
+Draw a 3D box	3D ramka chizadi
+Draw a 3D box marker	3D ramka belgisi chizadi
+Draw a beam down from each block entity	Har bir blok entitydan pastga nur chizadi
+Draw a beam over flagged chunks	Belgilangan chunklar ustida nur chizadi
+Draw a box around found spawners	Topilgan spawnerlar atrofida ramka chizadi
+Draw a box at the predicted impact block.	Bashorat qilingan zarba blokida ramka chizadi.
+Draw a dot in the center	Markazda nuqta chizadi
+Draw a drop shadow under the text	Matn ostida soya chizadi
+Draw a frame around every HUD overlay	Har bir HUD qatlami atrofida ramka chizadi
+Draw a half-range ring	Yarim masofa halqasini chizadi
+Draw a halo ring around each relic	Har bir relik atrofida halo halqa chizadi
+Draw a line to each found block	Har bir topilgan blokka chiziq chizadi
+Draw a line to each geode	Har bir geodaga chiziq chizadi
+Draw a small box where the arrow lands	O'q tekkan joyda kichik ramka chizadi
+Draw a soft glow behind the path	Yo'l ortida yumshoq yorug'lik chizadi
+Draw a soft outer glow	Yumshoq tashqi yorug'lik chizadi
+Draw a subtle dark outline	Nozik to'q kontur chizadi
+Draw beams over flagged chunks	Belgilangan chunklar ustida nurlar chizadi
+Draw block outlines	Blok konturlarini chizadi
+Draw boxes in the world	Dunyoda ramkalar chizadi
+Draw detected activity	Aniqlangan faollikni chizadi
+Draw dropped items	Tashlangan buyumlarni chizadi
+Draw elapsed / remaining time	O'tgan / qolgan vaqtni chizadi
+Draw hostile and passive mobs	Dushman va passiv moblarni chizadi
+Draw invisible entities too	Ko'rinmas entitylarni ham chizadi
+Draw labels with a shadow	Yorliqlarni soya bilan chizadi
+Draw line to portal center	Portal markaziga chiziq chizadi
+Draw lines from crosshair to containers	Nishondan konteynerlarga chiziqlar chizadi
+Draw lines to valuable ores (Diamonds, Debris, Emeralds)	Qimmatbaho rudalarga (olmos, qoldiq, zumrad) chiziqlar chizadi
+Draw lines towards city center	Shahar markaziga chiziqlar chizadi
+Draw other players	Boshqa o'yinchilarni chizadi
+Draw text with a shadow	Matnni soya bilan chizadi
+Draw the N marker while rotating	Aylanish paytida N belgisini chizadi
+Draw the base as a 3D box in the world	Bazani dunyoda 3D ramka sifatida chizadi
+Draw the bases as 3D boxes	Bazalarni 3D ramkalar sifatida chizadi
+Draw the centre marker	Markaz belgisini chizadi
+Draw the ghost body box	Ghost tana ramkasini chizadi
+Draw the ground ring	Yer halqasini chizadi
+Draw the held item	Qo'ldagi buyumni chizadi
+Draw the held item on the HUD so changes can be checked in game	Qo'ldagi buyumni HUD'da chizadi, o'zgarishlarni o'yinda ko'rish uchun
+Draw the item box outline	Buyum ramkasi konturini chizadi
+Draw the preview arc	Ko'rish yoyini chizadi
+Draw the projectile marker	Snaryad belgisini chizadi
+Draw the reach meter	Masofa o'lchagichini chizadi
+Draw the readout with a shadow	Ko'rsatkichni soya bilan chizadi
+Draw the target's hitbox in the world	Nishonning hitbox'ini dunyoda chizadi
+Draw the text with a shadow	Matnni soya bilan chizadi
+Draw the trail of pearls already thrown	Otib yuborilgan pearllar izini chizadi
+Draw the translucent fill	Shaffof to'ldirishni chizadi
+Draw the wireframe outline	Karkas konturini chizadi
+Draw through walls	Devor orqasidan chizadi
+Draw tracer lines	Kuzatuv chiziqlarini chizadi
+Draw tracer lines from the camera to revealed + cached ore positions.	Kameradan topilgan va keshlangan ruda pozitsiyalariga chiziqlar chizadi.
+Draw tracer lines to sections	Bo'limlarga kuzatuv chiziqlari chizadi
+Draw translucent fills	Shaffof to'ldirishlar chizadi
+Draws hitboxes through walls (kuro port)	Hitbox'larni devor orqasidan chizadi (kuro port)
+Draws the arrow's flight path and landing spot (kuro port)	O'qning uchish yo'li va qo'nish joyini chizadi (kuro port)
+Drift	Siljish
+Drill Instabreak	Burg'u Instabreak
+Drop a vertical stem line at the entity	Entityda vertikal chiziq tushiradi
+Durability	Mustahkamlik
+Duration of hit animation in ms	Zarba animatsiyasi davomiyligi (ms)
+Dust Size	Zarracha o'lchami
+Dust color	Zarracha rangi
+Dust color source	Zarracha rangi manbasi
+Dust particle size	Zarracha o'lchami
+Dynamic Gap	Dinamik oraliq
+Dynamic gap amount	Dinamik oraliq miqdori
+Ease the camera motion	Kamera harakatini yumshatadi
+Easing on the way in and out	Kirish va chiqishda yumshatish
+Eat at or below this food level	Shu ovqat darajasida yoki pastda yeydi
+Eat at or below this health (0 = never)	Shu salomatlikda yoki pastda yeydi (0 = hech qachon)
+Eats the best food in your inventory when you are hungry	Och qolganda inventardagi eng yaxshi ovqatni yeydi
+Edge brightness	Chet yorqinligi
+Edge darkening	Chetlarni qoraytirish
+Edit both hands together	Ikki qo'lni birga tahrirlash
+Editing	Tahrirlash
+Effects	Effektlar
+Elytra Fly	Elytra uchish
+Elytra Hop	Elytra sakrash
+Elytra Swap	Elytra almashtirish
+Emerald Ore	Zumrad rudasi
+Enable vertical pitch tracking	Vertikal pitch kuzatuvini yoqish
+Enchantment to prefer on the mace	Mace uchun afzal sehr
+End Color	Oxirgi rang
+Entity Fire	Entity olovi
+Entity Speed	Entity tezligi
+Equips the best armor from the inventory (kuro port)	Inventardan eng yaxshi zirhni kiyadi (kuro port)
+Everything	Hammasi

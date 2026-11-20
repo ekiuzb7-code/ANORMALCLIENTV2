@@ -32,6 +32,81 @@ public final class HudStyle {
         inPass = false;
     }
 
+    // ------------------------------------------------------------------
+    //  Modern HUD panels (legit section)
+    // ------------------------------------------------------------------
+
+    /** Body colour of the modern HUD panel. */
+    public static final int PANEL_BG = 0xE80B0D14;
+
+    public static int clamp(int value, int min, int max) {
+        if (max < min) return min;
+        return value < min ? min : Math.min(value, max);
+    }
+
+    /**
+     * Keeps a whole panel on screen.
+     *
+     * <p>The legit overlays used to draw at raw {@code Pos X / Pos Y}, so a stale config (other
+     * GUI scale or a smaller window) could put them at negative coordinates where they were
+     * invisible and unreachable. Every panel now passes its top-left through this.</p>
+     *
+     * @return {@code {x, y}} clamped so the panel is fully visible
+     */
+    public static int[] place(int x, int y, int w, int h) {
+        int sw = RenderUtils.screenWidth();
+        int sh = RenderUtils.screenHeight();
+        int px = clamp(x, 2, Math.max(2, sw - w - 2));
+        int py = clamp(y, 2, Math.max(2, sh - h - 2));
+        return new int[]{px, py};
+    }
+
+    /**
+     * The shared panel: soft drop shadow, rounded dark body, top hairline and a 2px accent spine.
+     * Drawn through {@link RenderUtils#fillRounded} so the HUD editor measures it correctly.
+     */
+    public static void panel(DrawContext ctx, int x, int y, int w, int h, int accent) {
+        RenderUtils.fillRoundedRaw(ctx, x - 1, y + 1, w + 2, h + 2, 5, 0x33000000);
+        RenderUtils.fillRounded(ctx, x, y, w, h, 5, PANEL_BG);
+        RenderUtils.fill(ctx, x + 5, y, x + w - 5, y + 1, 0x22FFFFFF);
+        RenderUtils.fill(ctx, x, y + 5, x + 2, y + h - 5, accent);
+    }
+
+    /** Header row: dim caps title on the left, the value stays with the caller. */
+    public static void title(DrawContext ctx, TextRenderer tr, String text, int x, int y) {
+        RenderUtils.drawText(ctx, tr, text == null ? "" : text.toUpperCase(java.util.Locale.ROOT),
+                x, y, 0xFF868A99, false);
+    }
+
+    /** Thin rounded progress bar. */
+    public static void bar(DrawContext ctx, int x, int y, int w, int h, float frac, int color) {
+        if (w <= 0 || h <= 0) return;
+        float f = Math.max(0.0f, Math.min(1.0f, frac));
+        int r = Math.max(1, h / 2);
+        RenderUtils.fillRounded(ctx, x, y, w, h, r, 0x38FFFFFF);
+        int filled = (int) (w * f);
+        if (filled > 0) {
+            RenderUtils.fillRounded(ctx, x, y, Math.max(2, Math.min(w, filled)), h, r, color);
+        }
+    }
+
+    /** Green / amber / red durability colour. */
+    public static int durabilityColor(int pct) {
+        if (pct > 50) return 0xFF4ADE80;
+        if (pct > 25) return 0xFFFBBF24;
+        return 0xFFF87171;
+    }
+
+    /** Truncates a label to fit {@code maxWidth}, keeping it readable. */
+    public static String trim(TextRenderer tr, String text, int maxWidth) {
+        if (text == null) return "";
+        if (maxWidth <= 0 || tr.getWidth(text) <= maxWidth) return text;
+        String dots = "..";
+        int i = text.length();
+        while (i > 0 && tr.getWidth(text.substring(0, i) + dots) > maxWidth) i--;
+        return text.substring(0, Math.max(1, i)) + dots;
+    }
+
 
     // ------------------------------------------------------------------
     //  Shared card look

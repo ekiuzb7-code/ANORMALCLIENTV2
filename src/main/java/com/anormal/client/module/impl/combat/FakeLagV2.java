@@ -81,6 +81,9 @@ public class FakeLagV2 extends Module {
 
     @Override
     public void onEnable() {
+        // Never inherit packets held by an earlier session: they would be sent from a stale
+        // position as soon as the module is enabled again.
+        getBlinkManager().flush();
         chronometer = System.currentTimeMillis();
         nextDelay = delay.random();
         serverPosition = null;
@@ -96,6 +99,28 @@ public class FakeLagV2 extends Module {
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null) return;
+
+        BlinkManager bm = BlinkManager.getInstance();
+        long now = System.currentTimeMillis();
+
+        // Anything that invalidates the held position flushes at once. Otherwise the server keeps
+        // attacking us at the stale position (boats/elytra especially, since they send their own
+        // movement packets), or we rubber-band after a hit.
+        if (mc.player.isDead() || mc.player.hasVehicle() || mc.player.isGliding()
+                || mc.player.hurtTime > 0) {
+            flushNow(bm, now);
+            serverPosition = null;
+            return;
+        }
+
+        // Hard desync guard: if we drifted far from what the server knows, catch up now instead
+        // of letting the server teleport us back.
+        if (serverPosition != null
+                && new Vec3d(mc.player.getX(), mc.player.getY(), mc.player.getZ()).squaredDistanceTo(serverPosition) > 64.0) {
+            flushNow(bm, now);
+            serverPosition = null;
+            return;
+        }
 
         double maxCheckRange = range.getMax();
         isEnemyNearby = false;

@@ -18,23 +18,17 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Marks structures by their characteristic blocks.
  *
- * <p><b>Why it used to be unreliable.</b> The scan advanced by <b>4 blocks on
- * every axis</b> to stay fast, so it only ever looked at 1/64th of the volume.
- * A bed cluster, a sculk patch or an end portal frame almost never landed on a
- * sampled coordinate, which is why markers appeared randomly, pointed at empty
- * terrain, or never showed up at all.</p>
- *
- * <p>It now walks <b>every</b> block, but through the shared
- * {@link BlockScanner} so the cost is spread over many ticks instead of
- * stalling one. Results are kept between sweeps and only removed once the
- * blocks are genuinely gone, so markers no longer blink on and off, and
- * clustering uses {@link Clusterer} instead of the old nested re-scan.</p>
+ * <p>The scan walks every block through the shared {@link BlockScanner}, so the cost is spread
+ * over many ticks. Hits are kept between sweeps and only dropped when the block is gone, so the
+ * markers do not blink. Clusters are rebuilt only when the hit set changes and each cluster's
+ * label is resolved once then, instead of the old per-frame search over every hit.</p>
  */
 public class StructureESP extends Module {
     public final BooleanSetting village = new BooleanSetting("Village", "Mark villages (bed clusters)", true);
@@ -60,15 +54,13 @@ public class StructureESP extends Module {
     public final NumberSetting outlineWidth = new NumberSetting("Outline Width", "Thickness of the outlines", 1.0, 1.0, 4.0, 1.0);
     public final ColorSetting color = new ColorSetting("Color", "Marker color", ColorUtils.rgba(255, 220, 0, 255));
 
-    /** Max world lookups per tick - constant cost regardless of radius. */
     private static final int SCAN_BUDGET = 4000;
-    private static final long RENDER_BUDGET_NS = 5_000_000L;
-    /** Two hits closer than this belong to the same structure. */
     private static final double CLUSTER_RADIUS = 28.0;
 
-    /** Characteristic blocks found so far: position -> structure name. */
     private final Map<BlockPos, String> hits = new HashMap<>();
     private final List<Clusterer.Cluster> clusters = new ArrayList<>();
+    /** Cluster -> structure name, resolved once per rebuild. */
+    private final Map<Clusterer.Cluster, String> labels = new IdentityHashMap<>();
     private final BlockScanner scanner = new BlockScanner();
 
     private int originX = Integer.MIN_VALUE, originY, originZ;
@@ -104,6 +96,7 @@ public class StructureESP extends Module {
     public void onDisable() {
         hits.clear();
         clusters.clear();
+        labels.clear();
         scanner.resetCylinder();
         originX = Integer.MIN_VALUE;
     }
@@ -147,7 +140,6 @@ public class StructureESP extends Module {
         int r = range.getValue().intValue();
         int vr = verticalRange.getValue().intValue();
 
-        // Re-centre when the player has moved far enough.
         if (originX == Integer.MIN_VALUE
                 || Math.abs(origin.getX() - originX) > 16
                 || Math.abs(origin.getZ() - originZ) > 16) {
@@ -158,7 +150,6 @@ public class StructureESP extends Module {
             prune(origin, r, vr);
         }
 
-        // Drop hits whose block is gone or whose type was switched off.
         hits.entrySet().removeIf(e -> {
             if (!enabledFor(e.getValue())) return true;
             if (!mc.world.isChunkLoaded(e.getKey())) return false;
@@ -209,6 +200,7 @@ public class StructureESP extends Module {
     /** Groups hits by structure type, then clusters each type separately. */
     private void rebuildClusters() {
         clusters.clear();
+        labels.clear();
         int min = minBlocks.getValue().intValue();
         int limit = maxFound.getValue().intValue();
 
@@ -222,12 +214,15 @@ public class StructureESP extends Module {
             all.addAll(Clusterer.cluster(group, CLUSTER_RADIUS, min, limit));
         }
         all.sort((a, b) -> Integer.compare(b.size, a.size));
-        for (int i = 0; i < all.size() && i < limit; i++) clusters.add(all.get(i));
+        for (int i = 0; i < all.size() && i < limit; i++) {
+            Clusterer.Cluster c = all.get(i);
+            clusters.add(c);
+            labels.put(c, nearestType(c.center()));
+        }
     }
 
-    /** Label for a cluster: the type of the nearest hit to its centre. */
-    private String labelFor(Clusterer.Cluster c) {
-        BlockPos center = c.center();
+    /** The structure type of the hit closest to a cluster centre (computed once per rebuild). */
+    private String nearestType(BlockPos center) {
         String best = "Structure";
         double bestD = Double.MAX_VALUE;
         for (Map.Entry<BlockPos, String> e : hits.entrySet()) {
@@ -246,44 +241,40 @@ public class StructureESP extends Module {
 
         int col = color.getValue();
         int width = outlineWidth.getValue().intValue();
-        int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-        long deadline = System.nanoTime() + RENDER_BUDGET_NS;
+        int sw = RenderUtils.screenWidth();
+        int sh = RenderUtils.screenHeight();
 
         for (Clusterer.Cluster c : clusters) {
-            if (System.nanoTime() > deadline) break;
-
             BlockPos center = c.center();
             double dist = Math.sqrt(center.getSquaredDistance(mc.player.getBlockPos()));
             if (dist > maxDistance.getValue()) continue;
 
-            // Real 3D outline around the structure centre block.
             if (box.isEnabled()) {
                 RenderUtils.drawBlockOutline(context, center, col, tickDelta, width);
             }
 
             int[] sc = ProjectionUtil.project(
-                    new Vec3d(center.getX() + 0.5, center.getY() + 1.2, center.getZ() + 0.5), tickDelta);
+                    new Vec3d(center.getX() + 0.5, center.getY() + 2.2, center.getZ() + 0.5), tickDelta);
             if (sc == null) continue;
 
             if (tracer.isEnabled()) {
-                RenderUtils.drawLine(context, w / 2, h / 2, sc[0], sc[1], col, 1.0f);
+                RenderUtils.drawLine(context, sw / 2, sh / 2, sc[0], sc[1],
+                        (col & 0x00FFFFFF) | 0x80000000, 1.0f);
             }
-
             if (mc.textRenderer == null) continue;
+
             StringBuilder label = new StringBuilder();
-            if (showName.isEnabled()) label.append("§6").append(labelFor(c));
+            if (showName.isEnabled()) label.append(labels.getOrDefault(c, "Structure"));
             if (showDistance.isEnabled()) {
-                if (label.length() > 0) label.append(" ");
-                label.append("§f").append((int) dist).append("m");
+                if (label.length() > 0) label.append("  ");
+                label.append((int) dist).append("m");
             }
             if (showCoords.isEnabled()) {
-                if (label.length() > 0) label.append(" ");
-                label.append(String.format("§7%d %d %d", center.getX(), center.getY(), center.getZ()));
+                if (label.length() > 0) label.append("  ");
+                label.append(center.getX()).append(' ').append(center.getY()).append(' ').append(center.getZ());
             }
             if (label.length() > 0) {
-                String text = label.toString();
-                RenderUtils.drawText(context, mc.textRenderer, text,
-                        sc[0] - mc.textRenderer.getWidth(text) / 2, sc[1] + 4, 0xFFFFFFFF, true);
+                RenderUtils.drawChip(context, mc.textRenderer, label.toString(), sc[0], sc[1] + 4, col);
             }
         }
     }

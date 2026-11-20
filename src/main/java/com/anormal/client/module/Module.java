@@ -63,9 +63,26 @@ public abstract class Module {
         return enabled;
     }
 
+    /**
+     * While true, {@link #setEnabled(boolean)} only flips the flag: no enable/disable hooks and no
+     * notification. Used by the HUD editor, which previews every overlay by temporarily enabling it
+     * each frame - running the real hooks there spammed Enabled/Disabled notifications and stopped
+     * modules such as MusicPlayer.
+     */
+    private static boolean silentToggle = false;
+
+    public static void setSilentToggle(boolean silent) {
+        silentToggle = silent;
+    }
+
+    public static boolean isSilentToggle() {
+        return silentToggle;
+    }
+
     public void setEnabled(boolean enabled) {
         if (this.enabled != enabled) {
             this.enabled = enabled;
+            if (silentToggle) return;
             if (enabled) {
                 onEnable();
             } else {
@@ -76,6 +93,15 @@ public abstract class Module {
             } catch (Throwable ignored) {
             }
         }
+    }
+
+    /**
+     * Clears the enabled flag without running enable/disable hooks or posting a notification.
+     * Screen-opener modules (Profiles) use this so they never stay "enabled": an enabled entry
+     * point would appear in the arraylist and swallow the next click.
+     */
+    protected void clearEnabledState() {
+        this.enabled = false;
     }
 
     public void toggle() {

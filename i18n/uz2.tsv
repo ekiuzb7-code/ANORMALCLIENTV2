@@ -1,0 +1,195 @@
+Attack Aura	Hujum aurasi
+Attack charge to wait before clicking (0 = off)	Klikdan oldin kutish uchun zaryad (0 = o'chiq)
+Attack cooldown between axe swings	Bolta zarbalari orasidagi cooldown
+Attack mobs	Moblarga hujum
+Attack other living entities	Boshqa tirik mavjudotlarga hujum
+Attack other mobs	Boshqa moblarga hujum
+Attack while falling with a mace	Mace bilan tushayotganda hujum qiladi
+Attack while you hold the left button and the crosshair is on a target	Chap tugmani ushlab, nishon maqsadda bo'lganda hujum qiladi
+Attacks the entity under your crosshair (kuro port)	Nishoningiz ostidagi entityga hujum qiladi (kuro port)
+Attacks the nearest valid target (kuro port)	Eng yaqin haqiqiy nishonga hujum qiladi (kuro port)
+Audio cue when hitting an enemy	Dushmanga urganda ovozli signal
+Aura	Aura
+Aura Color	Aura rangi
+Aura Reach	Aura masofasi
+Aura colour	Aura rangi
+Aura halo size	Aura halosi o'lchami
+Aura size	Aura o'lchami
+Aura strength	Aura kuchi
+Aurora Color	Aurora rangi
+Auto Anchor	Avto anchor
+Auto Build	Avto qurish
+Auto Clicker	Avto kliker
+Auto Disconnect	Avto uzilish
+Auto Eat	Avto ovqatlanish
+Auto Fish	Avto baliq
+Auto Hover	Avto hover
+Auto Miner	Avto qazuvchi
+Auto Obsidian	Avto obsidian
+Auto Split Messages	Xabarlarni avto bo'lish
+Auto Swap	Avto almashtirish
+Auto Take Off	Avto uchish
+Auto Trigger	Avto trigger
+Auto Tunnel	Avto tunnel
+Auto-Sneak On Containers	Konteynerlarda avto-sneak
+Auto-fire when a valid target + placement is found. Off = wait for manual trigger().	Haqiqiy nishon + joy topilganda avto otadi. O'chiq = qo'lda trigger() kutadi.
+Auto-swaps to an axe to break a blocking enemy's shield, then swaps back. Optional mace stun-slam.	Qalqon tutgan dushmanning qalqonini sindirish uchun boltaga o'tadi, keyin qaytadi. Ixtiyoriy mace stun-slam.
+AutoBox	AutoBox
+AutoCobweb	AutoCobweb
+AutoDtap	AutoDtap
+AutoLog	AutoLog
+AutoLoot	AutoLoot
+AutoMLG	AutoMLG
+AutoMine	AutoMine
+AutoReplenish	AutoReplenish
+AutoSell	AutoSell
+AutoShieldBreak	AutoShieldBreak
+AutoWeapon	AutoWeapon
+Automatically blows up respawn anchors for you	Siz uchun respawn anchorlarini portlatadi
+Automatically breaks blocks (crosshair / tunnel / whitelist modes). No left-click needed.	Bloklarni avtomatik sindiradi (crosshair / tunnel / whitelist). Chap klik kerak emas.
+Automatically disconnects from the server when your health drops below a set threshold.	Salomatlik belgilangan chegaradan tushganda serverdan avtomatik chiqadi.
+Automatically moves all items from an opened storage block into your inventory.	Ochilgan ombordagi barcha buyumlarni inventarga avtomatik ko'chiradi.
+Automatically sells whitelisted items through the DonutSMP /sell GUI — deposits, clicks the confirm button and answers the server dialog.	Whitelist'dagi buyumlarni DonutSMP /sell orqali avtomatik sotadi — joylaydi, tasdiqlaydi va server dialogiga javob beradi.
+Axe-blocks a shielding player to disable the shield (kuro port)	Qalqon tutgan o'yinchini bolta bilan urib qalqonini o'chiradi (kuro port)
+BFS gap	BFS oraliq
+BG Opacity	Fon shaffofligi
+Back Delay	Orqaga kechikish
+Background Alpha	Fon shaffofligi
+Backtrack (kuro)	Backtrack (kuro)
+Backtracked position color	Kechiktirilgan pozitsiya rangi
+Bar + % on the HUD	HUD'da chiziq + %
+Baritone	Baritone
+Base dot radius in pixels	Asosiy nuqta radiusi (piksel)
+Behind Wall Color	Devor orti rangi
+Bhop	Bhop
+Blend from Colour to End Colour along the path	Yo'l bo'ylab rangdan oxirgi rangga o'tadi
+Blend towards the horizon colour	Ufq rangiga qarab aralashadi
+Blindness & Darkness	Ko'rlik va qorong'ulik
+Blob UI	Blob UI
+Block Bounce	Blokdan sakrash
+Block ESP	Blok ESP
+Blocks Per Packet	Paketdagi bloklar
+Blocks checked per tick (auxiliary)	Har tikda tekshiriladigan bloklar (yordamchi)
+Blocks from the centre to the edge	Markazdan chekkagacha bloklar
+Blocks in range to trigger	Ishga tushish masofasidagi bloklar
+Blocks per second	Blok/sekund
+Blocks per second in open air	Ochiq havoda blok/sekund
+Blocks per second while inside geometry	To'siq ichida blok/sekund
+Blocks placed in one step (used when Finish time is 0)	Bir qadamda qo'yiladigan bloklar (Finish time = 0 bo'lsa)
+Blocks the spirit rises	Ruh ko'tariladigan bloklar
+Blur strength	Xiralashtirish kuchi
+Boat Fly	Qayiqda uchish
+Boat speed while a movement key is held	Harakat tugmasi bosilganda qayiq tezligi
+Body Glow	Tana yorqinligi
+Body Ring Alpha	Tana halqasi shaffofligi
+Body Ring Radius	Tana halqasi radiusi
+Body Rings	Tana halqalari
+Body part aimed at	Nishonlanadigan tana qismi
+Body rendering style	Tana chizish uslubi
+Bold Rank	Qalin daraja
+Boost speed while moving/strafing	Harakat/strafe paytida tezlikni oshiradi
+Borderless Fullscreen	Ramkasiz to'liq ekran
+Bounce	Sakrash
+Bounce off solid blocks	Qattiq bloklardan sakraydi
+BowAim	BowAim
+Bows & Crossbows	Kamon va arbaletlar
+Box Color	Ramka rangi
+Box color	Ramka rangi
+Box colour	Ramka rangi
+Box end crystals	End kristallarini ramkaga oladi
+Box other living entities	Boshqa tirik mavjudotlarni ramkaga oladi
+Box other players	Boshqa o'yinchilarni ramkaga oladi
+Box the entity the path hits	Yo'l tekkan entityni ramkaga oladi
+Box the landing spot	Qo'nish joyini ramkaga oladi
+Boxes drawn at once	Bir vaqtda chiziladigan ramkalar
+Boxes/labels drawn at once	Bir vaqtda chiziladigan ramka/yorliqlar
+BreachSwap	BreachSwap
+Break At	Sindirish joyi
+Breathe	Nafas olish
+Breathing opacity	Nafas olish shaffofligi
+Builds a schematic with Baritone and restocks from a refill chest	Baritone bilan sxema quradi va to'ldirish sandig'idan material oladi
+Builds a small fixed structure where you look	Qaragan joyingizda kichik qurilma quradi
+Burst on totem pops	Totem popida portlash
+Burst spark shape	Portlash uchqun shakli
+Burst spread	Portlash tarqalishi
+Bypass	Chetlab o'tish
+Cage them in from above too	Tepadan ham qafasga oladi
+Camels	Tuyalar
+Camera Sensitivity	Kamera sezgirligi
+Camera mode mouse scale	Kamera rejimida sichqoncha masshtabi
+Camera pitch angle when aiming at the edge	Chekkaga nishonlaganda kamera burchagi
+Camera rotation speed	Kamera burilish tezligi
+Cancel On Self Hit	O'ziga urganda bekor qilish
+Cancels fall damage (kuro port)	Yiqilish zararini bekor qiladi (kuro port)
+Cap on interpolated position packets per teleport	Teleport uchun interpolatsiya paketlari chegarasi
+Cap the strafe speed (anti-anticheat burst)	Strafe tezligini cheklaydi (anticheat burst'ga qarshi)
+Casts, waits for the bite and reels in for you	Otadi, tishlashni kutadi va o'zi tortadi
+Cell Gap	Katakcha oralig'i
+Cell Size	Katakcha o'lchami
+Cells per side (3 = 3x3, 5 = 5x5)	Yon tomondagi kataklar (3 = 3x3, 5 = 5x5)
+Center the map on screen (otherwise X/Y Pos is used)	Xaritani ekranga markazlaydi (aks holda X/Y Pos ishlatiladi)
+Chance the longer entity reach applies per tick	Uzoqroq entity masofasi har tikda qo'llanish ehtimoli
+Chance to attack before the weapon is fully charged	Qurol to'liq zaryadlanmasdan hujum qilish ehtimoli
+Chance to jump on being hit	Urilganda sakrash ehtimoli
+Change the zoom with the mouse wheel	Zoomni sichqoncha g'ildiragi bilan o'zgartirish
+Character	Personaj
+Character scale	Personaj o'lchami
+Characters per split	Bo'lakdagi belgilar
+Charge Scale	Zaryad o'lchami
+Charge Ticks	Zaryad tiklar
+Charge anchors but never detonate them.	Anchorlarni zaryadlaydi, lekin hech qachon portlatmaydi.
+Charges and detonates the anchor you place (kuro port)	Qo'ygan anchoringizni zaryadlaydi va portlatadi (kuro port)
+Chat	Chat
+Chat Confirmation	Chatda tasdiqlash
+Chat Mentions	Chat eslatmalari
+Chat Timestamps	Chat vaqt belgilari
+Chat message when a staff member joins or leaves	Staff kirganda/chiqqanda chat xabari
+Chat message when it triggers	Ishga tushganda chat xabari
+Chest Stealer	Sandiq o'g'risi
+Chunk Color	Chunk rangi
+Chunk Tracers	Chunk chiziqlari
+Chunk marker	Chunk belgisi
+Chunk radius	Chunk radiusi
+Chunk radius kept loaded	Yuklangan chunk radiusi
+Chunk radius to scan	Skan chunk radiusi
+Chunks	Chunklar
+Chunks scanned around the player	O'yinchi atrofida skanerlangan chunklar
+Chunks scanned per tick	Har tikda skanerlangan chunklar
+Chunks/Tick	Chunk/tik
+Cinematic Camera	Kinematik kamera
+Circular minimap showing nearby players and mobs	Yaqin o'yinchilar va moblarni ko'rsatuvchi dumaloq minimap
+Clamp the pitch while gliding	Uchayotganda pitch'ni cheklaydi
+Clear On Toggle	Almashtirishda tozalash
+Clear the markers when the module is toggled	Modul almashtirilganda belgilarni tozalaydi
+Click Simulation	Klik simulyatsiyasi
+Click other living entities	Boshqa tirik mavjudotlarga klik
+ClickGUI layout: Anormal classic frame or Vape frames	ClickGUI ko'rinishi: Anormal klassik yoki Vape ramkalari
+Clicks per second	Klik/sekund
+Client HUD: title, keybinds, armor, target and module list	Klient HUD: sarlavha, klavishalar, zirh, nishon va modul ro'yxati
+Client learns the shield dropped a ping late; assume it earlier	Klient qalqon bir ping kech tushganini bilsa, avvalroq deb qabul qiladi
+Client-side dummy player to test combat modules	Jang modullarini sinash uchun klient tomonda dummy o'yinchi
+Client-side night vision so caves stay bright	G'orlar yorug' qolishi uchun klient tomonda tungi ko'rish
+Client-side time of day	Klient tomonda kun vaqti
+Cloth Color	Mato rangi
+Cloth Detail	Mato detali
+Cloth colour	Mato rangi
+Coal Ore	Ko'mir rudasi
+Color for coal-ore positions. Click to cycle.	Ko'mir rudasi joylari rangi. Almashtirish uchun bosing.
+Color for copper-ore positions. Click to cycle.	Mis rudasi joylari rangi. Almashtirish uchun bosing.
+Color for diamond-ore positions. Click to cycle.	Olmos rudasi joylari rangi. Almashtirish uchun bosing.
+Color for emerald-ore positions. Click to cycle.	Zumrad rudasi joylari rangi. Almashtirish uchun bosing.
+Color for gold-ore positions. Click to cycle.	Oltin rudasi joylari rangi. Almashtirish uchun bosing.
+Color for iron-ore positions. Click to cycle.	Temir rudasi joylari rangi. Almashtirish uchun bosing.
+Color for lapis-ore positions. Click to cycle.	Lapis rudasi joylari rangi. Almashtirish uchun bosing.
+Color for redstone-ore positions. Click to cycle.	Redstone rudasi joylari rangi. Almashtirish uchun bosing.
+Color when player is behind blocks	O'yinchi bloklar orqasida bo'lganda rang
+Color while on target	Nishonda bo'lganda rang
+Colored Markers	Rangli belgilar
+Colour at the end of the path	Yo'l oxiridagi rang
+Colour for friends	Do'stlar rangi
+Colour for hostile mobs	Dushman moblar rangi
+Colour for passive mobs	Passiv moblar rangi
+Colour for players	O'yinchilar rangi
+Colour of the cobweb spot	To'r joyi rangi
+Colour of the impact part + marker	Zarba qismi + belgi rangi
+Colour of the opening spot	Ochilish joyi rangi

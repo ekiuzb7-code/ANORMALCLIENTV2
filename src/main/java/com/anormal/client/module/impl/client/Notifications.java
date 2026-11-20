@@ -7,6 +7,7 @@ import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.HudStyle;
 import com.anormal.client.util.NotificationManager;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
@@ -130,41 +131,41 @@ public class Notifications extends Module {
         int accent = withAlpha(e.accent, alpha);
         int titleCol = withAlpha(textColor.getValue(), alpha);
         int subCol = withAlpha(subTextColor.getValue(), alpha);
+        int radius = rounded.isEnabled() ? 4 : 0;
 
+        // Soft shadow sits one pixel lower so the toast lifts off the world.
         if (shadow.isEnabled()) {
-            RenderUtils.fill(context, x + 2, y + 2, x + w + 2, y + h + 2, withAlpha(0xFF000000, (int) (alpha * 0.35)));
+            RenderUtils.fillRoundedRaw(context, x - 1, y + 1, w + 2, h + 2, radius + 1,
+                    withAlpha(0xFF000000, (int) (alpha * 0.30)));
         }
 
-        RenderUtils.fill(context, x, y, x + w, y + h, bg);
+        RenderUtils.fillRoundedRaw(context, x, y, w, h, radius, bg);
+        RenderUtils.fillRoundedRaw(context, x, y + 1, w, 1, 1, withAlpha(0xFFFFFFFF, alpha / 12));
+        RenderUtils.drawBorder(context, x, y, x + w, y + h, 1,
+                withAlpha(0xFF313644, (int) (alpha * 0.9)));
 
-        if (rounded.isEnabled()) {
-            // Cheap corner clipping: knock out the four corner pixels.
-            int clear = withAlpha(0xFF000000, 0);
-            RenderUtils.fill(context, x, y, x + 2, y + 1, clear);
-            RenderUtils.fill(context, x + w - 2, y, x + w, y + 1, clear);
-            RenderUtils.fill(context, x, y + h - 1, x + 2, y + h, clear);
-            RenderUtils.fill(context, x + w - 2, y + h - 1, x + w, y + h, clear);
-        }
-
-        RenderUtils.drawBorder(context, x, y, x + w, y + h, 1, withAlpha(0xFF3A3F4C, alpha));
-
-        int textX = x + 7;
+        // Accent spine + status dot, both in the toast's own colour.
+        int textX = x + 9;
         if (accentBar.isEnabled()) {
-            RenderUtils.fill(context, x + 1, y + 1, x + 4, y + h - 1, accent);
-            textX = x + 8;
+            RenderUtils.fillRoundedRaw(context, x + 1, y + 4, 3, h - 8, 1, accent);
+            textX = x + 10;
         }
+        RenderUtils.fillRoundedRaw(context, x + w - 13, y + 7, 5, 5, 2, accent);
 
-        RenderUtils.drawText(context, mc.textRenderer, e.title, textX, y + 5, titleCol, true);
+        RenderUtils.drawText(context, mc.textRenderer, HudStyle.trim(mc.textRenderer, e.title, w - 32),
+                textX, y + 5, titleCol, true);
         if (e.subtitle != null && !e.subtitle.isEmpty()) {
-            RenderUtils.drawText(context, mc.textRenderer, e.subtitle, textX, y + 15, subCol, true);
+            RenderUtils.drawText(context, mc.textRenderer,
+                    HudStyle.trim(mc.textRenderer, e.subtitle, w - 26),
+                    textX, y + 15, subCol, false);
         }
 
         if (progressBar.isEnabled()) {
             long total = NotificationManager.IN_MS + e.hold + NotificationManager.OUT_MS;
             float remain = 1f - Math.min(1f, e.elapsed() / (float) total);
-            int pw = (int) ((w - 2) * remain);
+            int pw = (int) ((w - 4) * remain);
             if (pw > 0) {
-                RenderUtils.fill(context, x + 1, y + h - 2, x + 1 + pw, y + h - 1, accent);
+                RenderUtils.fillRoundedRaw(context, x + 2, y + h - 3, pw, 2, 1, accent);
             }
         }
     }

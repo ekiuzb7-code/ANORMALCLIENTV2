@@ -6,12 +6,21 @@ import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.ProjectionUtil;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.Registries;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
+/**
+ * Marks boats and minecarts.
+ *
+ * <p>Uses per-frame interpolated positions (the old raw {@code getX()} made the markers jitter
+ * while the vehicle moved), draws a real 3D box around the vehicle and renders the label as a
+ * rounded chip.</p>
+ */
 public class VehicleESP extends Module {
     public final BooleanSetting boats = new BooleanSetting("Boats", "Mark boats", true);
     public final BooleanSetting chestBoats = new BooleanSetting("Chest Boats", "Mark chest boats", true);
@@ -21,7 +30,7 @@ public class VehicleESP extends Module {
     public final BooleanSetting showName = new BooleanSetting("Show Name", "Show vehicle name", true);
     public final BooleanSetting showDistance = new BooleanSetting("Show Distance", "Show distance", true);
     public final BooleanSetting showCoords = new BooleanSetting("Show Coordinates", "Show coordinates", false);
-    public final BooleanSetting box = new BooleanSetting("Box", "Draw box marker", true);
+    public final BooleanSetting box = new BooleanSetting("Box", "Draw a 3D box marker", true);
     public final BooleanSetting tracer = new BooleanSetting("Tracer", "Line from crosshair", false);
     public final NumberSetting range = new NumberSetting("Range", "Max distance", 64.0, 8.0, 160.0, 8.0);
     public final NumberSetting maxDistance = new NumberSetting("Max Distance", "Skip beyond this", 300.0, 50.0, 1000.0, 25.0);
@@ -53,9 +62,11 @@ public class VehicleESP extends Module {
         }
         boolean isBoat = path.contains("boat") && !path.contains("chest");
         boolean isChestBoat = path.contains("chest_boat");
-        boolean isCart = path.contains("minecart") && !path.contains("chest") && !path.contains("furnace") && !path.contains("tnt") && !path.contains("hopper");
+        boolean isCart = path.contains("minecart") && !path.contains("chest")
+                && !path.contains("furnace") && !path.contains("tnt") && !path.contains("hopper");
         boolean isChestCart = path.contains("chest_minecart");
-        boolean isOther = (path.contains("minecart") || path.contains("boat")) && !isBoat && !isChestBoat && !isCart && !isChestCart;
+        boolean isOther = (path.contains("minecart") || path.contains("boat"))
+                && !isBoat && !isChestBoat && !isCart && !isChestCart;
         if (isBoat && boats.isEnabled()) return "Boat";
         if (isChestBoat && chestBoats.isEnabled()) return "Chest Boat";
         if (isCart && minecarts.isEnabled()) return "Minecart";
@@ -68,49 +79,50 @@ public class VehicleESP extends Module {
     public void onRender2D(DrawContext context, float tickDelta) {
         if (mc.player == null || mc.world == null) return;
         double maxR = Math.min(range.getValue(), maxDistance.getValue());
-        for (Entity e : mc.world.getEntities()) {
+        int col = color.getValue();
+
+        for (Entity entity : mc.world.getEntities()) {
             try {
-                if (e == mc.player || !e.isAlive()) continue;
-                String k = kind(e);
-                if (k == null) continue;
-                double d = mc.player.distanceTo(e);
-                if (d > maxR) continue;
-                int[] sc = com.anormal.client.util.ProjectionUtil.project(
-                        new Vec3d(e.getX(), e.getY() + 0.8, e.getZ()), tickDelta);
-                if (sc == null) continue;
-                int col = color.getValue();
+                if (entity == mc.player || !entity.isAlive()) continue;
+                String kind = kind(entity);
+                if (kind == null) continue;
+                double dist = mc.player.distanceTo(entity);
+                if (dist > maxR) continue;
+
+                Vec3d pos = ProjectionUtil.lerpPos(entity, tickDelta);
+                Vec3d tick = new Vec3d(entity.getX(), entity.getY(), entity.getZ());
+                Box bb = entity.getBoundingBox().offset(pos.subtract(tick));
+
                 if (box.isEnabled()) {
-                    context.fill(sc[0] - 5, sc[1] - 5, sc[0] + 5, sc[1] + 5, (col & 0x00FFFFFF) | 0x55000000);
-                    context.fill(sc[0] - 5, sc[1] - 5, sc[0] + 5, sc[1] - 4, col);
-                    context.fill(sc[0] - 5, sc[1] + 4, sc[0] + 5, sc[1] + 5, col);
+                    RenderUtils.drawBox3D(context, bb, col, (col & 0x00FFFFFF) | 0x33000000);
                 }
+
+                int[] sc = ProjectionUtil.project(
+                        pos.add(0.0, entity.getBoundingBox().getLengthY() + 0.35, 0.0), tickDelta);
+                if (sc == null) continue;
+
                 if (tracer.isEnabled()) {
-                    int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
-                    int steps = Math.min(200, Math.max(Math.abs(sc[0] - w / 2), Math.abs(sc[1] - h / 2)));
-                    for (int i = 0; i <= steps; i++) {
-                        int x = w / 2 + (sc[0] - w / 2) * i / Math.max(1, steps);
-                        int y = h / 2 + (sc[1] - h / 2) * i / Math.max(1, steps);
-                        context.fill(x, y, x + 1, y + 1, col);
-                    }
+                    RenderUtils.drawLine(context, RenderUtils.screenWidth() / 2,
+                            RenderUtils.screenHeight() / 2, sc[0], sc[1],
+                            (col & 0x00FFFFFF) | 0x80000000, 1.0f);
                 }
-                if (mc.textRenderer != null) {
-                    StringBuilder label = new StringBuilder();
-                    if (showName.isEnabled()) label.append("§6").append(k);
-                    if (showDistance.isEnabled()) {
-                        if (label.length() > 0) label.append(" ");
-                        label.append("§f").append((int) d).append("m");
-                    }
-                    if (showCoords.isEnabled()) {
-                        if (label.length() > 0) label.append(" ");
-                        label.append(String.format("§7%.0f %.0f %.0f", e.getX(), e.getY(), e.getZ()));
-                    }
-                    if (label.length() > 0) {
-                        String text = label.toString();
-                        RenderUtils.drawText(context, mc.textRenderer, text,
-                                sc[0] - mc.textRenderer.getWidth(text) / 2, sc[1] + 7, 0xFFFFFFFF, true);
-                    }
+                if (mc.textRenderer == null) continue;
+
+                StringBuilder label = new StringBuilder();
+                if (showName.isEnabled()) label.append(kind);
+                if (showDistance.isEnabled()) {
+                    if (label.length() > 0) label.append("  ");
+                    label.append((int) dist).append('m');
                 }
-            } catch (Throwable ignored) {}
+                if (showCoords.isEnabled()) {
+                    if (label.length() > 0) label.append("  ");
+                    label.append((int) pos.x).append(' ').append((int) pos.y).append(' ').append((int) pos.z);
+                }
+                if (label.length() > 0) {
+                    RenderUtils.drawChip(context, mc.textRenderer, label.toString(), sc[0], sc[1] + 3, col);
+                }
+            } catch (Throwable ignored) {
+            }
         }
     }
 }

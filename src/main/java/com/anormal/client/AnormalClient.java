@@ -18,8 +18,9 @@ public class AnormalClient implements ClientModInitializer {
     public static final String CLIENT_NAME = "Anormal Client";
     public static final String VERSION = "1.0.0";
 
-    // Native Minecraft keybinding for ClickGUI (shows in Controls menu)
-    public static KeyBinding clickGuiKeyBinding;
+    // The ClickGUI key lives in the ClientSettings module bind: one key, one source of truth.
+    // A second native keybinding here used to open the GUI on its own default (Right Shift),
+    // which is why Right Shift kept working after the bind was moved to another key.
 
     private static final boolean[] KEY_STATE = new boolean[GLFW.GLFW_KEY_LAST + 1];
     private static final boolean[] MOUSE_STATE = new boolean[8];
@@ -38,16 +39,18 @@ public class AnormalClient implements ClientModInitializer {
         // Initialize all client modules and settings
         ModuleManager.init();
 
-        // Register native ClickGUI keybinding (appears in Minecraft Controls → Key Binds → Miscellaneous)
-        clickGuiKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.anormalclient.clickgui",           // Translation key
-                net.minecraft.client.util.InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_RIGHT_SHIFT,              // Default key
-                KeyBinding.Category.MISC                // Category enum
-        ));
-
         // Set default module states after init
         setDefaultModuleStates();
+
+        // The GUI always starts on its default theme ("Anormal"). A theme picked during the
+        // session or carried by a loaded profile still applies; nothing is restored from disk here.
+        try {
+            com.anormal.client.module.impl.client.ClientSettings cs =
+                    ModuleManager.getModule(com.anormal.client.module.impl.client.ClientSettings.class);
+            if (cs != null) {
+                cs.applyTheme();
+            }
+        } catch (Throwable ignored) {}
 
         // Restore HUD layout from previous sessions
         try {
@@ -104,18 +107,6 @@ public class AnormalClient implements ClientModInitializer {
         // Register universal client tick event handler (robust GLFW polling across all MC versions)
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             try {
-                // Handle native keybinding (shows in Controls menu)
-                while (clickGuiKeyBinding.wasPressed()) {
-                    if (client.currentScreen == null) {
-                        client.setScreen(new ClickGuiScreen());
-                    } else if (client.currentScreen instanceof com.anormal.client.gui.SkinShowerScreen
-                            || client.currentScreen instanceof com.anormal.client.gui.NameShowerScreen) {
-                        // The skin picker owns the screen, so the GUI key closes it again
-                        // instead of being swallowed.
-                        client.currentScreen.close();
-                    }
-                }
-
                 if (client.getWindow() != null) {
                     long window = client.getWindow().getHandle();
                     if (window != 0) {
@@ -168,6 +159,17 @@ public class AnormalClient implements ClientModInitializer {
                                 java.util.Map.Entry<Module, Boolean> e = it.next();
                                 e.getKey().setEnabled(e.getValue() != null && e.getValue());
                                 it.remove();
+                            }
+                            // The GUI key still closes the skin pickers it opened.
+                            if (client.currentScreen instanceof com.anormal.client.gui.SkinShowerScreen
+                                    || client.currentScreen instanceof com.anormal.client.gui.NameShowerScreen) {
+                                int guiKey = com.anormal.client.module.impl.client.ClientSettings.menuKey();
+                                if (guiKey > 0 && guiKey <= GLFW.GLFW_KEY_LAST) {
+                                    boolean down = GLFW.glfwGetKey(window, guiKey) == GLFW.GLFW_PRESS;
+                                    boolean edge = down && !KEY_STATE[guiKey];
+                                    KEY_STATE[guiKey] = down;
+                                    if (edge) client.currentScreen.close();
+                                }
                             }
                         }
                     }

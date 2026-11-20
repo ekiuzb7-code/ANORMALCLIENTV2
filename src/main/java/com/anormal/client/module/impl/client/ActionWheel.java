@@ -22,7 +22,7 @@ public class ActionWheel extends Module {
     public final NumberSetting deadzone = new NumberSetting("Center Deadzone", "Inner deadzone circle size", 40.0, 20.0, 60.0, 5.0);
     public final NumberSetting scale = new NumberSetting("Scale",
             "Overall size of the wheel - scales the radius, the deadzone and the slice labels together",
-            1.0, 0.5, 2.0, 0.05);
+            1.40, 0.5, 2.0, 0.05);
     public final ColorSetting accentColor = new ColorSetting("Accent Color", "Hovered slice highlight color", ColorUtils.rgba(196, 71, 255, 255));
     public final BooleanSetting sound = new BooleanSetting("Sound Effects", "Play audio feedback on slice hover and select", true);
 

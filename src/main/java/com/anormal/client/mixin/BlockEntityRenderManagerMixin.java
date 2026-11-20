@@ -36,6 +36,12 @@ public class BlockEntityRenderManagerMixin {
                 ci.cancel();
                 return;
             }
+            // Farm FPS: moving pistons are block entities and dominate farm frame time.
+            if (type.contains("piston")
+                    && com.anormal.client.module.impl.client.FarmFpsOptimizer.shouldHidePiston()) {
+                ci.cancel();
+                return;
+            }
             if (BlockEntityOptimizer.shouldCull(state.pos, type)) ci.cancel();
         } catch (Throwable ignored) {
         }

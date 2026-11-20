@@ -116,6 +116,13 @@ public class BackTrackV2 extends Module {
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null) return;
+
+        // Dead / respawning: never keep the enemy frozen behind a dead body.
+        if (mc.player.isDead()) {
+            clear();
+            return;
+        }
+
         long now = System.currentTimeMillis();
 
         // 1. Attack detection (for Attack mode)
@@ -146,6 +153,16 @@ public class BackTrackV2 extends Module {
         // 3. Sliding window flush: flushes packets older than currentDelay (LiquidBounce logic)
         if (blink.hasQueuedIncoming()) {
             blink.flushOlderThan(now - currentDelay);
+            if (!blink.hasQueuedIncoming()) {
+                // The burst is over: restart the recoil/chance window for the next one and move the
+                // tracked position up to where the target actually is now.
+                lastBacktrackEnd = now;
+                currentDelay = delay.random();
+                chancePassed = random.nextInt(100) < chance.getValue().intValue();
+                if (target != null) {
+                    trackedPos = new Vec3d(target.getX(), target.getY(), target.getZ());
+                }
+            }
         }
 
         if (target == null || !target.isAlive() || !shouldBacktrack()) {
@@ -279,10 +296,17 @@ public class BackTrackV2 extends Module {
     }
 
     public void flushIncoming() {
+        boolean held = blink.hasQueuedIncoming();
         blink.flush();
+        // Nothing was actually held: do not start a recoil window for an empty burst, otherwise
+        // the module looks like it is not working right after being enabled.
+        if (!held) return;
         lastBacktrackEnd = System.currentTimeMillis();
         currentDelay = delay.random();
         chancePassed = random.nextInt(100) < chance.getValue().intValue();
+        if (target != null) {
+            trackedPos = new Vec3d(target.getX(), target.getY(), target.getZ());
+        }
     }
 
     private void clear() {
@@ -305,6 +329,15 @@ public class BackTrackV2 extends Module {
     private Vec3d extractPosition(Packet<?> packet) {
         if (packet instanceof EntityPositionS2CPacket posPacket) {
             return posPacket.change().position();
+        }
+        if (packet instanceof EntityS2CPacket movePacket) {
+            // Player movement usually arrives as relative deltas. The entity still sits at its
+            // pre-packet position (the packet is cancelled at HEAD), which is the point the smart
+            // distance check needs to compare against, so use it instead of bailing out.
+            Entity entity = movePacket.getEntity(mc.world);
+            if (entity != null) {
+                return new Vec3d(entity.getX(), entity.getY(), entity.getZ());
+            }
         }
         return null;
     }

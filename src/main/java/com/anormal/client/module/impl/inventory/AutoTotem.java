@@ -2,6 +2,7 @@ package com.anormal.client.module.impl.inventory;
 
 import com.anormal.client.module.Category;
 import com.anormal.client.module.Module;
+import com.anormal.client.util.InventoryClicks;
 import com.anormal.client.setting.BooleanSetting;
 import com.anormal.client.setting.ModeSetting;
 import com.anormal.client.setting.NumberSetting;
@@ -77,6 +78,8 @@ public class AutoTotem extends Module {
     public final BooleanSetting v4ShowTotemCount = new BooleanSetting("V4 Show Totem Count", "Shows remaining totems on screen", true);
 
     private final Random random = new Random();
+    /** Cursor swap spread over ticks: strict servers reject three inventory clicks inside one tick. */
+    private final InventoryClicks.SlotMover mover = new InventoryClicks.SlotMover();
 
     // Shared / per-version state
     private int ticks = 0;
@@ -183,6 +186,7 @@ public class AutoTotem extends Module {
 
     @Override
     public void onDisable() {
+        mover.cancel();
         ticks = 0;
         totems = 0;
         locked = false;
@@ -198,6 +202,12 @@ public class AutoTotem extends Module {
     @Override
     public void onTick() {
         if (mc.player == null || mc.world == null || mc.interactionManager == null) return;
+        // A swap in flight owns the cursor: finish it one click at a time before starting anything else.
+        if (mover.isActive()) {
+            if (!mover.tick()) return;
+            v4Cooldown = Math.max(v4Cooldown, v4Delay.getValue().intValue());
+            return;
+        }
         if (version.is("V1")) tickV1();
         else if (version.is("V2")) tickV2();
         else if (version.is("V3")) tickV3();
@@ -255,12 +265,6 @@ public class AutoTotem extends Module {
     //  V2 - Wurst
     // =====================================================================
     private void tickV2() {
-        // Finish a two-click move from the previous tick.
-        if (v2NextTickSlot != -1) {
-            clickSlot(v2NextTickSlot);
-            v2NextTickSlot = -1;
-        }
-
         int nextTotemSlot = findTotemScreenSlot();
         totems = countTotems();
 
@@ -288,10 +292,8 @@ public class AutoTotem extends Module {
             return;
         }
 
-        boolean offhandEmpty = mc.player.getOffHandStack().isEmpty();
-        clickSlot(nextTotemSlot);
-        clickSlot(45);
-        if (!offhandEmpty) v2NextTickSlot = nextTotemSlot;
+        // Cursor swap over the next ticks; the old offhand item is put back by the mover.
+        mover.begin(nextTotemSlot, 45);
     }
 
     // =====================================================================
@@ -311,9 +313,7 @@ public class AutoTotem extends Module {
                     int slot = findTotemScreenSlot();
                     if (slot != -1) {
                         v3LastTotemScreenSlot = slot;
-                        clickSlot(slot);
-                        clickSlot(45);
-                        if (!mc.player.playerScreenHandler.getCursorStack().isEmpty()) clickSlot(slot);
+                        mover.begin(slot, 45);
                         v3LastSwitch = now;
                         v3Holding = true;
                     }
@@ -328,9 +328,7 @@ public class AutoTotem extends Module {
                 // Swap the totem back out to where it came from.
                 int slot = findTotemScreenSlot();
                 if (slot != -1 && v3LastTotemScreenSlot != -1) {
-                    clickSlot(45);
-                    clickSlot(v3LastTotemScreenSlot);
-                    if (!mc.player.playerScreenHandler.getCursorStack().isEmpty()) clickSlot(45);
+                    mover.begin(45, v3LastTotemScreenSlot);
                     v3Holding = false;
                     v3LastSwitchBack = now;
                 }
@@ -451,9 +449,7 @@ public class AutoTotem extends Module {
             v4SilentWait = 0;
         }
         int src = v4RandomSlot.isEnabled() ? slots.get(random.nextInt(slots.size())) : slots.get(0);
-        clickSlot(src);
-        clickSlot(45);
-        if (!mc.player.playerScreenHandler.getCursorStack().isEmpty()) clickSlot(src);
+        mover.begin(src, 45);
         int jitter = v4ExtraRandomization.isEnabled() ? random.nextInt(6) : random.nextInt(2);
         v4Cooldown = v4Delay.getValue().intValue() + jitter;
     }
@@ -464,7 +460,7 @@ public class AutoTotem extends Module {
         if (slots.isEmpty()) return;
         int src = v4RandomSlot.isEnabled() ? slots.get(random.nextInt(slots.size())) : slots.get(0);
         int hotbar = mc.player.getInventory().getSelectedSlot();
-        mc.interactionManager.clickSlot(mc.player.playerScreenHandler.syncId, src, hotbar, SlotActionType.SWAP, mc.player);
+        if (!InventoryClicks.playerClick(src, hotbar, SlotActionType.SWAP)) return;
         v4Cooldown = v4Delay.getValue().intValue();
     }
 
@@ -472,11 +468,9 @@ public class AutoTotem extends Module {
     //  Shared helpers
     // =====================================================================
 
-    private void clickSlot(int slot) {
-        try {
-            mc.interactionManager.clickSlot(mc.player.playerScreenHandler.syncId, slot, 0, SlotActionType.PICKUP, mc.player);
-        } catch (Throwable ignored) {
-        }
+    /** Starts a one-click-per-tick cursor swap into the offhand (slot 45). */
+    private void startOffhandSwap(int slot) {
+        mover.begin(slot, 45);
     }
 
     /** Screen slot of the first totem in the inventory (not the offhand), or -1. */
@@ -499,9 +493,7 @@ public class AutoTotem extends Module {
     private void equipFirstTotem() {
         int slot = findTotemScreenSlot();
         if (slot == -1) return;
-        clickSlot(slot);
-        clickSlot(45);
-        if (!mc.player.playerScreenHandler.getCursorStack().isEmpty()) clickSlot(slot);
+        startOffhandSwap(slot);
     }
 
     private int countTotems() {

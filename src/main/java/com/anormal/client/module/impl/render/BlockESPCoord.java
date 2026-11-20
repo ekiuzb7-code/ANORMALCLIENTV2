@@ -7,22 +7,24 @@ import com.anormal.client.setting.ColorSetting;
 import com.anormal.client.setting.NumberSetting;
 import com.anormal.client.util.BlockScanner;
 import com.anormal.client.util.ColorUtils;
+import com.anormal.client.util.ProjectionUtil;
 import com.anormal.client.util.RenderUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Marks chosen blocks with coords.
+ * Marks chosen blocks with their coordinates.
  *
- * <p>Migrated to budgeted {@link BlockScanner}: no full-sphere freeze,
- * persistent cache with re-validation (no blink/ghosts), 3-axis recentre
- * and independent vertical range for deep coverage.</p>
+ * <p>Uses the budgeted {@link BlockScanner}. The draw pass is modernised: a real 3D box around the
+ * block, a distance-faded colour, one tracer line, the block name and distance in a chip and the
+ * coordinates on their own dim line - no legacy section codes anywhere.</p>
  */
 public class BlockESPCoord extends Module {
     public final BooleanSetting chest = new BooleanSetting("Chest", "Mark chests", true);
@@ -147,10 +149,12 @@ public class BlockESPCoord extends Module {
 
     @Override
     public void onRender2D(DrawContext context, float tickDelta) {
-        if (mc.player == null || cache.isEmpty()) return;
+        if (mc.player == null || cache.isEmpty() || mc.textRenderer == null) return;
 
-        int col = color.getValue();
-        int w = mc.getWindow().getScaledWidth(), h = mc.getWindow().getScaledHeight();
+        int base = color.getValue();
+        int centreX = RenderUtils.screenWidth() / 2;
+        int centreY = RenderUtils.screenHeight() / 2;
+        double max = Math.max(1.0, range.getValue());
         int limit = maxShown.getValue().intValue();
         int drawn = 0;
         long deadline = System.nanoTime() + RENDER_BUDGET_NS;
@@ -160,49 +164,42 @@ public class BlockESPCoord extends Module {
             if ((drawn & 7) == 0 && System.nanoTime() > deadline) break;
 
             BlockPos p = e.getKey();
-            int[] sc = com.anormal.client.util.ProjectionUtil.project(
+            int[] sc = ProjectionUtil.project(
                     new Vec3d(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5), tickDelta);
             if (sc == null) continue;
             drawn++;
 
-            if (box.isEnabled()) {
-                context.fill(sc[0] - 4, sc[1] - 4, sc[0] + 4, sc[1] + 4, (col & 0x00FFFFFF) | 0x55000000);
-                if (outline.isEnabled()) {
-                    context.fill(sc[0] - 4, sc[1] - 4, sc[0] + 4, sc[1] - 3, col);
-                    context.fill(sc[0] - 4, sc[1] + 3, sc[0] + 4, sc[1] + 4, col);
-                    context.fill(sc[0] - 4, sc[1] - 3, sc[0] - 3, sc[1] + 3, col);
-                    context.fill(sc[0] + 3, sc[1] - 3, sc[0] + 4, sc[1] + 3, col);
-                }
-            } else {
-                context.fill(sc[0] - 2, sc[1] - 2, sc[0] + 2, sc[1] + 2, col);
-            }
+            double dx = p.getX() - mc.player.getX();
+            double dy = p.getY() - mc.player.getY();
+            double dz = p.getZ() - mc.player.getZ();
+            double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+            int col = RenderUtils.fadeByDistance(base, dist, max);
+
             if (tracer.isEnabled()) {
-                int steps = Math.min(200, Math.max(Math.abs(sc[0] - w / 2), Math.abs(sc[1] - h / 2)));
-                for (int i = 0; i <= steps; i++) {
-                    int x = w / 2 + (sc[0] - w / 2) * i / Math.max(1, steps);
-                    int y = h / 2 + (sc[1] - h / 2) * i / Math.max(1, steps);
-                    context.fill(x, y, x + 1, y + 1, col);
-                }
+                RenderUtils.drawLine(context, centreX, centreY, sc[0], sc[1], col, 1.0f);
             }
-            if (mc.textRenderer != null) {
-                StringBuilder label = new StringBuilder();
-                if (showName.isEnabled()) label.append("§6").append(e.getValue());
-                if (showDistance.isEnabled()) {
-                    double dx = p.getX() - mc.player.getX();
-                    double dy = p.getY() - mc.player.getY();
-                    double dz = p.getZ() - mc.player.getZ();
-                    if (label.length() > 0) label.append(" ");
-                    label.append("§f").append((int) Math.sqrt(dx * dx + dy * dy + dz * dz)).append("m");
-                }
-                if (showCoords.isEnabled()) {
-                    if (label.length() > 0) label.append(" ");
-                    label.append(String.format("§7X:%d Y:%d Z:%d", p.getX(), p.getY(), p.getZ()));
-                }
-                if (label.length() > 0) {
-                    String text = label.toString();
-                    RenderUtils.drawText(context, mc.textRenderer, text,
-                            sc[0] - mc.textRenderer.getWidth(text) / 2, sc[1] + 6, 0xFFFFFFFF, true);
-                }
+
+            if (box.isEnabled()) {
+                RenderUtils.drawBox3D(context, new Box(p), col, (col & 0x00FFFFFF) | 0x26000000);
+            } else {
+                RenderUtils.fill(context, sc[0] - 2, sc[1] - 2, sc[0] + 2, sc[1] + 2, col);
+            }
+
+            StringBuilder label = new StringBuilder();
+            if (showName.isEnabled()) label.append(e.getValue());
+            if (showDistance.isEnabled()) {
+                if (label.length() > 0) label.append("  ");
+                label.append((int) dist).append('m');
+            }
+            if (label.length() > 0) {
+                RenderUtils.drawChip(context, mc.textRenderer, label.toString(),
+                        sc[0], sc[1] - 16, col);
+            }
+            if (showCoords.isEnabled()) {
+                String coords = "X " + p.getX() + "  Y " + p.getY() + "  Z " + p.getZ();
+                int cw = mc.textRenderer.getWidth(coords);
+                RenderUtils.drawText(context, mc.textRenderer, coords, sc[0] - cw / 2, sc[1] + 4,
+                        0xFF9AA0AE, true);
             }
         }
     }

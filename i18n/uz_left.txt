@@ -1,0 +1,178 @@
+#goto target Y
+24 soatlik format
+Almashtirishning cooldowni
+Anormal portida kuro'dagidek kalit tushi bilan ishlamaydi (ochish-toggle sozlamasi)
+Avtomatik urushlar orasidagi delay
+Baza ko'rsatkichi uchun foiz
+Belgini dalillar haqiqiy balandligida
+Belgini dunyo pastiga tekis qo'yish
+Bir marta bajariladigan amal (onEnable): webhoek/token clipboard'dan oladi
+Bolta urishidan keyin mace'ni darhol olish
+Bolta va mace urishi orasidagi minimal vaqt
+Boshlang‘ich X o‘rnashuv
+Boshlang‘ich Y o‘rnashuv
+Boshlang‘ich Z o‘rnashuv
+Bulutlar oq bo‘ladi
+Burchak ko'rsatkichi
+Chat ogohlantirish
+Chat xabari bilan eslatma yozadi
+Dalil: dehqonchilik
+Dalil: eski o'sish
+Dalil: mash'alalar
+Dalil: portalaji
+Dalil: qurilgan bloklar
+Dalil: ramkalar/moblar
+Dalil: redstone
+Dalil: tayyor/dekor
+Dalil: uy hayvonlari/lugmst
+Discord ogohlantirish
+Discord: jonli o'yinchilar
+Dive paytida urishlar orasidagi vaqt
+Dive uchun nishon qidirish masofasi
+Dive'dagi urish masofasi
+Dive'dan keyin elytra'ni qaytarish
+Dive'ni nishon o'lmaguncha takrorlash
+Do'stlar ham belgilanadi
+Do'stlari ham sakraganda halqa
+Do'stlarni hisobga olmaslik
+Do'stlarni kengaytirmaslik
+Do'stllarigni hisobga olmaslik
+Dunyo nomini qo'shadi
+Ekranda oxirgi poplar ro'yxatini ko'rsatish
+Ekranda skan holati
+Elytra + firework bilan tepadan mace smash
+Fake o'yinchi nishonlarni chiqarib tashlaydi (kuro port)
+Faqat tushayotganda urish
+Halqalar rangi
+Har hujumda qo'shimcha urushlar soni
+Har popda chatga yozish
+Har tomondan qo'shimcha margin
+Harakat izi
+Havoda ham tushmay qetish (faqat Move locally bilan)
+Hotbar slotlarni avtomatik qayta to'ldiradi (kuro port)
+Hover qilingan totemni offhandga ko'chiradi (kuro port)
+Hover uchadigan tiklar soni
+Hujum harakat paketidan oldin ketsin (keyingi tick boshida)
+Hujumdan oldin qurolning to'liq zaryadini kutish
+Ichki yorug' halqa ham ko'rsatadi
+Ikki firework orasidagi vaqt
+Ism va vaqt yorlig'i
+Itarishga qaramasdan joyga qaytaradi (faqat Move locally bilan)
+Izning davomiyligi
+Jonli o'yinchi chat ogohlantirish
+Jonli o'yinchilarni belgilash
+Kam sal foiz bật-ni belgilash
+Kamera harakat tezligi
+Ko'rsatish masofasi (blok)
+Konvert qilingan koordinata ham
+Ko‘rish kaliti (GLFW kodi)
+Kristalga qo'shimcha urushlar — double tap (kuro port)
+Kristallar hitboxini kengaytir
+Kursor yot uslubi
+Labels drawn at once
+Landing marker color
+Leave the boat still when no movement key is down
+Look down while gliding so you come back to the ground quickly
+Loop'da keyingi dive boshlanishidan oldingi kutish
+Loudness multiplier
+Mace smash assist — arms the mace when you dive, strikes the player below at maximum fall damage.
+Mace'ni hotbar'dan o'zi olib kelish
+Maksimal belgilar soni
+Maksimal masofa (blok)
+Masofa
+Mob'larni nishonga olish
+Moblar hitboxini kengaytir
+Modul yozuvlari ko'rsate
+Nayza zaryadidan keyin mace bilan qo'shimcha zarba
+Nishon hitboxlarini kengaytiradi (kuro port)
+Nishon oldiga qancha blok oldinroq nishonga olish
+Nishon qidirish burchagi (360 = hamma tomonga)
+Nishon ustdagini o'zlikidan uradi
+Nishon ustidan qancha balandlikda uchish
+Nishonga kelib qolgan chunk sabablari
+Nishonni ko'rish/nishonga olish masofasi
+Noto'g'ri matinmi bo'lsa bot
+O'limda nechta pop bo'lganini yozish
+O'yinchi belgisi saqlash vaqt
+O'yinchi ovoz ogohlantirish
+O'yinchilar hitboxini kengaytir
+O'yinchilarni nishonga olish
+O'zingizning poplaringizni ham sanash
+O'zini ham
+Offhand bo'sh bo'lsa ishlaydi
+Offhand totem emas bo'lsa ham almashtiradi
+Offhand'da Ölmez Totemni saqlaydi (kuro port)
+Og'irlig: dehqonchilik
+Og'irlig: eski o'sish
+Og'irlig: mash'alalar
+Og'irlig: mashinalar
+Og'irlig: portalaji
+Og'irlig: qurilgan bloklar
+Og'irlig: ramkalar/moblar
+Og'irlig: redstone
+Og'irlig: tayyor/dekor
+Og'irlig: zaxira
+Ogohlantirish foizi
+Osmon oq o‘rniga qora bo‘ladi
+Osmonga echiladigan rang (kuro'da hue 0.6 ≈ sian)
+Ovoz ogohlantirish
+O‘chirilganda saqlangan nuqtaga qaytaradi
+Paket tartibi barcha jangovar hujumlar uchun
+Panel xohirlik
+Pichoq turi
+Pichoqning o‘lchami
+Ping salbiy bo'lsa bot
+Ping tovushi
+Popda ovoz chiqarish (faqat klientda)
+Print the state changes to chat
+Put a cobweb under them before the box
+Qalqonga qarshi usul: None = yo'q, Stun slam = bolta + mace, Drain = faqat mace
+Qayta to'ldirish orasidagi tick soni
+Qayta urinish orasidagi vaqt
+Qilich materiali bilan palitra
+Qoraning yorug‘ligi %
+Quti va yorliq rangi
+Quyosh chiqish/botish nurini yashiradi
+Quyosh, Oy va yulduzlarni yashiradi (toza tekis osmon)
+Rang kodlari mavjud bo'lsa bot
+Rangning qo‘shilish miqdori % (0 = qoraoq / qora)
+Safety block at your feet before charging
+Scan bottom
+Scan distance in blocks
+Scan top
+Scoop the water back after landing
+Seconds the whole action takes (0 = instant)
+Seconds the whole action takes; 0 = old instant behaviour (Delay / Blocks per tick)
+Seconds the whole action takes; 0 = old instant behaviour (Delay per web)
+Seconds the whole action takes; 0 = use Delay
+Self damage limit (with the setting above)
+Shaffof to'ldiruvchi ham ko'rsatadi
+Shu balandlikdan chuqurroq tushishda Density mace tanlanadi
+Skan tezligi: tickdagi chunk soni
+Smash o'tmasa qayta urinish
+Smash uchun minimal tushish balandligi
+Tab ro'yxatida yo'q bo'lsa bot
+Tabiiy strukturani hisobga olmaslik
+Tarqaladigan halqalar soni
+Tepadaga yetgach tushishni boshlashdan oldingi kutish
+Toifa soni ko'rsate
+Toifa soni ko'rsatish
+Totem poplarini sanaydi (kuro port)
+Tushirish qori
+Umur (tick)
+Uraish ko‘rishni to‘xtatadi
+Uraishda qo‘l harakati (1.21.11 API cheklovi: hozircha ta'sir qilmaydi)
+Urgandan keyin eski slotga qaytish
+Urgandan keyin mace'da qolish
+Urish masofasi (blok)
+Urishdan keyin elytra'ni qayta kiyishdan oldingi kutish
+Xarita katakcha o'lchami
+Yangi pass oradagi tick kutish
+Yer ustda ham kritik urush (kuro port)
+Yoqilgan bo‘lsa — faqat server hisobini tomda ushlab turadi
+Yoqilishda hozirgi soxta nomni chatga yozadi
+Yorliqlarni bu qancha vaqtda o'chirish
+Yorug'lik ta'siri
+Yozuv ro'yxatda qancha soniya turadi
+Yuborilgach menyuni yopadi
+kuro freecam: kamera uchadi, tana muzlaydi, ko'rish erkin (kuro port)
